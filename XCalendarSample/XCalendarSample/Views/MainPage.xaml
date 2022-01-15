@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XCalendarSample.Views.MainPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ac="clr-namespace:XCalendar;assembly=XCalendar"
+             xmlns:ViewModels="clr-namespace:XCalendarSample.ViewModels"
+             xmlns:Models="clr-namespace:XCalendar.Models;assembly=XCalendar"
+             xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
+             x:DataType="{x:Type ViewModels:MainPageViewModel}"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
+
+    <StackLayout>
+        <ac:CalendarView
+                        Margin="20,10,20,0"
+                        x:Name="MainCalendarView"
+                        NavigatedDate="{Binding NavigatedDate, Mode=TwoWay}"
+                        NavigationArrowBackgroundColor="Transparent"
+                        NavigationArrowColor="{StaticResource ContentTextColor}"
+                        NavigationTextColor="{StaticResource ContentTextColor}"
+                        DayNameTextColor="{StaticResource ContentTextColor}"
+                        DaySelectedTextColor="{StaticResource PrimaryTextColor}"
+                        DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
+                        DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
+                        DayOtherMonthTextColor="{StaticResource ContentTextColor}"
+                        DayTodayTextColor="{StaticResource ContentTextColor}"
+                        SelectionMode="Multiple"
+                        SelectedDates="{Binding SelectedDates, Mode=TwoWay}"
+                        MonthViewHeightRequest="45"
+                        AutoRows="False"
+                        Rows="1"
+                        NavigationMode="ByWeek"
+                        PageStartMode="NavigatedWeek"
+                        StartOfWeek="Monday">
+
+            <!--<ac:CalendarView.NavigationTemplate>
+                <ControlTemplate>
+                    <StackLayout Margin="0,0,0,5" Orientation="Horizontal">
+
+                        <Frame Padding="7" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}" CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}" BorderColor="{StaticResource OutlineColor}" HasShadow="False"
+                                           xct:TouchEffect.NativeAnimation="True"
+                                           xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
+                                           xct:TouchEffect.CommandParameter="{StaticResource FalseValue}">
+
+                            <Image Source="white_back_arrow" WidthRequest="20" HeightRequest="20" xct:IconTintColorEffect.TintColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"/>
+
+                        </Frame>
+
+                        <Label TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="18" Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyyy}', Source={x:Reference MainCalendarView}}" FontAttributes="Bold"/>
+
+                        <Frame Padding="7" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}" CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}" BorderColor="{StaticResource OutlineColor}" HasShadow="False"
+                                        xct:TouchEffect.NativeAnimation="True"
+                                        xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
+                                        xct:TouchEffect.CommandParameter="{StaticResource TrueValue}">
+
+                            <Image Source="white_forward_arrow" WidthRequest="20" HeightRequest="20" xct:IconTintColorEffect.TintColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"/>
+
+                        </Frame>
+
+                    </StackLayout>
+                </ControlTemplate>
+            </ac:CalendarView.NavigationTemplate>-->
+
+            <ac:CalendarView.DayTemplate>
+                <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
+                    <ac:CalendarDayView
+                                    HeightRequest="45"
+                                    DateTime="{Binding DateTime}"
+                                    CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                    CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference MainCalendarView}}"
+                                    OtherMonthTextColor="{Binding DayOtherMonthTextColor, Source={x:Reference MainCalendarView}}"
+                                    TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference MainCalendarView}}"
+                                    SelectedTextColor="{Binding DaySelectedTextColor, Source={x:Reference MainCalendarView}}"
+                                    OutOfRangeTextColor="{Binding DayOutOfRangeTextColor, Source={x:Reference MainCalendarView}}">
+
+                        <ac:CalendarDayView.ControlTemplate>
+                            <ControlTemplate>
+                                <Frame Margin="3.5" Padding="0" CornerRadius="100" HasShadow="False">
+                                    <Frame.Style>
+                                        <Style TargetType="{x:Type Frame}">
+                                            <Setter Property="Content">
+                                                <ContentPresenter/>
+                                            </Setter>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
+
+                                            <Style.Triggers>
+
+                                                <MultiTrigger TargetType="{x:Type Frame}">
+                                                    <MultiTrigger.Conditions>
+                                                        <BindingCondition Binding="{Binding IsToday, Source={RelativeSource TemplatedParent}}" Value="True"/>
+                                                        <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}"/>
+                                                </MultiTrigger>
+
+                                                <MultiTrigger TargetType="{x:Type Frame}">
+                                                    <MultiTrigger.Conditions>
+                                                        <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True"/>
+                                                        <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"/>
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="{Binding SelectedTextColor, Source={RelativeSource TemplatedParent}}" Text="{Binding DateTime.Day, Source={RelativeSource TemplatedParent}}"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </MultiTrigger>
+
+                                                <MultiTrigger TargetType="{x:Type Frame}">
+                                                    <MultiTrigger.Conditions>
+                                                        <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                        <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:CalendarSelectionMode.None}}" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
+                                                    <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference MainCalendarView}}"/>
+                                                    <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource TemplatedParent}}"/>
+                                                </MultiTrigger>
+
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Frame.Style>
+                                </Frame>
+                            </ControlTemplate>
+                        </ac:CalendarDayView.ControlTemplate>
+
+                    </ac:CalendarDayView>
+                </DataTemplate>
+            </ac:CalendarView.DayTemplate>
+
+        </ac:CalendarView>
+    </StackLayout>
+
+</ContentPage>

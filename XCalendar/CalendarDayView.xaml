@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:XCalendar="clr-namespace:XCalendar"
+             x:Class="XCalendar.CalendarDayView"
+             x:Name="MainCalendarDayView"
+             x:DataType="{x:Type XCalendar:CalendarDayView}">
+
+    <Grid>
+
+        <Grid.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Text" Value="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+        </Grid.Resources>
+
+        <Label TextColor="{Binding CurrentMonthTextColor, Source={x:Reference MainCalendarDayView}}">
+            <Label.IsVisible>
+                <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                    <Binding Path="IsCurrentMonth" Source="{x:Reference MainCalendarDayView}"/>
+                    <Binding Path="IsToday" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                    <Binding Path="IsSelected" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                    <Binding Path="IsOutOfRange" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                </MultiBinding>
+            </Label.IsVisible>
+        </Label>
+
+        <Label TextColor="{Binding OtherMonthTextColor, Source={x:Reference MainCalendarDayView}}">
+            <Label.IsVisible>
+                <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                    <Binding Path="IsCurrentMonth" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                    <Binding Path="IsOutOfRange" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                </MultiBinding>
+            </Label.IsVisible>
+        </Label>
+
+        <Label TextColor="{Binding TodayTextColor, Source={x:Reference MainCalendarDayView}}">
+            <Label.IsVisible>
+                <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                    <Binding Path="IsToday" Source="{x:Reference MainCalendarDayView}"/>
+                    <Binding Path="IsCurrentMonth" Source="{x:Reference MainCalendarDayView}"/>
+                    <Binding Path="IsSelected" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                    <Binding Path="IsOutOfRange" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                </MultiBinding>
+            </Label.IsVisible>
+        </Label>
+
+        <Label TextColor="{Binding SelectedTextColor, Source={x:Reference MainCalendarDayView}}">
+            <Label.IsVisible>
+                <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                    <Binding Path="IsSelected" Source="{x:Reference MainCalendarDayView}"/>
+                    <Binding Path="IsCurrentMonth" Source="{x:Reference MainCalendarDayView}"/>
+                    <Binding Path="IsOutOfRange" Source="{x:Reference MainCalendarDayView}" Converter="{StaticResource InvertedBoolConverter}"/>
+                </MultiBinding>
+            </Label.IsVisible>
+        </Label>
+
+        <Label TextColor="{Binding OutOfRangeTextColor, Source={x:Reference MainCalendarDayView}}" IsVisible="{Binding IsOutOfRange, Source={x:Reference MainCalendarDayView}}"/>
+
+    </Grid>
+    <!--Triggers are inconsistent due to a bug in Xamarin Forms-->
+    <!--<Label>
+        <Label.Style>
+            <Style TargetType="{x:Type Label}" CanCascade="True">
+                <Setter Property="Text" Value="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="TextColor" Value="Transparent"/>
+
+                <Style.Triggers>
+                    <MultiTrigger TargetType="{x:Type Label}">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding IsCurrentMonth, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource TrueValue}"/>
+                            <BindingCondition Binding="{Binding IsToday, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                            <BindingCondition Binding="{Binding IsSelected, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                            <BindingCondition Binding="{Binding IsOutOfRange, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="TextColor" Value="{Binding CurrentMonthTextColor, Source={x:Reference MainCalendarDayView}}"/>
+                    </MultiTrigger>
+
+                    <MultiTrigger TargetType="{x:Type Label}">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding IsCurrentMonth, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                            <BindingCondition Binding="{Binding IsOutOfRange, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="TextColor" Value="{Binding OtherMonthTextColor, Source={x:Reference MainCalendarDayView}}"/>
+                    </MultiTrigger>
+
+                    <MultiTrigger TargetType="{x:Type Label}">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding IsToday, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource TrueValue}"/>
+                            <BindingCondition Binding="{Binding IsCurrentMonth, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource TrueValue}"/>
+                            <BindingCondition Binding="{Binding IsSelected, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                            <BindingCondition Binding="{Binding IsOutOfRange, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="TextColor" Value="{Binding TodayTextColor, Source={x:Reference MainCalendarDayView}}"/>
+                    </MultiTrigger>
+
+                    <MultiTrigger TargetType="{x:Type Label}">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding IsSelected, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource TrueValue}"/>
+                            <BindingCondition Binding="{Binding IsCurrentMonth, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource TrueValue}"/>
+                            <BindingCondition Binding="{Binding IsOutOfRange, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource FalseValue}"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="TextColor" Value="{Binding SelectedTextColor, Source={x:Reference MainCalendarDayView}}"/>
+                    </MultiTrigger>
+
+                    <DataTrigger TargetType="{x:Type Label}" Binding="{Binding IsOutOfRange, Source={x:Reference MainCalendarDayView}}" Value="{StaticResource TrueValue}">
+                        <Setter Property="TextColor" Value="{Binding OutOfRangeTextColor, Source={x:Reference MainCalendarDayView}}"/>
+                    </DataTrigger>
+
+                </Style.Triggers>
+            </Style>
+        </Label.Style>
+    </Label>-->
+    
+</ContentView>
