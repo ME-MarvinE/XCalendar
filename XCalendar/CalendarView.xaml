@@ -92,7 +92,7 @@
                             <Setter.Value>
                                 <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
                                     <XCalendar:CalendarDayView
-                                        HeightRequest="45"
+                                        HeightRequest="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"
                                         DateTime="{Binding DateTime}"
                                         CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
                                         CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference MainCalendarView}}"

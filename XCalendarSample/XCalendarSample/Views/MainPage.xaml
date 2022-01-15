@@ -12,26 +12,27 @@
 
     <StackLayout>
         <ac:CalendarView
-                        Margin="20,10,20,0"
-                        x:Name="MainCalendarView"
-                        NavigatedDate="{Binding NavigatedDate, Mode=TwoWay}"
-                        NavigationArrowBackgroundColor="Transparent"
-                        NavigationArrowColor="{StaticResource ContentTextColor}"
-                        NavigationTextColor="{StaticResource ContentTextColor}"
-                        DayNameTextColor="{StaticResource ContentTextColor}"
-                        DaySelectedTextColor="{StaticResource PrimaryTextColor}"
-                        DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
-                        DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
-                        DayOtherMonthTextColor="{StaticResource ContentTextColor}"
-                        DayTodayTextColor="{StaticResource ContentTextColor}"
-                        SelectionMode="Multiple"
-                        SelectedDates="{Binding SelectedDates, Mode=TwoWay}"
-                        MonthViewHeightRequest="45"
-                        AutoRows="False"
-                        Rows="1"
-                        NavigationMode="ByWeek"
-                        PageStartMode="NavigatedWeek"
-                        StartOfWeek="Monday">
+            Margin="20,10,20,0"
+            x:Name="MainCalendarView"
+            NavigatedDate="{Binding NavigatedDate, Mode=TwoWay}"
+            NavigationArrowBackgroundColor="Transparent"
+            NavigationArrowColor="{StaticResource ContentTextColor}"
+            NavigationTextColor="{StaticResource ContentTextColor}"
+            DayNameTextColor="{StaticResource ContentTextColor}"
+            DaySelectedTextColor="{StaticResource PrimaryTextColor}"
+            DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
+            DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
+            DayOtherMonthTextColor="{StaticResource ContentTextColor}"
+            DayTodayTextColor="{StaticResource ContentTextColor}"
+            SelectionMode="Multiple"
+            SelectedDates="{Binding SelectedDates, Mode=TwoWay}"
+            MonthViewHeightRequest="45"
+            DayHeightRequest="45"
+            AutoRows="False"
+            Rows="1"
+            NavigationMode="ByWeek"
+            PageStartMode="NavigatedWeek"
+            StartOfWeek="Monday">
 
             <!--<ac:CalendarView.NavigationTemplate>
                 <ControlTemplate>
@@ -64,7 +65,7 @@
             <ac:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
                     <ac:CalendarDayView
-                                    HeightRequest="45"
+                                    HeightRequest="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"
                                     DateTime="{Binding DateTime}"
                                     CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
                                     CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference MainCalendarView}}"
