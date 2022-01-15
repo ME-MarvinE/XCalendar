@@ -17,5 +17,12 @@ namespace XCalendarSample.ViewModels
         public List<CalendarNavigationLimitMode> NavigationLimitModes { get; set; } = Enum.GetValues(typeof(CalendarNavigationLimitMode)).Cast<CalendarNavigationLimitMode>().ToList();
         public List<DayOfWeek> DaysOfWeek { get; set; } = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToList();
         public DateTime NavigatedDate { get; set; } = DateTime.Today;
+        public DateTime DayRangeMinimumDate { get; set; } = DateTime.Today.AddYears(-5);
+        public DateTime DayRangeMaximumDate { get; set; } = DateTime.Today.AddYears(5);
+        public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
+        public CalendarSelectionMode SelectionMode { get; set; } = CalendarSelectionMode.Multiple;
+        public CalendarNavigationLimitMode NavigationLimitMode { get; set; } = CalendarNavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange;
+        public CalendarNavigationMode NavigationMode { get; set; } = CalendarNavigationMode.ByPage;
+        public CalendarPageStartMode PageStartMode { get; set; } = CalendarPageStartMode.NavigatedMonth;
     }
 }

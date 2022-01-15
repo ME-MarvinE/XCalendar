@@ -92,9 +92,8 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding NavigatedDate}"/>
+                        
                         <Label
                         Grid.Row="1"
                         Grid.Column="0"
@@ -116,8 +115,6 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding TodayDate, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
@@ -132,7 +129,7 @@
                         Grid.Column="1"
                         HorizontalOptions="CenterAndExpand"
                         FontSize="{StaticResource SmallFontSize}"
-                        Text="{Binding DayRangeMinimumDate, Source={x:Reference MainCalendarView}, StringFormat='{0:ddd, MMM d yyy}'}"
+                        Text="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
                         AutoSize="TextChanges"/>
                         <DatePicker
                         Grid.Row="2"
@@ -141,9 +138,8 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
-                        Date="{Binding DayRangeMinimumDate, Source={x:Reference MainCalendarView}}"/>
+                        Date="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"/>
+                        
                         <Label
                         Grid.Row="3"
                         Grid.Column="0"
@@ -156,7 +152,7 @@
                         Grid.Column="1"
                         HorizontalOptions="CenterAndExpand"
                         FontSize="{StaticResource SmallFontSize}"
-                        Text="{Binding DayRangeMaximumDate, Source={x:Reference MainCalendarView}, StringFormat='{0:ddd, MMM d yyy}'}"
+                        Text="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"
                         AutoSize="TextChanges"/>
                         <DatePicker
                         Grid.Row="3"
@@ -165,9 +161,7 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
-                        Date="{Binding DayRangeMaximumDate, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        Date="{Binding DayRangeMaximumDate}"/>
 
                         <Label
                         Grid.Row="4"
@@ -177,11 +171,13 @@
                         FontSize="{StaticResource SmallFontSize}"
                         Text="NavigationLimitMode:"/>
                         <Picker
-                        Grid.Row="4"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        ItemsSource="{Binding NavigationLimitModes}"
-                        SelectedItem="{Binding NavigationLimitMode, Source={x:Reference MainCalendarView,MainCalendarView}, Mode=TwoWay}"/>
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            WidthRequest="125"
+                            HorizontalOptions="Center"
+                            ItemsSource="{Binding NavigationLimitModes}"
+                            SelectedItem="{Binding NavigationLimitMode}"/>
+
                         <Label
                         Grid.Row="5"
                         Grid.Column="0"
@@ -194,7 +190,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         ItemsSource="{Binding SelectionModes}"
-                        SelectedItem="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        SelectedItem="{Binding SelectionMode}"/>
 
                         <Label
                         Grid.Row="6"
@@ -218,9 +214,10 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
+                        MinimumDate="{Binding DayRangeMinimumDate}"
+                        MaximumDate="{Binding DayRangeMaximumDate}"
                         Date="{Binding SelectedDate}"/>
+                        
                         <Label
                         Grid.Row="7"
                         Grid.Column="0"
@@ -233,8 +230,9 @@
                         Grid.Column="1"
                         BackgroundColor="{StaticResource SeparatorColor}"
                         HeightRequest="50"
-                        WidthRequest="50"
+                        WidthRequest="100"
                         ItemsSource="{Binding SelectedDates}"
+                        ItemSizingStrategy="MeasureFirstItem"
                         VerticalScrollBarVisibility="Always">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
@@ -257,7 +255,8 @@
                         Grid.Row="8"
                         Grid.Column="1"
                         HorizontalOptions="Center"
-                        Text="{Binding Rows, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        Text="{Binding Rows, Source={x:Reference MainCalendarView}}"/>
+                        
                         <Label
                         Grid.Row="9"
                         Grid.Column="0"
@@ -269,7 +268,7 @@
                         Grid.Row="9"
                         Grid.Column="1"
                         HorizontalOptions="Center"
-                        IsChecked="{Binding AutoRows, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        IsChecked="{Binding AutoRows, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
                         Grid.Row="10"
@@ -282,7 +281,8 @@
                         Grid.Row="10"
                         Grid.Column="1"
                         HorizontalOptions="Center"
-                        IsChecked="{Binding AutoRowsIsConsistent, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        IsChecked="{Binding AutoRowsIsConsistent, Source={x:Reference MainCalendarView}}"/>
+                        
                         <Label
                         Grid.Row="11"
                         Grid.Column="0"
@@ -295,7 +295,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         ItemsSource="{Binding NavigationModes}"
-                        SelectedItem="{Binding NavigationMode, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        SelectedItem="{Binding NavigationMode}"/>
 
                         <Label
                         Grid.Row="12"
@@ -309,7 +309,8 @@
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         ItemsSource="{Binding PageStartModes}"
-                        SelectedItem="{Binding PageStartMode, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        SelectedItem="{Binding PageStartMode}"/>
+                        
                         <Label
                         Grid.Row="13"
                         Grid.Column="0"
@@ -321,7 +322,7 @@
                         Grid.Row="13"
                         Grid.Column="1"
                         HorizontalOptions="Center"
-                        Text="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        Text="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
                         Grid.Row="14"
@@ -334,7 +335,7 @@
                         Grid.Row="14"
                         Grid.Column="1"
                         HorizontalOptions="Center"
-                        Text="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        Text="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
                         Grid.Row="15"
@@ -347,7 +348,7 @@
                         Grid.Row="15"
                         Grid.Column="1"
                         HorizontalOptions="Center"
-                        Text="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        Text="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
                         Grid.Row="16"
@@ -361,7 +362,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         ItemsSource="{Binding DaysOfWeek}"
-                        SelectedItem="{Binding StartOfWeek, Source={x:Reference MainCalendarView}, Mode=TwoWay}"/>
+                        SelectedItem="{Binding StartOfWeek}"/>
                     </Grid>
                 </ScrollView>
 
@@ -381,51 +382,23 @@
                     DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
                     DayOtherMonthTextColor="{StaticResource ContentTextColor}"
                     DayTodayTextColor="{StaticResource ContentTextColor}"
-                    NavigatedDate="{x:Static System:DateTime.Today}"
+                    NavigatedDate="{Binding NavigatedDate}"
                     TodayDate="{x:Static System:DateTime.Today}"
-                    DayRangeMinimumDate="{x:Static System:DateTime.MinValue}"
-                    DayRangeMaximumDate="{x:Static System:DateTime.MaxValue}"
-                    NavigationLimitMode="LoopMinimumAndMaximumAndScopeToDayRange"
-                    SelectionMode="Multiple"
-                    SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
-                    SelectedDates="{Binding SelectedDates, Mode=TwoWay}"
+                    DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
+                    DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
+                    NavigationLimitMode="{Binding NavigationLimitMode}"
+                    SelectionMode="{Binding SelectionMode}"
+                    SelectedDate="{Binding SelectedDate}"
+                    SelectedDates="{Binding SelectedDates}"
                     Rows="2"
                     AutoRows="True"
                     AutoRowsIsConsistent="True"
-                    NavigationMode="ByPage"
-                    PageStartMode="NavigatedWeek"
+                    NavigationMode="{Binding NavigationMode}"
+                    PageStartMode="{Binding PageStartMode}"
                     DayHeightRequest="50"
                     MonthViewHeightRequest="250"
                     DayNamesHeightRequest="25"
-                    StartOfWeek="Monday">
-
-                    <!--<xc:CalendarView.NavigationTemplate>
-                        <ControlTemplate>
-                            <StackLayout Margin="0,0,0,5" Orientation="Horizontal">
-
-                                <Frame Padding="7" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}" CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}" BorderColor="{StaticResource OutlineColor}" HasShadow="False"
-                                                    xct:TouchEffect.NativeAnimation="True"
-                                                    xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                                                    xct:TouchEffect.CommandParameter="{StaticResource FalseValue}">
-
-                                    <Image Source="white_back_arrow" WidthRequest="20" HeightRequest="20" xct:IconTintColorEffect.TintColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"/>
-
-                                </Frame>
-
-                                <Label TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="18" Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyyy}', Source={x:Reference MainCalendarView}}" FontAttributes="Bold"/>
-
-                                <Frame Padding="7" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}" CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}" BorderColor="{StaticResource OutlineColor}" HasShadow="False"
-                                                xct:TouchEffect.NativeAnimation="True"
-                                                xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                                                xct:TouchEffect.CommandParameter="{StaticResource TrueValue}">
-
-                                    <Image Source="white_forward_arrow" WidthRequest="20" HeightRequest="20" xct:IconTintColorEffect.TintColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"/>
-
-                                </Frame>
-
-                            </StackLayout>
-                        </ControlTemplate>
-                    </xc:CalendarView.NavigationTemplate>-->
+                    StartOfWeek="{Binding StartOfWeek}">
 
                     <xc:CalendarView.DayTemplate>
                         <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
