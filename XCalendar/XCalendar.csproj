@@ -6,6 +6,12 @@
     <Description>A highly customisable calendar for Xamarin Forms.</Description>
     <PackageId>Plugin.$(AssemblyName)</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Version>1.1.0</Version>
+    <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
+    <PackageTags>Xamarin.Forms, Xamarin, Forms, Calendar, Android, Ios, Control, Custom, </PackageTags>
+    <PackageReleaseNotes>Fixed the default implementation not working. Added a 'DayHeightRequest' property. </PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
