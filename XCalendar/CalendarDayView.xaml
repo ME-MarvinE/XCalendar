@@ -4,7 +4,17 @@
              xmlns:XCalendar="clr-namespace:XCalendar"
              x:Class="XCalendar.CalendarDayView"
              x:Name="MainCalendarDayView"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              x:DataType="{x:Type XCalendar:CalendarDayView}">
+
+    <ContentView.Resources>
+        <System:Boolean x:Key="TrueValue">True</System:Boolean>
+        <System:Boolean x:Key="FalseValue">False</System:Boolean>
+
+        <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+        <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
+    </ContentView.Resources>
 
     <Grid>
 

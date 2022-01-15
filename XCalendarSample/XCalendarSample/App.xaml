@@ -17,32 +17,5 @@
         <Color x:Key="PrimaryTextColor">White</Color>
         <Color x:Key="ContentTextColor">Black</Color>
         <Color x:Key="PageTextColor">Black</Color>
-
-        <System:Boolean x:Key="TrueValue">True</System:Boolean>
-        <System:Boolean x:Key="FalseValue">False</System:Boolean>
-
-        <xct:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter"/>
-        <!--Not Needed-->
-        <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
-
-        <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
-
-        <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
-        <xct:MultiConverter x:Key="EnumToInvertedBoolConverter">
-            <xct:EnumToBoolConverter/>
-            <xct:InvertedBoolConverter/>
-        </xct:MultiConverter>
-
-        <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
-        <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any"/>
-
-        <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
-        <Converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
-
-        <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-            <Converters:EnumToStringConverter/>
-            <Converters:StringCharLimitConverter/>
-        </xct:MultiConverter>
-
     </Application.Resources>
 </Application>

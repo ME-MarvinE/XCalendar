@@ -8,6 +8,7 @@
              xmlns:ViewModels="clr-namespace:XCalendarSample.ViewModels"
              xmlns:Models="clr-namespace:XCalendar.Models;assembly=XCalendar"
              xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
+             xmlns:Converters="clr-namespace:XCalendar.Converters;assembly=XCalendar"
              x:DataType="{x:Type ViewModels:MainPageViewModel}"
              BackgroundColor="{StaticResource PageBackgroundColor}">
 
@@ -29,13 +30,37 @@
             <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
             <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
         </Style>
+        
+        <System:Boolean x:Key="TrueValue">True</System:Boolean>
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
+
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
+
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+
+            <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+            <xct:MultiConverter x:Key="EnumToInvertedBoolConverter">
+                <xct:EnumToBoolConverter/>
+                <xct:InvertedBoolConverter/>
+            </xct:MultiConverter>
+
+            <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
+            <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any"/>
+
+            <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
+            <Converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+
+        <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
+            <Converters:EnumToStringConverter/>
+            <Converters:StringCharLimitConverter/>
+        </xct:MultiConverter>
     </ContentPage.Resources>
 
     <StackLayout Spacing="0">
         <Frame HeightRequest="75" Padding="0" BackgroundColor="{StaticResource PrimaryColor}" CornerRadius="0">
             <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="22" TextColor="{StaticResource PrimaryTextColor}" Text="Swipe Page To Navigate"/>
         </Frame>
-        
+
         <ScrollView Orientation="Horizontal">
             <Grid ColumnDefinitions="*,1,*" ColumnSpacing="0" RowSpacing="0">
                 
@@ -343,7 +368,7 @@
                 <BoxView Grid.Column="1" WidthRequest="1" BackgroundColor="{DynamicResource OutlineColor}"/>
 
                 <xc:CalendarView
-                        Grid.Column="2"
+                    Grid.Column="2"
                     x:Name="MainCalendarView"
                     VerticalOptions="StartAndExpand"
                     BackgroundColor="{StaticResource ContentBackgroundColor}"

@@ -11,12 +11,28 @@
              x:DataType="{x:Type XCalendar:CalendarView}"
              x:Name="MainCalendarView">
 
-    <ContentView.Resources>
-        
-    </ContentView.Resources>
-
     <StackLayout Spacing="0">
+        <StackLayout.Resources>
+            <System:Boolean x:Key="TrueValue">True</System:Boolean>
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
+
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+
+            <xct:MultiConverter x:Key="EnumToInvertedBoolConverter">
+                <xct:EnumToBoolConverter/>
+                <xct:InvertedBoolConverter/>
+            </xct:MultiConverter>
+
+            <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
+
+            <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
+                <Converters:EnumToStringConverter/>
+                <Converters:StringCharLimitConverter/>
+            </xct:MultiConverter>
+        </StackLayout.Resources>
+        
         <!--#region Navigation -->
         <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
             <StackLayout Margin="0,5,0,5" Orientation="Horizontal">
