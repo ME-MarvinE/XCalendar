@@ -4,6 +4,23 @@ namespace XCalendar.Models
 {
     public class CalendarDay : BaseObservableModel
     {
-        public DateTime DateTime { get; set; }
+        #region Fields
+        private DateTime _dateTime = DateTime.Today;
+        #endregion
+
+        #region Properties
+        public DateTime DateTime
+        {
+            get
+            {
+                return _dateTime;
+            }
+            set
+            {
+                _dateTime = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
     }
 }
