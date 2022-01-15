@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XCalendar.Enums;
 
 namespace XCalendar
 {
@@ -98,15 +100,35 @@ namespace XCalendar
         }
         public virtual void UpdateProperties()
         {
-            if (CalendarView != null)
+            IsCurrentMonth = IsDateTimeCurrentMonth(DateTime);
+            IsOutOfRange = IsDateTimeOutOfRange(DateTime);
+            IsSelected = IsDateTimeSelected(DateTime);
+            IsToday = IsDateTimeToday(DateTime);
+        }
+        public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
+        {
+            return DateTime.Month == CalendarView?.NavigatedDate.Month && DateTime.Year == CalendarView?.NavigatedDate.Year;
+        }
+        public virtual bool IsDateTimeOutOfRange(DateTime DateTime)
+        {
+            return DateTime.Date < CalendarView?.DayRangeMinimumDate.Date || DateTime.Date > CalendarView?.DayRangeMaximumDate.Date;
+        }
+        public virtual bool IsDateTimeToday(DateTime DateTime)
+        {
+            return DateTime.Date == CalendarView?.TodayDate.Date;
+        }
+        public virtual bool IsDateTimeSelected(DateTime DateTime)
+        {
+            switch (CalendarView?.SelectionMode)
             {
-                IsCurrentMonth = CalendarView.IsDateTimeCurrentMonth(DateTime);
-                IsOutOfRange = CalendarView.IsDateTimeOutOfRange(DateTime);
-                IsSelected = CalendarView.IsDateTimeSelected(DateTime);
-                IsToday = CalendarView.IsDateTimeToday(DateTime);
+                case null:
+                case CalendarSelectionMode.None: return false;
+                case CalendarSelectionMode.Single: return CalendarView?.SelectedDate?.Date == DateTime.Date;
+                case CalendarSelectionMode.Multiple: return CalendarView?.SelectedDates?.Any(x => x.Date == DateTime.Date) == true;
+                default:
+                    throw new NotImplementedException($"{nameof(CalendarSelectionMode)} is not implemented.");
             }
         }
-
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();

@@ -507,29 +507,6 @@ namespace XCalendar
             OnMonthViewDaysInvalidated();
             OnDateSelectionChanged();
         }
-        public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
-        {
-            return DateTime.Month == NavigatedDate.Month && DateTime.Year == NavigatedDate.Year;
-        }
-        public virtual bool IsDateTimeOutOfRange(DateTime DateTime)
-        {
-            return DateTime.Date < DayRangeMinimumDate.Date || DateTime.Date > DayRangeMaximumDate.Date;
-        }
-        public virtual bool IsDateTimeToday(DateTime DateTime)
-        {
-            return DateTime.Date == TodayDate.Date;
-        }
-        public virtual bool IsDateTimeSelected(DateTime DateTime)
-        {
-            switch (SelectionMode)
-            {
-                case CalendarSelectionMode.None: return false;
-                case CalendarSelectionMode.Single: return SelectedDate?.Date == DateTime.Date;
-                case CalendarSelectionMode.Multiple: return SelectedDates?.Any(x => x.Date == DateTime.Date) == true;
-                default:
-                    throw new NotImplementedException($"{nameof(CalendarSelectionMode)} is not implemented.");
-            }
-        }
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             CoerceValue(DayNamesOrderProperty);
