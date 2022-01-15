@@ -396,7 +396,7 @@
                     NavigationMode="{Binding NavigationMode}"
                     PageStartMode="{Binding PageStartMode}"
                     DayHeightRequest="50"
-                    MonthViewHeightRequest="250"
+                    MonthViewHeightRequest="300"
                     DayNamesHeightRequest="25"
                     StartOfWeek="{Binding StartOfWeek}">
 

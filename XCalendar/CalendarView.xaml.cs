@@ -273,9 +273,9 @@ namespace XCalendar
         public CalendarView()
         {
             Days = new ReadOnlyObservableCollection<CalendarDay>(_Days);
-            InitializeComponent();
             NavigateCalendarCommand = new Command<bool>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
+            InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
             OnMonthViewDaysInvalidated();
         }
