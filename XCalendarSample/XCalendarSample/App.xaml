@@ -7,13 +7,12 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
         <Color x:Key="PrimaryColor">#E00000</Color>
-        <Color x:Key="SecondaryColor">White</Color>
         <Color x:Key="TertiaryColor">#FFA0A0</Color>
         <Color x:Key="SeparatorColor">#E0E0E0</Color>
         <Color x:Key="OutlineColor">#B0B0B0</Color>
 
         <Color x:Key="PageBackgroundColor">#F0F0F4</Color>
-        <Color x:Key="ContentBackgroundColor">#F0F0F4</Color>
+        <Color x:Key="ContentBackgroundColor">White</Color>
 
         <Color x:Key="PrimaryTextColor">White</Color>
         <Color x:Key="ContentTextColor">Black</Color>

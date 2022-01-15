@@ -19,7 +19,7 @@
 
         <!--#region Navigation -->
         <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
-            <StackLayout Margin="0,0,0,5" Orientation="Horizontal">
+            <StackLayout Margin="0,5,0,5" Orientation="Horizontal">
 
                 <Frame Padding="5" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}" CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                        xct:TouchEffect.NativeAnimation="True"
