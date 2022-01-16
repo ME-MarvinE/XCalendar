@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xamarin.CommunityToolkit.ObjectModel;
 using XCalendar.Enums;
 
@@ -22,7 +21,7 @@ namespace XCalendarSample.ViewModels
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
         public SelectionMode SelectionMode { get; set; } = SelectionMode.Multiple;
         public NavigationLimitMode NavigationLimitMode { get; set; } = NavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange;
-        public NavigationMode NavigationMode { get; set; } = NavigationMode.ByPage;
+        public NavigationMode NavigationMode { get; set; } = NavigationMode.ByMonth;
         public PageStartMode PageStartMode { get; set; } = PageStartMode.NavigatedMonth;
     }
 }

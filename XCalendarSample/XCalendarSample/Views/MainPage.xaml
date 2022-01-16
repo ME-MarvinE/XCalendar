@@ -92,8 +92,10 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
+                        MinimumDate="{x:Static System:DateTime.MinValue}"
+                        MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding NavigatedDate}"/>
-                        
+
                         <Label
                         Grid.Row="1"
                         Grid.Column="0"
@@ -115,6 +117,8 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
+                        MinimumDate="{x:Static System:DateTime.MinValue}"
+                        MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding TodayDate, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
@@ -138,8 +142,10 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
+                        MinimumDate="{x:Static System:DateTime.MinValue}"
+                        MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"/>
-                        
+
                         <Label
                         Grid.Row="3"
                         Grid.Column="0"
@@ -161,6 +167,8 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d yyy"
+                        MinimumDate="{x:Static System:DateTime.MinValue}"
+                        MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding DayRangeMaximumDate}"/>
 
                         <Label
@@ -214,10 +222,10 @@
                         FontSize="{StaticResource SmallFontSize}"
                         TextColor="Transparent"
                         Format="ddd, MMM d"
-                        MinimumDate="{Binding DayRangeMinimumDate}"
-                        MaximumDate="{Binding DayRangeMaximumDate}"
+                        MinimumDate="{x:Static System:DateTime.MinValue}"
+                        MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding SelectedDate}"/>
-                        
+
                         <Label
                         Grid.Row="7"
                         Grid.Column="0"
@@ -237,7 +245,7 @@
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="{x:Type x:String}">
+                                <DataTemplate x:DataType="{x:Type System:DateTime}">
                                     <Label HorizontalTextAlignment="Center" Text="{Binding ., StringFormat='{0:ddd, MMM d yyy}'}" FontSize="{StaticResource SmallFontSize}"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
@@ -255,7 +263,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         Text="{Binding Rows, Source={x:Reference MainCalendarView}}"/>
-                        
+
                         <Label
                         Grid.Row="9"
                         Grid.Column="0"
@@ -281,7 +289,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         IsChecked="{Binding AutoRowsIsConsistent, Source={x:Reference MainCalendarView}}"/>
-                        
+
                         <Label
                         Grid.Row="11"
                         Grid.Column="0"
@@ -309,7 +317,7 @@
                         HorizontalOptions="Center"
                         ItemsSource="{Binding PageStartModes}"
                         SelectedItem="{Binding PageStartMode}"/>
-                        
+
                         <Label
                         Grid.Row="13"
                         Grid.Column="0"

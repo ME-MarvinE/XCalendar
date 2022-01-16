@@ -292,12 +292,12 @@ namespace XCalendar
             set { SetValue(NavigationModeProperty, value); }
         }
         /// <summary>
-        /// The date to extract from the <see cref="NavigatedDate"/> and use as the first date of the first row.
+        /// The way in which to extract a date from the <see cref="NavigatedDate"/> to use as the first date of the first row.
         /// </summary>
         /// <example>If the <see cref="StartOfWeek"/> is Monday and the navigated date is 15th July 2022:
         /// <see cref="PageStartMode.NavigatedWeek"/> will extract 11th July 2022.
-        /// <see cref="PageStartMode.NavigatedMonth"/> will extract 1st July 2022.
-        /// <see cref="PageStartMode.NavigatedYear"/> will extract 1st January 2022.</example>
+        /// <see cref="PageStartMode.NavigatedMonth"/> will extract 27th June 2022 (First day in the week of 1st July 2022).
+        /// <see cref="PageStartMode.NavigatedYear"/> will extract 27th December 2021 (First day in the week of 1st January 2022).</example>
         public PageStartMode PageStartMode
         {
             get { return (PageStartMode)GetValue(PageStartModeProperty); }
@@ -476,16 +476,13 @@ namespace XCalendar
         /// Updates the dates displayed on the calendar.
         /// </summary>
         /// <param name="NavigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
-        /// <remarks>
-        /// Doesn't work correctly in the case that a week spans into an unrepresentable <see cref="DateTime"/> and the <see cref="DayNamesOrder"/> 
-        /// isn't chronological.
-        /// </remarks>
         public void UpdateMonthViewDates(DateTime NavigationDate)
         {
             List<DayOfWeek> DayNamesOrderList = new List<DayOfWeek>(DayNamesOrder);
             int DatesUpdated = 0;
             int DaysRequiredToNavigate = GetCalendarDaysRequiredToNavigate(NavigationDate);
 
+            //Determine the starting date of the page.
             DateTime PageStartDate;
             switch (PageStartMode)
             {
@@ -502,57 +499,52 @@ namespace XCalendar
                     throw new NotImplementedException($"{nameof(Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
-            //Using a fixed value instead of _Days.Count because multiple methods may be adding and removing days at the same time.
-            //This would mean they would be adding and removing days between each other to reach their targets for potentially forever.
-            int DayDifference = DaysRequiredToNavigate - _Days.Count;
-            while (DayDifference != 0)
+            //Add/Remove days until reaching the required count.
+            while (DaysRequiredToNavigate - _Days.Count != 0)
             {
-                if (DayDifference > 0)
+                if (DaysRequiredToNavigate - _Days.Count > 0)
                 {
                     _Days.Add(new CalendarDay());
-                    DayDifference -= 1;
                 }
                 else
                 {
                     _Days.RemoveAt(_Days.Count - 1);
-                    DayDifference += 1;
                 }
             }
 
+            //Update the dates for each row.
             for (int RowsAdded = 0; DatesUpdated < DaysRequiredToNavigate; RowsAdded++)
             {
-                List<DateTime> RowDates = new List<DateTime>();
+                Dictionary<DayOfWeek, DateTime> Row = new Dictionary<DayOfWeek, DateTime>();
 
+                //Get the updated dates for the row.
                 for (int i = 0; i < DaysOfWeek.Count; i++)
                 {
                     try
                     {
-                        RowDates.Add(PageStartDate.AddDays(RowsAdded * DaysOfWeek.Count + i));
+                        //RowDates.Add(PageStartDate.AddDays(RowsAdded * DaysOfWeek.Count + i));
+                        DateTime DateTime = PageStartDate.AddDays(RowsAdded * DaysOfWeek.Count + i);
+                        Row.Add(DateTime.DayOfWeek, DateTime);
                     }
                     catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
                     {
                     }
                 }
 
+                //Update the dates in the row based on the DayNamesOrder.
                 for (int i = 0; i < DayNamesOrderList.Count; i++)
                 {
                     try
                     {
-                        //Get the updated date by indexing the RowDates based on their DayOfWeek
-                        _Days[DatesUpdated].DateTime = RowDates.First(x => x.DayOfWeek == DayNamesOrderList[i]);
-                        DatesUpdated += 1;
+                        _Days[DatesUpdated].DateTime = Row[DayNamesOrderList[i]];
                     }
-                    catch (InvalidOperationException)
+                    catch (KeyNotFoundException)
                     {
                         //Catch for when RowDates may not have a certain DayOfWeek, for example when the week spans into unrepresentable DateTimes.
+                        _Days[DatesUpdated].DateTime = DateTime.MaxValue;
                     }
-                    catch (ArgumentOutOfRangeException)
-                    {
-                        //_days list should have been updated to the correct count at the beginning of this method.
-                        //if there is an ArgumentOutOfRangeException here, something else has modified that collection, most likely another instance of this method.
-                        //if this is the case, instead of possibly having these multiple methods modifying for a correct count infinitely, just exit the method.
-                        return;
-                    }
+
+                    DatesUpdated += 1;
                 }
             }
         }
@@ -654,7 +646,6 @@ namespace XCalendar
             CalendarView Control = (CalendarView)bindable;
             Control.UpdateMonthViewDates(Control.NavigatedDate);
             Control.OnMonthViewDaysInvalidated();
-
         }
         private static void TodayDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
