@@ -64,7 +64,7 @@
         <ScrollView Orientation="Horizontal">
             <Grid ColumnDefinitions="*,1,*" ColumnSpacing="0" RowSpacing="0">
                 
-                <ScrollView Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}" Orientation="Vertical">
+                <ScrollView Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}" Orientation="Vertical" VerticalScrollBarVisibility="Never">
                     <Grid
                     RowSpacing="0"
                     ColumnSpacing="0"
@@ -231,8 +231,8 @@
                         BackgroundColor="{StaticResource SeparatorColor}"
                         HeightRequest="50"
                         WidthRequest="100"
-                        ItemsSource="{Binding SelectedDates}"
-                        VerticalScrollBarVisibility="Always">
+                        ItemSizingStrategy="MeasureFirstItem"
+                        ItemsSource="{Binding SelectedDates}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
                             </CollectionView.ItemsLayout>

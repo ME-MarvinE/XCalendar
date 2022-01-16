@@ -10,7 +10,7 @@ namespace XCalendarSample.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         public DateTime? SelectedDate { get; set; } = DateTime.Today;
-        public ObservableRangeCollection<DateTime> SelectedDates { get; set; } = new ObservableRangeCollection<DateTime>() { DateTime.Today };
+        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>() { DateTime.Today };
         public List<SelectionMode> SelectionModes { get; set; } = Enum.GetValues(typeof(SelectionMode)).Cast<SelectionMode>().ToList();
         public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
         public List<NavigationMode> NavigationModes { get; set; } = Enum.GetValues(typeof(NavigationMode)).Cast<NavigationMode>().ToList();
