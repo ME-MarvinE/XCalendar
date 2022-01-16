@@ -28,6 +28,9 @@ namespace XCalendar
             DayOfWeek.Saturday,
             DayOfWeek.Sunday,
         };
+        /// <summary>
+        /// The list of displayed dates.
+        /// </summary>
         protected ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
         #endregion
 
@@ -35,31 +38,52 @@ namespace XCalendar
         public ReadOnlyObservableCollection<CalendarDay> Days { get; }
 
         #region Bindable Properties
+        /// <summary>
+        /// The date the calendar will use to get the dates representing a time unit.
+        /// </summary>
         public DateTime NavigatedDate
         {
             get { return (DateTime)GetValue(NavigatedDateProperty); }
             set { SetValue(NavigatedDateProperty, value); }
         }
+        /// <summary>
+        /// The date that the calendar should consider as 'Today'.
+        /// </summary>
         public DateTime TodayDate
         {
             get { return (DateTime)GetValue(TodayDateProperty); }
             set { SetValue(TodayDateProperty, value); }
         }
+        /// <summary>
+        /// The lower bound of the day range.
+        /// </summary>
+        /// <seealso cref="NavigationLimitMode"/>
         public DateTime DayRangeMinimumDate
         {
             get { return (DateTime)GetValue(DayRangeMinimumDateProperty); }
             set { SetValue(DayRangeMinimumDateProperty, value); }
         }
+        /// <summary>
+        /// The upper bound of the day range.
+        /// </summary>
+        /// <seealso cref="NavigationLimitMode"/>
         public DateTime DayRangeMaximumDate
         {
             get { return (DateTime)GetValue(DayRangeMaximumDateProperty); }
             set { SetValue(DayRangeMaximumDateProperty, value); }
         }
+        /// <summary>
+        /// The day of week that should be considered as the start of the week.
+        /// </summary>
+        /// <seealso cref="DayNamesOrder"/>
         public DayOfWeek StartOfWeek
         {
             get { return (DayOfWeek)GetValue(StartOfWeekProperty); }
             set { SetValue(StartOfWeekProperty, value); }
         }
+        /// <summary>
+        /// The individual height of the displayed <see cref="Days"/>.
+        /// </summary>
         public double DayHeightRequest
         {
             get { return (double)GetValue(DayHeightRequestProperty); }
@@ -95,11 +119,17 @@ namespace XCalendar
             get { return (ControlTemplate)GetValue(DayNamesTemplateProperty); }
             set { SetValue(DayNamesTemplateProperty, value); }
         }
+        /// <summary>
+        /// The height of the view showing the days of the week.
+        /// </summary>
         public double DayNamesHeightRequest
         {
             get { return (double)GetValue(DayNamesHeightRequestProperty); }
             set { SetValue(DayNamesHeightRequestProperty, value); }
         }
+        /// <summary>
+        /// The template used to display the days of the week.
+        /// </summary>
         public DataTemplate DayNameTemplate
         {
             get { return (DataTemplate)GetValue(DayNameTemplateProperty); }
@@ -120,31 +150,54 @@ namespace XCalendar
             get { return (Color)GetValue(DayNameTextColorProperty); }
             set { SetValue(DayNameTextColorProperty, value); }
         }
+        /// <summary>
+        /// The template used to display the <see cref="Days"/>.
+        /// </summary>
         public ControlTemplate MonthViewTemplate
         {
             get { return (ControlTemplate)GetValue(MonthViewTemplateProperty); }
             set { SetValue(MonthViewTemplateProperty, value); }
         }
+        /// <summary>
+        /// The height of the view used to display the <see cref="Days"/>
+        /// </summary>
         public double MonthViewHeightRequest
         {
             get { return (double)GetValue(MonthViewHeightRequestProperty); }
             set { SetValue(MonthViewHeightRequestProperty, value); }
         }
+        /// <summary>
+        /// Whether to automatically add as many rows as needed to represent the time unit or not.
+        /// </summary>
+        /// <seealso cref="AutoRowsIsConsistent"/>
         public bool AutoRows
         {
             get { return (bool)GetValue(AutoRowsProperty); }
             set { SetValue(AutoRowsProperty, value); }
         }
+        /// <summary>
+        /// Whether to make sure the amount of rows stays the same across the time unit.
+        /// </summary>
+        /// <example>If the <see cref="StartOfWeek"/> is Monday, the highest number of rows needed to display a month in 2022 is 6 rows (May, October etc).
+        /// If this property is true, the calendar will display 6 rows regardless of whether a month needs less or not (April, November etc).
+        /// Otherwise it will display as needed: (5 for April and November, 6 for May and October etc).</example>
+        /// <seealso cref="AutoRows"/>
         public bool AutoRowsIsConsistent
         {
             get { return (bool)GetValue(AutoRowsIsConsistentProperty); }
             set { SetValue(AutoRowsIsConsistentProperty, value); }
         }
+        /// <summary>
+        /// Whether to shift the values in <see cref="DayNamesOrder"/> so that the <see cref="StartOfWeek"/> is the first value.
+        /// </summary>
         public bool DayNamesOrderUsesStartOfWeek
         {
             get { return (bool)GetValue(DayNamesOrderUsesStartOfWeekProperty); }
             set { SetValue(DayNamesOrderUsesStartOfWeekProperty, value); }
         }
+        /// <summary>
+        /// The template used to display the view for navigating the calendar.
+        /// </summary>
         public ControlTemplate NavigationTemplate
         {
             get { return (ControlTemplate)GetValue(NavigationTemplateProperty); }
@@ -170,46 +223,81 @@ namespace XCalendar
             get { return (float)GetValue(NavigationArrowCornerRadiusProperty); }
             set { SetValue(NavigationArrowCornerRadiusProperty, value); }
         }
+        /// <summary>
+        /// How the calendar handles selection of dates.
+        /// </summary>
         public CalendarSelectionMode SelectionMode
         {
             get { return (CalendarSelectionMode)GetValue(SelectionModeProperty); }
             set { SetValue(SelectionModeProperty, value); }
         }
+        /// <summary>
+        /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="DayRangeMinimumDate"/>, and <see cref="DayRangeMaximumDate"/>.
+        /// </summary>
+        /// <seealso cref="NavigateCalendar(bool)"/>
         public CalendarNavigationLimitMode NavigationLimitMode
         {
             get { return (CalendarNavigationLimitMode)GetValue(NavigationLimitModeProperty); }
             set { SetValue(NavigationLimitModeProperty, value); }
         }
+        /// <summary>
+        /// The date that is currently selected. Null when the <see cref="CalendarSelectionMode"/> is not set to <see cref="CalendarSelectionMode.Single"/>.
+        /// </summary>
         public DateTime? SelectedDate
         {
             get { return (DateTime?)GetValue(SelectedDateProperty); }
             set { SetValue(SelectedDateProperty, value); }
         }
+        /// <summary>
+        /// The date that is currently selected. Empty when the <see cref="CalendarSelectionMode"/> is not set to <see cref="CalendarSelectionMode.Multiple"/>.
+        /// </summary>
         public ObservableCollection<DateTime> SelectedDates
         {
             get { return (ObservableCollection<DateTime>)GetValue(SelectedDatesProperty); }
             set { SetValue(SelectedDatesProperty, value); }
         }
+        /// <summary>
+        /// The order to display the days of the week in.
+        /// </summary>
+        /// <remarks>Duplicate values are allowed. Does not affect logic.</remarks>
+        /// <seealso cref="DayNamesOrderUsesStartOfWeek"/>
         public ObservableRangeCollection<DayOfWeek> DayNamesOrder
         {
             get { return (ObservableRangeCollection<DayOfWeek>)GetValue(DayNamesOrderProperty); }
             set { SetValue(DayNamesOrderProperty, value); }
         }
+        /// <summary>
+        /// The number of rows to display.
+        /// </summary>
+        /// <seealso cref="AutoRows"/>
         public int Rows
         {
             get { return (int)GetValue(RowsProperty); }
             set { SetValue(RowsProperty, value); }
         }
+        /// <summary>
+        /// The template used to display a <see cref="CalendarDay"/>
+        /// </summary>
         public DataTemplate DayTemplate
         {
             get { return (DataTemplate)GetValue(DayTemplateProperty); }
             set { SetValue(DayTemplateProperty, value); }
         }
+        /// <summary>
+        /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(bool)"/>.
+        /// </summary>
         public CalendarNavigationMode NavigationMode
         {
             get { return (CalendarNavigationMode)GetValue(NavigationModeProperty); }
             set { SetValue(NavigationModeProperty, value); }
         }
+        /// <summary>
+        /// The date to extract from the <see cref="NavigatedDate"/> and use as the first date of the first row.
+        /// </summary>
+        /// <example>If the <see cref="StartOfWeek"/> is Monday and the navigated date is 15th July 2022:
+        /// <see cref="CalendarPageStartMode.NavigatedWeek"/> will extract 11th July 2022.
+        /// <see cref="CalendarPageStartMode.NavigatedMonth"/> will extract 1st July 2022.
+        /// <see cref="CalendarPageStartMode.NavigatedYear"/> will extract 1st January 2022.</example>
         public CalendarPageStartMode PageStartMode
         {
             get { return (CalendarPageStartMode)GetValue(PageStartModeProperty); }
@@ -260,7 +348,13 @@ namespace XCalendar
         #endregion
 
         #region Commands
+        /// <summary>
+        /// The command used to navigate the calendar.
+        /// </summary>
         public ICommand NavigateCalendarCommand { get; private set; }
+        /// <summary>
+        /// The command used to change the date selection.
+        /// </summary>
         public ICommand ChangeDateSelectionCommand { get; private set; }
         #endregion
 
@@ -282,10 +376,19 @@ namespace XCalendar
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Called when either <see cref="SelectedDate"/> changes or <see cref="SelectedDates"/> changes/updates.
+        /// </summary>
+        /// <remarks>
+        /// This may be called as a result of changing the <see cref="CalendarSelectionMode"/>.
+        /// </remarks>
         public void OnDateSelectionChanged()
         {
             DateSelectionChanged?.Invoke(this, new EventArgs());
         }
+        /// <summary>
+        /// Called when the <see cref="CalendarView"/> needs to notify <see cref="CalendarDayView"/>s to reevaluate their properties due to a change.
+        /// </summary>
         public void OnMonthViewDaysInvalidated()
         {
             MonthViewDaysInvalidated?.Invoke(this, new EventArgs());
@@ -312,6 +415,10 @@ namespace XCalendar
             }
             return ReturnValue;
         }
+        /// <summary>
+        /// Selects or unselects a <see cref="DateTime"/> depending on the current <see cref="SelectionMode"/>.
+        /// </summary>
+        /// <param name="DateTime">The <see cref="DateTime"/> to select/unselect.</param>
         public virtual void ChangeDateSelection(DateTime DateTime)
         {
             switch (SelectionMode)
@@ -343,6 +450,11 @@ namespace XCalendar
                     break;
             }
         }
+        /// <summary>
+        /// Gets the number of <see cref="CalendarDay"/>s that need to be displayed for a specific date.
+        /// </summary>
+        /// <param name="NavigationDate">The <see cref="DateTime"/> to get the number of <see cref="CalendarDay"/>s for.</param>
+        /// <returns></returns>
         public int GetCalendarDaysRequiredToNavigate(DateTime NavigationDate)
         {
             if (AutoRows && AutoRowsIsConsistent)
@@ -357,7 +469,7 @@ namespace XCalendar
             return Rows * DayNamesOrder.Count;
         }
         /// <summary>
-        /// Updates the dates of the <see cref="CalendarDay"/>s in <see cref="_Days"/>.
+        /// Updates the dates displayed on the calendar.
         /// </summary>
         /// <param name="NavigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
         /// <remarks>
@@ -440,6 +552,11 @@ namespace XCalendar
                 }
             }
         }
+        /// <summary>
+        /// Navigates date at which the time unit is extracted.
+        /// </summary>
+        /// <param name="Forward">Whether the source will be navigated forwards or backwards</param>
+        /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
         public virtual void NavigateCalendar(bool Forward)
         {
             try
