@@ -122,11 +122,11 @@ namespace XCalendar
             switch (CalendarView?.SelectionMode)
             {
                 case null:
-                case CalendarSelectionMode.None: return false;
-                case CalendarSelectionMode.Single: return CalendarView?.SelectedDate?.Date == DateTime.Date;
-                case CalendarSelectionMode.Multiple: return CalendarView?.SelectedDates?.Any(x => x.Date == DateTime.Date) == true;
+                case Enums.SelectionMode.None: return false;
+                case Enums.SelectionMode.Single: return CalendarView?.SelectedDate?.Date == DateTime.Date;
+                case Enums.SelectionMode.Multiple: return CalendarView?.SelectedDates?.Any(x => x.Date == DateTime.Date) == true;
                 default:
-                    throw new NotImplementedException($"{nameof(CalendarSelectionMode)} is not implemented.");
+                    throw new NotImplementedException($"{nameof(Enums.SelectionMode)} is not implemented.");
             }
         }
         protected override void OnBindingContextChanged()

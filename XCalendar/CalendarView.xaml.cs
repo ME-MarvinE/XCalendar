@@ -226,22 +226,22 @@ namespace XCalendar
         /// <summary>
         /// How the calendar handles selection of dates.
         /// </summary>
-        public CalendarSelectionMode SelectionMode
+        public Enums.SelectionMode SelectionMode
         {
-            get { return (CalendarSelectionMode)GetValue(SelectionModeProperty); }
+            get { return (Enums.SelectionMode)GetValue(SelectionModeProperty); }
             set { SetValue(SelectionModeProperty, value); }
         }
         /// <summary>
         /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="DayRangeMinimumDate"/>, and <see cref="DayRangeMaximumDate"/>.
         /// </summary>
         /// <seealso cref="NavigateCalendar(bool)"/>
-        public CalendarNavigationLimitMode NavigationLimitMode
+        public NavigationLimitMode NavigationLimitMode
         {
-            get { return (CalendarNavigationLimitMode)GetValue(NavigationLimitModeProperty); }
+            get { return (NavigationLimitMode)GetValue(NavigationLimitModeProperty); }
             set { SetValue(NavigationLimitModeProperty, value); }
         }
         /// <summary>
-        /// The date that is currently selected. Null when the <see cref="CalendarSelectionMode"/> is not set to <see cref="CalendarSelectionMode.Single"/>.
+        /// The date that is currently selected. Null when the <see cref="Enums.SelectionMode"/> is not set to <see cref="Enums.SelectionMode.Single"/>.
         /// </summary>
         public DateTime? SelectedDate
         {
@@ -249,7 +249,7 @@ namespace XCalendar
             set { SetValue(SelectedDateProperty, value); }
         }
         /// <summary>
-        /// The date that is currently selected. Empty when the <see cref="CalendarSelectionMode"/> is not set to <see cref="CalendarSelectionMode.Multiple"/>.
+        /// The date that is currently selected. Empty when the <see cref="Enums.SelectionMode"/> is not set to <see cref="Enums.SelectionMode.Multiple"/>.
         /// </summary>
         public ObservableCollection<DateTime> SelectedDates
         {
@@ -286,21 +286,21 @@ namespace XCalendar
         /// <summary>
         /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(bool)"/>.
         /// </summary>
-        public CalendarNavigationMode NavigationMode
+        public NavigationMode NavigationMode
         {
-            get { return (CalendarNavigationMode)GetValue(NavigationModeProperty); }
+            get { return (NavigationMode)GetValue(NavigationModeProperty); }
             set { SetValue(NavigationModeProperty, value); }
         }
         /// <summary>
         /// The date to extract from the <see cref="NavigatedDate"/> and use as the first date of the first row.
         /// </summary>
         /// <example>If the <see cref="StartOfWeek"/> is Monday and the navigated date is 15th July 2022:
-        /// <see cref="CalendarPageStartMode.NavigatedWeek"/> will extract 11th July 2022.
-        /// <see cref="CalendarPageStartMode.NavigatedMonth"/> will extract 1st July 2022.
-        /// <see cref="CalendarPageStartMode.NavigatedYear"/> will extract 1st January 2022.</example>
-        public CalendarPageStartMode PageStartMode
+        /// <see cref="PageStartMode.NavigatedWeek"/> will extract 11th July 2022.
+        /// <see cref="PageStartMode.NavigatedMonth"/> will extract 1st July 2022.
+        /// <see cref="PageStartMode.NavigatedYear"/> will extract 1st January 2022.</example>
+        public PageStartMode PageStartMode
         {
-            get { return (CalendarPageStartMode)GetValue(PageStartModeProperty); }
+            get { return (PageStartMode)GetValue(PageStartModeProperty); }
             set { SetValue(PageStartModeProperty, value); }
         }
 
@@ -313,7 +313,7 @@ namespace XCalendar
         public static readonly BindableProperty DayRangeMaximumDateProperty = BindableProperty.Create(nameof(DayRangeMaximumDate), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: DayRangeMaximumDatePropertyChanged);
         public static readonly BindableProperty TodayDateProperty = BindableProperty.Create(nameof(TodayDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, propertyChanged: TodayDatePropertyChanged);
         public static readonly BindableProperty StartOfWeekProperty = BindableProperty.Create(nameof(StartOfWeek), typeof(DayOfWeek), typeof(CalendarView), CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, propertyChanged: StartOfWeekPropertyChanged);
-        public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(CalendarSelectionMode), typeof(CalendarView), CalendarSelectionMode.None, propertyChanged: SelectionModePropertyChanged);
+        public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(Enums.SelectionMode), typeof(CalendarView), Enums.SelectionMode.None, propertyChanged: SelectionModePropertyChanged);
         public static readonly BindableProperty SelectedDateProperty = BindableProperty.Create(nameof(SelectedDate), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: SelectedDatePropertyChanged, coerceValue: CoerceSelectedDate);
         public static readonly BindableProperty SelectedDatesProperty = BindableProperty.Create(nameof(SelectedDates), typeof(ObservableCollection<DateTime>), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: SelectedDatesPropertyChanged, coerceValue: CoerceSelectedDates);
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
@@ -338,9 +338,9 @@ namespace XCalendar
         public static readonly BindableProperty NavigationArrowColorProperty = BindableProperty.Create(nameof(NavigationArrowColor), typeof(Color), typeof(CalendarView), Color.Black);
         public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView), Color.White);
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 200f);
-        public static readonly BindableProperty NavigationLimitModeProperty = BindableProperty.Create(nameof(NavigationLimitMode), typeof(CalendarNavigationLimitMode), typeof(CalendarView), CalendarNavigationLimitMode.LoopMinimumAndMaximum);
-        public static readonly BindableProperty NavigationModeProperty = BindableProperty.Create(nameof(NavigationMode), typeof(CalendarNavigationMode), typeof(CalendarView), CalendarNavigationMode.ByMonth);
-        public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(CalendarPageStartMode), typeof(CalendarView), CalendarPageStartMode.NavigatedMonth, propertyChanged: PageStartModePropertyChanged);
+        public static readonly BindableProperty NavigationLimitModeProperty = BindableProperty.Create(nameof(NavigationLimitMode), typeof(NavigationLimitMode), typeof(CalendarView), NavigationLimitMode.LoopMinimumAndMaximum);
+        public static readonly BindableProperty NavigationModeProperty = BindableProperty.Create(nameof(NavigationMode), typeof(NavigationMode), typeof(CalendarView), NavigationMode.ByMonth);
+        public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.NavigatedMonth, propertyChanged: PageStartModePropertyChanged);
         #endregion
 
         #endregion
@@ -380,7 +380,7 @@ namespace XCalendar
         /// Called when either <see cref="SelectedDate"/> changes or <see cref="SelectedDates"/> changes/updates.
         /// </summary>
         /// <remarks>
-        /// This may be called as a result of changing the <see cref="CalendarSelectionMode"/>.
+        /// This may be called as a result of changing the <see cref="Enums.SelectionMode"/>.
         /// </remarks>
         public void OnDateSelectionChanged()
         {
@@ -423,7 +423,7 @@ namespace XCalendar
         {
             switch (SelectionMode)
             {
-                case CalendarSelectionMode.Single:
+                case Enums.SelectionMode.Single:
                     if (DateTime.Date == SelectedDate?.Date)
                     {
                         SelectedDate = null;
@@ -434,7 +434,7 @@ namespace XCalendar
                     }
                     break;
 
-                case CalendarSelectionMode.Multiple:
+                case Enums.SelectionMode.Multiple:
                     if (SelectedDates == null)
                     {
                         SelectedDates = new ObservableCollection<DateTime>() { DateTime.Date };
@@ -485,17 +485,17 @@ namespace XCalendar
             DateTime PageStartDate;
             switch (PageStartMode)
             {
-                case CalendarPageStartMode.NavigatedWeek:
+                case PageStartMode.NavigatedWeek:
                     PageStartDate = NavigationDate.FirstDayOfWeek(StartOfWeek);
                     break;
-                case CalendarPageStartMode.NavigatedMonth:
+                case PageStartMode.NavigatedMonth:
                     PageStartDate = NavigationDate.FirstDayOfMonth().FirstDayOfWeek(StartOfWeek);
                     break;
-                case CalendarPageStartMode.NavigatedYear:
+                case PageStartMode.NavigatedYear:
                     PageStartDate = new DateTime(NavigatedDate.Year, 1, 1).FirstDayOfWeek(StartOfWeek);
                     break;
                 default:
-                    throw new NotImplementedException($"{nameof(CalendarPageStartMode)} '{PageStartMode}' has not been implemented.");
+                    throw new NotImplementedException($"{nameof(Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
             //Using a fixed value instead of _Days.Count because multiple methods may be adding and removing days at the same time.
@@ -563,23 +563,23 @@ namespace XCalendar
             {
                 switch (NavigationMode)
                 {
-                    case CalendarNavigationMode.ByWeek:
+                    case NavigationMode.ByWeek:
                         NavigatedDate = NavigatedDate.AddDays(Forward ? DaysOfWeek.Count : -DaysOfWeek.Count);
                         break;
-                    case CalendarNavigationMode.ByMonth:
+                    case NavigationMode.ByMonth:
                         NavigatedDate = NavigatedDate.AddMonths(Forward ? 1 : -1);
                         break;
-                    case CalendarNavigationMode.ByYear:
+                    case NavigationMode.ByYear:
                         NavigatedDate = NavigatedDate.AddYears(Forward ? 1 : -1);
                         break;
-                    case CalendarNavigationMode.ByPage:
+                    case NavigationMode.ByPage:
                         List<CalendarDay> DaysList = _Days.ToList();
                         IEnumerable<DateTime> DistinctDates = DaysList.Select(x => x.DateTime.Date).Distinct();
 
                         NavigatedDate = NavigatedDate.AddDays(Forward ? DistinctDates.Count() : -DistinctDates.Count());
                         break;
                     default:
-                        throw new NotImplementedException($"{nameof(CalendarNavigationMode)} {NavigationMode} is not implemented.");
+                        throw new NotImplementedException($"{nameof(Enums.NavigationMode)} {NavigationMode} is not implemented.");
                 }
                 
             }
@@ -587,32 +587,32 @@ namespace XCalendar
             {
                 switch (NavigationLimitMode)
                 {
-                    case CalendarNavigationLimitMode.Restrict:
+                    case NavigationLimitMode.Restrict:
                         if (!Forward) { NavigatedDate = DateTime.MinValue; }
                         else if (Forward) { NavigatedDate = DateTime.MaxValue; }
                         break;
-                    case CalendarNavigationLimitMode.LoopMinimum:
+                    case NavigationLimitMode.LoopMinimum:
                         if (!Forward) { NavigatedDate = DateTime.MaxValue; }
                         break;
-                    case CalendarNavigationLimitMode.LoopMaximum:
+                    case NavigationLimitMode.LoopMaximum:
                         if (Forward) { NavigatedDate = DateTime.MinValue; }
                         break;
-                    case CalendarNavigationLimitMode.LoopMinimumAndMaximum:
+                    case NavigationLimitMode.LoopMinimumAndMaximum:
                         if (!Forward) { NavigatedDate = DateTime.MaxValue; }
                         else if (Forward) { NavigatedDate = DateTime.MinValue; }
                         break;
 
-                    case CalendarNavigationLimitMode.RestrictAndScopeToDayRange:
+                    case NavigationLimitMode.RestrictAndScopeToDayRange:
                         if (!Forward) { NavigatedDate = DayRangeMinimumDate; }
                         else if (Forward) { NavigatedDate = DayRangeMaximumDate; }
                         break;
-                    case CalendarNavigationLimitMode.LoopMinimumAndScopeToDayRange:
+                    case NavigationLimitMode.LoopMinimumAndScopeToDayRange:
                         if (!Forward) { NavigatedDate = DayRangeMaximumDate; }
                         break;
-                    case CalendarNavigationLimitMode.LoopMaximumAndScopeToDayRange:
+                    case NavigationLimitMode.LoopMaximumAndScopeToDayRange:
                         if (Forward) { NavigatedDate = DayRangeMinimumDate; }
                         break;
-                    case CalendarNavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange:
+                    case NavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange:
                         if (!Forward) { NavigatedDate = DayRangeMaximumDate; }
                         else if (Forward) { NavigatedDate = DayRangeMinimumDate; }
                         break;
@@ -720,12 +720,12 @@ namespace XCalendar
         private static object CoerceSelectedDate(BindableObject bindable, object value)
         {
             CalendarView Control = (CalendarView)bindable;
-            return Control.SelectionMode == CalendarSelectionMode.Single ? value : null;
+            return Control.SelectionMode == Enums.SelectionMode.Single ? value : null;
         }
         private static object CoerceSelectedDates(BindableObject bindable, object value)
         {
             CalendarView Control = (CalendarView)bindable;
-            return Control.SelectionMode == CalendarSelectionMode.Multiple ? value : null;
+            return Control.SelectionMode == Enums.SelectionMode.Multiple ? value : null;
         }
         private static object CoerceNavigatedDate(BindableObject bindable, object value)
         {
@@ -734,28 +734,28 @@ namespace XCalendar
 
             switch (Control.NavigationLimitMode)
             {
-                case CalendarNavigationLimitMode.Restrict:
-                case CalendarNavigationLimitMode.LoopMinimum:
-                case CalendarNavigationLimitMode.LoopMaximum:
-                case CalendarNavigationLimitMode.LoopMinimumAndMaximum:
+                case NavigationLimitMode.Restrict:
+                case NavigationLimitMode.LoopMinimum:
+                case NavigationLimitMode.LoopMaximum:
+                case NavigationLimitMode.LoopMinimumAndMaximum:
                     return BeforeValue;
 
-                case CalendarNavigationLimitMode.RestrictAndScopeToDayRange:
+                case NavigationLimitMode.RestrictAndScopeToDayRange:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMinimumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMaximumDate; }
                     return BeforeValue;
 
-                case CalendarNavigationLimitMode.LoopMinimumAndScopeToDayRange:
+                case NavigationLimitMode.LoopMinimumAndScopeToDayRange:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMaximumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMaximumDate; }
                     return BeforeValue;
 
-                case CalendarNavigationLimitMode.LoopMaximumAndScopeToDayRange:
+                case NavigationLimitMode.LoopMaximumAndScopeToDayRange:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMinimumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMinimumDate; }
                     return BeforeValue;
 
-                case CalendarNavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange:
+                case NavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMaximumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMinimumDate; }
                     return BeforeValue;

@@ -1,6 +1,6 @@
 ﻿namespace XCalendar.Enums
 {
-    public enum CalendarSelectionMode
+    public enum SelectionMode
     {
         None = 0,
         Single = 1,

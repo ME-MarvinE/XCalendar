@@ -1,6 +1,6 @@
 ﻿namespace XCalendar.Enums
 {
-    public enum CalendarPageStartMode
+    public enum PageStartMode
     {
         NavigatedWeek,
         NavigatedMonth,

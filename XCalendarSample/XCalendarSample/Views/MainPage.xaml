@@ -232,7 +232,6 @@
                         HeightRequest="50"
                         WidthRequest="100"
                         ItemsSource="{Binding SelectedDates}"
-                        ItemSizingStrategy="MeasureFirstItem"
                         VerticalScrollBarVisibility="Always">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
@@ -447,7 +446,7 @@
                                                         <MultiTrigger TargetType="{x:Type Frame}">
                                                             <MultiTrigger.Conditions>
                                                                 <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
-                                                                <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:CalendarSelectionMode.None}}" Value="False"/>
+                                                                <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False"/>
                                                             </MultiTrigger.Conditions>
                                                             <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
                                                             <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference MainCalendarView}}"/>

@@ -1,6 +1,6 @@
 ﻿namespace XCalendar.Enums
 {
-    public enum CalendarNavigationLimitMode
+    public enum NavigationLimitMode
     {
         Restrict,
         LoopMinimum,

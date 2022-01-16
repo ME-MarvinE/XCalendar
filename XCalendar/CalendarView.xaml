@@ -128,7 +128,7 @@
                                                                         <MultiBinding Converter="{StaticResource AllTrueConverter}">
                                                                             <Binding Path="IsCurrentMonth" Source="{RelativeSource TemplatedParent}"/>
                                                                             <Binding Path="IsOutOfRange" Source="{RelativeSource TemplatedParent}" Converter="{StaticResource InvertedBoolConverter}"/>
-                                                                            <Binding Path="SelectionMode" Source="{x:Reference MainCalendarView}" Converter="{StaticResource EnumToInvertedBoolConverter}" ConverterParameter="{x:Static Enums:CalendarSelectionMode.None}"/>
+                                                                            <Binding Path="SelectionMode" Source="{x:Reference MainCalendarView}" Converter="{StaticResource EnumToInvertedBoolConverter}" ConverterParameter="{x:Static Enums:SelectionMode.None}"/>
                                                                         </MultiBinding>
                                                                     </DataTrigger.Binding>
                                                                     <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>

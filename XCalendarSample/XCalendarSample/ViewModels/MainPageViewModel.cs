@@ -11,18 +11,18 @@ namespace XCalendarSample.ViewModels
     {
         public DateTime? SelectedDate { get; set; } = DateTime.Today;
         public ObservableRangeCollection<DateTime> SelectedDates { get; set; } = new ObservableRangeCollection<DateTime>() { DateTime.Today };
-        public List<CalendarSelectionMode> SelectionModes { get; set; } = Enum.GetValues(typeof(CalendarSelectionMode)).Cast<CalendarSelectionMode>().ToList();
-        public List<CalendarPageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(CalendarPageStartMode)).Cast<CalendarPageStartMode>().ToList();
-        public List<CalendarNavigationMode> NavigationModes { get; set; } = Enum.GetValues(typeof(CalendarNavigationMode)).Cast<CalendarNavigationMode>().ToList();
-        public List<CalendarNavigationLimitMode> NavigationLimitModes { get; set; } = Enum.GetValues(typeof(CalendarNavigationLimitMode)).Cast<CalendarNavigationLimitMode>().ToList();
+        public List<SelectionMode> SelectionModes { get; set; } = Enum.GetValues(typeof(SelectionMode)).Cast<SelectionMode>().ToList();
+        public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
+        public List<NavigationMode> NavigationModes { get; set; } = Enum.GetValues(typeof(NavigationMode)).Cast<NavigationMode>().ToList();
+        public List<NavigationLimitMode> NavigationLimitModes { get; set; } = Enum.GetValues(typeof(NavigationLimitMode)).Cast<NavigationLimitMode>().ToList();
         public List<DayOfWeek> DaysOfWeek { get; set; } = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToList();
         public DateTime NavigatedDate { get; set; } = DateTime.Today;
         public DateTime DayRangeMinimumDate { get; set; } = DateTime.Today.AddYears(-5);
         public DateTime DayRangeMaximumDate { get; set; } = DateTime.Today.AddYears(5);
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
-        public CalendarSelectionMode SelectionMode { get; set; } = CalendarSelectionMode.Multiple;
-        public CalendarNavigationLimitMode NavigationLimitMode { get; set; } = CalendarNavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange;
-        public CalendarNavigationMode NavigationMode { get; set; } = CalendarNavigationMode.ByPage;
-        public CalendarPageStartMode PageStartMode { get; set; } = CalendarPageStartMode.NavigatedMonth;
+        public SelectionMode SelectionMode { get; set; } = SelectionMode.Multiple;
+        public NavigationLimitMode NavigationLimitMode { get; set; } = NavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange;
+        public NavigationMode NavigationMode { get; set; } = NavigationMode.ByPage;
+        public PageStartMode PageStartMode { get; set; } = PageStartMode.NavigatedMonth;
     }
 }
