@@ -21,4 +21,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\XCalendar\XCalendar.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Popups\ConstructListDialogPopup.xaml.cs">
+      <DependentUpon>ConstructListDialogPopup.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Popups\ConstructListDialogPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

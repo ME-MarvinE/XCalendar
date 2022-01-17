@@ -13,8 +13,7 @@
              BackgroundColor="{StaticResource PageBackgroundColor}">
 
     <ContentPage.Resources>
-        <x:Double x:Key="SmallFontSize">14</x:Double>
-        <x:Double x:Key="MediumFontSize">16</x:Double>
+
         <Style TargetType="{x:Type Label}">
             <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
             <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
@@ -68,7 +67,7 @@
                     <Grid
                     RowSpacing="0"
                     ColumnSpacing="0"
-                    RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*"
+                    RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*"
                     ColumnDefinitions="*,*">
 
                         <Label
@@ -95,7 +94,7 @@
                         MinimumDate="{x:Static System:DateTime.MinValue}"
                         MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding NavigatedDate}"/>
-
+                        
                         <Label
                         Grid.Row="1"
                         Grid.Column="0"
@@ -145,7 +144,7 @@
                         MinimumDate="{x:Static System:DateTime.MinValue}"
                         MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"/>
-
+                        
                         <Label
                         Grid.Row="3"
                         Grid.Column="0"
@@ -225,7 +224,7 @@
                         MinimumDate="{x:Static System:DateTime.MinValue}"
                         MaximumDate="{x:Static System:DateTime.MaxValue}"
                         Date="{Binding SelectedDate}"/>
-
+                        
                         <Label
                         Grid.Row="7"
                         Grid.Column="0"
@@ -236,7 +235,7 @@
                         <CollectionView
                         Grid.Row="7"
                         Grid.Column="1"
-                        BackgroundColor="{StaticResource SeparatorColor}"
+                        BackgroundColor="{StaticResource PageBackgroundColor}"
                         HeightRequest="50"
                         WidthRequest="100"
                         ItemSizingStrategy="MeasureFirstItem"
@@ -263,7 +262,7 @@
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         Text="{Binding Rows, Source={x:Reference MainCalendarView}}"/>
-
+                        
                         <Label
                         Grid.Row="9"
                         Grid.Column="0"
@@ -317,7 +316,7 @@
                         HorizontalOptions="Center"
                         ItemsSource="{Binding PageStartModes}"
                         SelectedItem="{Binding PageStartMode}"/>
-
+                        
                         <Label
                         Grid.Row="13"
                         Grid.Column="0"
@@ -370,7 +369,40 @@
                         HorizontalOptions="Center"
                         ItemsSource="{Binding DaysOfWeek}"
                         SelectedItem="{Binding StartOfWeek}"/>
+
+                        <Label
+                        Grid.Row="17"
+                        Grid.Column="0"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        FontSize="{StaticResource SmallFontSize}"
+                        Text="DayNamesOrder"/>
+                        <Label
+                        Grid.Row="17"
+                        Grid.Column="1"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        FontSize="{StaticResource SmallFontSize}"
+                        TextColor="#0080E0"
+                        Text="Edit"
+                        xct:TouchEffect.NativeAnimation="True"
+                        xct:TouchEffect.Command="{Binding ShowDayNamesOrderDialogCommand}"/>
+
+                        <Label
+                        Grid.Row="18"
+                        Grid.Column="0"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        FontSize="{StaticResource SmallFontSize}"
+                        Text="OrderUsesStartOfWeek:"/>
+                        <CheckBox
+                        Grid.Row="18"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        IsChecked="{Binding DayNamesOrderUsesStartOfWeek, Source={x:Reference MainCalendarView}}"/>
+                        
                     </Grid>
+                    
                 </ScrollView>
 
                 <BoxView Grid.Column="1" WidthRequest="1" BackgroundColor="{DynamicResource OutlineColor}"/>
@@ -405,7 +437,9 @@
                     DayHeightRequest="50"
                     MonthViewHeightRequest="300"
                     DayNamesHeightRequest="25"
-                    StartOfWeek="{Binding StartOfWeek}">
+                    StartOfWeek="{Binding StartOfWeek}"
+                    DayNamesOrder="{Binding DayNamesOrder}"
+                    DayNamesOrderUsesStartOfWeek="False">
 
                     <xc:CalendarView.DayTemplate>
                         <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
