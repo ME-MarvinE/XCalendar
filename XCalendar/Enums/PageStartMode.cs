@@ -2,8 +2,8 @@
 {
     public enum PageStartMode
     {
-        NavigatedWeek,
-        NavigatedMonth,
-        NavigatedYear
+        FirstDayOfWeek,
+        FirstDayOfMonth,
+        FirstDayOfYear
     }
 }

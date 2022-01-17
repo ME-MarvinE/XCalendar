@@ -295,9 +295,9 @@ namespace XCalendar
         /// The way in which to extract a date from the <see cref="NavigatedDate"/> to use as the first date of the first row.
         /// </summary>
         /// <example>If the <see cref="StartOfWeek"/> is Monday and the navigated date is 15th July 2022:
-        /// <see cref="PageStartMode.NavigatedWeek"/> will extract 11th July 2022.
-        /// <see cref="PageStartMode.NavigatedMonth"/> will extract 27th June 2022 (First day in the week of 1st July 2022).
-        /// <see cref="PageStartMode.NavigatedYear"/> will extract 27th December 2021 (First day in the week of 1st January 2022).</example>
+        /// <see cref="PageStartMode.FirstDayOfWeek"/> will extract 11th July 2022.
+        /// <see cref="PageStartMode.FirstDayOfMonth"/> will extract 27th June 2022 (First day in the week of 1st July 2022).
+        /// <see cref="PageStartMode.FirstDayOfYear"/> will extract 27th December 2021 (First day in the week of 1st January 2022).</example>
         public PageStartMode PageStartMode
         {
             get { return (PageStartMode)GetValue(PageStartModeProperty); }
@@ -340,7 +340,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 200f);
         public static readonly BindableProperty NavigationLimitModeProperty = BindableProperty.Create(nameof(NavigationLimitMode), typeof(NavigationLimitMode), typeof(CalendarView), NavigationLimitMode.LoopMinimumAndMaximum);
         public static readonly BindableProperty NavigationModeProperty = BindableProperty.Create(nameof(NavigationMode), typeof(NavigationMode), typeof(CalendarView), NavigationMode.ByMonth);
-        public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.NavigatedMonth, propertyChanged: PageStartModePropertyChanged);
+        public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         #endregion
 
         #endregion
@@ -486,13 +486,13 @@ namespace XCalendar
             DateTime PageStartDate;
             switch (PageStartMode)
             {
-                case PageStartMode.NavigatedWeek:
+                case PageStartMode.FirstDayOfWeek:
                     PageStartDate = NavigationDate.FirstDayOfWeek(StartOfWeek);
                     break;
-                case PageStartMode.NavigatedMonth:
+                case PageStartMode.FirstDayOfMonth:
                     PageStartDate = NavigationDate.FirstDayOfMonth().FirstDayOfWeek(StartOfWeek);
                     break;
-                case PageStartMode.NavigatedYear:
+                case PageStartMode.FirstDayOfYear:
                     PageStartDate = new DateTime(NavigatedDate.Year, 1, 1).FirstDayOfWeek(StartOfWeek);
                     break;
                 default:
