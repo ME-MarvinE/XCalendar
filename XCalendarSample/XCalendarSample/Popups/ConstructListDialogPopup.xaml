@@ -35,7 +35,7 @@
         </StackLayout.Resources>
 
         <Grid VerticalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" RowDefinitions="*,1, Auto" ColumnDefinitions="*, *">
-            <CollectionView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Source={x:Reference MainConstructListDialogPopup}}" EmptyView="Empty">
+            <CollectionView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Source={x:Reference MainConstructListDialogPopup}}" EmptyView="Empty" VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                 </CollectionView.ItemsLayout>
@@ -64,7 +64,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" BackgroundColor="{StaticResource PageBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}" EmptyView="Empty">
+            <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" BackgroundColor="{StaticResource PageBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}" EmptyView="Empty" VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                 </CollectionView.ItemsLayout>

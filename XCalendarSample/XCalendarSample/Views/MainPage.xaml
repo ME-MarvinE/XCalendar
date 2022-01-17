@@ -29,25 +29,25 @@
             <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
             <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
         </Style>
-        
+
         <System:Boolean x:Key="TrueValue">True</System:Boolean>
-            <System:Boolean x:Key="FalseValue">False</System:Boolean>
+        <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
-            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
+        <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
 
-            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+        <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
 
-            <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
-            <xct:MultiConverter x:Key="EnumToInvertedBoolConverter">
-                <xct:EnumToBoolConverter/>
-                <xct:InvertedBoolConverter/>
-            </xct:MultiConverter>
+        <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+        <xct:MultiConverter x:Key="EnumToInvertedBoolConverter">
+            <xct:EnumToBoolConverter/>
+            <xct:InvertedBoolConverter/>
+        </xct:MultiConverter>
 
-            <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
-            <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any"/>
+        <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
+        <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any"/>
 
-            <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
-            <Converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+        <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
+        <Converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
 
         <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
             <Converters:EnumToStringConverter/>
@@ -62,184 +62,192 @@
 
         <ScrollView Orientation="Horizontal">
             <Grid ColumnDefinitions="*,1,*" ColumnSpacing="0" RowSpacing="0">
-                
+
                 <ScrollView Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}" Orientation="Vertical" VerticalScrollBarVisibility="Never">
                     <Grid
-                    RowSpacing="0"
-                    ColumnSpacing="0"
-                    RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*"
-                    ColumnDefinitions="*,*">
+                        RowSpacing="0"
+                        ColumnSpacing="0"
+                        RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*"
+                        ColumnDefinitions="*,*">
 
                         <Label
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="NavigatedDate:"/>
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="NavigatedDate:"/>
                         <Editor
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        HorizontalOptions="CenterAndExpand"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="{Binding NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                        AutoSize="TextChanges"/>
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalOptions="CenterAndExpand"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="{Binding NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                            AutoSize="TextChanges"/>
                         <DatePicker
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        TextColor="Transparent"
-                        Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
-                        Date="{Binding NavigatedDate}"/>
-                        
-                        <Label
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="TodayDate:"/>
-                        <Editor
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="CenterAndExpand"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="{Binding TodayDate, Source={x:Reference MainCalendarView}, StringFormat='{0:ddd, MMM d yyy}'}"
-                        AutoSize="TextChanges"/>
-                        <DatePicker
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        TextColor="Transparent"
-                        Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
-                        Date="{Binding TodayDate, Source={x:Reference MainCalendarView}}"/>
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="Transparent"
+                            Format="ddd, MMM d yyy"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            Date="{Binding NavigatedDate}"/>
 
                         <Label
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="DayRangeMinDate:"/>
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="TodayDate:"/>
                         <Editor
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalOptions="CenterAndExpand"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                        AutoSize="TextChanges"/>
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalOptions="CenterAndExpand"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="{Binding TodayDate, Source={x:Reference MainCalendarView}, StringFormat='{0:ddd, MMM d yyy}'}"
+                            AutoSize="TextChanges"/>
                         <DatePicker
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        TextColor="Transparent"
-                        Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
-                        Date="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"/>
-                        
-                        <Label
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="DayRangeMaxDate:"/>
-                        <Editor
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        HorizontalOptions="CenterAndExpand"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                        AutoSize="TextChanges"/>
-                        <DatePicker
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        TextColor="Transparent"
-                        Format="ddd, MMM d yyy"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
-                        Date="{Binding DayRangeMaximumDate}"/>
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="Transparent"
+                            Format="ddd, MMM d yyy"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            Date="{Binding TodayDate, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="NavigationLimitMode:"/>
-                        <Picker
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="DayRangeMinDate:"/>
+                        <Editor
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalOptions="CenterAndExpand"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                            AutoSize="TextChanges"/>
+                        <DatePicker
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="Transparent"
+                            Format="ddd, MMM d yyy"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            Date="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"/>
+
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="DayRangeMaxDate:"/>
+                        <Editor
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalOptions="CenterAndExpand"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                            AutoSize="TextChanges"/>
+                        <DatePicker
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="Transparent"
+                            Format="ddd, MMM d yyy"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            Date="{Binding DayRangeMaximumDate}"/>
+
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="NavigationLimitMode"/>
+                        <Label
                             Grid.Row="4"
                             Grid.Column="1"
                             WidthRequest="125"
-                            HorizontalOptions="Center"
-                            ItemsSource="{Binding NavigationLimitModes}"
-                            SelectedItem="{Binding NavigationLimitMode}"/>
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="#0080E0"
+                            Text="{Binding NavigationLimitMode}"
+                            xct:TouchEffect.NativeAnimation="True"
+                            xct:TouchEffect.Command="{Binding ShowNavigationLimitModeDialogCommand}"/>
 
                         <Label
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="SelectionMode:"/>
-                        <Picker
-                        Grid.Row="5"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        ItemsSource="{Binding SelectionModes}"
-                        SelectedItem="{Binding SelectionMode}"/>
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="SelectionMode"/>
+                        <Label
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="#0080E0"
+                            Text="{Binding SelectionMode}"
+                            xct:TouchEffect.NativeAnimation="True"
+                            xct:TouchEffect.Command="{Binding ShowSelectionModeDialogCommand}"/>
 
                         <Label
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="SelectedDate:"/>
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="SelectedDate:"/>
                         <Editor
-                        Grid.Row="6"
-                        Grid.Column="1"
-                        HorizontalOptions="CenterAndExpand"
-                        FontSize="{StaticResource SmallFontSize}"
-                        TextColor="{StaticResource ContentTextColor}"
-                        Text="{Binding SelectedDate, StringFormat='{0:ddd, MMM d}'}"
-                        AutoSize="TextChanges"/>
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            HorizontalOptions="CenterAndExpand"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="{StaticResource ContentTextColor}"
+                            Text="{Binding SelectedDate, StringFormat='{0:ddd, MMM d}'}"
+                            AutoSize="TextChanges"/>
                         <DatePicker
-                        Grid.Row="6"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        TextColor="Transparent"
-                        Format="ddd, MMM d"
-                        MinimumDate="{x:Static System:DateTime.MinValue}"
-                        MaximumDate="{x:Static System:DateTime.MaxValue}"
-                        Date="{Binding SelectedDate}"/>
-                        
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="Transparent"
+                            Format="ddd, MMM d"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            Date="{Binding SelectedDate}"/>
+
                         <Label
-                        Grid.Row="7"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="SelectedDates:"/>
+                            Grid.Row="7"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="SelectedDates:"/>
                         <CollectionView
-                        Grid.Row="7"
-                        Grid.Column="1"
-                        BackgroundColor="{StaticResource PageBackgroundColor}"
-                        HeightRequest="50"
-                        WidthRequest="100"
-                        ItemSizingStrategy="MeasureFirstItem"
-                        ItemsSource="{Binding SelectedDates}">
+                            Grid.Row="7"
+                            Grid.Column="1"
+                            BackgroundColor="{StaticResource PageBackgroundColor}"
+                            HeightRequest="50"
+                            WidthRequest="100"
+                            ItemSizingStrategy="MeasureFirstItem"
+                            ItemsSource="{Binding SelectedDates}">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
                             </CollectionView.ItemsLayout>
@@ -251,158 +259,170 @@
                         </CollectionView>
 
                         <Label
-                        Grid.Row="8"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="Rows:"/>
+                            Grid.Row="8"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="Rows:"/>
                         <Editor
-                        Grid.Row="8"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Text="{Binding Rows, Source={x:Reference MainCalendarView}}"/>
-                        
+                            Grid.Row="8"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Text="{Binding Rows, Source={x:Reference MainCalendarView}}"/>
+
                         <Label
-                        Grid.Row="9"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="AutoRows:"/>
+                            Grid.Row="9"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="AutoRows:"/>
                         <CheckBox
-                        Grid.Row="9"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        IsChecked="{Binding AutoRows, Source={x:Reference MainCalendarView}}"/>
+                            Grid.Row="9"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            IsChecked="{Binding AutoRows, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
-                        Grid.Row="10"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="AutoRowsIsConsistent:"/>
+                            Grid.Row="10"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="AutoRowsIsConsistent:"/>
                         <CheckBox
-                        Grid.Row="10"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        IsChecked="{Binding AutoRowsIsConsistent, Source={x:Reference MainCalendarView}}"/>
+                            Grid.Row="10"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            IsChecked="{Binding AutoRowsIsConsistent, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
-                        Grid.Row="11"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="NavigationMode:"/>
-                        <Picker
-                        Grid.Row="11"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        ItemsSource="{Binding NavigationModes}"
-                        SelectedItem="{Binding NavigationMode}"/>
+                            Grid.Row="11"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="NavigationMode"/>
+                        <Label
+                            Grid.Row="11"
+                            Grid.Column="1"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="#0080E0"
+                            Text="{Binding NavigationMode}"
+                            xct:TouchEffect.NativeAnimation="True"
+                            xct:TouchEffect.Command="{Binding ShowNavigationModeDialogCommand}"/>
 
                         <Label
-                        Grid.Row="12"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="PageStartMode:"/>
-                        <Picker
-                        Grid.Row="12"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        ItemsSource="{Binding PageStartModes}"
-                        SelectedItem="{Binding PageStartMode}"/>
-                        
+                            Grid.Row="12"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="PageStartMode:"/>
                         <Label
-                        Grid.Row="13"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="DayHeight:"/>
+                            Grid.Row="12"
+                            Grid.Column="1"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="#0080E0"
+                            Text="{Binding PageStartMode}"
+                            xct:TouchEffect.NativeAnimation="True"
+                            xct:TouchEffect.Command="{Binding ShowPageStartModeDialogCommand}"/>
+
+                        <Label
+                            Grid.Row="13"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="DayHeight:"/>
                         <Editor
-                        Grid.Row="13"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Text="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"/>
+                            Grid.Row="13"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Text="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
-                        Grid.Row="14"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="MonthViewHeight:"/>
+                            Grid.Row="14"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="MonthViewHeight:"/>
                         <Editor
-                        Grid.Row="14"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Text="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}"/>
+                            Grid.Row="14"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Text="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
-                        Grid.Row="15"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="DayNamesHeight:"/>
+                            Grid.Row="15"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="DayNamesHeight:"/>
                         <Editor
-                        Grid.Row="15"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Text="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}"/>
+                            Grid.Row="15"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Text="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}"/>
 
                         <Label
-                        Grid.Row="16"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="StartOfWeek:"/>
-                        <Picker
-                        Grid.Row="16"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        ItemsSource="{Binding DaysOfWeek}"
-                        SelectedItem="{Binding StartOfWeek}"/>
+                            Grid.Row="16"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="StartOfWeek:"/>
+                        <Label
+                            Grid.Row="16"
+                            Grid.Column="1"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="#0080E0"
+                            Text="{Binding StartOfWeek}"
+                            xct:TouchEffect.NativeAnimation="True"
+                            xct:TouchEffect.Command="{Binding ShowStartOfWeekDialogCommand}"/>
 
                         <Label
-                        Grid.Row="17"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="DayNamesOrder"/>
+                            Grid.Row="17"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="DayNamesOrder"/>
                         <Label
-                        Grid.Row="17"
-                        Grid.Column="1"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        TextColor="#0080E0"
-                        Text="Edit"
-                        xct:TouchEffect.NativeAnimation="True"
-                        xct:TouchEffect.Command="{Binding ShowDayNamesOrderDialogCommand}"/>
+                            Grid.Row="17"
+                            Grid.Column="1"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            TextColor="#0080E0"
+                            Text="Edit"
+                            xct:TouchEffect.NativeAnimation="True"
+                            xct:TouchEffect.Command="{Binding ShowDayNamesOrderDialogCommand}"/>
 
                         <Label
-                        Grid.Row="18"
-                        Grid.Column="0"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource SmallFontSize}"
-                        Text="OrderUsesStartOfWeek:"/>
+                            Grid.Row="18"
+                            Grid.Column="0"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Text="OrderUsesStartOfWeek:"/>
                         <CheckBox
-                        Grid.Row="18"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        IsChecked="{Binding DayNamesOrderUsesStartOfWeek, Source={x:Reference MainCalendarView}}"/>
-                        
+                            Grid.Row="18"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            IsChecked="{Binding DayNamesOrderUsesStartOfWeek, Source={x:Reference MainCalendarView}}"/>
+
                     </Grid>
-                    
+
                 </ScrollView>
 
                 <BoxView Grid.Column="1" WidthRequest="1" BackgroundColor="{DynamicResource OutlineColor}"/>
@@ -511,5 +531,5 @@
             </Grid>
         </ScrollView>
     </StackLayout>
-    
+
 </ContentPage>

@@ -53,6 +53,10 @@ namespace XCalendarSample.Popups
         #endregion
 
         #region Constructors
+        public ConstructListDialogPopup(IEnumerable AvailableItems)
+            :this(new List<object>(), AvailableItems)
+        {
+        }
         public ConstructListDialogPopup(IEnumerable InitialItems, IEnumerable AvailableItems)
         {
             DismissDialogCommand = new Command(() => Dismiss(new List<object>(ReturnValueItems)));

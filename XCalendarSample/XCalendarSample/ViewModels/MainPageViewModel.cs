@@ -51,12 +51,22 @@ namespace XCalendarSample.ViewModels
 
         #region Commands
         public ICommand ShowDayNamesOrderDialogCommand { get; set; }
+        public ICommand ShowSelectionModeDialogCommand { get; set; }
+        public ICommand ShowNavigationLimitModeDialogCommand { get; set; }
+        public ICommand ShowNavigationModeDialogCommand { get; set; }
+        public ICommand ShowPageStartModeDialogCommand { get; set; }
+        public ICommand ShowStartOfWeekDialogCommand { get; set; }
         #endregion
 
         #region Constructors
         public MainPageViewModel()
         {
             ShowDayNamesOrderDialogCommand = new Command(ShowDayNamesOrderDialog);
+            ShowSelectionModeDialogCommand = new Command(ShowSelectionModeDialog);
+            ShowNavigationLimitModeDialogCommand = new Command(ShowNavigationLimitModeDialog);
+            ShowNavigationModeDialogCommand = new Command(ShowNavigationModeDialog);
+            ShowPageStartModeDialogCommand = new Command(ShowPageStartModeDialog);
+            ShowStartOfWeekDialogCommand = new Command(ShowStartOfWeekDialog);
         }
         #endregion
 
@@ -65,6 +75,26 @@ namespace XCalendarSample.ViewModels
         {
             IEnumerable<DayOfWeek> NewDayNamesOrder = (await Application.Current.MainPage.ShowPopupAsync(new ConstructListDialogPopup(DayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
             DayNamesOrder.ReplaceRange(NewDayNamesOrder);
+        }
+        public async void ShowSelectionModeDialog()
+        {
+            SelectionMode = (XCalendar.Enums.SelectionMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(SelectionMode, SelectionModes));
+        }
+        public async void ShowNavigationModeDialog()
+        {
+            NavigationMode = (NavigationMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(NavigationMode, NavigationModes));
+        }
+        public async void ShowNavigationLimitModeDialog()
+        {
+            NavigationLimitMode = (NavigationLimitMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(NavigationLimitMode, NavigationLimitModes));
+        }
+        public async void ShowPageStartModeDialog()
+        {
+            PageStartMode = (PageStartMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(PageStartMode, PageStartModes));
+        }
+        public async void ShowStartOfWeekDialog()
+        {
+            StartOfWeek = (DayOfWeek)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(StartOfWeek, DaysOfWeek));
         }
         #endregion
     }
