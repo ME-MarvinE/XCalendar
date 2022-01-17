@@ -44,7 +44,7 @@ namespace XCalendarSample.ViewModels
             DayOfWeek.Sunday
         };
         public XCalendar.Enums.SelectionMode SelectionMode { get; set; } = XCalendar.Enums.SelectionMode.Multiple;
-        public NavigationLimitMode NavigationLimitMode { get; set; } = NavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange;
+        public NavigationLimitMode NavigationLimitMode { get; set; } = NavigationLimitMode.ClampToDayRangeAndLoopMinimumAndMaximum;
         public NavigationMode NavigationMode { get; set; } = NavigationMode.ByMonth;
         public PageStartMode PageStartMode { get; set; } = PageStartMode.FirstDayOfMonth;
         #endregion

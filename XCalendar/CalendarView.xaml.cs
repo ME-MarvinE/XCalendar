@@ -583,7 +583,7 @@ namespace XCalendar
             {
                 switch (NavigationLimitMode)
                 {
-                    case NavigationLimitMode.Restrict:
+                    case NavigationLimitMode.DontLoop:
                         if (!Forward) { NavigatedDate = DateTime.MinValue; }
                         else if (Forward) { NavigatedDate = DateTime.MaxValue; }
                         break;
@@ -598,17 +598,17 @@ namespace XCalendar
                         else if (Forward) { NavigatedDate = DateTime.MinValue; }
                         break;
 
-                    case NavigationLimitMode.RestrictAndScopeToDayRange:
+                    case NavigationLimitMode.ClampToDayRangeAndDontLoop:
                         if (!Forward) { NavigatedDate = DayRangeMinimumDate; }
                         else if (Forward) { NavigatedDate = DayRangeMaximumDate; }
                         break;
-                    case NavigationLimitMode.LoopMinimumAndScopeToDayRange:
+                    case NavigationLimitMode.ClampToDayRangeAndLoopMinimum:
                         if (!Forward) { NavigatedDate = DayRangeMaximumDate; }
                         break;
-                    case NavigationLimitMode.LoopMaximumAndScopeToDayRange:
+                    case NavigationLimitMode.ClampToDayRangeAndLoopMaximum:
                         if (Forward) { NavigatedDate = DayRangeMinimumDate; }
                         break;
-                    case NavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange:
+                    case NavigationLimitMode.ClampToDayRangeAndLoopMinimumAndMaximum:
                         if (!Forward) { NavigatedDate = DayRangeMaximumDate; }
                         else if (Forward) { NavigatedDate = DayRangeMinimumDate; }
                         break;
@@ -789,28 +789,28 @@ namespace XCalendar
 
             switch (Control.NavigationLimitMode)
             {
-                case NavigationLimitMode.Restrict:
+                case NavigationLimitMode.DontLoop:
                 case NavigationLimitMode.LoopMinimum:
                 case NavigationLimitMode.LoopMaximum:
                 case NavigationLimitMode.LoopMinimumAndMaximum:
                     return BeforeValue;
 
-                case NavigationLimitMode.RestrictAndScopeToDayRange:
+                case NavigationLimitMode.ClampToDayRangeAndDontLoop:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMinimumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMaximumDate; }
                     return BeforeValue;
 
-                case NavigationLimitMode.LoopMinimumAndScopeToDayRange:
+                case NavigationLimitMode.ClampToDayRangeAndLoopMinimum:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMaximumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMaximumDate; }
                     return BeforeValue;
 
-                case NavigationLimitMode.LoopMaximumAndScopeToDayRange:
+                case NavigationLimitMode.ClampToDayRangeAndLoopMaximum:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMinimumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMinimumDate; }
                     return BeforeValue;
 
-                case NavigationLimitMode.LoopMinimumAndMaximumAndScopeToDayRange:
+                case NavigationLimitMode.ClampToDayRangeAndLoopMinimumAndMaximum:
                     if (BeforeValue.Date < Control.DayRangeMinimumDate.Date) { return Control.DayRangeMaximumDate; }
                     if (BeforeValue.Date > Control.DayRangeMaximumDate.Date) { return Control.DayRangeMinimumDate; }
                     return BeforeValue;

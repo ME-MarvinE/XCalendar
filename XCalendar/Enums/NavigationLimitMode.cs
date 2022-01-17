@@ -2,13 +2,13 @@
 {
     public enum NavigationLimitMode
     {
-        Restrict,
+        DontLoop,
         LoopMinimum,
         LoopMaximum,
         LoopMinimumAndMaximum,
-        RestrictAndScopeToDayRange,
-        LoopMinimumAndScopeToDayRange,
-        LoopMaximumAndScopeToDayRange,
-        LoopMinimumAndMaximumAndScopeToDayRange,
+        ClampToDayRangeAndDontLoop,
+        ClampToDayRangeAndLoopMinimum,
+        ClampToDayRangeAndLoopMaximum,
+        ClampToDayRangeAndLoopMinimumAndMaximum,
     }
 }
