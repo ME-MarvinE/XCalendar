@@ -522,7 +522,6 @@ namespace XCalendar
                 {
                     try
                     {
-                        //RowDates.Add(PageStartDate.AddDays(RowsAdded * DaysOfWeek.Count + i));
                         DateTime DateTime = PageStartDate.AddDays(RowsAdded * DaysOfWeek.Count + i);
                         Row.Add(DateTime.DayOfWeek, DateTime);
                     }
@@ -569,10 +568,7 @@ namespace XCalendar
                         NavigatedDate = NavigatedDate.AddYears(Forward ? 1 : -1);
                         break;
                     case NavigationMode.ByPage:
-                        List<CalendarDay> DaysList = _Days.ToList();
-                        IEnumerable<DateTime> DistinctDates = DaysList.Select(x => x.DateTime.Date).Distinct();
-
-                        NavigatedDate = NavigatedDate.AddDays(Forward ? DistinctDates.Count() : -DistinctDates.Count());
+                        NavigatedDate = NavigatedDate.AddDays(Forward ? DaysOfWeek.Count * Rows : -DaysOfWeek.Count * Rows);
                         break;
                     default:
                         throw new NotImplementedException($"{nameof(Enums.NavigationMode)} {NavigationMode} is not implemented.");
