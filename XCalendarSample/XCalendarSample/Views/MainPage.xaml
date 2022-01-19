@@ -120,7 +120,7 @@
                                 HorizontalOptions="Center"
                                 VerticalOptions="End"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="{Binding TodayDate, Source={x:Reference FancyCalendarView}, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
                                 AutoSize="TextChanges"/>
                             <DatePicker
                                 Grid.Column="1"
@@ -353,7 +353,7 @@
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding DayNamesOrderUsesStartOfWeek, Source={x:Reference FancyCalendarView}}"/>
+                                IsToggled="{Binding DayNamesOrderUsesStartOfWeek}"/>
                         </Grid>
 
                         <Grid>
@@ -367,7 +367,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 VerticalOptions="End"
-                                Text="{Binding Rows, Source={x:Reference FancyCalendarView}}"/>
+                                Text="{Binding Rows}"/>
                         </Grid>
 
                         <Grid>
@@ -380,7 +380,7 @@
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding AutoRows, Source={x:Reference FancyCalendarView}}"/>
+                                IsToggled="{Binding AutoRows}"/>
                         </Grid>
 
                         <Grid>
@@ -393,7 +393,7 @@
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding AutoRowsIsConsistent, Source={x:Reference FancyCalendarView}}"/>
+                                IsToggled="{Binding AutoRowsIsConsistent}"/>
                         </Grid>
 
                         <Grid>
@@ -407,7 +407,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 VerticalOptions="End"
-                                Text="{Binding DayNamesHeightRequest, Source={x:Reference FancyCalendarView}}"/>
+                                Text="{Binding DayNamesHeightRequest}"/>
                         </Grid>
 
                         <Grid>
@@ -421,7 +421,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 VerticalOptions="End"
-                                Text="{Binding MonthViewHeightRequest, Source={x:Reference FancyCalendarView}}"/>
+                                Text="{Binding MonthViewHeightRequest}"/>
                         </Grid>
 
                         <Grid>
@@ -435,7 +435,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 VerticalOptions="End"
-                                Text="{Binding DayHeightRequest, Source={x:Reference FancyCalendarView}}"/>
+                                Text="{Binding DayHeightRequest}"/>
                         </Grid>
 
                     </StackLayout>
@@ -466,24 +466,24 @@
                         DayOtherMonthTextColor="#A0A0A0"
                         DayTodayTextColor="#009000"
                         NavigatedDate="{Binding NavigatedDate}"
-                        TodayDate="{x:Static System:DateTime.Today}"
+                        TodayDate="{Binding TodayDate}"
                         DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
                         DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
                         NavigationLimitMode="{Binding NavigationLimitMode}"
                         SelectionMode="{Binding SelectionMode}"
                         SelectedDate="{Binding SelectedDate}"
                         SelectedDates="{Binding SelectedDates}"
-                        Rows="2"
-                        AutoRows="True"
-                        AutoRowsIsConsistent="True"
+                        Rows="{Binding Rows}"
+                        AutoRows="{Binding AutoRows}"
+                        AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         NavigationMode="{Binding NavigationMode}"
                         PageStartMode="{Binding PageStartMode}"
-                        DayHeightRequest="50"
-                        MonthViewHeightRequest="300"
-                        DayNamesHeightRequest="25"
+                        DayHeightRequest="{Binding DayHeightRequest}"
+                        MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
+                        DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         StartOfWeek="{Binding StartOfWeek}"
                         DayNamesOrder="{Binding DayNamesOrder}"
-                        DayNamesOrderUsesStartOfWeek="False">
+                        DayNamesOrderUsesStartOfWeek="{Binding DayNamesOrderUsesStartOfWeek}">
                     </xc:CalendarView>
 
                     <xc:CalendarView
@@ -500,24 +500,24 @@
                         DayOtherMonthTextColor="#A0A0A0"
                         DayTodayTextColor="{StaticResource ContentTextColor}"
                         NavigatedDate="{Binding NavigatedDate}"
-                        TodayDate="{x:Static System:DateTime.Today}"
+                        TodayDate="{Binding TodayDate}"
                         DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
                         DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
                         NavigationLimitMode="{Binding NavigationLimitMode}"
                         SelectionMode="{Binding SelectionMode}"
                         SelectedDate="{Binding SelectedDate}"
                         SelectedDates="{Binding SelectedDates}"
-                        Rows="2"
-                        AutoRows="True"
-                        AutoRowsIsConsistent="True"
+                        Rows="{Binding Rows}"
+                        AutoRows="{Binding AutoRows}"
+                        AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         NavigationMode="{Binding NavigationMode}"
                         PageStartMode="{Binding PageStartMode}"
-                        DayHeightRequest="50"
-                        MonthViewHeightRequest="300"
-                        DayNamesHeightRequest="25"
+                        DayHeightRequest="{Binding DayHeightRequest}"
+                        MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
+                        DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         StartOfWeek="{Binding StartOfWeek}"
                         DayNamesOrder="{Binding DayNamesOrder}"
-                        DayNamesOrderUsesStartOfWeek="False">
+                        DayNamesOrderUsesStartOfWeek="{Binding DayNamesOrderUsesStartOfWeek}">
 
                         <xc:CalendarView.DayTemplate>
                             <DataTemplate x:DataType="{x:Type Models:CalendarDay}">

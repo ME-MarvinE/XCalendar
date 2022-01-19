@@ -47,6 +47,14 @@ namespace XCalendarSample.ViewModels
         public NavigationLimitMode NavigationLimitMode { get; set; } = NavigationLimitMode.ClampToDayRangeAndLoopMinimumAndMaximum;
         public NavigationMode NavigationMode { get; set; } = NavigationMode.ByMonth;
         public PageStartMode PageStartMode { get; set; } = PageStartMode.FirstDayOfMonth;
+        public int Rows { get; set; } = 2;
+        public bool AutoRows { get; set; } = true;
+        public bool AutoRowsIsConsistent { get; set; } = true;
+        public double DayHeightRequest { get; set; } = 50;
+        public double MonthViewHeightRequest { get; set; } = 300;
+        public double DayNamesHeightRequest { get; set; } = 25;
+        public bool DayNamesOrderUsesStartOfWeek { get; set; } = true;
+        public DateTime TodayDate { get; set; } = DateTime.Today;
         #endregion
 
         #region Commands

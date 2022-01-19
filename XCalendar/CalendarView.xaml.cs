@@ -306,7 +306,7 @@ namespace XCalendar
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
-        public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, propertyChanged: RowsPropertyChanged, coerceValue: CoerceRows);
+        public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged, coerceValue: CoerceRows);
         public static readonly BindableProperty AutoRowsProperty = BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsPropertyChanged);
         public static readonly BindableProperty AutoRowsIsConsistentProperty = BindableProperty.Create(nameof(AutoRowsIsConsistent), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsIsConsistentPropertyChanged);
         public static readonly BindableProperty DayRangeMinimumDateProperty = BindableProperty.Create(nameof(DayRangeMinimumDate), typeof(DateTime), typeof(CalendarView), DateTime.MinValue, propertyChanged: DayRangeMinimumDatePropertyChanged);
@@ -324,7 +324,7 @@ namespace XCalendar
         public static readonly BindableProperty DayOutOfRangeTextColorProperty = BindableProperty.Create(nameof(DayOutOfRangeTextColor), typeof(Color), typeof(CalendarView), Color.Pink);
         public static readonly BindableProperty DaySelectedTextColorProperty = BindableProperty.Create(nameof(DaySelectedTextColor), typeof(Color), typeof(CalendarView), Color.Red);
         public static readonly BindableProperty DayNameTextColorProperty = BindableProperty.Create(nameof(DayNameTextColor), typeof(Color), typeof(CalendarView), Color.Black);
-        public static readonly BindableProperty DayNamesOrderProperty = BindableProperty.Create(nameof(DayNamesOrder), typeof(ObservableRangeCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: DayNamesOrderDefaultValueCreator, coerceValue: CoerceDayNamesOrder);
+        public static readonly BindableProperty DayNamesOrderProperty = BindableProperty.Create(nameof(DayNamesOrder), typeof(ObservableRangeCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: DayNamesOrderDefaultValueCreator, propertyChanged: DayNamesOrderPropertyChanged, coerceValue: CoerceDayNamesOrder);
         public static readonly BindableProperty DayNamesOrderUsesStartOfWeekProperty = BindableProperty.Create(nameof(DayNamesOrderUsesStartOfWeek), typeof(bool), typeof(CalendarView), true, propertyChanged: DayNamesOrderUsesStartOfWeekPropertyChanged);
         public static readonly BindableProperty DayNamesTemplateProperty = BindableProperty.Create(nameof(DayNamesTemplate), typeof(ControlTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNamesHeightRequestProperty = BindableProperty.Create(nameof(DayNamesHeightRequest), typeof(double), typeof(CalendarView), 25d);
@@ -338,7 +338,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigationArrowColorProperty = BindableProperty.Create(nameof(NavigationArrowColor), typeof(Color), typeof(CalendarView), Color.Black);
         public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView), Color.White);
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 200f);
-        public static readonly BindableProperty NavigationLimitModeProperty = BindableProperty.Create(nameof(NavigationLimitMode), typeof(NavigationLimitMode), typeof(CalendarView), NavigationLimitMode.LoopMinimumAndMaximum);
+        public static readonly BindableProperty NavigationLimitModeProperty = BindableProperty.Create(nameof(NavigationLimitMode), typeof(NavigationLimitMode), typeof(CalendarView), NavigationLimitMode.LoopMinimumAndMaximum, propertyChanged: NavigationLimitModePropertyChanged);
         public static readonly BindableProperty NavigationModeProperty = BindableProperty.Create(nameof(NavigationMode), typeof(NavigationMode), typeof(CalendarView), NavigationMode.ByMonth);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         #endregion
@@ -621,7 +621,6 @@ namespace XCalendar
         }
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            CoerceValue(DayNamesOrderProperty);
             ValidateDayNamesOrder();
         }
         public void ValidateDayNamesOrder()
@@ -643,6 +642,12 @@ namespace XCalendar
             Control.UpdateMonthViewDates(Control.NavigatedDate);
             Control.OnMonthViewDaysInvalidated();
         }
+        private static void NavigationLimitModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+            Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
+            //Control.CoerceValue(NavigatedDateProperty);
+        }
         private static void TodayDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
@@ -651,19 +656,20 @@ namespace XCalendar
         private static void StartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.CoerceValue(DayNamesOrderProperty);
+            Control.DayNamesOrder.ReplaceRange((ObservableRangeCollection<DayOfWeek>)CoerceDayNamesOrder(Control, Control.DayNamesOrder));
+            //Control.CoerceValue(DayNamesOrderProperty);
             Control.UpdateMonthViewDates(Control.NavigatedDate);
             Control.OnMonthViewDaysInvalidated();
         }
         private static void DayRangeMinimumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.OnMonthViewDaysInvalidated();
+            Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
         }
         private static void DayRangeMaximumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.OnMonthViewDaysInvalidated();
+            Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
         }
         private static void SelectedDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -687,6 +693,17 @@ namespace XCalendar
                 Control.OnMonthViewDaysInvalidated();
                 Control.OnDateSelectionChanged();
             }
+        }
+        private static void DayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+            ObservableRangeCollection<DayOfWeek> OldDayNamesOrder = (ObservableRangeCollection<DayOfWeek>)oldValue;
+            ObservableRangeCollection<DayOfWeek> NewDayNamesOrder = (ObservableRangeCollection<DayOfWeek>)newValue;
+
+            if (OldDayNamesOrder != null) { OldDayNamesOrder.CollectionChanged -= Control.DayNamesOrder_CollectionChanged; }
+            if (NewDayNamesOrder != null) { NewDayNamesOrder.CollectionChanged += Control.DayNamesOrder_CollectionChanged; }
+            Control.OnMonthViewDaysInvalidated();
+            Control.OnDateSelectionChanged();
         }
         private static void SelectionModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -757,19 +774,38 @@ namespace XCalendar
         private static void AutoRowsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.CoerceValue(RowsProperty);
+            if (Control.Rows == (int)CoerceRows(Control, Control.Rows))
+            {
+                Control.UpdateMonthViewDates(Control.NavigatedDate);
+                Control.OnMonthViewDaysInvalidated();
+            }
+            else
+            {
+                Control.Rows = (int)CoerceRows(Control, Control.Rows);
+            }
+            //Control.CoerceValue(RowsProperty);
         }
         private static void AutoRowsIsConsistentPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.CoerceValue(RowsProperty);
+            if (Control.Rows == (int)CoerceRows(Control, Control.Rows))
+            {
+                Control.UpdateMonthViewDates(Control.NavigatedDate);
+                Control.OnMonthViewDaysInvalidated();
+            }
+            else
+            {
+                Control.Rows = (int)CoerceRows(Control, Control.Rows);
+            }
+            //Control.CoerceValue(RowsProperty);
         }
         private static void DayNamesOrderUsesStartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
             if ((bool)newValue)
             {
-                Control.CoerceValue(DayNamesOrderProperty);
+                Control.DayNamesOrder = (ObservableRangeCollection<DayOfWeek>)CoerceDayNamesOrder(Control, Control.DayNamesOrder);
+                //Control.CoerceValue(DayNamesOrderProperty);
             }
         }
         private static void PageStartModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -869,7 +905,10 @@ namespace XCalendar
         private static object DayNamesOrderDefaultValueCreator(BindableObject bindable)
         {
             CalendarView Control = (CalendarView)bindable;
-            return new ObservableRangeCollection<DayOfWeek>(Control.DaysOfWeek);
+            ObservableRangeCollection<DayOfWeek> DefaultValue = new ObservableRangeCollection<DayOfWeek>(Control.DaysOfWeek);
+
+            DefaultValue.CollectionChanged += Control.DayNamesOrder_CollectionChanged;
+            return DefaultValue;
         }
         private static object SelectedDatesDefaultValueCreator(BindableObject bindable)
         {
