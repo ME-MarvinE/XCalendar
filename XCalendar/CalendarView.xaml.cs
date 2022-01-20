@@ -343,7 +343,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
         private static readonly BindablePropertyKey DaysPropertyKey = BindableProperty.CreateReadOnly(nameof(Days), typeof(ReadOnlyObservableCollection<CalendarDay>), typeof(CalendarView), null, defaultValueCreator: DaysDefaultValueCreator);
         public static readonly BindableProperty DaysProperty = DaysPropertyKey.BindableProperty;
-        public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged, coerceValue: CoerceRows);
+        public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged);
         public static readonly BindableProperty AutoRowsProperty = BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsPropertyChanged);
         public static readonly BindableProperty AutoRowsIsConsistentProperty = BindableProperty.Create(nameof(AutoRowsIsConsistent), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsIsConsistentPropertyChanged);
         public static readonly BindableProperty DayRangeMinimumDateProperty = BindableProperty.Create(nameof(DayRangeMinimumDate), typeof(DateTime), typeof(CalendarView), DateTime.MinValue, propertyChanged: DayRangeMinimumDatePropertyChanged);
@@ -696,14 +696,23 @@ namespace XCalendar
         private static void RowsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.UpdateMonthViewDates(Control.NavigatedDate);
-            Control.OnMonthViewDaysInvalidated();
+
+            int CoercedRows = (int)GetCorrectRows(Control, Control.Rows);
+            if (Control.Rows != CoercedRows)
+            {
+                Control.Rows = CoercedRows;
+            }
+            else
+            {
+                Control.UpdateMonthViewDates(Control.NavigatedDate);
+                Control.OnMonthViewDaysInvalidated();
+            }
         }
         private static void NavigatedDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
 
-            int CoercedRows = (int)CoerceRows(Control, Control.Rows);
+            int CoercedRows = (int)GetCorrectRows(Control, Control.Rows);
 
             if (Control.Rows == CoercedRows)
             {
@@ -876,14 +885,14 @@ namespace XCalendar
         {
             CalendarView Control = (CalendarView)bindable;
 
-            Control.Rows = (int)CoerceRows(Control, Control.Rows);
+            Control.Rows = (int)GetCorrectRows(Control, Control.Rows);
             //Control.CoerceValue(RowsProperty);
         }
         private static void AutoRowsIsConsistentPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
 
-            Control.Rows = (int)CoerceRows(Control, Control.Rows);
+            Control.Rows = (int)GetCorrectRows(Control, Control.Rows);
             //Control.CoerceValue(RowsProperty);
         }
         private static void UseCustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -940,7 +949,7 @@ namespace XCalendar
 
             return InitialValue;
         }
-        private static object CoerceRows(BindableObject bindable, object value)
+        private static object GetCorrectRows(BindableObject bindable, object value)
         {
             CalendarView Control = (CalendarView)bindable;
 
