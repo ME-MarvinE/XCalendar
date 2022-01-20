@@ -1,14 +1,13 @@
-﻿namespace XCalendar.Enums
+﻿using System;
+
+namespace XCalendar.Enums
 {
+    [Flags]
     public enum NavigationLimitMode
     {
-        DontLoop,
-        LoopMinimum,
-        LoopMaximum,
-        LoopMinimumAndMaximum,
-        ClampToDayRangeAndDontLoop,
-        ClampToDayRangeAndLoopMinimum,
-        ClampToDayRangeAndLoopMaximum,
-        ClampToDayRangeAndLoopMinimumAndMaximum,
+        None = 0,
+        LoopMinimum = 1,
+        LoopMaximum = 2,
+        LoopMinimumAndMaximum = LoopMinimum | LoopMaximum
     }
 }

@@ -5,7 +5,7 @@ namespace XCalendar.Models
     public class CalendarDay : BaseObservableModel
     {
         #region Fields
-        private DateTime _dateTime = DateTime.Today;
+        private DateTime _DateTime = DateTime.Today;
         #endregion
 
         #region Properties
@@ -13,11 +13,11 @@ namespace XCalendar.Models
         {
             get
             {
-                return _dateTime;
+                return _DateTime;
             }
             set
             {
-                _dateTime = value;
+                _DateTime = value;
                 OnPropertyChanged();
             }
         }
