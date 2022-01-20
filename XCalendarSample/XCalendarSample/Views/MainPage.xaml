@@ -497,7 +497,8 @@
                         StartOfWeek="{Binding StartOfWeek}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}"
-                        ClampNavigatedDateToDayRange = "{Binding ClampNavigatedDateToDayRange}">
+                        ClampNavigatedDateToDayRange="{Binding ClampNavigatedDateToDayRange}"
+                        NavigationHeightRequest="{Binding NavigationHeightRequest}">
 
                         <xc:CalendarView.Style>
                             <Style TargetType="{x:Type xc:CalendarView}">
