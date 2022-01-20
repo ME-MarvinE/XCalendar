@@ -28,17 +28,22 @@ namespace XCalendar
             DayOfWeek.Saturday,
             DayOfWeek.Sunday,
         };
-        /// <summary>
-        /// The list of displayed dates.
-        /// </summary>
-        protected readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
+
+        private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
         #endregion
 
         #region Properties
-        public ReadOnlyObservableCollection<CalendarDay> Days { get; }
 
         #region Bindable Properties
+        /// <summary>
+        /// The list of displayed days.
+        /// </summary>
+        public ReadOnlyObservableCollection<CalendarDay> Days
+        {
+            get { return (ReadOnlyObservableCollection<CalendarDay>)GetValue(DaysProperty); }
+            protected set { SetValue(DaysPropertyKey, value); }
+        }
         /// <summary>
         /// The date the calendar will use to get the dates representing a time unit.
         /// </summary>
@@ -328,6 +333,8 @@ namespace XCalendar
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
+        private static readonly BindablePropertyKey DaysPropertyKey = BindableProperty.CreateReadOnly(nameof(Days), typeof(ReadOnlyObservableCollection<CalendarDay>), typeof(CalendarView), null, defaultValueCreator: DaysDefaultValueCreator);
+        public static readonly BindableProperty DaysProperty = DaysPropertyKey.BindableProperty;
         public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged, coerceValue: CoerceRows);
         public static readonly BindableProperty AutoRowsProperty = BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsPropertyChanged);
         public static readonly BindableProperty AutoRowsIsConsistentProperty = BindableProperty.Create(nameof(AutoRowsIsConsistent), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsIsConsistentPropertyChanged);
@@ -393,8 +400,6 @@ namespace XCalendar
         #region Constructors
         public CalendarView()
         {
-            Days = new ReadOnlyObservableCollection<CalendarDay>(_Days);
-
             NavigateCalendarCommand = new Command<bool>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
@@ -507,15 +512,15 @@ namespace XCalendar
             }
 
             //Add/Remove days until reaching the required count.
-            while (DaysRequiredToNavigate - _Days.Count != 0)
+            while (DaysRequiredToNavigate - Days.Count != 0)
             {
-                if (DaysRequiredToNavigate - _Days.Count > 0)
+                if (DaysRequiredToNavigate - Days.Count > 0)
                 {
                     _Days.Add(new CalendarDay());
                 }
                 else
                 {
-                    _Days.RemoveAt(_Days.Count - 1);
+                    _Days.RemoveAt(Days.Count - 1);
                 }
             }
 
@@ -542,12 +547,12 @@ namespace XCalendar
                 {
                     try
                     {
-                        _Days[DatesUpdated].DateTime = Row[DayNamesOrderList[i]];
+                        Days[DatesUpdated].DateTime = Row[DayNamesOrderList[i]];
                     }
                     catch (KeyNotFoundException)
                     {
                         //Catch for when RowDates may not have a certain DayOfWeek, for example when the week spans into unrepresentable DateTimes.
-                        _Days[DatesUpdated].DateTime = DateTime.MaxValue;
+                        Days[DatesUpdated].DateTime = DateTime.MaxValue;
                     }
 
                     DatesUpdated += 1;
@@ -964,6 +969,11 @@ namespace XCalendar
 
             DefaultValue.CollectionChanged += Control.SelectedDates_CollectionChanged;
             return DefaultValue;
+        }
+        private static object DaysDefaultValueCreator(BindableObject bindable)
+        {
+            CalendarView Control = (CalendarView)bindable;
+            return new ReadOnlyObservableCollection<CalendarDay>(Control._Days);
         }
         #endregion
 
