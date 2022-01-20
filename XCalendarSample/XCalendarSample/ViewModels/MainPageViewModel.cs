@@ -33,7 +33,7 @@ namespace XCalendarSample.ViewModels
         public DateTime DayRangeMinimumDate { get; set; } = DateTime.Today.AddYears(-2);
         public DateTime DayRangeMaximumDate { get; set; } = DateTime.Today.AddYears(2);
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
-        public ObservableRangeCollection<DayOfWeek> DayNamesOrder { get; } = new ObservableRangeCollection<DayOfWeek>()
+        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; } = new ObservableRangeCollection<DayOfWeek>()
         {
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,
@@ -53,12 +53,12 @@ namespace XCalendarSample.ViewModels
         public double DayHeightRequest { get; set; } = 50;
         public double MonthViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
-        public bool DayNamesOrderUsesStartOfWeek { get; set; } = true;
+        public bool UseCustomDayNamesOrder { get; set; } = false;
         public DateTime TodayDate { get; set; } = DateTime.Today;
         #endregion
 
         #region Commands
-        public ICommand ShowDayNamesOrderDialogCommand { get; set; }
+        public ICommand ShowCustomDayNamesOrderDialogCommand { get; set; }
         public ICommand ShowSelectionModeDialogCommand { get; set; }
         public ICommand ShowNavigationLimitModeDialogCommand { get; set; }
         public ICommand ShowNavigationModeDialogCommand { get; set; }
@@ -69,7 +69,7 @@ namespace XCalendarSample.ViewModels
         #region Constructors
         public MainPageViewModel()
         {
-            ShowDayNamesOrderDialogCommand = new Command(ShowDayNamesOrderDialog);
+            ShowCustomDayNamesOrderDialogCommand = new Command(ShowCustomDayNamesOrderDialog);
             ShowSelectionModeDialogCommand = new Command(ShowSelectionModeDialog);
             ShowNavigationLimitModeDialogCommand = new Command(ShowNavigationLimitModeDialog);
             ShowNavigationModeDialogCommand = new Command(ShowNavigationModeDialog);
@@ -79,10 +79,10 @@ namespace XCalendarSample.ViewModels
         #endregion
 
         #region Methods
-        public async void ShowDayNamesOrderDialog()
+        public async void ShowCustomDayNamesOrderDialog()
         {
-            IEnumerable<DayOfWeek> NewDayNamesOrder = (await Application.Current.MainPage.ShowPopupAsync(new ConstructListDialogPopup(DayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
-            DayNamesOrder.ReplaceRange(NewDayNamesOrder);
+            IEnumerable<DayOfWeek> NewCustomDayNamesOrder = (await Application.Current.MainPage.ShowPopupAsync(new ConstructListDialogPopup(CustomDayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
+            CustomDayNamesOrder.ReplaceRange(NewCustomDayNamesOrder);
         }
         public async void ShowSelectionModeDialog()
         {

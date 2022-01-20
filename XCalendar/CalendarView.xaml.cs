@@ -18,7 +18,7 @@ namespace XCalendar
     public partial class CalendarView : ContentView
     {
         #region Fields
-        protected readonly List<DayOfWeek> DaysOfWeek = new List<DayOfWeek>()
+        protected static readonly List<DayOfWeek> DaysOfWeek = new List<DayOfWeek>()
         {
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,
@@ -31,7 +31,8 @@ namespace XCalendar
         /// <summary>
         /// The list of displayed dates.
         /// </summary>
-        protected ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
+        protected readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
+        private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
         #endregion
 
         #region Properties
@@ -75,7 +76,7 @@ namespace XCalendar
         /// <summary>
         /// The day of week that should be considered as the start of the week.
         /// </summary>
-        /// <seealso cref="DayNamesOrder"/>
+        /// <seealso cref="CustomDayNamesOrder"/>
         public DayOfWeek StartOfWeek
         {
             get { return (DayOfWeek)GetValue(StartOfWeekProperty); }
@@ -188,12 +189,12 @@ namespace XCalendar
             set { SetValue(AutoRowsIsConsistentProperty, value); }
         }
         /// <summary>
-        /// Whether to shift the values in <see cref="DayNamesOrder"/> so that the <see cref="StartOfWeek"/> is the first value.
+        /// Whether to use <see cref="CustomDayNamesOrder"/> for displaying the page or not.
         /// </summary>
-        public bool DayNamesOrderUsesStartOfWeek
+        public bool UseCustomDayNamesOrder
         {
-            get { return (bool)GetValue(DayNamesOrderUsesStartOfWeekProperty); }
-            set { SetValue(DayNamesOrderUsesStartOfWeekProperty, value); }
+            get { return (bool)GetValue(UseCustomDayNamesOrderProperty); }
+            set { SetValue(UseCustomDayNamesOrderProperty, value); }
         }
         /// <summary>
         /// The template used to display the view for navigating the calendar.
@@ -257,14 +258,14 @@ namespace XCalendar
             set { SetValue(SelectedDatesProperty, value); }
         }
         /// <summary>
-        /// The order to display the days of the week in.
+        /// The order to display the days of the week in when <see cref="UseCustomDayNamesOrder"/> is set to true.
         /// </summary>
-        /// <remarks>Duplicate values are allowed. Does not affect logic.</remarks>
-        /// <seealso cref="DayNamesOrderUsesStartOfWeek"/>
-        public ObservableRangeCollection<DayOfWeek> DayNamesOrder
+        /// <remarks>Does not affect logic.</remarks>
+        /// <seealso cref="UseCustomDayNamesOrder"/>
+        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder
         {
-            get { return (ObservableRangeCollection<DayOfWeek>)GetValue(DayNamesOrderProperty); }
-            set { SetValue(DayNamesOrderProperty, value); }
+            get { return (ObservableRangeCollection<DayOfWeek>)GetValue(CustomDayNamesOrderProperty); }
+            set { SetValue(CustomDayNamesOrderProperty, value); }
         }
         /// <summary>
         /// The number of rows to display.
@@ -303,6 +304,22 @@ namespace XCalendar
             get { return (PageStartMode)GetValue(PageStartModeProperty); }
             set { SetValue(PageStartModeProperty, value); }
         }
+        /// <summary>
+        /// The days of the week ordered chronologically according to the <see cref="StartOfWeek"/>.
+        /// </summary>
+        public ReadOnlyObservableCollection<DayOfWeek> StartOfWeekDayNamesOrder
+        {
+            get { return (ReadOnlyObservableCollection<DayOfWeek>)GetValue(StartOfWeekDayNamesOrderProperty); }
+            protected set { SetValue(StartOfWeekDayNamesOrderPropertyKey, value); }
+        }
+        /// <summary>
+        /// The order to display the days of the week in.
+        /// </summary>
+        public ReadOnlyObservableCollection<DayOfWeek> DayNamesOrder
+        {
+            get { return (ReadOnlyObservableCollection<DayOfWeek>)GetValue(DayNamesOrderProperty); }
+            protected set { SetValue(DayNamesOrderPropertyKey, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -324,8 +341,12 @@ namespace XCalendar
         public static readonly BindableProperty DayOutOfRangeTextColorProperty = BindableProperty.Create(nameof(DayOutOfRangeTextColor), typeof(Color), typeof(CalendarView), Color.Pink);
         public static readonly BindableProperty DaySelectedTextColorProperty = BindableProperty.Create(nameof(DaySelectedTextColor), typeof(Color), typeof(CalendarView), Color.Red);
         public static readonly BindableProperty DayNameTextColorProperty = BindableProperty.Create(nameof(DayNameTextColor), typeof(Color), typeof(CalendarView), Color.Black);
-        public static readonly BindableProperty DayNamesOrderProperty = BindableProperty.Create(nameof(DayNamesOrder), typeof(ObservableRangeCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: DayNamesOrderDefaultValueCreator, propertyChanged: DayNamesOrderPropertyChanged, coerceValue: CoerceDayNamesOrder);
-        public static readonly BindableProperty DayNamesOrderUsesStartOfWeekProperty = BindableProperty.Create(nameof(DayNamesOrderUsesStartOfWeek), typeof(bool), typeof(CalendarView), true, propertyChanged: DayNamesOrderUsesStartOfWeekPropertyChanged);
+        private static readonly BindablePropertyKey DayNamesOrderPropertyKey = BindableProperty.CreateReadOnly(nameof(DayNamesOrder), typeof(ReadOnlyObservableCollection<DayOfWeek>), typeof(CalendarView), null, defaultValueCreator: DayNamesOrderDefaultValueCreator, propertyChanged: DayNamesOrderPropertyChanged);
+        public static readonly BindableProperty DayNamesOrderProperty = DayNamesOrderPropertyKey.BindableProperty;
+        private static readonly BindablePropertyKey StartOfWeekDayNamesOrderPropertyKey = BindableProperty.CreateReadOnly(nameof(StartOfWeekDayNamesOrder), typeof(ReadOnlyObservableCollection<DayOfWeek>), typeof(CalendarView), null, defaultValueCreator: StartOfWeekDayNamesOrderDefaultValueCreator);
+        public static readonly BindableProperty StartOfWeekDayNamesOrderProperty = StartOfWeekDayNamesOrderPropertyKey.BindableProperty;
+        public static readonly BindableProperty CustomDayNamesOrderProperty = BindableProperty.Create(nameof(CustomDayNamesOrder), typeof(ObservableRangeCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: CustomDayNamesOrderDefaultValueCreator, propertyChanged: CustomDayNamesOrderPropertyChanged);
+        public static readonly BindableProperty UseCustomDayNamesOrderProperty = BindableProperty.Create(nameof(UseCustomDayNamesOrder), typeof(bool), typeof(CalendarView), false, propertyChanged: UseCustomDayNamesOrderPropertyChanged);
         public static readonly BindableProperty DayNamesTemplateProperty = BindableProperty.Create(nameof(DayNamesTemplate), typeof(ControlTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNamesHeightRequestProperty = BindableProperty.Create(nameof(DayNamesHeightRequest), typeof(double), typeof(CalendarView), 25d);
         public static readonly BindableProperty DayNameTemplateProperty = BindableProperty.Create(nameof(DayNameTemplate), typeof(DataTemplate), typeof(CalendarView));
@@ -367,8 +388,10 @@ namespace XCalendar
         public CalendarView()
         {
             Days = new ReadOnlyObservableCollection<CalendarDay>(_Days);
+
             NavigateCalendarCommand = new Command<bool>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
+
             InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
             OnMonthViewDaysInvalidated();
@@ -395,28 +418,6 @@ namespace XCalendar
         public void OnMonthViewDaysInvalidated()
         {
             MonthViewDaysInvalidated?.Invoke(this, new EventArgs());
-        }
-        /// <summary>
-        /// Gets the distance of a <see cref="DayOfWeek"/> from the week start according to the specified <paramref name="DayOfWeekOrder"/>
-        /// </summary>
-        /// <param name="DayNamesOrder">The days occurring in a week in chronological order.</param>
-        /// <param name="DayOfWeek">The <see cref="DayOfWeek"/> to find the distance from the week start.</param>
-        /// <returns>The distance of a <see cref="DayOfWeek"/> from the week start.</returns>
-        /// <exception cref="ArgumentNullException">The specified <paramref name="DayOfWeekOrder"/> is null.</exception>
-        /// <exception cref="ArgumentException">The specified <paramref name="DayOfWeek"/> does not occur in the specified <paramref name="DayOfWeekOrder"/>.</exception>
-        public static int GetDistanceFromBeginningOfWeek(IEnumerable<DayOfWeek> DayNamesOrder, DayOfWeek DayOfWeek)
-        {
-            if (DayNamesOrder == null) { throw new ArgumentNullException(nameof(DayNamesOrder)); }
-            if (DayNamesOrder.Contains(DayOfWeek) == false) { throw new ArgumentException($"The specified {nameof(DayOfWeek)} must occur at least once in the {nameof(DayNamesOrder)}."); }
-            
-            List<DayOfWeek> DayOfWeekOrderList = new List<DayOfWeek>(DayNamesOrder);
-            int ReturnValue = 0;
-
-            while (DayOfWeekOrderList[ReturnValue] != DayOfWeek)
-            {
-                ReturnValue += 1;
-            }
-            return ReturnValue;
         }
         /// <summary>
         /// Selects or unselects a <see cref="DateTime"/> depending on the current <see cref="SelectionMode"/>.
@@ -621,12 +622,9 @@ namespace XCalendar
         }
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ValidateDayNamesOrder();
-        }
-        public void ValidateDayNamesOrder()
-        {
-            if (DayNamesOrder == null) { throw new ArgumentNullException($"{nameof(DayNamesOrder)} must not be null."); }
             if (DayNamesOrder.Count == 0) { throw new InvalidOperationException($"{nameof(DayNamesOrder)} must contain at least one {nameof(DayOfWeek)}."); }
+            UpdateMonthViewDates(NavigatedDate);
+            OnMonthViewDaysInvalidated();
         }
 
         #region Bindable Properties Methods
@@ -656,10 +654,25 @@ namespace XCalendar
         private static void StartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.DayNamesOrder.ReplaceRange((ObservableRangeCollection<DayOfWeek>)CoerceDayNamesOrder(Control, Control.DayNamesOrder));
-            //Control.CoerceValue(DayNamesOrderProperty);
-            Control.UpdateMonthViewDates(Control.NavigatedDate);
-            Control.OnMonthViewDaysInvalidated();
+
+            List<DayOfWeek> NewStartOfWeekDayNamesOrder = new List<DayOfWeek>();
+            for (int i = 0; i < DaysOfWeek.Count; i++)
+            {
+                int Offset = DaysOfWeek.IndexOf(Control.StartOfWeek);
+                int DayNameIndex = (i + Offset) < DaysOfWeek.Count ? (i + Offset) : (i + Offset) - DaysOfWeek.Count;
+                NewStartOfWeekDayNamesOrder.Add(DaysOfWeek[DayNameIndex]);
+            }
+            Control._StartOfWeekDayNamesOrder.ReplaceRange(NewStartOfWeekDayNamesOrder);
+
+            if (Control.UseCustomDayNamesOrder)
+            {
+                Control.UpdateMonthViewDates(Control.NavigatedDate);
+                Control.OnMonthViewDaysInvalidated();
+            }
+            else
+            {
+                Control.DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
+            }
         }
         private static void DayRangeMinimumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -694,16 +707,29 @@ namespace XCalendar
                 Control.OnDateSelectionChanged();
             }
         }
+        private static void CustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+
+            if (Control.UseCustomDayNamesOrder)
+            {
+                Control.DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(Control.CustomDayNamesOrder);
+            }
+        }
         private static void DayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            ObservableRangeCollection<DayOfWeek> OldDayNamesOrder = (ObservableRangeCollection<DayOfWeek>)oldValue;
-            ObservableRangeCollection<DayOfWeek> NewDayNamesOrder = (ObservableRangeCollection<DayOfWeek>)newValue;
+            ReadOnlyObservableCollection<DayOfWeek> OldDayNamesOrder = (ReadOnlyObservableCollection<DayOfWeek>)oldValue;
+            ReadOnlyObservableCollection<DayOfWeek> NewDayNamesOrder = (ReadOnlyObservableCollection<DayOfWeek>)newValue;
 
-            if (OldDayNamesOrder != null) { OldDayNamesOrder.CollectionChanged -= Control.DayNamesOrder_CollectionChanged; }
-            if (NewDayNamesOrder != null) { NewDayNamesOrder.CollectionChanged += Control.DayNamesOrder_CollectionChanged; }
-            Control.OnMonthViewDaysInvalidated();
-            Control.OnDateSelectionChanged();
+            if (OldDayNamesOrder != null) { ((INotifyCollectionChanged)OldDayNamesOrder).CollectionChanged -= Control.DayNamesOrder_CollectionChanged; }
+            if (NewDayNamesOrder != null) { ((INotifyCollectionChanged)NewDayNamesOrder).CollectionChanged += Control.DayNamesOrder_CollectionChanged; }
+
+            if (OldDayNamesOrder == null || !NewDayNamesOrder.SequenceEqual(OldDayNamesOrder))
+            {
+                Control.UpdateMonthViewDates(Control.NavigatedDate);
+                Control.OnMonthViewDaysInvalidated();
+            }
         }
         private static void SelectionModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -799,13 +825,17 @@ namespace XCalendar
             }
             //Control.CoerceValue(RowsProperty);
         }
-        private static void DayNamesOrderUsesStartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void UseCustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
+
             if ((bool)newValue)
             {
-                Control.DayNamesOrder = (ObservableRangeCollection<DayOfWeek>)CoerceDayNamesOrder(Control, Control.DayNamesOrder);
-                //Control.CoerceValue(DayNamesOrderProperty);
+                Control.DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(Control.CustomDayNamesOrder);
+            }
+            else
+            {
+                Control.DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
             }
         }
         private static void PageStartModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -851,42 +881,6 @@ namespace XCalendar
                     throw new NotImplementedException($"{nameof(CoerceNavigatedDate)} does not have logic returning a value.");
             }
         }
-        private static object CoerceDayNamesOrder(BindableObject bindable, object value)
-        {
-            CalendarView Control = (CalendarView)bindable;
-            ObservableRangeCollection<DayOfWeek> OriginalValue = (ObservableRangeCollection<DayOfWeek>)value;
-
-            if (Control.DayNamesOrderUsesStartOfWeek)
-            {
-                List<DayOfWeek> OriginalValueList = new List<DayOfWeek>(OriginalValue);
-
-                //Make a list where the indexes in the DaysOfWeek have shifted in order to get the StartOfWeek to the first position.
-                List<DayOfWeek> StartOfWeekDayNamesOrder = new List<DayOfWeek>();
-                for (int i = 0; i < Control.DaysOfWeek.Count; i++)
-                {
-                    int Offset = Control.DaysOfWeek.IndexOf(Control.StartOfWeek);
-                    int DayNameIndex = (i + Offset) < Control.DaysOfWeek.Count ? (i + Offset) : (i + Offset) - Control.DaysOfWeek.Count;
-                    StartOfWeekDayNamesOrder.Add(Control.DaysOfWeek[DayNameIndex]);
-                }
-
-                if (OriginalValueList.Count != StartOfWeekDayNamesOrder.Count)
-                {
-                    OriginalValue.ReplaceRange(StartOfWeekDayNamesOrder);
-                    return value;
-                }
-
-                for (int i = 0; i < StartOfWeekDayNamesOrder.Count; i++)
-                {
-                    if (OriginalValueList[i] != StartOfWeekDayNamesOrder[i])
-                    {
-                        OriginalValue.ReplaceRange(StartOfWeekDayNamesOrder);
-                        return value;
-                    }
-                }
-            }
-
-            return value;
-        }
         private static object CoerceRows(BindableObject bindable, object value)
         {
             CalendarView Control = (CalendarView)bindable;
@@ -902,13 +896,27 @@ namespace XCalendar
 
             return value;
         }
+        private static object StartOfWeekDayNamesOrderDefaultValueCreator(BindableObject bindable)
+        {
+            CalendarView Control = (CalendarView)bindable;
+            return new ReadOnlyObservableCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
+        }
+        private static object CustomDayNamesOrderDefaultValueCreator(BindableObject bindable)
+        {
+            return new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
+        }
         private static object DayNamesOrderDefaultValueCreator(BindableObject bindable)
         {
             CalendarView Control = (CalendarView)bindable;
-            ObservableRangeCollection<DayOfWeek> DefaultValue = new ObservableRangeCollection<DayOfWeek>(Control.DaysOfWeek);
 
-            DefaultValue.CollectionChanged += Control.DayNamesOrder_CollectionChanged;
-            return DefaultValue;
+            if (Control.UseCustomDayNamesOrder)
+            {
+                return new ReadOnlyObservableCollection<DayOfWeek>(Control.CustomDayNamesOrder);
+            }
+            else
+            {
+                return new ReadOnlyObservableCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
+            }
         }
         private static object SelectedDatesDefaultValueCreator(BindableObject bindable)
         {

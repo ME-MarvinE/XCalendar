@@ -331,7 +331,7 @@
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="DayNamesOrder"/>
+                                Text="CustomDayNamesOrder"/>
                             <Label
                                 Grid.Column="1"
                                 VerticalTextAlignment="Center"
@@ -340,7 +340,7 @@
                                 TextColor="#0080E0"
                                 Text="Edit"
                                 xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowDayNamesOrderDialogCommand}"/>
+                                xct:TouchEffect.Command="{Binding ShowCustomDayNamesOrderDialogCommand}"/>
                         </Grid>
 
                         <Grid>
@@ -349,11 +349,11 @@
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="DayNamesOrder&#10;UsesStartOfWeek"/>
+                                Text="UseCustomDayNamesOrder"/>
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding DayNamesOrderUsesStartOfWeek}"/>
+                                IsToggled="{Binding UseCustomDayNamesOrder}"/>
                         </Grid>
 
                         <Grid>
@@ -482,8 +482,8 @@
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         StartOfWeek="{Binding StartOfWeek}"
-                        DayNamesOrder="{Binding DayNamesOrder}"
-                        DayNamesOrderUsesStartOfWeek="{Binding DayNamesOrderUsesStartOfWeek}">
+                        CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
+                        UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
                     </xc:CalendarView>
 
                     <xc:CalendarView
@@ -516,8 +516,8 @@
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         StartOfWeek="{Binding StartOfWeek}"
-                        DayNamesOrder="{Binding DayNamesOrder}"
-                        DayNamesOrderUsesStartOfWeek="{Binding DayNamesOrderUsesStartOfWeek}">
+                        CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
+                        UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
 
                         <xc:CalendarView.DayTemplate>
                             <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
