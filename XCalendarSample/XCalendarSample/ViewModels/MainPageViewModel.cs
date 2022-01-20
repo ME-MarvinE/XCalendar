@@ -56,7 +56,7 @@ namespace XCalendarSample.ViewModels
         public bool UseCustomDayNamesOrder { get; set; } = false;
         public DateTime TodayDate { get; set; } = DateTime.Today;
         public bool ClampNavigatedDateToDayRange { get; set; } = true;
-        public double NavigationHeightRequest { get; set; } = 50;
+        public double NavigationHeightRequest { get; set; } = 40;
         #endregion
 
         #region Commands

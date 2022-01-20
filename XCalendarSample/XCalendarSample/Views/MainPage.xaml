@@ -66,8 +66,11 @@
     </ContentPage.Resources>
 
     <StackLayout Spacing="0">
-        <Frame HeightRequest="75" Padding="0" BackgroundColor="{StaticResource PrimaryColor}" CornerRadius="0">
-            <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="22" TextColor="{StaticResource PrimaryTextColor}" Text="Swipe Page To Navigate"/>
+        <Frame Padding="5" BackgroundColor="{StaticResource PrimaryColor}" CornerRadius="0">
+            <StackLayout Spacing="0">
+                <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="22" TextColor="{StaticResource PrimaryTextColor}" Text="XCalendar Sample"/>
+                <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="14" TextColor="{StaticResource PrimaryTextColor}" Text="Swipe Page To View Calendar"/>
+            </StackLayout>
         </Frame>
 
         <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
@@ -415,6 +418,20 @@
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
+                                Text="NavigationHeightRequest"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="End"
+                                Text="{Binding NavigationHeightRequest}"/>
+                        </Grid>
+
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                FontSize="{StaticResource SmallFontSize}"
                                 Text="DayNamesHeight"/>
                             <Editor
                                 Grid.Column="1"
@@ -523,8 +540,9 @@
                                                                     <Setter Property="Content">
                                                                         <ContentPresenter/>
                                                                     </Setter>
-                                                                    <Setter Property="BackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
-
+                                                                    <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
+                                                                    <Setter Property="xct:TouchEffect.NormalAnimationDuration" Value="150"/>
+                                                                    <Setter Property="xct:TouchEffect.PressedAnimationDuration" Value="75"/>
                                                                     <Style.Triggers>
                                                                         <MultiTrigger TargetType="{x:Type Frame}">
                                                                             <MultiTrigger.Conditions>
@@ -540,12 +558,12 @@
                                                                                 <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
                                                                                 <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
                                                                             </MultiTrigger.Conditions>
-                                                                            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"/>
                                                                             <Setter Property="Content">
                                                                                 <Setter.Value>
                                                                                     <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="{Binding SelectedTextColor, Source={RelativeSource TemplatedParent}}" Text="{Binding DateTime.Day, Source={RelativeSource TemplatedParent}}"/>
                                                                                 </Setter.Value>
                                                                             </Setter>
+                                                                            <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="{StaticResource PrimaryColor}"/>
                                                                         </MultiTrigger>
 
                                                                         <MultiTrigger TargetType="{x:Type Frame}">
@@ -554,7 +572,6 @@
                                                                                 <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
                                                                                 <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
                                                                             </MultiTrigger.Conditions>
-                                                                            <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
                                                                             <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference FancyCalendarView}}"/>
                                                                             <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource TemplatedParent}}"/>
                                                                         </MultiTrigger>
