@@ -1,6 +1,6 @@
 # XCalendar
 
-A plugin for Xamarin Forms providing a highly flexible calendar control with complex behaviour and complete customisability.
+A plugin for Xamarin Forms providing a completely customisable calendar control with complex functionality.
 (Only Tested On Android)
 
 
