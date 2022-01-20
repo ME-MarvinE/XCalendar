@@ -30,7 +30,7 @@ namespace XCalendar
         };
 
         private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
-        private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
+        private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
         #endregion
 
         #region Properties
@@ -411,6 +411,15 @@ namespace XCalendar
         {
             NavigateCalendarCommand = new Command<bool>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
+
+            List<DayOfWeek> InitialStartOfWeekDayNamesOrder = new List<DayOfWeek>();
+            for (int i = 0; i < DaysOfWeek.Count; i++)
+            {
+                int Offset = DaysOfWeek.IndexOf(StartOfWeek);
+                int DayNameIndex = (i + Offset) < DaysOfWeek.Count ? (i + Offset) : (i + Offset) - DaysOfWeek.Count;
+                InitialStartOfWeekDayNamesOrder.Add(DaysOfWeek[DayNameIndex]);
+            }
+            _StartOfWeekDayNamesOrder.ReplaceRange(InitialStartOfWeekDayNamesOrder);
 
             InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
