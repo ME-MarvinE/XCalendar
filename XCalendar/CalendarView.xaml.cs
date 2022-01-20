@@ -287,10 +287,10 @@ namespace XCalendar
         /// <summary>
         /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(bool)"/>.
         /// </summary>
-        public NavigationMode NavigationMode
+        public NavigationTimeUnit NavigationTimeUnit
         {
-            get { return (NavigationMode)GetValue(NavigationModeProperty); }
-            set { SetValue(NavigationModeProperty, value); }
+            get { return (NavigationTimeUnit)GetValue(NavigationTimeUnitProperty); }
+            set { SetValue(NavigationTimeUnitProperty, value); }
         }
         /// <summary>
         /// The way in which to extract a date from the <see cref="NavigatedDate"/> to use as the first date of the first row.
@@ -365,7 +365,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView), Color.White);
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 200f);
         public static readonly BindableProperty NavigationLimitModeProperty = BindableProperty.Create(nameof(NavigationLimitMode), typeof(NavigationLimitMode), typeof(CalendarView), NavigationLimitMode.LoopMinimumAndMaximum);
-        public static readonly BindableProperty NavigationModeProperty = BindableProperty.Create(nameof(NavigationMode), typeof(NavigationMode), typeof(CalendarView), NavigationMode.ByMonth);
+        public static readonly BindableProperty NavigationTimeUnitProperty = BindableProperty.Create(nameof(NavigationTimeUnit), typeof(NavigationTimeUnit), typeof(CalendarView), NavigationTimeUnit.Month);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         public static readonly BindableProperty ClampNavigatedDateToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigatedDateToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigatedDateToDayRangePropertyChanged);
         #endregion
@@ -564,9 +564,9 @@ namespace XCalendar
             DateTime MinimumDate = ClampNavigatedDateToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
             DateTime MaximumDate = ClampNavigatedDateToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
 
-            NavigatedDate = NavigateDateByWeeks(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLimitMode, NavigationMode, StartOfWeek);
+            NavigatedDate = NavigateDateByWeeks(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLimitMode, NavigationTimeUnit, StartOfWeek);
         }
-        public DateTime NavigateDateByWeeks(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLimitMode LimitMode, NavigationMode NavigationMode, DayOfWeek StartOfWeek)
+        public DateTime NavigateDateByWeeks(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLimitMode LimitMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
         {
             bool LowerThanMinimumDate;
             bool HigherThanMaximumDate;
@@ -575,30 +575,30 @@ namespace XCalendar
 
             try
             {
-                switch (NavigationMode)
+                switch (NavigationTimeUnit)
                 {
-                    case NavigationMode.None:
+                    case NavigationTimeUnit.None:
                         NewNavigatedDate = DateTime;
                         break;
 
-                    case NavigationMode.ByWeek:
+                    case NavigationTimeUnit.Week:
                         NewNavigatedDate = DateTime.AddWeeks(Amount);
                         break;
 
-                    case NavigationMode.ByMonth:
+                    case NavigationTimeUnit.Month:
                         NewNavigatedDate = DateTime.AddMonths(Amount);
                         break;
 
-                    case NavigationMode.ByYear:
+                    case NavigationTimeUnit.Year:
                         NewNavigatedDate = DateTime.AddYears(Amount);
                         break;
 
-                    case NavigationMode.ByPage:
+                    case NavigationTimeUnit.Page:
                         NewNavigatedDate = DateTime.AddWeeks(Rows * Amount);
                         break;
 
                     default:
-                        throw new NotImplementedException($"{nameof(Enums.NavigationMode)} '{NavigationMode}' is not implemented.");
+                        throw new NotImplementedException($"{nameof(Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
                 }
 
                 LowerThanMinimumDate = NewNavigatedDate.Date < MinimumDate.Date;

@@ -271,16 +271,16 @@
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="NavigationMode"/>
+                                Text="NavigationTimeUnit"/>
                             <Label
                                 Grid.Column="1"
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
                                 TextColor="#0080E0"
-                                Text="{Binding NavigationMode}"
+                                Text="{Binding NavigationTimeUnit}"
                                 xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowNavigationModeDialogCommand}"/>
+                                xct:TouchEffect.Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
                         </Grid>
 
                         <Grid>
@@ -489,7 +489,7 @@
                         Rows="{Binding Rows}"
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
-                        NavigationMode="{Binding NavigationMode}"
+                        NavigationTimeUnit="{Binding NavigationTimeUnit}"
                         PageStartMode="{Binding PageStartMode}"
                         DayHeightRequest="{Binding DayHeightRequest}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
