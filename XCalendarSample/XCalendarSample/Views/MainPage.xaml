@@ -289,7 +289,7 @@
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="NavigationLimitMode"/>
+                                Text="NavigationLoopMode"/>
                             <Label
                                 Grid.Column="1"
                                 WidthRequest="125"
@@ -297,9 +297,9 @@
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
                                 TextColor="#0080E0"
-                                Text="{Binding NavigationLimitMode}"
+                                Text="{Binding NavigationLoopMode}"
                                 xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowNavigationLimitModeDialogCommand}"/>
+                                xct:TouchEffect.Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
                         </Grid>
 
                         <Grid>
@@ -482,7 +482,7 @@
                         TodayDate="{Binding TodayDate}"
                         DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
                         DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
-                        NavigationLimitMode="{Binding NavigationLimitMode}"
+                        NavigationLoopMode="{Binding NavigationLoopMode}"
                         SelectionMode="{Binding SelectionMode}"
                         SelectedDate="{Binding SelectedDate}"
                         SelectedDates="{Binding SelectedDates}"

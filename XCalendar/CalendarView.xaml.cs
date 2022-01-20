@@ -58,7 +58,7 @@ namespace XCalendar
         /// <summary>
         /// The lower bound of the day range.
         /// </summary>
-        /// <seealso cref="NavigationLimitMode"/>
+        /// <seealso cref="NavigationLoopMode"/>
         public DateTime DayRangeMinimumDate
         {
             get { return (DateTime)GetValue(DayRangeMinimumDateProperty); }
@@ -67,7 +67,7 @@ namespace XCalendar
         /// <summary>
         /// The upper bound of the day range.
         /// </summary>
-        /// <seealso cref="NavigationLimitMode"/>
+        /// <seealso cref="NavigationLoopMode"/>
         public DateTime DayRangeMaximumDate
         {
             get { return (DateTime)GetValue(DayRangeMaximumDateProperty); }
@@ -236,10 +236,10 @@ namespace XCalendar
         /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="DayRangeMinimumDate"/>, and <see cref="DayRangeMaximumDate"/>.
         /// </summary>
         /// <seealso cref="NavigateCalendar(bool)"/>
-        public NavigationLimitMode NavigationLimitMode
+        public NavigationLoopMode NavigationLoopMode
         {
-            get { return (NavigationLimitMode)GetValue(NavigationLimitModeProperty); }
-            set { SetValue(NavigationLimitModeProperty, value); }
+            get { return (NavigationLoopMode)GetValue(NavigationLoopModeProperty); }
+            set { SetValue(NavigationLoopModeProperty, value); }
         }
         /// <summary>
         /// The date that is currently selected. Null when the <see cref="Enums.SelectionMode"/> is not set to <see cref="Enums.SelectionMode.Single"/>.
@@ -364,7 +364,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigationArrowColorProperty = BindableProperty.Create(nameof(NavigationArrowColor), typeof(Color), typeof(CalendarView), Color.Black);
         public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView), Color.White);
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 200f);
-        public static readonly BindableProperty NavigationLimitModeProperty = BindableProperty.Create(nameof(NavigationLimitMode), typeof(NavigationLimitMode), typeof(CalendarView), NavigationLimitMode.LoopMinimumAndMaximum);
+        public static readonly BindableProperty NavigationLoopModeProperty = BindableProperty.Create(nameof(NavigationLoopMode), typeof(NavigationLoopMode), typeof(CalendarView), NavigationLoopMode.LoopMinimumAndMaximum);
         public static readonly BindableProperty NavigationTimeUnitProperty = BindableProperty.Create(nameof(NavigationTimeUnit), typeof(NavigationTimeUnit), typeof(CalendarView), NavigationTimeUnit.Month);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         public static readonly BindableProperty ClampNavigatedDateToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigatedDateToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigatedDateToDayRangePropertyChanged);
@@ -564,9 +564,9 @@ namespace XCalendar
             DateTime MinimumDate = ClampNavigatedDateToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
             DateTime MaximumDate = ClampNavigatedDateToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
 
-            NavigatedDate = NavigateDateByWeeks(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLimitMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateByWeeks(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
-        public DateTime NavigateDateByWeeks(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLimitMode LimitMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
+        public DateTime NavigateDateByWeeks(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
         {
             bool LowerThanMinimumDate;
             bool HigherThanMaximumDate;
@@ -613,7 +613,7 @@ namespace XCalendar
 
             if (LowerThanMinimumDate)
             {
-                if (LimitMode.HasFlag(NavigationLimitMode.LoopMinimum))
+                if (NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMinimum))
                 {
                     NewNavigatedDate = MaximumDate;
                     //The code below makes sure that the correct amount of weeks are added after looping.
@@ -624,7 +624,7 @@ namespace XCalendar
                     //TimeSpan Difference = DateTime.LastDayOfWeek(StartOfWeek) - MinimumDate.LastDayOfWeek(StartOfWeek);
 
                     //int WeeksUntilMinValue = (int)Math.Ceiling(Difference.TotalDays / 7);
-                    //DateTime NewNavigatedDate = NavigateDateByWeeks(MinimumDate, MinimumDate, MaximumDate, Amount + WeeksUntilMinValue, LimitMode, StartOfWeek);
+                    //DateTime NewNavigatedDate = NavigateDateByWeeks(MinimumDate, MinimumDate, MaximumDate, Amount + WeeksUntilMinValue, NavigationLoopMode, StartOfWeek);
 
 
                     ////Preserve the original time.
@@ -633,7 +633,7 @@ namespace XCalendar
             }
             else if (HigherThanMaximumDate)
             {
-                if (LimitMode.HasFlag(NavigationLimitMode.LoopMaximum))
+                if (NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMaximum))
                 {
                     NewNavigatedDate = MinimumDate;
                     //The code below makes sure that the correct amount of weeks are added after looping.
@@ -644,7 +644,7 @@ namespace XCalendar
                     //TimeSpan Difference = MaximumDate.FirstDayOfWeek(StartOfWeek) - DateTime.FirstDayOfWeek(StartOfWeek);
 
                     //int WeeksUntilMaxValue = (int)Math.Ceiling(Difference.TotalDays / 7);
-                    //DateTime NewNavigatedDate = NavigateDateByWeeks(MinimumDate, MinimumDate, MaximumDate, Amount - WeeksUntilMaxValue, LimitMode, StartOfWeek);
+                    //DateTime NewNavigatedDate = NavigateDateByWeeks(MinimumDate, MinimumDate, MaximumDate, Amount - WeeksUntilMaxValue, NavigationLoopMode, StartOfWeek);
 
                     ////Preserve the original time.
                     //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.Day, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
@@ -893,29 +893,29 @@ namespace XCalendar
             DateTime MinimumDate = Control.ClampNavigatedDateToDayRange ? Control.DayRangeMinimumDate : DateTime.MinValue;
             DateTime MaximumDate = Control.ClampNavigatedDateToDayRange ? Control.DayRangeMaximumDate : DateTime.MaxValue;
 
-            switch (Control.NavigationLimitMode)
+            switch (Control.NavigationLoopMode)
             {
-                case NavigationLimitMode.None:
+                case NavigationLoopMode.DontLoop:
                     if (InitialValue.Date < MinimumDate.Date) { return MinimumDate; }
                     if (InitialValue.Date > MaximumDate.Date) { return MaximumDate; }
                     break;
-                case NavigationLimitMode.LoopMinimum:
+                case NavigationLoopMode.LoopMinimum:
                     if (InitialValue.Date < MinimumDate.Date) { return MaximumDate; }
                     if (InitialValue.Date > MaximumDate.Date) { return MaximumDate; }
                     break;
 
-                case NavigationLimitMode.LoopMaximum:
+                case NavigationLoopMode.LoopMaximum:
                     if (InitialValue.Date < MinimumDate.Date) { return MinimumDate; }
                     if (InitialValue.Date > MaximumDate.Date) { return MinimumDate; }
                     break;
 
-                case NavigationLimitMode.LoopMinimumAndMaximum:
+                case NavigationLoopMode.LoopMinimumAndMaximum:
                     if (InitialValue.Date < MinimumDate.Date) { return MaximumDate; }
                     if (InitialValue.Date > MaximumDate.Date) { return MinimumDate; }
                     break;
 
                 default:
-                    throw new NotImplementedException($"{nameof(NavigationLimitMode)} is not implemented.");
+                    throw new NotImplementedException($"{nameof(NavigationLoopMode)} is not implemented.");
             }
 
             return InitialValue;

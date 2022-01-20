@@ -18,7 +18,7 @@ namespace XCalendarSample.ViewModels
         public List<XCalendar.Enums.SelectionMode> SelectionModes { get; set; } = Enum.GetValues(typeof(XCalendar.Enums.SelectionMode)).Cast<XCalendar.Enums.SelectionMode>().ToList();
         public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
         public List<NavigationTimeUnit> NavigationTimeUnits { get; set; } = Enum.GetValues(typeof(NavigationTimeUnit)).Cast<NavigationTimeUnit>().ToList();
-        public List<NavigationLimitMode> NavigationLimitModes { get; set; } = Enum.GetValues(typeof(NavigationLimitMode)).Cast<NavigationLimitMode>().ToList();
+        public List<NavigationLoopMode> NavigationLoopModes { get; set; } = Enum.GetValues(typeof(NavigationLoopMode)).Cast<NavigationLoopMode>().ToList();
         public List<DayOfWeek> DaysOfWeek { get; set; } = new List<DayOfWeek>()
         {
             DayOfWeek.Monday,
@@ -44,7 +44,7 @@ namespace XCalendarSample.ViewModels
             DayOfWeek.Sunday
         };
         public XCalendar.Enums.SelectionMode SelectionMode { get; set; } = XCalendar.Enums.SelectionMode.Multiple;
-        public NavigationLimitMode NavigationLimitMode { get; set; } = NavigationLimitMode.LoopMinimumAndMaximum;
+        public NavigationLoopMode NavigationLoopMode { get; set; } = NavigationLoopMode.LoopMinimumAndMaximum;
         public NavigationTimeUnit NavigationTimeUnit { get; set; } = NavigationTimeUnit.Month;
         public PageStartMode PageStartMode { get; set; } = PageStartMode.FirstDayOfMonth;
         public int Rows { get; set; } = 2;
@@ -61,7 +61,7 @@ namespace XCalendarSample.ViewModels
         #region Commands
         public ICommand ShowCustomDayNamesOrderDialogCommand { get; set; }
         public ICommand ShowSelectionModeDialogCommand { get; set; }
-        public ICommand ShowNavigationLimitModeDialogCommand { get; set; }
+        public ICommand ShowNavigationLoopModeDialogCommand { get; set; }
         public ICommand ShowNavigationTimeUnitDialogCommand { get; set; }
         public ICommand ShowPageStartModeDialogCommand { get; set; }
         public ICommand ShowStartOfWeekDialogCommand { get; set; }
@@ -72,7 +72,7 @@ namespace XCalendarSample.ViewModels
         {
             ShowCustomDayNamesOrderDialogCommand = new Command(ShowCustomDayNamesOrderDialog);
             ShowSelectionModeDialogCommand = new Command(ShowSelectionModeDialog);
-            ShowNavigationLimitModeDialogCommand = new Command(ShowNavigationLimitModeDialog);
+            ShowNavigationLoopModeDialogCommand = new Command(ShowNavigationLoopModeDialog);
             ShowNavigationTimeUnitDialogCommand = new Command(ShowNavigationTimeUnitDialog);
             ShowPageStartModeDialogCommand = new Command(ShowPageStartModeDialog);
             ShowStartOfWeekDialogCommand = new Command(ShowStartOfWeekDialog);
@@ -93,9 +93,9 @@ namespace XCalendarSample.ViewModels
         {
             NavigationTimeUnit = (NavigationTimeUnit)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(NavigationTimeUnit, NavigationTimeUnits));
         }
-        public async void ShowNavigationLimitModeDialog()
+        public async void ShowNavigationLoopModeDialog()
         {
-            NavigationLimitMode = (NavigationLimitMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(NavigationLimitMode, NavigationLimitModes));
+            NavigationLoopMode = (NavigationLoopMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(NavigationLoopMode, NavigationLoopModes));
         }
         public async void ShowPageStartModeDialog()
         {
