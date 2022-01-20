@@ -1,9 +1,15 @@
 # XCalendar
 
-A plugin for Xamarin Forms providing a highly flexible calendar control with complex behaviour.
+A plugin for Xamarin Forms providing a highly flexible calendar control with complex behaviour and complete customisability.
+(Only Tested On Android)
 
-## Sample
+
+<img src="https://user-images.githubusercontent.com/73718829/150314185-1e7b6f81-df01-4d94-abbd-3fc85496ad0b.jpg" alt="drawing" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/73718829/150314204-8ae9610d-73fc-418c-9df9-12b8739e0118.jpg" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/73718829/150316592-5c40b433-be94-4168-8601-971f9af56758.jpg" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/73718829/150314210-db0ecc73-4462-45ef-b5f1-be359382464c.jpg" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/73718829/150314220-175e918f-fe8d-4b77-938c-9ffed3065c31.jpg" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/73718829/150314225-98de87f7-dba8-43ec-925a-e64e72c0b899.jpg" width="25%" height="25%">
+
+## Sample App
 Take a look at the sample app, it has a page where you can modify every single non-cosmetic property. Perfect for a quick look, tests and experiments!
+
+<img src="https://user-images.githubusercontent.com/73718829/150314241-53fe89fa-6275-4ae8-aec3-2178cba84b14.jpg" width="25%" height="25%">|<img src="https://user-images.githubusercontent.com/73718829/150314247-380cad1d-3a33-48f8-b38d-b2e3e913923a.jpg" width="25%" height="25%">
 
 ## Usage
 
@@ -40,7 +46,7 @@ The date the calendar will treat as 'Today'.
 #### `StartOfWeek`
 The day of the week that will be considered as the start of the week. Used for internal logic.
 
-#### `StartOfWeekDayNamesOrder` (ReadOnly BindableProperty)
+#### `StartOfWeekDayNamesOrder` *(ReadOnly BindableProperty)*
 The order that the days of week are in based on the `StartOfWeek` property.
 
 #### `CustomDayNamesOrder`
@@ -49,7 +55,7 @@ A custom list of days of the week to display when `UseCustomDayNamesOrder` is se
 #### `UseCustomDayNamesOrder`
 Determines if the calendar should display the `CustomDayNamesOrder` or the `StartOfWeekDayNamesOrder`.
 
-#### `DayNamesOrder` (ReadOnly BindableProperty)
+#### `DayNamesOrder` *(ReadOnly BindableProperty)*
 The order that the days of the week are currently displayed in. This can either be the value of `StartOfWeekDayNamesOrder` or `CustomDayNamesOrder`. Purely Visual.
 
 #### `Rows`
@@ -102,14 +108,14 @@ How the calendar will use the `NavigatedDate` to generate the first date in the 
 * `FirstDayOfMonth` Use the first date in the first week of `NavigatedDate`'s Month.
 * `FirstDayOfYear` Use the first date in the first week of `NavigatedDate`'s Year.
 
-#### `Days` (ReadOnly BindableProperty)
+#### `Days` *(ReadOnly BindableProperty)*
 The days displayed by the current page. Note that displayed days != displayed dates.
 For example if `DayNamesOrder` is "Monday, Monday, Monday Tuesday" and the row is displaying the week of 10th January 2022 - 16th January 2022, there would be 4 days displayed but only 2 dates displayed: 10th January 2022 and 11th January 2022.
 
-#### `NavigateCalendarCommand` (ReadOnly Property)
+#### `NavigateCalendarCommand` *(ReadOnly Property)*
 Takes a parameter of type `bool` indicating whether to navigate forwards (true) or backwards (false).
 
-#### `ChangeDateSelectionCommand` (ReadOnly Property)
+#### `ChangeDateSelectionCommand` *(ReadOnly Property)*
 Takes a parameter of type `DateTime` indicating what date to select/unselect.
 
 ## Templates and Customisation Properties
