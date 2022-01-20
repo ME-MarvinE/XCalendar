@@ -485,22 +485,22 @@ namespace XCalendar
             }
         }
         /// <summary>
-        /// Gets the number of <see cref="CalendarDay"/>s that need to be displayed for a specific date.
+        /// Gets the number of rows needed to display the days of a month based on how many weeks the months has.
         /// </summary>
-        /// <param name="NavigationDate">The <see cref="DateTime"/> to get the number of <see cref="CalendarDay"/>s for.</param>
+        /// <param name="DateTime">The <see cref="DateTime"/> representing the month to get the number of rows for.</param>
+        /// <param name="IsConsistent">Whether the return value should be the highest possible value occuring in the year or not.</param>
+        /// <param name="StartOfWeek">The start of the week.</param>
         /// <returns></returns>
-        public int GetCalendarDaysRequiredToNavigate(DateTime NavigationDate)
+        public static int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek)
         {
-            if (AutoRows && AutoRowsIsConsistent)
+            if (IsConsistent)
             {
-                return NavigationDate.CalendarHighestMonthWeekCountOfYear(StartOfWeek) * DayNamesOrder.Count;
+                return DateTime.CalendarHighestMonthWeekCountOfYear(StartOfWeek);
             }
-            else if (AutoRows)
+            else
             {
-                return NavigationDate.CalendarWeeksInMonth(StartOfWeek) * DayNamesOrder.Count;
+                return DateTime.CalendarWeeksInMonth(StartOfWeek);
             }
-
-            return Rows * DayNamesOrder.Count;
         }
         /// <summary>
         /// Updates the dates displayed on the calendar.
@@ -510,7 +510,8 @@ namespace XCalendar
         {
             List<DayOfWeek> DayNamesOrderList = new List<DayOfWeek>(DayNamesOrder);
             int DatesUpdated = 0;
-            int DaysRequiredToNavigate = GetCalendarDaysRequiredToNavigate(NavigationDate);
+            int RowsRequiredToNavigate = AutoRows ? GetMonthRows(NavigationDate, AutoRowsIsConsistent, StartOfWeek) : Rows;
+            int DaysRequiredToNavigate = RowsRequiredToNavigate * DayNamesOrder.Count;
 
             //Determine the starting date of the page.
             DateTime PageStartDate;
@@ -701,8 +702,18 @@ namespace XCalendar
         private static void NavigatedDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.UpdateMonthViewDates(Control.NavigatedDate);
-            Control.OnMonthViewDaysInvalidated();
+
+            int CoercedRows = (int)CoerceRows(Control, Control.Rows);
+
+            if (Control.Rows == CoercedRows)
+            {
+                Control.UpdateMonthViewDates(Control.NavigatedDate);
+                Control.OnMonthViewDaysInvalidated();
+            }
+            else
+            {
+                Control.Rows = CoercedRows;
+            }
         }
         private static void ClampNavigatedDateToDayRangePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -864,29 +875,15 @@ namespace XCalendar
         private static void AutoRowsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            if (Control.Rows == (int)CoerceRows(Control, Control.Rows))
-            {
-                Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.OnMonthViewDaysInvalidated();
-            }
-            else
-            {
-                Control.Rows = (int)CoerceRows(Control, Control.Rows);
-            }
+
+            Control.Rows = (int)CoerceRows(Control, Control.Rows);
             //Control.CoerceValue(RowsProperty);
         }
         private static void AutoRowsIsConsistentPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            if (Control.Rows == (int)CoerceRows(Control, Control.Rows))
-            {
-                Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.OnMonthViewDaysInvalidated();
-            }
-            else
-            {
-                Control.Rows = (int)CoerceRows(Control, Control.Rows);
-            }
+
+            Control.Rows = (int)CoerceRows(Control, Control.Rows);
             //Control.CoerceValue(RowsProperty);
         }
         private static void UseCustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -947,16 +944,7 @@ namespace XCalendar
         {
             CalendarView Control = (CalendarView)bindable;
 
-            if (Control.AutoRows && Control.AutoRowsIsConsistent)
-            {
-                return Control.NavigatedDate.CalendarHighestMonthWeekCountOfYear(Control.StartOfWeek);
-            }
-            else if (Control.AutoRows)
-            {
-                return Control.NavigatedDate.CalendarWeeksInMonth(Control.StartOfWeek);
-            }
-
-            return value;
+            return Control.AutoRows ? GetMonthRows(Control.NavigatedDate, Control.AutoRowsIsConsistent, Control.StartOfWeek) : value;
         }
         private static object StartOfWeekDayNamesOrderDefaultValueCreator(BindableObject bindable)
         {

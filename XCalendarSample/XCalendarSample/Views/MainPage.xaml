@@ -19,6 +19,11 @@
             <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
         </Style>
 
+        <Style TargetType="{x:Type Entry}">
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        </Style>
+
         <Style TargetType="{x:Type Editor}">
             <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
             <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
@@ -379,7 +384,7 @@
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Text="Rows"/>
-                            <Editor
+                            <Entry
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 VerticalOptions="End"
