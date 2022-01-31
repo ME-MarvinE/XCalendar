@@ -506,33 +506,23 @@
 
                 <StackLayout
                     Grid.Column="2"
-                    Spacing="0"
-                    VerticalOptions="StartAndExpand">
+                    Spacing="0">
 
-                    <Grid
+                    <StackLayout
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
-                        ColumnDefinitions="*,Auto,*"
-                        ColumnSpacing="0"
-                        HeightRequest="55"
-                        RowSpacing="0">
+                        Orientation="Horizontal"
+                        HeightRequest="55">
                         <Label
-                            Grid.Column="0"
                             FontSize="16"
                             HorizontalTextAlignment="Center"
-                            Text="Default"
-                            VerticalTextAlignment="Center" />
+                            Text="Custom Implementation"
+                            VerticalTextAlignment="Center"
+                            HorizontalOptions="EndAndExpand"/>
                         <Switch
                             x:Name="SwitchCustomImplementation"
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
+                            HorizontalOptions="StartAndExpand"
                             IsToggled="True" />
-                        <Label
-                            Grid.Column="2"
-                            FontSize="16"
-                            HorizontalTextAlignment="Center"
-                            Text="Custom"
-                            VerticalTextAlignment="Center" />
-                    </Grid>
+                    </StackLayout>
 
                     <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1" />
 
