@@ -219,12 +219,12 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="ClampNavigatedDate&#10;ToDayRange"
+                                Text="ClampNavigation&#10;ToDayRange"
                                 VerticalTextAlignment="Center" />
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding ClampNavigatedDateToDayRange}" />
+                                IsToggled="{Binding ClampNavigationToDayRange}" />
                         </Grid>
 
                         <Grid>
@@ -531,7 +531,7 @@
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
-                        ClampNavigatedDateToDayRange="{Binding ClampNavigatedDateToDayRange}"
+                        ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
                         DayHeightRequest="{Binding DayHeightRequest}"

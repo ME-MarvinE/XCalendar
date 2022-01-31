@@ -325,10 +325,10 @@ namespace XCalendar
             get { return (ReadOnlyObservableCollection<DayOfWeek>)GetValue(DayNamesOrderProperty); }
             protected set { SetValue(DayNamesOrderPropertyKey, value); }
         }
-        public bool ClampNavigatedDateToDayRange
+        public bool ClampNavigationToDayRange
         {
-            get { return (bool)GetValue(ClampNavigatedDateToDayRangeProperty); }
-            set { SetValue(ClampNavigatedDateToDayRangeProperty, value); }
+            get { return (bool)GetValue(ClampNavigationToDayRangeProperty); }
+            set { SetValue(ClampNavigationToDayRangeProperty, value); }
         }
         /// <summary>
         /// The height of the view used to display the navigated date and navigation controls.
@@ -383,7 +383,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigationLoopModeProperty = BindableProperty.Create(nameof(NavigationLoopMode), typeof(NavigationLoopMode), typeof(CalendarView), NavigationLoopMode.LoopMinimumAndMaximum);
         public static readonly BindableProperty NavigationTimeUnitProperty = BindableProperty.Create(nameof(NavigationTimeUnit), typeof(NavigationTimeUnit), typeof(CalendarView), NavigationTimeUnit.Month);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
-        public static readonly BindableProperty ClampNavigatedDateToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigatedDateToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigatedDateToDayRangePropertyChanged);
+        public static readonly BindableProperty ClampNavigationToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigationToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigationToDayRangePropertyChanged);
         #endregion
 
         #endregion
@@ -585,8 +585,8 @@ namespace XCalendar
         /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
         public virtual void NavigateCalendar(bool Forward)
         {
-            DateTime MinimumDate = ClampNavigatedDateToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
-            DateTime MaximumDate = ClampNavigatedDateToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
+            DateTime MinimumDate = ClampNavigationToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
+            DateTime MaximumDate = ClampNavigationToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
 
             NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
@@ -752,7 +752,7 @@ namespace XCalendar
                 Control.Rows = CoercedRows;
             }
         }
-        private static void ClampNavigatedDateToDayRangePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void ClampNavigationToDayRangePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
             Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
@@ -943,8 +943,8 @@ namespace XCalendar
             DateTime InitialValue = (DateTime)value;
             CalendarView Control = (CalendarView)bindable;
 
-            DateTime MinimumDate = Control.ClampNavigatedDateToDayRange ? Control.DayRangeMinimumDate : DateTime.MinValue;
-            DateTime MaximumDate = Control.ClampNavigatedDateToDayRange ? Control.DayRangeMaximumDate : DateTime.MaxValue;
+            DateTime MinimumDate = Control.ClampNavigationToDayRange ? Control.DayRangeMinimumDate : DateTime.MinValue;
+            DateTime MaximumDate = Control.ClampNavigationToDayRange ? Control.DayRangeMaximumDate : DateTime.MaxValue;
 
             switch (Control.NavigationLoopMode)
             {
