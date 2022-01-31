@@ -1,7 +1,6 @@
 # XCalendar
 
 A plugin for Xamarin Forms providing a completely customisable calendar control with complex functionality.
-(Tested On Android)
 
 Features include:
 * Templates for navigation, monthview, dayview, daynames, and dayname with exposed commands
@@ -43,3 +42,13 @@ xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
 ```
 ## Wiki
 View a full list of available properties on the <a href="https://github.com/ME-MarvinE/XCalendar/wiki">Wiki</a>
+
+## Planned Features
+* Port to MAUI
+* Different flow directions and start locations for dates
+* Range selection and multi-range selection
+* Custom navigation time unit
+* More events and custom EventArgs
+
+## Notice
+Unfortunately I do not have the means to test the plugin on IOS. If anyone wants to help test features on IOS you can contact me via email which you can find on my GitHub profile.
