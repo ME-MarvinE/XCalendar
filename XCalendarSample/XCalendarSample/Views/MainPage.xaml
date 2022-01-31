@@ -1,255 +1,281 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XCalendarSample.Views.MainPage"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:System="clr-namespace:System;assembly=System.Runtime"
-             xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
-             xmlns:ViewModels="clr-namespace:XCalendarSample.ViewModels"
-             xmlns:Models="clr-namespace:XCalendar.Models;assembly=XCalendar"
-             xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
-             xmlns:Converters="clr-namespace:XCalendar.Converters;assembly=XCalendar"
-             x:DataType="{x:Type ViewModels:MainPageViewModel}"
-             BackgroundColor="{StaticResource PageBackgroundColor}">
+<ContentPage
+    x:Class="XCalendarSample.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:XCalendar.Converters;assembly=XCalendar"
+    xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
+    xmlns:Models="clr-namespace:XCalendar.Models;assembly=XCalendar"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:ViewModels="clr-namespace:XCalendarSample.ViewModels"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    ios:Page.UseSafeArea="True"
+    x:DataType="{x:Type ViewModels:MainPageViewModel}"
+    BackgroundColor="{StaticResource PageBackgroundColor}">
 
     <ContentPage.Resources>
 
         <Style TargetType="{x:Type Label}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
         </Style>
 
         <Style TargetType="{x:Type Entry}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
         </Style>
 
         <Style TargetType="{x:Type Editor}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-            <Setter Property="AutoSize" Value="TextChanges"/>
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+            <Setter Property="AutoSize" Value="TextChanges" />
         </Style>
 
         <Style TargetType="{x:Type Picker}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
         </Style>
 
-        <Style TargetType="{x:Type Switch}" >
-            <Setter Property="OnColor" Value="{StaticResource PrimaryColor}"/>
-            <Setter Property="ThumbColor" Value="#EEEEEF"/>
+        <Style TargetType="{x:Type Switch}">
+            <Setter Property="OnColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="ThumbColor" Value="#EEEEEF" />
         </Style>
 
-        <Style TargetType="{x:Type Grid}" >
-            <Setter Property="ColumnSpacing" Value="0"/>
-            <Setter Property="RowSpacing" Value="0"/>
+        <Style TargetType="{x:Type Grid}">
+            <Setter Property="ColumnSpacing" Value="0" />
+            <Setter Property="RowSpacing" Value="0" />
         </Style>
 
         <System:Boolean x:Key="TrueValue">True</System:Boolean>
         <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
-        <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
+        <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
 
-        <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+        <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
 
-        <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+        <xct:EnumToBoolConverter x:Key="EnumToBoolConverter" />
         <xct:MultiConverter x:Key="EnumToInvertedBoolConverter">
-            <xct:EnumToBoolConverter/>
-            <xct:InvertedBoolConverter/>
+            <xct:EnumToBoolConverter />
+            <xct:InvertedBoolConverter />
         </xct:MultiConverter>
 
-        <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
-        <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any"/>
+        <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All" />
+        <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any" />
 
-        <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
-        <Converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+        <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter" />
+        <Converters:EnumToStringConverter x:Key="EnumToStringConverter" />
 
         <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-            <Converters:EnumToStringConverter/>
-            <Converters:StringCharLimitConverter/>
+            <Converters:EnumToStringConverter />
+            <Converters:StringCharLimitConverter />
         </xct:MultiConverter>
     </ContentPage.Resources>
 
     <StackLayout Spacing="0">
-        <Frame Padding="5" BackgroundColor="{StaticResource PrimaryColor}" CornerRadius="0">
+        <Frame
+            Padding="5"
+            BackgroundColor="{StaticResource PrimaryColor}"
+            CornerRadius="0">
             <StackLayout Spacing="0">
-                <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="22" TextColor="{StaticResource PrimaryTextColor}" Text="XCalendar Sample"/>
-                <Label VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="14" TextColor="{StaticResource PrimaryTextColor}" Text="Swipe Page To View Calendar"/>
+                <Label
+                    FontSize="22"
+                    HorizontalTextAlignment="Center"
+                    Text="XCalendar Sample"
+                    TextColor="{StaticResource PrimaryTextColor}"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    FontSize="14"
+                    HorizontalTextAlignment="Center"
+                    Text="Swipe Page To View Calendar"
+                    TextColor="{StaticResource PrimaryTextColor}"
+                    VerticalTextAlignment="Center" />
             </StackLayout>
         </Frame>
 
-        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-            <Grid ColumnDefinitions="*,1,*" ColumnSpacing="0" RowSpacing="0">
+        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+            <Grid
+                ColumnDefinitions="*,1,*"
+                ColumnSpacing="0"
+                RowSpacing="0">
 
-                <ScrollView Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}" Orientation="Vertical" VerticalScrollBarVisibility="Always">
+                <ScrollView
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource ContentBackgroundColor}"
+                    Orientation="Vertical"
+                    VerticalScrollBarVisibility="Always">
                     <StackLayout Spacing="0">
 
                         <StackLayout.Resources>
-                            <Style TargetType="{x:Type Grid}" CanCascade="True">
-                                <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
-                                <Setter Property="HeightRequest" Value="50"/>
+                            <Style CanCascade="True" TargetType="{x:Type Grid}">
+                                <Setter Property="Grid.ColumnDefinitions" Value="*,*" />
+                                <Setter Property="HeightRequest" Value="50" />
                             </Style>
                         </StackLayout.Resources>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="NavigatedDate"/>
+                                HorizontalTextAlignment="Center"
+                                Text="NavigatedDate"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
-                                VerticalOptions="End"
+                                AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
+                                HorizontalOptions="Center"
                                 Text="{Binding NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                                AutoSize="TextChanges"/>
+                                VerticalOptions="End" />
                             <DatePicker
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
+                                Date="{Binding NavigatedDate}"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="Transparent"
                                 Format="ddd, MMM d yyy"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                HorizontalOptions="Center"
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                Date="{Binding NavigatedDate}"/>
+                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                TextColor="Transparent" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="TodayDate"/>
+                                HorizontalTextAlignment="Center"
+                                Text="TodayDate"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
-                                VerticalOptions="End"
+                                AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
+                                HorizontalOptions="Center"
                                 Text="{Binding TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                                AutoSize="TextChanges"/>
+                                VerticalOptions="End" />
                             <DatePicker
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
+                                Date="{Binding TodayDate, Source={x:Reference FancyCalendarView}}"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="Transparent"
                                 Format="ddd, MMM d yyy"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                HorizontalOptions="Center"
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                Date="{Binding TodayDate, Source={x:Reference FancyCalendarView}}"/>
+                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                TextColor="Transparent" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="DayRangeMinDate"/>
+                                HorizontalTextAlignment="Center"
+                                Text="DayRangeMinDate"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
-                                VerticalOptions="End"
+                                AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
+                                HorizontalOptions="Center"
                                 Text="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                                AutoSize="TextChanges"/>
+                                VerticalOptions="End" />
                             <DatePicker
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
+                                Date="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="Transparent"
                                 Format="ddd, MMM d yyy"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                HorizontalOptions="Center"
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                Date="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"/>
+                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                TextColor="Transparent" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="DayRangeMaxDate"/>
+                                HorizontalTextAlignment="Center"
+                                Text="DayRangeMaxDate"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
-                                VerticalOptions="End"
+                                AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
+                                HorizontalOptions="Center"
                                 Text="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                                AutoSize="TextChanges"/>
+                                VerticalOptions="End" />
                             <DatePicker
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
+                                Date="{Binding DayRangeMaximumDate}"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="Transparent"
                                 Format="ddd, MMM d yyy"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                HorizontalOptions="Center"
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                Date="{Binding DayRangeMaximumDate}"/>
+                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                TextColor="Transparent" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="ClampNavigatedDate&#10;ToDayRange"/>
+                                HorizontalTextAlignment="Center"
+                                Text="ClampNavigatedDate&#10;ToDayRange"
+                                VerticalTextAlignment="Center" />
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding ClampNavigatedDateToDayRange}"/>
+                                IsToggled="{Binding ClampNavigatedDateToDayRange}" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="SelectedDate"/>
+                                HorizontalTextAlignment="Center"
+                                Text="SelectedDate"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
-                                VerticalOptions="End"
+                                AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="{StaticResource ContentTextColor}"
+                                HorizontalOptions="Center"
                                 Text="{Binding SelectedDate, StringFormat='{0:ddd, MMM d}'}"
-                                AutoSize="TextChanges"/>
+                                TextColor="{StaticResource ContentTextColor}"
+                                VerticalOptions="End" />
                             <DatePicker
                                 Grid.Column="1"
-                                HorizontalOptions="Center"
+                                Date="{Binding SelectedDate}"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="Transparent"
                                 Format="ddd, MMM d"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                HorizontalOptions="Center"
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                Date="{Binding SelectedDate}"/>
+                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                TextColor="Transparent" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="SelectedDates"/>
+                                HorizontalTextAlignment="Center"
+                                Text="SelectedDates"
+                                VerticalTextAlignment="Center" />
                             <CollectionView
                                 Grid.Column="1"
                                 BackgroundColor="{StaticResource PageBackgroundColor}"
                                 HeightRequest="50"
-                                WidthRequest="100"
                                 ItemSizingStrategy="MeasureFirstItem"
-                                ItemsSource="{Binding SelectedDates}">
+                                ItemsSource="{Binding SelectedDates}"
+                                WidthRequest="100">
                                 <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="{x:Type System:DateTime}">
-                                        <Label HorizontalTextAlignment="Center" Text="{Binding ., StringFormat='{0:ddd, MMM d yyy}'}" FontSize="{StaticResource SmallFontSize}"/>
+                                        <Label
+                                            FontSize="{StaticResource SmallFontSize}"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding ., StringFormat='{0:ddd, MMM d yyy}'}" />
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
@@ -258,269 +284,291 @@
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="SelectionMode"/>
+                                HorizontalTextAlignment="Center"
+                                Text="SelectionMode"
+                                VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Column="1"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
+                                xct:TouchEffect.Command="{Binding ShowSelectionModeDialogCommand}"
+                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="#0080E0"
+                                HorizontalTextAlignment="Center"
                                 Text="{Binding SelectionMode}"
-                                xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowSelectionModeDialogCommand}"/>
+                                TextColor="#0080E0"
+                                VerticalTextAlignment="Center" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="NavigationTimeUnit"/>
+                                HorizontalTextAlignment="Center"
+                                Text="NavigationTimeUnit"
+                                VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Column="1"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
+                                xct:TouchEffect.Command="{Binding ShowNavigationTimeUnitDialogCommand}"
+                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="#0080E0"
+                                HorizontalTextAlignment="Center"
                                 Text="{Binding NavigationTimeUnit}"
-                                xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
+                                TextColor="#0080E0"
+                                VerticalTextAlignment="Center" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="NavigationLoopMode"/>
+                                HorizontalTextAlignment="Center"
+                                Text="NavigationLoopMode"
+                                VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Column="1"
-                                WidthRequest="125"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
+                                xct:TouchEffect.Command="{Binding ShowNavigationLoopModeDialogCommand}"
+                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="#0080E0"
+                                HorizontalTextAlignment="Center"
                                 Text="{Binding NavigationLoopMode}"
-                                xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
+                                TextColor="#0080E0"
+                                VerticalTextAlignment="Center"
+                                WidthRequest="125" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="PageStartMode"/>
+                                HorizontalTextAlignment="Center"
+                                Text="PageStartMode"
+                                VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Column="1"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
+                                xct:TouchEffect.Command="{Binding ShowPageStartModeDialogCommand}"
+                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="#0080E0"
+                                HorizontalTextAlignment="Center"
                                 Text="{Binding PageStartMode}"
-                                xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowPageStartModeDialogCommand}"/>
+                                TextColor="#0080E0"
+                                VerticalTextAlignment="Center" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="StartOfWeek"/>
+                                HorizontalTextAlignment="Center"
+                                Text="StartOfWeek"
+                                VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Column="1"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
+                                xct:TouchEffect.Command="{Binding ShowStartOfWeekDialogCommand}"
+                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
-                                TextColor="#0080E0"
+                                HorizontalTextAlignment="Center"
                                 Text="{Binding StartOfWeek}"
-                                xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowStartOfWeekDialogCommand}"/>
+                                TextColor="#0080E0"
+                                VerticalTextAlignment="Center" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="CustomDayNamesOrder"/>
+                                HorizontalTextAlignment="Center"
+                                Text="CustomDayNamesOrder"
+                                VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Column="1"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
-                                FontSize="{StaticResource SmallFontSize}"
-                                TextColor="#0080E0"
-                                Text="Edit"
+                                xct:TouchEffect.Command="{Binding ShowCustomDayNamesOrderDialogCommand}"
                                 xct:TouchEffect.NativeAnimation="True"
-                                xct:TouchEffect.Command="{Binding ShowCustomDayNamesOrderDialogCommand}"/>
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="Edit"
+                                TextColor="#0080E0"
+                                VerticalTextAlignment="Center" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="UseCustomDayNamesOrder"/>
+                                HorizontalTextAlignment="Center"
+                                Text="UseCustomDayNamesOrder"
+                                VerticalTextAlignment="Center" />
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding UseCustomDayNamesOrder}"/>
+                                IsToggled="{Binding UseCustomDayNamesOrder}" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="Rows"/>
+                                HorizontalTextAlignment="Center"
+                                Text="Rows"
+                                VerticalTextAlignment="Center" />
                             <Entry
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                VerticalOptions="End"
-                                Text="{Binding Rows}"/>
+                                Text="{Binding Rows}"
+                                VerticalOptions="End" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="AutoRows"/>
+                                HorizontalTextAlignment="Center"
+                                Text="AutoRows"
+                                VerticalTextAlignment="Center" />
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding AutoRows}"/>
+                                IsToggled="{Binding AutoRows}" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="AutoRowsIsConsistent"/>
+                                HorizontalTextAlignment="Center"
+                                Text="AutoRowsIsConsistent"
+                                VerticalTextAlignment="Center" />
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding AutoRowsIsConsistent}"/>
+                                IsToggled="{Binding AutoRowsIsConsistent}" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="NavigationHeight"/>
+                                HorizontalTextAlignment="Center"
+                                Text="NavigationHeight"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                VerticalOptions="End"
-                                Text="{Binding NavigationHeightRequest}"/>
+                                Text="{Binding NavigationHeightRequest}"
+                                VerticalOptions="End" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="DayNamesHeight"/>
+                                HorizontalTextAlignment="Center"
+                                Text="DayNamesHeight"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                VerticalOptions="End"
-                                Text="{Binding DayNamesHeightRequest}"/>
+                                Text="{Binding DayNamesHeightRequest}"
+                                VerticalOptions="End" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="MonthViewHeight"/>
+                                HorizontalTextAlignment="Center"
+                                Text="MonthViewHeight"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                VerticalOptions="End"
-                                Text="{Binding MonthViewHeightRequest}"/>
+                                Text="{Binding MonthViewHeightRequest}"
+                                VerticalOptions="End" />
                         </Grid>
 
                         <Grid>
                             <Label
                                 Grid.Column="0"
-                                VerticalTextAlignment="Center"
-                                HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="DayHeight"/>
+                                HorizontalTextAlignment="Center"
+                                Text="DayHeight"
+                                VerticalTextAlignment="Center" />
                             <Editor
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                VerticalOptions="End"
-                                Text="{Binding DayHeightRequest}"/>
+                                Text="{Binding DayHeightRequest}"
+                                VerticalOptions="End" />
                         </Grid>
 
                     </StackLayout>
                 </ScrollView>
 
-                <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}"/>
+                <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}" />
 
-                <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="StartAndExpand">
+                <StackLayout
+                    Grid.Column="2"
+                    Spacing="0"
+                    VerticalOptions="StartAndExpand">
 
-                    <Grid ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="*,Auto,*" BackgroundColor="{StaticResource ContentBackgroundColor}" HeightRequest="55">
-                        <Label Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="16" Text="Default"/>
-                        <Switch x:Name="SwitchCustomImplementation" Grid.Column="1" HorizontalOptions="Center" IsToggled="True"/>
-                        <Label Grid.Column="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="16" Text="Custom"/>
+                    <Grid
+                        BackgroundColor="{StaticResource ContentBackgroundColor}"
+                        ColumnDefinitions="*,Auto,*"
+                        ColumnSpacing="0"
+                        HeightRequest="55"
+                        RowSpacing="0">
+                        <Label
+                            Grid.Column="0"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="Default"
+                            VerticalTextAlignment="Center" />
+                        <Switch
+                            x:Name="SwitchCustomImplementation"
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            IsToggled="True" />
+                        <Label
+                            Grid.Column="2"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="Custom"
+                            VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
+                    <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1" />
 
                     <xc:CalendarView
                         x:Name="FancyCalendarView"
-                        BackgroundColor="{StaticResource ContentBackgroundColor}"
-                        NavigationArrowBackgroundColor="Transparent"
-                        NavigationArrowColor="{StaticResource ContentTextColor}"
-                        NavigationTextColor="{StaticResource ContentTextColor}"
-                        DayNameTextColor="{StaticResource ContentTextColor}"
-                        DaySelectedTextColor="{StaticResource PrimaryTextColor}"
-                        DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
-                        DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
-                        DayOtherMonthTextColor="#A0A0A0"
-                        DayTodayTextColor="{StaticResource ContentTextColor}"
-                        NavigatedDate="{Binding NavigatedDate}"
-                        TodayDate="{Binding TodayDate}"
-                        DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
-                        DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
-                        NavigationLoopMode="{Binding NavigationLoopMode}"
-                        SelectionMode="{Binding SelectionMode}"
-                        SelectedDate="{Binding SelectedDate}"
-                        SelectedDates="{Binding SelectedDates}"
-                        Rows="{Binding Rows}"
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
+                        BackgroundColor="{StaticResource ContentBackgroundColor}"
+                        ClampNavigatedDateToDayRange="{Binding ClampNavigatedDateToDayRange}"
+                        CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
+                        DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
+                        DayHeightRequest="{Binding DayHeightRequest}"
+                        DayNameTextColor="{StaticResource ContentTextColor}"
+                        DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
+                        DayOtherMonthTextColor="#A0A0A0"
+                        DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
+                        DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
+                        DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
+                        DaySelectedTextColor="{StaticResource PrimaryTextColor}"
+                        DayTodayTextColor="{StaticResource ContentTextColor}"
+                        MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
+                        NavigatedDate="{Binding NavigatedDate}"
+                        NavigationArrowBackgroundColor="Transparent"
+                        NavigationArrowColor="{StaticResource ContentTextColor}"
+                        NavigationHeightRequest="{Binding NavigationHeightRequest}"
+                        NavigationLoopMode="{Binding NavigationLoopMode}"
+                        NavigationTextColor="{StaticResource ContentTextColor}"
                         NavigationTimeUnit="{Binding NavigationTimeUnit}"
                         PageStartMode="{Binding PageStartMode}"
-                        DayHeightRequest="{Binding DayHeightRequest}"
-                        MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
-                        DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                        NavigationHeightRequest="{Binding NavigationHeightRequest}"
+                        Rows="{Binding Rows}"
+                        SelectedDate="{Binding SelectedDate}"
+                        SelectedDates="{Binding SelectedDates}"
+                        SelectionMode="{Binding SelectionMode}"
                         StartOfWeek="{Binding StartOfWeek}"
-                        CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
-                        UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}"
-                        ClampNavigatedDateToDayRange="{Binding ClampNavigatedDateToDayRange}">
+                        TodayDate="{Binding TodayDate}"
+                        UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
 
                         <xc:CalendarView.Style>
                             <Style TargetType="{x:Type xc:CalendarView}">
@@ -528,57 +576,65 @@
                                     <Setter.Value>
                                         <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
                                             <xc:CalendarDayView
-                                                HeightRequest="{Binding DayHeightRequest, Source={x:Reference FancyCalendarView}}"
-                                                DateTime="{Binding DateTime}"
                                                 CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
                                                 CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference FancyCalendarView}}"
+                                                DateTime="{Binding DateTime}"
+                                                HeightRequest="{Binding DayHeightRequest, Source={x:Reference FancyCalendarView}}"
                                                 OtherMonthTextColor="{Binding DayOtherMonthTextColor, Source={x:Reference FancyCalendarView}}"
-                                                TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference FancyCalendarView}}"
+                                                OutOfRangeTextColor="{Binding DayOutOfRangeTextColor, Source={x:Reference FancyCalendarView}}"
                                                 SelectedTextColor="{Binding DaySelectedTextColor, Source={x:Reference FancyCalendarView}}"
-                                                OutOfRangeTextColor="{Binding DayOutOfRangeTextColor, Source={x:Reference FancyCalendarView}}">
+                                                TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference FancyCalendarView}}">
 
                                                 <xc:CalendarDayView.ControlTemplate>
                                                     <ControlTemplate>
-                                                        <Frame Margin="3.5" Padding="0" CornerRadius="100" HasShadow="False">
+                                                        <Frame
+                                                            Margin="3.5"
+                                                            Padding="0"
+                                                            CornerRadius="100"
+                                                            HasShadow="False">
                                                             <Frame.Style>
                                                                 <Style TargetType="{x:Type Frame}">
                                                                     <Setter Property="Content">
-                                                                        <ContentPresenter/>
+                                                                        <ContentPresenter />
                                                                     </Setter>
-                                                                    <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
-                                                                    <Setter Property="xct:TouchEffect.NormalAnimationDuration" Value="150"/>
-                                                                    <Setter Property="xct:TouchEffect.PressedAnimationDuration" Value="75"/>
+                                                                    <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="{StaticResource ContentBackgroundColor}" />
+                                                                    <Setter Property="xct:TouchEffect.NormalAnimationDuration" Value="150" />
+                                                                    <Setter Property="xct:TouchEffect.PressedAnimationDuration" Value="75" />
                                                                     <Style.Triggers>
                                                                         <MultiTrigger TargetType="{x:Type Frame}">
                                                                             <MultiTrigger.Conditions>
-                                                                                <BindingCondition Binding="{Binding IsToday, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                                                <BindingCondition Binding="{Binding IsToday, Source={RelativeSource TemplatedParent}}" Value="True" />
+                                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
                                                                             </MultiTrigger.Conditions>
-                                                                            <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}"/>
+                                                                            <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}" />
                                                                         </MultiTrigger>
 
                                                                         <MultiTrigger TargetType="{x:Type Frame}">
                                                                             <MultiTrigger.Conditions>
-                                                                                <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                                                <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True" />
+                                                                                <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True" />
+                                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
                                                                             </MultiTrigger.Conditions>
                                                                             <Setter Property="Content">
                                                                                 <Setter.Value>
-                                                                                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="{Binding SelectedTextColor, Source={RelativeSource TemplatedParent}}" Text="{Binding DateTime.Day, Source={RelativeSource TemplatedParent}}"/>
+                                                                                    <Label
+                                                                                        HorizontalTextAlignment="Center"
+                                                                                        Text="{Binding DateTime.Day, Source={RelativeSource TemplatedParent}}"
+                                                                                        TextColor="{Binding SelectedTextColor, Source={RelativeSource TemplatedParent}}"
+                                                                                        VerticalTextAlignment="Center" />
                                                                                 </Setter.Value>
                                                                             </Setter>
-                                                                            <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="{StaticResource PrimaryColor}"/>
+                                                                            <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="{StaticResource PrimaryColor}" />
                                                                         </MultiTrigger>
 
                                                                         <MultiTrigger TargetType="{x:Type Frame}">
                                                                             <MultiTrigger.Conditions>
-                                                                                <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference FancyCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False"/>
-                                                                                <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                                                <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference FancyCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
+                                                                                <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True" />
+                                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
                                                                             </MultiTrigger.Conditions>
-                                                                            <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference FancyCalendarView}}"/>
-                                                                            <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource TemplatedParent}}"/>
+                                                                            <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference FancyCalendarView}}" />
+                                                                            <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource TemplatedParent}}" />
                                                                         </MultiTrigger>
 
                                                                     </Style.Triggers>
@@ -592,14 +648,17 @@
                                         </DataTemplate>
                                     </Setter.Value>
                                 </Setter>
-                                <Setter Property="DaySelectedTextColor" Value="{StaticResource PrimaryTextColor}"/>
-                                <Setter Property="DayTodayTextColor" Value="{StaticResource ContentTextColor}"/>
+                                <Setter Property="DaySelectedTextColor" Value="{StaticResource PrimaryTextColor}" />
+                                <Setter Property="DayTodayTextColor" Value="{StaticResource ContentTextColor}" />
 
                                 <Style.Triggers>
-                                    <DataTrigger TargetType="{x:Type xc:CalendarView}" Binding="{Binding IsToggled, Source={x:Reference SwitchCustomImplementation}}" Value="False">
-                                        <Setter Property="DayTemplate" Value="{x:Null}"/>
-                                        <Setter Property="DaySelectedTextColor" Value="{StaticResource PrimaryColor}"/>
-                                        <Setter Property="DayTodayTextColor" Value="#009000"/>
+                                    <DataTrigger
+                                        Binding="{Binding IsToggled, Source={x:Reference SwitchCustomImplementation}}"
+                                        TargetType="{x:Type xc:CalendarView}"
+                                        Value="False">
+                                        <Setter Property="DayTemplate" Value="{x:Null}" />
+                                        <Setter Property="DaySelectedTextColor" Value="{StaticResource PrimaryColor}" />
+                                        <Setter Property="DayTodayTextColor" Value="#009000" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -608,7 +667,7 @@
                     </xc:CalendarView>
 
                 </StackLayout>
-                
+
             </Grid>
         </ScrollView>
     </StackLayout>
