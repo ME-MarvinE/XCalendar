@@ -423,7 +423,7 @@
                                 VerticalTextAlignment="Center"
                                 HorizontalTextAlignment="Center"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Text="NavigationHeightRequest"/>
+                                Text="NavigationHeight"/>
                             <Editor
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
@@ -516,11 +516,11 @@
                         DayHeightRequest="{Binding DayHeightRequest}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
+                        NavigationHeightRequest="{Binding NavigationHeightRequest}"
                         StartOfWeek="{Binding StartOfWeek}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}"
-                        ClampNavigatedDateToDayRange="{Binding ClampNavigatedDateToDayRange}"
-                        NavigationHeightRequest="{Binding NavigationHeightRequest}">
+                        ClampNavigatedDateToDayRange="{Binding ClampNavigatedDateToDayRange}">
 
                         <xc:CalendarView.Style>
                             <Style TargetType="{x:Type xc:CalendarView}">
@@ -606,7 +606,7 @@
                         </xc:CalendarView.Style>
 
                     </xc:CalendarView>
-                    
+
                 </StackLayout>
                 
             </Grid>

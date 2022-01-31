@@ -17,7 +17,7 @@
             </Style>
         </StackLayout.Resources>
 
-        <CollectionView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="{StaticResource ContentBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}" SelectionMode="Single" SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}" EmptyView="Empty" VerticalScrollBarVisibility="Always">
+        <CollectionView BackgroundColor="{StaticResource ContentBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}" SelectionMode="Single" SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}" EmptyView="Empty" VerticalScrollBarVisibility="Always">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
             </CollectionView.ItemsLayout>

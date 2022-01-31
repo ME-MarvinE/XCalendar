@@ -343,7 +343,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
         private static readonly BindablePropertyKey DaysPropertyKey = BindableProperty.CreateReadOnly(nameof(Days), typeof(ReadOnlyObservableCollection<CalendarDay>), typeof(CalendarView), null, defaultValueCreator: DaysDefaultValueCreator);
         public static readonly BindableProperty DaysProperty = DaysPropertyKey.BindableProperty;
-        public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged);
+        public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged, validateValue: IsRowsValidValue);
         public static readonly BindableProperty AutoRowsProperty = BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsPropertyChanged);
         public static readonly BindableProperty AutoRowsIsConsistentProperty = BindableProperty.Create(nameof(AutoRowsIsConsistent), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsIsConsistentPropertyChanged);
         public static readonly BindableProperty DayRangeMinimumDateProperty = BindableProperty.Create(nameof(DayRangeMinimumDate), typeof(DateTime), typeof(CalendarView), DateTime.MinValue, propertyChanged: DayRangeMinimumDatePropertyChanged);
@@ -402,7 +402,7 @@ namespace XCalendar
         #endregion
 
         #region Events
-        public event EventHandler DateSelectionChanged;
+        public event EventHandler<DateSelectionChangedEventArgs> DateSelectionChanged;
         public event EventHandler MonthViewDaysInvalidated;
         #endregion
 
@@ -437,9 +437,9 @@ namespace XCalendar
         /// Called when <see cref="SelectionMode"/> changes from <see cref="Enums.SelectionMode.Single"/> to/from <see cref="Enums.SelectionMode.Multiple"/> and <see cref="SelectedDate"/> is 10th January 2022 and <see cref="SelectedDates"/> doesn't contain only 10th January 2022.
         /// Not called when <see cref="SelectionMode"/> changes from <see cref="Enums.SelectionMode.None"/> to <see cref="Enums.SelectionMode.Single"/> and <see cref="SelectedDate"/> is null.
         /// Not called when <see cref="SelectionMode"/> changes from <see cref="Enums.SelectionMode.None"/> to <see cref="Enums.SelectionMode.Multiple"/> and <see cref="SelectedDates"/> is empty.</example>
-        public void OnDateSelectionChanged()
+        public void OnDateSelectionChanged(IList<DateTime> OldSelection, IList<DateTime> NewSelection)
         {
-            DateSelectionChanged?.Invoke(this, new EventArgs());
+            DateSelectionChanged?.Invoke(this, new DateSelectionChangedEventArgs(OldSelection, NewSelection));
         }
         /// <summary>
         /// Called when the <see cref="CalendarView"/> needs to notify <see cref="CalendarDayView"/>s to reevaluate their properties due to a change.
@@ -588,9 +588,21 @@ namespace XCalendar
             DateTime MinimumDate = ClampNavigatedDateToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
             DateTime MaximumDate = ClampNavigatedDateToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
 
-            NavigatedDate = NavigateDateByWeeks(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
-        public DateTime NavigateDateByWeeks(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
+        /// <summary>
+        /// Performs navigation on a DateTime.
+        /// </summary>
+        /// <param name="DateTime">The <see cref="DateTime"/> that will be the source of the navigation.</param>
+        /// <param name="MinimumDate">The lower bound of the range of dates. Inclusive.</param>
+        /// <param name="MaximumDate">The upper bound of the range of dates. Inclusive.</param>
+        /// <param name="Amount">The amount of the <paramref name="NavigationTimeUnit"/> to navigate.</param>
+        /// <param name="NavigationLoopMode">What to do when the result of navigation is outside the range of the <paramref name="MinimumDate"/> and <paramref name="MaximumDate"/>.</param>
+        /// <param name="NavigationTimeUnit">The time unit to navigate the <paramref name="DateTime"/> by.</param>
+        /// <param name="StartOfWeek">The start of the week.</param>
+        /// <returns>The <see cref="DateTime"/> resulting from the navigation.</returns>
+        /// <exception cref="NotImplementedException">The <see cref="NavigationTimeUnit"/> is not implemented.</exception>
+        public DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
         {
             bool LowerThanMinimumDate;
             bool HigherThanMaximumDate;
@@ -635,44 +647,38 @@ namespace XCalendar
                 HigherThanMaximumDate = Amount > 0;
             }
 
-            if (LowerThanMinimumDate)
+            if (LowerThanMinimumDate && NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMinimum))
             {
-                if (NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMinimum))
-                {
-                    NewNavigatedDate = MaximumDate;
-                    //The code below makes sure that the correct amount of weeks are added after looping.
-                    //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
+                NewNavigatedDate = MaximumDate;
+                //The code below makes sure that the correct amount of weeks are added after looping.
+                //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
                     
-                    ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
-                    ////The minimum date may not always have the first day of week so the last day of week is used to do this.
-                    //TimeSpan Difference = DateTime.LastDayOfWeek(StartOfWeek) - MinimumDate.LastDayOfWeek(StartOfWeek);
+                ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
+                ////The minimum date may not always have the first day of week so the last day of week is used to do this.
+                //TimeSpan Difference = DateTime.LastDayOfWeek(StartOfWeek) - MinimumDate.LastDayOfWeek(StartOfWeek);
 
-                    //int WeeksUntilMinValue = (int)Math.Ceiling(Difference.TotalDays / 7);
-                    //DateTime NewNavigatedDate = NavigateDateByWeeks(MinimumDate, MinimumDate, MaximumDate, Amount + WeeksUntilMinValue, NavigationLoopMode, StartOfWeek);
+                //int WeeksUntilMinValue = (int)Math.Ceiling(Difference.TotalDays / 7);
+                //DateTime NewNavigatedDate = NavigateDateTime(MinimumDate, MinimumDate, MaximumDate, Amount + WeeksUntilMinValue, NavigationLoopMode, StartOfWeek);
 
 
-                    ////Preserve the original time.
-                    //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.Day, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
-                }
+                ////Preserve the original time.
+                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.Day, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
             }
-            else if (HigherThanMaximumDate)
+            else if (HigherThanMaximumDate && NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMaximum))
             {
-                if (NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMaximum))
-                {
-                    NewNavigatedDate = MinimumDate;
-                    //The code below makes sure that the correct amount of weeks are added after looping.
-                    //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
+                NewNavigatedDate = MinimumDate;
+                //The code below makes sure that the correct amount of weeks are added after looping.
+                //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
                     
-                    ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
-                    ////The maximum date may not always have the last day of week so the first day of week is used to do this.
-                    //TimeSpan Difference = MaximumDate.FirstDayOfWeek(StartOfWeek) - DateTime.FirstDayOfWeek(StartOfWeek);
+                ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
+                ////The maximum date may not always have the last day of week so the first day of week is used to do this.
+                //TimeSpan Difference = MaximumDate.FirstDayOfWeek(StartOfWeek) - DateTime.FirstDayOfWeek(StartOfWeek);
 
-                    //int WeeksUntilMaxValue = (int)Math.Ceiling(Difference.TotalDays / 7);
-                    //DateTime NewNavigatedDate = NavigateDateByWeeks(MinimumDate, MinimumDate, MaximumDate, Amount - WeeksUntilMaxValue, NavigationLoopMode, StartOfWeek);
+                //int WeeksUntilMaxValue = (int)Math.Ceiling(Difference.TotalDays / 7);
+                //DateTime NewNavigatedDate = NavigateDateTime(MinimumDate, MinimumDate, MaximumDate, Amount - WeeksUntilMaxValue, NavigationLoopMode, StartOfWeek);
 
-                    ////Preserve the original time.
-                    //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.Day, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
-                }
+                ////Preserve the original time.
+                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.Day, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
             }
 
             return NewNavigatedDate;
@@ -682,7 +688,29 @@ namespace XCalendar
             if (SelectionMode == Enums.SelectionMode.Multiple)
             {
                 OnMonthViewDaysInvalidated();
-                OnDateSelectionChanged();
+
+                List<DateTime> PreviousSelection = SelectedDates?.ToList() ?? new List<DateTime>();
+
+                if (e.OldItems != null && e.NewItems != null)
+                {
+                    PreviousSelection = e.OldItems.Cast<DateTime>().ToList();
+                }
+                else if (e.OldItems != null)
+                {
+                    PreviousSelection.AddRange(e.OldItems.Cast<DateTime>());
+                }
+                else if (e.NewItems != null)
+                {
+                    for (int i = 0; i < e.NewItems.Count; i++)
+                    {
+                        PreviousSelection.RemoveAll(x => x == (DateTime)e.NewItems[i]);
+                    }
+                }
+                else
+                {
+                    PreviousSelection = new List<DateTime>();
+                }
+                OnDateSelectionChanged(PreviousSelection, SelectedDates ?? new ObservableRangeCollection<DateTime>());
             }
         }
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -771,10 +799,18 @@ namespace XCalendar
         private static void SelectedDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
+            DateTime? OldSelectedDate = (DateTime?)oldValue;
+            DateTime? NewSelectedDate = (DateTime?)newValue;
+
             if (Control.SelectionMode == Enums.SelectionMode.Single)
             {
                 Control.OnMonthViewDaysInvalidated();
-                Control.OnDateSelectionChanged();
+
+                List<DateTime> PreviousSelection = new List<DateTime>();
+                List<DateTime> CurrentSelection = new List<DateTime>();
+                if (OldSelectedDate.HasValue) { PreviousSelection.Add(OldSelectedDate.Value); }
+                if (NewSelectedDate.HasValue) { CurrentSelection.Add(NewSelectedDate.Value); }
+                Control.OnDateSelectionChanged(PreviousSelection, CurrentSelection);
             }
         }
         private static void SelectedDatesPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -785,10 +821,11 @@ namespace XCalendar
 
             if (OldSelectedDates != null) { OldSelectedDates.CollectionChanged -= Control.SelectedDates_CollectionChanged; }
             if (NewSelectedDates != null) { NewSelectedDates.CollectionChanged += Control.SelectedDates_CollectionChanged; }
+
             if (Control.SelectionMode == Enums.SelectionMode.Multiple)
             {
                 Control.OnMonthViewDaysInvalidated();
-                Control.OnDateSelectionChanged();
+                Control.OnDateSelectionChanged(OldSelectedDates ?? new ObservableRangeCollection<DateTime>(), NewSelectedDates ?? new ObservableRangeCollection<DateTime>());
             }
         }
         private static void CustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -820,65 +857,52 @@ namespace XCalendar
             CalendarView Control = (CalendarView)bindable;
             Enums.SelectionMode OldSelectionMode = (Enums.SelectionMode)oldValue;
             Enums.SelectionMode NewSelectionMode = (Enums.SelectionMode)newValue;
-            bool HasSelectionChanged;
 
-            DateTime? ExactMultipleDate = null;
-            if (Control.SelectedDates.Count == 1)
-            {
-                ExactMultipleDate = Control.SelectedDates[0];
-            }
+            List<DateTime> PreviousSelection;
+            List<DateTime> CurrentSelection;
 
             switch (OldSelectionMode)
             {
                 case Enums.SelectionMode.None:
-                    switch (NewSelectionMode)
-                    {
-                        case Enums.SelectionMode.Single:
-                            HasSelectionChanged = Control.SelectedDate != null;
-                            break;
-                        case Enums.SelectionMode.Multiple:
-                            HasSelectionChanged = Control.SelectedDates.Count != 0;
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
+                    PreviousSelection = new List<DateTime>();
                     break;
 
                 case Enums.SelectionMode.Single:
-                    switch (NewSelectionMode)
-                    {
-                        case Enums.SelectionMode.None:
-                            HasSelectionChanged = Control.SelectedDate != null;
-                            break;
-                        case Enums.SelectionMode.Multiple:
-                            HasSelectionChanged = Control.SelectedDate?.Date != ExactMultipleDate?.Date;
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
+                    PreviousSelection = new List<DateTime>();
+                    if (Control.SelectedDate.HasValue) { PreviousSelection.Add(Control.SelectedDate.Value); }
                     break;
 
                 case Enums.SelectionMode.Multiple:
-                    switch (NewSelectionMode)
-                    {
-                        case Enums.SelectionMode.None:
-                            HasSelectionChanged = Control.SelectedDates.Count != 0;
-                            break;
-                        case Enums.SelectionMode.Single:
-                            HasSelectionChanged = ExactMultipleDate?.Date != Control.SelectedDate?.Date;
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
+                    PreviousSelection = Control.SelectedDates?.ToList() ?? new List<DateTime>();
                     break;
+
                 default:
                     throw new NotImplementedException();
             }
 
-            if (HasSelectionChanged)
+            switch (NewSelectionMode)
+            {
+                case Enums.SelectionMode.None:
+                    CurrentSelection = new List<DateTime>();
+                    break;
+
+                case Enums.SelectionMode.Single:
+                    CurrentSelection = new List<DateTime>();
+                    if (Control.SelectedDate.HasValue) { CurrentSelection.Add(Control.SelectedDate.Value); }
+                    break;
+
+                case Enums.SelectionMode.Multiple:
+                    CurrentSelection = Control.SelectedDates?.ToList() ?? new List<DateTime>();
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+            }
+
+            if (!PreviousSelection.SequenceEqual(CurrentSelection))
             {
                 Control.OnMonthViewDaysInvalidated();
-                Control.OnDateSelectionChanged();
+                Control.OnDateSelectionChanged(PreviousSelection, CurrentSelection);
             }
         }
         private static void AutoRowsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -989,6 +1013,10 @@ namespace XCalendar
         {
             CalendarView Control = (CalendarView)bindable;
             return new ReadOnlyObservableCollection<CalendarDay>(Control._Days);
+        }
+        private static bool IsRowsValidValue(BindableObject bindable, object value)
+        {
+            return (int)value > 0;
         }
         #endregion
 
