@@ -504,20 +504,18 @@
 
                 <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}" />
 
-                <StackLayout
-                    Grid.Column="2"
-                    Spacing="0">
+                <StackLayout Grid.Column="2" Spacing="0">
 
                     <StackLayout
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
-                        Orientation="Horizontal"
-                        HeightRequest="55">
+                        HeightRequest="55"
+                        Orientation="Horizontal">
                         <Label
                             FontSize="16"
+                            HorizontalOptions="EndAndExpand"
                             HorizontalTextAlignment="Center"
                             Text="Custom Implementation"
-                            VerticalTextAlignment="Center"
-                            HorizontalOptions="EndAndExpand"/>
+                            VerticalTextAlignment="Center" />
                         <Switch
                             x:Name="SwitchCustomImplementation"
                             HorizontalOptions="StartAndExpand"

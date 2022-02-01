@@ -1,131 +1,221 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
-           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-           x:Class="XCalendarSample.Popups.ConstructListDialogPopup"
-           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-           xmlns:Popups="clr-namespace:XCalendarSample.Popups"
-           xmlns:Generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
-           xmlns:System="clr-namespace:System;assembly=System.Runtime"
-           x:DataType="{x:Type Popups:ConstructListDialogPopup}"
-           x:Name="MainConstructListDialogPopup"
-           x:TypeArguments="Generic:List(System:Object)"
-           Size="300, 400">
+<xct:Popup
+    x:Class="XCalendarSample.Popups.ConstructListDialogPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+    xmlns:Popups="clr-namespace:XCalendarSample.Popups"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="MainConstructListDialogPopup"
+    x:DataType="{x:Type Popups:ConstructListDialogPopup}"
+    x:TypeArguments="Generic:List(System:Object)"
+    Size="300, 400">
 
     <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
 
         <StackLayout.Resources>
             <Style TargetType="{x:Type Label}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
             </Style>
 
             <Style TargetType="{x:Type Picker}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
             </Style>
 
             <Style TargetType="{x:Type Editor}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-                <Setter Property="AutoSize" Value="TextChanges"/>
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+                <Setter Property="AutoSize" Value="TextChanges" />
             </Style>
 
             <System:Boolean x:Key="TrueValue">True</System:Boolean>
             <System:Boolean x:Key="FalseValue">False</System:Boolean>
         </StackLayout.Resources>
 
-        <Grid VerticalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" RowDefinitions="*,1, Auto" ColumnDefinitions="*, *">
-            <CollectionView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}" SelectionMode="Single" SelectedItem="{Binding SelectedItem, Source={x:Reference MainConstructListDialogPopup}}" EmptyView="Empty" VerticalScrollBarVisibility="Always">
+        <Grid
+            ColumnDefinitions="*, *"
+            ColumnSpacing="0"
+            RowDefinitions="*,1, Auto"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <CollectionView
+                Grid.Row="0"
+                Grid.Column="0"
+                BackgroundColor="{StaticResource ContentBackgroundColor}"
+                EmptyView="Empty"
+                ItemSizingStrategy="MeasureFirstItem"
+                ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}"
+                SelectedItem="{Binding SelectedItem, Source={x:Reference MainConstructListDialogPopup}}"
+                SelectionMode="Single"
+                VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
-                        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+                            <Label
+                                xct:TouchEffect.NativeAnimation="True"
+                                FontSize="16"
+                                HeightRequest="50"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding .}"
+                                VerticalTextAlignment="Center" />
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="Common">
                                     <VisualState Name="Normal">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="#E0E0E4"/>
+                                            <Setter Property="BackgroundColor" Value="#E0E0E4" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Label HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16" Text="{Binding .}"
-                           xct:TouchEffect.NativeAnimation="True"/>
                         </ScrollView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" BackgroundColor="{StaticResource PageBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}" EmptyView="Empty" VerticalScrollBarVisibility="Always">
+            <CollectionView
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                BackgroundColor="{StaticResource PageBackgroundColor}"
+                EmptyView="Empty"
+                ItemSizingStrategy="MeasureFirstItem"
+                ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}"
+                VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
-                        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                            <Label HeightRequest="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="14" Text="{Binding .}"/>
+                        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+                            <Label
+                                FontSize="14"
+                                HeightRequest="40"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding .}"
+                                VerticalTextAlignment="Center" />
                         </ScrollView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="{StaticResource SeparatorColor}"/>
+            <BoxView
+                Grid.Row="1"
+                Grid.Column="0"
+                BackgroundColor="{StaticResource SeparatorColor}" />
 
-            <StackLayout Grid.Row="2" Grid.Column="0" Spacing="10" Padding="10" VerticalOptions="End">
-                <Frame BackgroundColor="#00B0C0" Padding="10" CornerRadius="15"
-                       xct:TouchEffect.NativeAnimation="True"
-                       xct:TouchEffect.Command="{Binding AddSelectedItemCommand, Source={x:Reference MainConstructListDialogPopup}}">
-                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16" TextColor="White" Text="Add"/>
+            <StackLayout
+                Grid.Row="2"
+                Grid.Column="0"
+                Padding="10"
+                Spacing="10"
+                VerticalOptions="End">
+                <Frame
+                    Padding="10"
+                    xct:TouchEffect.Command="{Binding AddSelectedItemCommand, Source={x:Reference MainConstructListDialogPopup}}"
+                    xct:TouchEffect.NativeAnimation="True"
+                    BackgroundColor="#00B0C0"
+                    CornerRadius="15">
+                    <Label
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="Add"
+                        TextColor="White"
+                        VerticalTextAlignment="Center" />
                 </Frame>
 
-                <Frame BackgroundColor="#E00000" Padding="10" CornerRadius="15"
-                       xct:TouchEffect.NativeAnimation="True"
-                       xct:TouchEffect.Command="{Binding RemoveSelectedItemCommand, Source={x:Reference MainConstructListDialogPopup}}"
-                       xct:TouchEffect.CommandParameter="{StaticResource FalseValue}">
-                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16" TextColor="White" Text="Remove"/>
+                <Frame
+                    Padding="10"
+                    xct:TouchEffect.Command="{Binding RemoveSelectedItemCommand, Source={x:Reference MainConstructListDialogPopup}}"
+                    xct:TouchEffect.CommandParameter="{StaticResource FalseValue}"
+                    xct:TouchEffect.NativeAnimation="True"
+                    BackgroundColor="#E00000"
+                    CornerRadius="15">
+                    <Label
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="Remove"
+                        TextColor="White"
+                        VerticalTextAlignment="Center" />
                 </Frame>
 
-                <Frame BackgroundColor="#E00000" Padding="10" CornerRadius="15"
-                       xct:TouchEffect.NativeAnimation="True"
-                       xct:TouchEffect.Command="{Binding ClearReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"
-                       xct:TouchEffect.CommandParameter="True">
-                    <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16" TextColor="White" Text="Clear"/>
+                <Frame
+                    Padding="10"
+                    xct:TouchEffect.Command="{Binding ClearReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"
+                    xct:TouchEffect.CommandParameter="True"
+                    xct:TouchEffect.NativeAnimation="True"
+                    BackgroundColor="#E00000"
+                    CornerRadius="15">
+                    <Label
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="Clear"
+                        TextColor="White"
+                        VerticalTextAlignment="Center" />
                 </Frame>
             </StackLayout>
         </Grid>
 
         <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
-            <Frame BackgroundColor="Transparent" Padding="10" CornerRadius="0" HasShadow="False"
-                   xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                   xct:TouchEffect.PressedBackgroundColor="#0090F0"
-                   xct:TouchEffect.NormalAnimationDuration="200"
-                   xct:TouchEffect.Command="{Binding CancelDialogCommand, Source={x:Reference MainConstructListDialogPopup}}">
-                <Label VerticalTextAlignment="Center" TextColor="White" FontSize="18" Text="Cancel"/>
+            <Frame
+                Padding="10"
+                xct:TouchEffect.Command="{Binding CancelDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"
+                xct:TouchEffect.NormalAnimationDuration="200"
+                xct:TouchEffect.NormalBackgroundColor="#0080E0"
+                xct:TouchEffect.PressedBackgroundColor="#0090F0"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False">
+                <Label
+                    FontSize="18"
+                    Text="Cancel"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
             </Frame>
 
-            <Frame BackgroundColor="Transparent" Padding="10" CornerRadius="0" HasShadow="False"
-                   xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                   xct:TouchEffect.PressedBackgroundColor="#0090F0"
-                   xct:TouchEffect.NormalAnimationDuration="200"
-                   xct:TouchEffect.Command="{Binding ResetReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}">
-                <Label VerticalTextAlignment="Center" TextColor="White" FontSize="18" Text="Reset"/>
+            <Frame
+                Padding="10"
+                xct:TouchEffect.Command="{Binding ResetReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"
+                xct:TouchEffect.NormalAnimationDuration="200"
+                xct:TouchEffect.NormalBackgroundColor="#0080E0"
+                xct:TouchEffect.PressedBackgroundColor="#0090F0"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False">
+                <Label
+                    FontSize="18"
+                    Text="Reset"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
             </Frame>
 
-            <Frame BackgroundColor="Transparent" Padding="10" CornerRadius="0" HasShadow="False" HorizontalOptions="EndAndExpand"
-                   xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                   xct:TouchEffect.PressedBackgroundColor="#0090F0"
-                   xct:TouchEffect.NormalAnimationDuration="200"
-                   xct:TouchEffect.Command="{Binding DismissDialogCommand, Source={x:Reference MainConstructListDialogPopup}}">
-                <Label VerticalTextAlignment="Center" TextColor="White" FontSize="18" Text="Confirm"/>
+            <Frame
+                Padding="10"
+                xct:TouchEffect.Command="{Binding DismissDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"
+                xct:TouchEffect.NormalAnimationDuration="200"
+                xct:TouchEffect.NormalBackgroundColor="#0080E0"
+                xct:TouchEffect.PressedBackgroundColor="#0090F0"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="EndAndExpand">
+                <Label
+                    FontSize="18"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
             </Frame>
         </StackLayout>
     </StackLayout>
