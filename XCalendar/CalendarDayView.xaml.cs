@@ -78,7 +78,7 @@ namespace XCalendar
         public static readonly BindableProperty IsOutOfRangeProperty = BindableProperty.Create(nameof(IsOutOfRange), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(CalendarDayView), Color.Black);
-        public static readonly BindableProperty TodayTextColorProperty = BindableProperty.Create(nameof(TodayTextColor), typeof(Color), typeof(CalendarDayView), Color.Green);
+        public static readonly BindableProperty TodayTextColorProperty = BindableProperty.Create(nameof(TodayTextColor), typeof(Color), typeof(CalendarDayView), Color.FromHex("#009000"));
         public static readonly BindableProperty OtherMonthTextColorProperty = BindableProperty.Create(nameof(OtherMonthTextColor), typeof(Color), typeof(CalendarDayView), Color.Gray);
         public static readonly BindableProperty OutOfRangeTextColorProperty = BindableProperty.Create(nameof(OutOfRangeTextColor), typeof(Color), typeof(CalendarDayView), Color.Pink);
         public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(CalendarDayView), Color.Red);
@@ -97,6 +97,7 @@ namespace XCalendar
         private void CalendarView_MonthViewDaysInvalidated(object sender, EventArgs e)
         {
             UpdateProperties();
+            UpdateView();
         }
         public virtual void UpdateProperties()
         {
@@ -104,6 +105,33 @@ namespace XCalendar
             IsOutOfRange = IsDateTimeOutOfRange(DateTime);
             IsSelected = IsDateTimeSelected(DateTime);
             IsToday = IsDateTimeToday(DateTime);
+        }
+        public virtual void UpdateView()
+        {
+            if (IsOutOfRange)
+            {
+                MainLabel.TextColor = OutOfRangeTextColor;
+            }
+            else if (IsSelected && IsCurrentMonth)
+            {
+                MainLabel.TextColor = SelectedTextColor;
+            }
+            else if (IsToday && IsCurrentMonth)
+            {
+                MainLabel.TextColor = TodayTextColor;
+            }
+            else if (!IsCurrentMonth)
+            {
+                MainLabel.TextColor = OtherMonthTextColor;
+            }
+            else if (IsCurrentMonth)
+            {
+                MainLabel.TextColor = CurrentMonthTextColor;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
         public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
         {
@@ -133,6 +161,7 @@ namespace XCalendar
         {
             base.OnBindingContextChanged();
             UpdateProperties();
+            UpdateView();
         }
 
         #region Bindable Properties Methods
