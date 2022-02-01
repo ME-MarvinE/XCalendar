@@ -11,7 +11,7 @@
     <PackageTags>plugin; xamarin; csharp; calendar; xamarin-forms; xamarin-plugin; calendar-component; calendar-view; xamarinforms; calendar-plugin</PackageTags>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
