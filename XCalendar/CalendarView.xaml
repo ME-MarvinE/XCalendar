@@ -157,7 +157,7 @@
                                             TodayBackgroundColor="{Binding DayTodayBackgroundColor, Source={x:Reference MainCalendarView}}"
                                             TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference MainCalendarView}}"
                                             VerticalOptions="Center"
-                                            WidthRequest="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}">
+                                            WidthRequest="{Binding DayWidthRequest, Source={x:Reference MainCalendarView}}">
 
                                             <xc:CalendarDayView.ControlTemplate>
                                                 <ControlTemplate>

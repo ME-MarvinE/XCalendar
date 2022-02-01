@@ -51,6 +51,7 @@ namespace XCalendarSample.ViewModels
         public bool AutoRows { get; set; } = true;
         public bool AutoRowsIsConsistent { get; set; } = true;
         public double DayHeightRequest { get; set; } = 50;
+        public double DayWidthRequest { get; set; } = 50;
         public double MonthViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
         public bool UseCustomDayNamesOrder { get; set; } = false;

@@ -499,6 +499,20 @@
                                 VerticalOptions="End" />
                         </Grid>
 
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="DayWidth"
+                                VerticalTextAlignment="Center" />
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Text="{Binding DayWidthRequest}"
+                                VerticalOptions="End" />
+                        </Grid>
+
                     </StackLayout>
                 </ScrollView>
 
@@ -546,6 +560,7 @@
                         DaySelectedTextColor="{StaticResource PrimaryTextColor}"
                         DayTodayTextColor="{StaticResource ContentTextColor}"
                         DayTodayBackgroundColor="Transparent"
+                        DayWidthRequest="{Binding DayWidthRequest}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
                         NavigationArrowBackgroundColor="Transparent"
@@ -585,7 +600,7 @@
                                                     TodayBackgroundColor="{Binding DayTodayBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                     TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference FancyCalendarView}}"
                                                     VerticalOptions="Center"
-                                                    WidthRequest="{Binding DayHeightRequest, Source={x:Reference FancyCalendarView}}">
+                                                    WidthRequest="{Binding DayWidthRequest, Source={x:Reference FancyCalendarView}}">
 
                                                     <xc:CalendarDayView.ControlTemplate>
                                                         <ControlTemplate>
