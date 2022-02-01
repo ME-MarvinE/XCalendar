@@ -1,41 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
-           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-           x:Class="XCalendarSample.Popups.SelectItemDialogPopup"
-           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-           xmlns:Popups="clr-namespace:XCalendarSample.Popups"
-           xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
-           x:DataType="{x:Type Popups:SelectItemDialogPopup}"
-           x:Name="MainSelectItemDialogPopup"
-           Size="300, 350">
+<xct:Popup
+    x:Class="XCalendarSample.Popups.SelectItemDialogPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
+    xmlns:Popups="clr-namespace:XCalendarSample.Popups"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="MainSelectItemDialogPopup"
+    x:DataType="{x:Type Popups:SelectItemDialogPopup}"
+    Size="300, 350">
 
     <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
         <StackLayout.Resources>
             <Style TargetType="{x:Type Label}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
+                <Setter Property="FontSize" Value="16" />
             </Style>
         </StackLayout.Resources>
 
-        <CollectionView BackgroundColor="{StaticResource ContentBackgroundColor}" ItemSizingStrategy="MeasureFirstItem" ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}" SelectionMode="Single" SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}" EmptyView="Empty" VerticalScrollBarVisibility="Always">
+        <CollectionView
+            BackgroundColor="{StaticResource ContentBackgroundColor}"
+            EmptyView="Empty"
+            ItemSizingStrategy="MeasureFirstItem"
+            ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}"
+            SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}"
+            SelectionMode="Single"
+            VerticalScrollBarVisibility="Always">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Null}">
-                    <Label HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="16" Text="{Binding .}"
-                           xct:TouchEffect.NativeAnimation="True">
+                    <Label
+                        xct:TouchEffect.NativeAnimation="True"
+                        FontSize="16"
+                        HeightRequest="50"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding .}"
+                        VerticalTextAlignment="Center">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="Common">
                                 <VisualState Name="Normal">
                                     <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                        <Setter Property="BackgroundColor" Value="Transparent" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState Name="Selected">
                                     <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="#E0E0E4"/>
+                                        <Setter Property="BackgroundColor" Value="#E0E0E4" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -46,28 +59,53 @@
         </CollectionView>
 
         <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
-            <Frame BackgroundColor="Transparent" Padding="10" CornerRadius="0" HasShadow="False"
-                   xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                   xct:TouchEffect.PressedBackgroundColor="#0090F0"
-                   xct:TouchEffect.NormalAnimationDuration="200"
-                   xct:TouchEffect.Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}">
-                <Label VerticalTextAlignment="Center" TextColor="White" FontSize="18" Text="Cancel"/>
+            <Frame
+                Padding="10"
+                xct:TouchEffect.Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"
+                xct:TouchEffect.NormalAnimationDuration="200"
+                xct:TouchEffect.NormalBackgroundColor="#0080E0"
+                xct:TouchEffect.PressedBackgroundColor="#0090F0"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False">
+                <Label
+                    FontSize="18"
+                    Text="Cancel"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
             </Frame>
 
-            <Frame BackgroundColor="Transparent" Padding="10" CornerRadius="0" HasShadow="False"
-                   xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                   xct:TouchEffect.PressedBackgroundColor="#0090F0"
-                   xct:TouchEffect.NormalAnimationDuration="200"
-                   xct:TouchEffect.Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}">
-                <Label VerticalTextAlignment="Center" TextColor="White" FontSize="18" Text="Reset"/>
+            <Frame
+                Padding="10"
+                xct:TouchEffect.Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"
+                xct:TouchEffect.NormalAnimationDuration="200"
+                xct:TouchEffect.NormalBackgroundColor="#0080E0"
+                xct:TouchEffect.PressedBackgroundColor="#0090F0"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False">
+                <Label
+                    FontSize="18"
+                    Text="Reset"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
             </Frame>
 
-            <Frame BackgroundColor="Transparent" Padding="10" CornerRadius="0" HasShadow="False" HorizontalOptions="EndAndExpand"
-                   xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                   xct:TouchEffect.PressedBackgroundColor="#0090F0"
-                   xct:TouchEffect.NormalAnimationDuration="200"
-                   xct:TouchEffect.Command="{Binding DismissDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}">
-                <Label VerticalTextAlignment="Center" TextColor="White" FontSize="18" Text="Confirm"/>
+            <Frame
+                Padding="10"
+                xct:TouchEffect.Command="{Binding DismissDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"
+                xct:TouchEffect.NormalAnimationDuration="200"
+                xct:TouchEffect.NormalBackgroundColor="#0080E0"
+                xct:TouchEffect.PressedBackgroundColor="#0090F0"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="EndAndExpand">
+                <Label
+                    FontSize="18"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
             </Frame>
         </StackLayout>
     </StackLayout>

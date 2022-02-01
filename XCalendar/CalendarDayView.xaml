@@ -1,11 +1,16 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xc="clr-namespace:XCalendar"
-             x:Class="XCalendar.CalendarDayView"
-             x:Name="MainCalendarDayView"
-             x:DataType="{x:Type xc:CalendarDayView}">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="XCalendar.CalendarDayView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xc="clr-namespace:XCalendar"
+    x:Name="MainCalendarDayView"
+    x:DataType="{x:Type xc:CalendarDayView}">
 
-    <Label x:Name="MainLabel" Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+    <Label
+        x:Name="MainLabel"
+        HorizontalTextAlignment="Center"
+        Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"
+        VerticalTextAlignment="Center" />
 
 </ContentView>
