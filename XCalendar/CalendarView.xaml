@@ -147,7 +147,7 @@
                                             CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference MainCalendarView}}"
                                             DateTime="{Binding DateTime}"
                                             HeightRequest="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"
-                                            HorizontalOptions="Center"
+                                            HorizontalOptions="{Binding DayHorizontalOptions, Source={x:Reference MainCalendarView}}"
                                             OtherMonthBackgroundColor="{Binding DayOtherMonthBackgroundColor, Source={x:Reference MainCalendarView}}"
                                             OtherMonthTextColor="{Binding DayOtherMonthTextColor, Source={x:Reference MainCalendarView}}"
                                             OutOfRangeBackgroundColor="{Binding DayOutOfRangeBackgroundColor, Source={x:Reference MainCalendarView}}"
@@ -156,7 +156,7 @@
                                             SelectedTextColor="{Binding DaySelectedTextColor, Source={x:Reference MainCalendarView}}"
                                             TodayBackgroundColor="{Binding DayTodayBackgroundColor, Source={x:Reference MainCalendarView}}"
                                             TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference MainCalendarView}}"
-                                            VerticalOptions="Center"
+                                            VerticalOptions="{Binding DayVerticalOptions, Source={x:Reference MainCalendarView}}"
                                             WidthRequest="{Binding DayWidthRequest, Source={x:Reference MainCalendarView}}">
 
                                             <xc:CalendarDayView.ControlTemplate>

@@ -545,21 +545,23 @@
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
                         ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
-                        DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
                         DayCurrentMonthBackgroundColor="Transparent"
+                        DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
                         DayHeightRequest="{Binding DayHeightRequest}"
+                        DayHorizontalOptions="Fill"
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                        DayOtherMonthTextColor="#A0A0A0"
                         DayOtherMonthBackgroundColor="Transparent"
-                        DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
+                        DayOtherMonthTextColor="#A0A0A0"
                         DayOutOfRangeBackgroundColor="Transparent"
+                        DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
                         DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
                         DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
                         DaySelectedBackgroundColor="{StaticResource PrimaryColor}"
                         DaySelectedTextColor="{StaticResource PrimaryTextColor}"
-                        DayTodayTextColor="{StaticResource ContentTextColor}"
                         DayTodayBackgroundColor="Transparent"
+                        DayTodayTextColor="{StaticResource ContentTextColor}"
+                        DayVerticalOptions="Fill"
                         DayWidthRequest="{Binding DayWidthRequest}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
@@ -590,7 +592,7 @@
                                                     CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference FancyCalendarView}}"
                                                     DateTime="{Binding DateTime}"
                                                     HeightRequest="{Binding DayHeightRequest, Source={x:Reference FancyCalendarView}}"
-                                                    HorizontalOptions="Center"
+                                                    HorizontalOptions="{Binding DayHorizontalOptions, Source={x:Reference FancyCalendarView}}"
                                                     OtherMonthBackgroundColor="{Binding DayOtherMonthBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                     OtherMonthTextColor="{Binding DayOtherMonthTextColor, Source={x:Reference FancyCalendarView}}"
                                                     OutOfRangeBackgroundColor="{Binding DayOutOfRangeBackgroundColor, Source={x:Reference FancyCalendarView}}"
@@ -599,7 +601,7 @@
                                                     SelectedTextColor="{Binding DaySelectedTextColor, Source={x:Reference FancyCalendarView}}"
                                                     TodayBackgroundColor="{Binding DayTodayBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                     TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference FancyCalendarView}}"
-                                                    VerticalOptions="Center"
+                                                    VerticalOptions="{Binding DayVerticalOptions, Source={x:Reference FancyCalendarView}}"
                                                     WidthRequest="{Binding DayWidthRequest, Source={x:Reference FancyCalendarView}}">
 
                                                     <xc:CalendarDayView.ControlTemplate>
@@ -607,8 +609,8 @@
                                                             <Frame
                                                                 Margin="3.5"
                                                                 Padding="0"
-                                                                CornerRadius="100"
                                                                 BackgroundColor="Transparent"
+                                                                CornerRadius="100"
                                                                 HasShadow="False">
                                                                 <Frame.Style>
                                                                     <Style TargetType="{x:Type Frame}">
@@ -647,7 +649,7 @@
                                                                         </Style.Triggers>
                                                                     </Style>
                                                                 </Frame.Style>
-                                                                <ContentPresenter/>
+                                                                <ContentPresenter />
                                                             </Frame>
                                                         </ControlTemplate>
                                                     </xc:CalendarDayView.ControlTemplate>

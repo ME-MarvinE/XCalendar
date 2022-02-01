@@ -368,6 +368,16 @@ namespace XCalendar
             get { return (double)GetValue(NavigationHeightRequestProperty); }
             set { SetValue(NavigationHeightRequestProperty, value); }
         }
+        public LayoutOptions DayVerticalOptions
+        {
+            get { return (LayoutOptions)GetValue(DayVerticalOptionsProperty); }
+            set { SetValue(DayVerticalOptionsProperty, value); }
+        }
+        public LayoutOptions DayHorizontalOptions
+        {
+            get { return (LayoutOptions)GetValue(DayHorizontalOptionsProperty); }
+            set { SetValue(DayHorizontalOptionsProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -386,6 +396,8 @@ namespace XCalendar
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayHeightRequestProperty = BindableProperty.Create(nameof(DayHeightRequest), typeof(double), typeof(CalendarView), 50d);
         public static readonly BindableProperty DayWidthRequestProperty = BindableProperty.Create(nameof(DayWidthRequest), typeof(double), typeof(CalendarView), 50d);
+        public static readonly BindableProperty DayVerticalOptionsProperty = BindableProperty.Create(nameof(DayVerticalOptions), typeof(LayoutOptions), typeof(CalendarView), LayoutOptions.Fill);
+        public static readonly BindableProperty DayHorizontalOptionsProperty = BindableProperty.Create(nameof(DayHorizontalOptions), typeof(LayoutOptions), typeof(CalendarView), LayoutOptions.Fill);
         public static readonly BindableProperty DayCurrentMonthTextColorProperty = BindableProperty.Create(nameof(DayCurrentMonthTextColor), typeof(Color), typeof(CalendarView), Color.Black);
         public static readonly BindableProperty DayCurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(DayCurrentMonthBackgroundColor), typeof(Color), typeof(CalendarView), Color.Transparent);
         public static readonly BindableProperty DayTodayTextColorProperty = BindableProperty.Create(nameof(DayTodayTextColor), typeof(Color), typeof(CalendarView), Color.FromHex("#009000"));
