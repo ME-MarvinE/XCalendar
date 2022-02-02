@@ -295,7 +295,7 @@ namespace XCalendar
         /// <summary>
         /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="DayRangeMinimumDate"/>, and <see cref="DayRangeMaximumDate"/>.
         /// </summary>
-        /// <seealso cref="NavigateCalendar(bool)"/>
+        /// <seealso cref="NavigateCalendar(int)"/>
         public NavigationLoopMode NavigationLoopMode
         {
             get { return (NavigationLoopMode)GetValue(NavigationLoopModeProperty); }
@@ -345,7 +345,7 @@ namespace XCalendar
             set { SetValue(DayTemplateProperty, value); }
         }
         /// <summary>
-        /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(bool)"/>.
+        /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(int)"/>.
         /// </summary>
         public NavigationTimeUnit NavigationTimeUnit
         {
@@ -511,7 +511,7 @@ namespace XCalendar
         #region Constructors
         public CalendarView()
         {
-            NavigateCalendarCommand = new Command<bool>(NavigateCalendar);
+            NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
             List<DayOfWeek> InitialStartOfWeekDayNamesOrder = new List<DayOfWeek>();
@@ -685,12 +685,12 @@ namespace XCalendar
         /// </summary>
         /// <param name="Forward">Whether the source will be navigated forwards or backwards</param>
         /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
-        public virtual void NavigateCalendar(bool Forward)
+        public virtual void NavigateCalendar(int Amount)
         {
             DateTime MinimumDate = ClampNavigationToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
             DateTime MaximumDate = ClampNavigationToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
 
-            NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
         /// <summary>
         /// Performs navigation on a DateTime.

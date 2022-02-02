@@ -41,12 +41,15 @@
                 <Frame
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.CommandParameter="{StaticResource FalseValue}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Center">
+
+                    <xct:TouchEffect.CommandParameter>
+                        <x:Int32>-1</x:Int32>
+                    </xct:TouchEffect.CommandParameter>
 
                     <Label
                         FontAttributes="Bold"
@@ -69,12 +72,15 @@
                 <Frame
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.CommandParameter="{StaticResource TrueValue}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Center">
+
+                    <xct:TouchEffect.CommandParameter>
+                        <x:Int32>1</x:Int32>
+                    </xct:TouchEffect.CommandParameter>
 
                     <Label
                         FontAttributes="Bold"
