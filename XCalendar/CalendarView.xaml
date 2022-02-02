@@ -142,15 +142,15 @@
                                     <!--  Needs to be nested because collectionview doesn't respect margins  -->
                                     <ContentView>
                                         <xc:CalendarDayView
-                                            Margin="2.5"
-                                            Padding="0"
+                                            Margin="{Binding DayMargin, Source={x:Reference MainCalendarView}}"
+                                            Padding="{Binding DayPadding, Source={x:Reference MainCalendarView}}"
                                             CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
-                                            CornerRadius="100"
+                                            CornerRadius="{Binding DayCornerRadius, Source={x:Reference MainCalendarView}}"
                                             CurrentMonthBackgroundColor="{Binding DayCurrentMonthBackgroundColor, Source={x:Reference MainCalendarView}}"
                                             CurrentMonthBorderColor="{Binding DayCurrentMonthBorderColor, Source={x:Reference MainCalendarView}}"
                                             CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference MainCalendarView}}"
                                             DateTime="{Binding DateTime}"
-                                            HasShadow="False"
+                                            HasShadow="{Binding DayHasShadow, Source={x:Reference MainCalendarView}}"
                                             HeightRequest="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"
                                             HorizontalOptions="{Binding DayHorizontalOptions, Source={x:Reference MainCalendarView}}"
                                             OtherMonthBackgroundColor="{Binding DayOtherMonthBackgroundColor, Source={x:Reference MainCalendarView}}"
