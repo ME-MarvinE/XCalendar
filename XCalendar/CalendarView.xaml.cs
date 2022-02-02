@@ -727,10 +727,6 @@ namespace XCalendar
             {
                 switch (NavigationTimeUnit)
                 {
-                    case NavigationTimeUnit.None:
-                        NewNavigatedDate = DateTime;
-                        break;
-
                     case NavigationTimeUnit.Week:
                         NewNavigatedDate = DateTime.AddWeeks(Amount);
                         break;
@@ -741,10 +737,6 @@ namespace XCalendar
 
                     case NavigationTimeUnit.Year:
                         NewNavigatedDate = DateTime.AddYears(Amount);
-                        break;
-
-                    case NavigationTimeUnit.Page:
-                        NewNavigatedDate = DateTime.AddWeeks(Rows * Amount);
                         break;
 
                     default:
