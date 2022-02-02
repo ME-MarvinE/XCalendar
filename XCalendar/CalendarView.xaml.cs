@@ -403,6 +403,26 @@ namespace XCalendar
             get { return (LayoutOptions)GetValue(DayHorizontalOptionsProperty); }
             set { SetValue(DayHorizontalOptionsProperty, value); }
         }
+        public Thickness DayMargin
+        {
+            get { return (Thickness)GetValue(DayMarginProperty); }
+            set { SetValue(DayMarginProperty, value); }
+        }
+        public Thickness DayPadding
+        {
+            get { return (Thickness)GetValue(DayPaddingProperty); }
+            set { SetValue(DayPaddingProperty, value); }
+        }
+        public bool DayHasShadow
+        {
+            get { return (bool)GetValue(DayHasShadowProperty); }
+            set { SetValue(DayHasShadowProperty, value); }
+        }
+        public float DayCornerRadius
+        {
+            get { return (float)GetValue(DayCornerRadiusProperty); }
+            set { SetValue(DayCornerRadiusProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -413,7 +433,7 @@ namespace XCalendar
         public static readonly BindableProperty AutoRowsIsConsistentProperty = BindableProperty.Create(nameof(AutoRowsIsConsistent), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsIsConsistentPropertyChanged);
         public static readonly BindableProperty DayRangeMinimumDateProperty = BindableProperty.Create(nameof(DayRangeMinimumDate), typeof(DateTime), typeof(CalendarView), DateTime.MinValue, propertyChanged: DayRangeMinimumDatePropertyChanged);
         public static readonly BindableProperty DayRangeMaximumDateProperty = BindableProperty.Create(nameof(DayRangeMaximumDate), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: DayRangeMaximumDatePropertyChanged);
-        public static readonly BindableProperty TodayDateProperty = BindableProperty.Create(nameof(TodayDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, propertyChanged: TodayDatePropertyChanged);
+        public static readonly BindableProperty TodayDateProperty = BindableProperty.Create(nameof(TodayDate), typeof(DateTime), typeof(CalendarView), DateTime.Today, propertyChanged: TodayDatePropertyChanged);
         public static readonly BindableProperty StartOfWeekProperty = BindableProperty.Create(nameof(StartOfWeek), typeof(DayOfWeek), typeof(CalendarView), CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, propertyChanged: StartOfWeekPropertyChanged);
         public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(Enums.SelectionMode), typeof(CalendarView), Enums.SelectionMode.None, propertyChanged: SelectionModePropertyChanged);
         public static readonly BindableProperty SelectedDateProperty = BindableProperty.Create(nameof(SelectedDate), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: SelectedDatePropertyChanged);
@@ -423,10 +443,14 @@ namespace XCalendar
         public static readonly BindableProperty DayWidthRequestProperty = BindableProperty.Create(nameof(DayWidthRequest), typeof(double), typeof(CalendarView), 45d);
         public static readonly BindableProperty DayVerticalOptionsProperty = BindableProperty.Create(nameof(DayVerticalOptions), typeof(LayoutOptions), typeof(CalendarView), LayoutOptions.Center);
         public static readonly BindableProperty DayHorizontalOptionsProperty = BindableProperty.Create(nameof(DayHorizontalOptions), typeof(LayoutOptions), typeof(CalendarView), LayoutOptions.Center);
+        public static readonly BindableProperty DayMarginProperty = BindableProperty.Create(nameof(DayMargin), typeof(Thickness), typeof(CalendarView), new Thickness(2.5));
+        public static readonly BindableProperty DayPaddingProperty = BindableProperty.Create(nameof(DayPadding), typeof(Thickness), typeof(CalendarView), new Thickness(0));
+        public static readonly BindableProperty DayHasShadowProperty = BindableProperty.Create(nameof(DayHasShadow), typeof(bool), typeof(CalendarView), false);
+        public static readonly BindableProperty DayCornerRadiusProperty = BindableProperty.Create(nameof(DayCornerRadius), typeof(float), typeof(CalendarView), 100f);
         public static readonly BindableProperty DayCurrentMonthTextColorProperty = BindableProperty.Create(nameof(DayCurrentMonthTextColor), typeof(Color), typeof(CalendarView), Color.Black);
         public static readonly BindableProperty DayCurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(DayCurrentMonthBackgroundColor), typeof(Color), typeof(CalendarView));
         public static readonly BindableProperty DayCurrentMonthBorderColorProperty = BindableProperty.Create(nameof(DayCurrentMonthBorderColor), typeof(Color), typeof(CalendarView));
-        public static readonly BindableProperty DayTodayTextColorProperty = BindableProperty.Create(nameof(DayTodayTextColor), typeof(Color), typeof(CalendarView), Color.FromHex("#009000"));
+        public static readonly BindableProperty DayTodayTextColorProperty = BindableProperty.Create(nameof(DayTodayTextColor), typeof(Color), typeof(CalendarView), Color.White);
         public static readonly BindableProperty DayTodayBackgroundColorProperty = BindableProperty.Create(nameof(DayTodayBackgroundColor), typeof(Color), typeof(CalendarView));
         public static readonly BindableProperty DayTodayBorderColorProperty = BindableProperty.Create(nameof(DayTodayBorderColor), typeof(Color), typeof(CalendarView), Color.FromHex("#E00000"));
         public static readonly BindableProperty DayOtherMonthTextColorProperty = BindableProperty.Create(nameof(DayOtherMonthTextColor), typeof(Color), typeof(CalendarView), Color.FromHex("#A0A0A0"));
@@ -456,7 +480,7 @@ namespace XCalendar
         public static readonly BindableProperty NavigationHeightRequestProperty = BindableProperty.Create(nameof(NavigationHeightRequest), typeof(double), typeof(CalendarView), 40d);
         public static readonly BindableProperty NavigationTextColorProperty = BindableProperty.Create(nameof(NavigationTextColor), typeof(Color), typeof(CalendarView), Color.Black);
         public static readonly BindableProperty NavigationArrowColorProperty = BindableProperty.Create(nameof(NavigationArrowColor), typeof(Color), typeof(CalendarView), Color.Black);
-        public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView));
+        public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView), Color.Transparent);
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 100f);
         public static readonly BindableProperty NavigationLoopModeProperty = BindableProperty.Create(nameof(NavigationLoopMode), typeof(NavigationLoopMode), typeof(CalendarView), NavigationLoopMode.LoopMinimumAndMaximum);
         public static readonly BindableProperty NavigationTimeUnitProperty = BindableProperty.Create(nameof(NavigationTimeUnit), typeof(NavigationTimeUnit), typeof(CalendarView), NavigationTimeUnit.Month);
