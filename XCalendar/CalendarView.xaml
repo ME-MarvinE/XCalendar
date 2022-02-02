@@ -21,6 +21,8 @@
 
             <xct:EnumToBoolConverter x:Key="EnumToBoolConverter" />
 
+            <xct:MathExpressionConverter x:Key="MathExpressionConverter"/>
+
             <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
                 <Converters:EnumToStringConverter />
                 <Converters:StringCharLimitConverter />
@@ -41,15 +43,12 @@
                 <Frame
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
+                    xct:TouchEffect.CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Center">
-
-                    <xct:TouchEffect.CommandParameter>
-                        <x:Int32>-1</x:Int32>
-                    </xct:TouchEffect.CommandParameter>
 
                     <Label
                         FontAttributes="Bold"
@@ -72,15 +71,12 @@
                 <Frame
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
+                    xct:TouchEffect.CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Center">
-
-                    <xct:TouchEffect.CommandParameter>
-                        <x:Int32>1</x:Int32>
-                    </xct:TouchEffect.CommandParameter>
 
                     <Label
                         FontAttributes="Bold"

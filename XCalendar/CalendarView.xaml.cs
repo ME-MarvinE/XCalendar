@@ -423,6 +423,16 @@ namespace XCalendar
             get { return (float)GetValue(DayCornerRadiusProperty); }
             set { SetValue(DayCornerRadiusProperty, value); }
         }
+        public int ForwardsNavigationAmount
+        {
+            get { return (int)GetValue(ForwardsNavigationAmountProperty); }
+            set { SetValue(ForwardsNavigationAmountProperty, value); }
+        }
+        public int BackwardsNavigationAmount
+        {
+            get { return (int)GetValue(BackwardsNavigationAmountProperty); }
+            set { SetValue(BackwardsNavigationAmountProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -484,6 +494,8 @@ namespace XCalendar
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 100f);
         public static readonly BindableProperty NavigationLoopModeProperty = BindableProperty.Create(nameof(NavigationLoopMode), typeof(NavigationLoopMode), typeof(CalendarView), NavigationLoopMode.LoopMinimumAndMaximum);
         public static readonly BindableProperty NavigationTimeUnitProperty = BindableProperty.Create(nameof(NavigationTimeUnit), typeof(NavigationTimeUnit), typeof(CalendarView), NavigationTimeUnit.Month);
+        public static readonly BindableProperty ForwardsNavigationAmountProperty = BindableProperty.Create(nameof(ForwardsNavigationAmount), typeof(int), typeof(CalendarView), 1);
+        public static readonly BindableProperty BackwardsNavigationAmountProperty = BindableProperty.Create(nameof(BackwardsNavigationAmount), typeof(int), typeof(CalendarView), -1);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         public static readonly BindableProperty ClampNavigationToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigationToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigationToDayRangePropertyChanged);
         #endregion
