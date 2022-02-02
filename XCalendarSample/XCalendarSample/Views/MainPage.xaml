@@ -304,6 +304,34 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
+                                Text="Forwards&#10;NavigationAmount"
+                                VerticalTextAlignment="Center" />
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Text="{Binding ForwardsNavigationAmount}"
+                                VerticalOptions="End" />
+                        </Grid>
+
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="Backwards&#10;NavigationAmount"
+                                VerticalTextAlignment="Center" />
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Text="{Binding BackwardsNavigationAmount}"
+                                VerticalOptions="End" />
+                        </Grid>
+
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
                                 Text="NavigationTimeUnit"
                                 VerticalTextAlignment="Center" />
                             <Label
@@ -543,6 +571,7 @@
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
+                        BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
                         ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
@@ -557,6 +586,7 @@
                         DayTodayBorderColor="{StaticResource PrimaryColor}"
                         DayTodayTextColor="{StaticResource ContentTextColor}"
                         DayWidthRequest="{Binding DayWidthRequest}"
+                        ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
                         NavigationArrowColor="{StaticResource ContentTextColor}"

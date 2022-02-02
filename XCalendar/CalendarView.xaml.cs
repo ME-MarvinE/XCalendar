@@ -295,7 +295,7 @@ namespace XCalendar
         /// <summary>
         /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="DayRangeMinimumDate"/>, and <see cref="DayRangeMaximumDate"/>.
         /// </summary>
-        /// <seealso cref="NavigateCalendar(bool)"/>
+        /// <seealso cref="NavigateCalendar(int)"/>
         public NavigationLoopMode NavigationLoopMode
         {
             get { return (NavigationLoopMode)GetValue(NavigationLoopModeProperty); }
@@ -345,7 +345,7 @@ namespace XCalendar
             set { SetValue(DayTemplateProperty, value); }
         }
         /// <summary>
-        /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(bool)"/>.
+        /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(int)"/>.
         /// </summary>
         public NavigationTimeUnit NavigationTimeUnit
         {
@@ -423,6 +423,16 @@ namespace XCalendar
             get { return (float)GetValue(DayCornerRadiusProperty); }
             set { SetValue(DayCornerRadiusProperty, value); }
         }
+        public int ForwardsNavigationAmount
+        {
+            get { return (int)GetValue(ForwardsNavigationAmountProperty); }
+            set { SetValue(ForwardsNavigationAmountProperty, value); }
+        }
+        public int BackwardsNavigationAmount
+        {
+            get { return (int)GetValue(BackwardsNavigationAmountProperty); }
+            set { SetValue(BackwardsNavigationAmountProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -484,6 +494,8 @@ namespace XCalendar
         public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 100f);
         public static readonly BindableProperty NavigationLoopModeProperty = BindableProperty.Create(nameof(NavigationLoopMode), typeof(NavigationLoopMode), typeof(CalendarView), NavigationLoopMode.LoopMinimumAndMaximum);
         public static readonly BindableProperty NavigationTimeUnitProperty = BindableProperty.Create(nameof(NavigationTimeUnit), typeof(NavigationTimeUnit), typeof(CalendarView), NavigationTimeUnit.Month);
+        public static readonly BindableProperty ForwardsNavigationAmountProperty = BindableProperty.Create(nameof(ForwardsNavigationAmount), typeof(int), typeof(CalendarView), 1);
+        public static readonly BindableProperty BackwardsNavigationAmountProperty = BindableProperty.Create(nameof(BackwardsNavigationAmount), typeof(int), typeof(CalendarView), -1);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         public static readonly BindableProperty ClampNavigationToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigationToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigationToDayRangePropertyChanged);
         #endregion
@@ -511,7 +523,7 @@ namespace XCalendar
         #region Constructors
         public CalendarView()
         {
-            NavigateCalendarCommand = new Command<bool>(NavigateCalendar);
+            NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
             List<DayOfWeek> InitialStartOfWeekDayNamesOrder = new List<DayOfWeek>();
@@ -685,12 +697,12 @@ namespace XCalendar
         /// </summary>
         /// <param name="Forward">Whether the source will be navigated forwards or backwards</param>
         /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
-        public virtual void NavigateCalendar(bool Forward)
+        public virtual void NavigateCalendar(int Amount)
         {
             DateTime MinimumDate = ClampNavigationToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
             DateTime MaximumDate = ClampNavigationToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
 
-            NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Forward ? 1 : -1, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
         /// <summary>
         /// Performs navigation on a DateTime.
@@ -715,8 +727,8 @@ namespace XCalendar
             {
                 switch (NavigationTimeUnit)
                 {
-                    case NavigationTimeUnit.None:
-                        NewNavigatedDate = DateTime;
+                    case NavigationTimeUnit.Day:
+                        NewNavigatedDate = DateTime.AddDays(Amount);
                         break;
 
                     case NavigationTimeUnit.Week:
@@ -729,10 +741,6 @@ namespace XCalendar
 
                     case NavigationTimeUnit.Year:
                         NewNavigatedDate = DateTime.AddYears(Amount);
-                        break;
-
-                    case NavigationTimeUnit.Page:
-                        NewNavigatedDate = DateTime.AddWeeks(Rows * Amount);
                         break;
 
                     default:

@@ -2,10 +2,9 @@
 {
     public enum NavigationTimeUnit
     {
-        None,
+        Day,
         Week,
         Month,
-        Year,
-        Page
+        Year
     }
 }
