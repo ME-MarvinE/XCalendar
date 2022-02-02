@@ -13,8 +13,8 @@ namespace XCalendarSample.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         #region Properties
-        public DateTime? SelectedDate { get; set; } = DateTime.Today;
-        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>() { DateTime.Today };
+        public DateTime? SelectedDate { get; set; }
+        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
         public List<XCalendar.Enums.SelectionMode> SelectionModes { get; set; } = Enum.GetValues(typeof(XCalendar.Enums.SelectionMode)).Cast<XCalendar.Enums.SelectionMode>().ToList();
         public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
         public List<NavigationTimeUnit> NavigationTimeUnits { get; set; } = Enum.GetValues(typeof(NavigationTimeUnit)).Cast<NavigationTimeUnit>().ToList();
@@ -50,7 +50,8 @@ namespace XCalendarSample.ViewModels
         public int Rows { get; set; } = 2;
         public bool AutoRows { get; set; } = true;
         public bool AutoRowsIsConsistent { get; set; } = true;
-        public double DayHeightRequest { get; set; } = 50;
+        public double DayHeightRequest { get; set; } = 45;
+        public double DayWidthRequest { get; set; } = 45;
         public double MonthViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
         public bool UseCustomDayNamesOrder { get; set; } = false;
