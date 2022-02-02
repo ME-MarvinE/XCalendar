@@ -7,7 +7,7 @@ using XCalendar.Enums;
 namespace XCalendar
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CalendarDayView : ContentView
+    public partial class CalendarDayView : Frame
     {
         #region Properties
 
@@ -140,27 +140,27 @@ namespace XCalendar
         {
             if (IsOutOfRange)
             {
-                MainLabel.BackgroundColor = OutOfRangeBackgroundColor;
+                BackgroundColor = OutOfRangeBackgroundColor;
                 MainLabel.TextColor = OutOfRangeTextColor;
             }
             else if (IsSelected && IsCurrentMonth)
             {
-                MainLabel.BackgroundColor = SelectedBackgroundColor;
+                BackgroundColor = SelectedBackgroundColor;
                 MainLabel.TextColor = SelectedTextColor;
             }
             else if (IsToday && IsCurrentMonth)
             {
-                MainLabel.BackgroundColor = TodayBackgroundColor;
+                BackgroundColor = TodayBackgroundColor;
                 MainLabel.TextColor = TodayTextColor;
             }
             else if (!IsCurrentMonth)
             {
-                MainLabel.BackgroundColor = OtherMonthBackgroundColor;
+                BackgroundColor = OtherMonthBackgroundColor;
                 MainLabel.TextColor = OtherMonthTextColor;
             }
             else if (IsCurrentMonth)
             {
-                MainLabel.BackgroundColor = CurrentMonthBackgroundColor;
+                BackgroundColor = CurrentMonthBackgroundColor;
                 MainLabel.TextColor = CurrentMonthTextColor;
             }
             else

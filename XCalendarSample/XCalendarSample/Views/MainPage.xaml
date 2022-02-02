@@ -548,7 +548,7 @@
                         DayCurrentMonthBackgroundColor="Transparent"
                         DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
                         DayHeightRequest="{Binding DayHeightRequest}"
-                        DayHorizontalOptions="Fill"
+                        DayHorizontalOptions="Center"
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         DayOtherMonthBackgroundColor="Transparent"
@@ -561,7 +561,7 @@
                         DaySelectedTextColor="{StaticResource PrimaryTextColor}"
                         DayTodayBackgroundColor="Transparent"
                         DayTodayTextColor="{StaticResource ContentTextColor}"
-                        DayVerticalOptions="Fill"
+                        DayVerticalOptions="Center"
                         DayWidthRequest="{Binding DayWidthRequest}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
@@ -587,10 +587,14 @@
                                         <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
                                             <ContentView>
                                                 <xc:CalendarDayView
+                                                    Margin="2.5"
+                                                    Padding="0"
                                                     CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
+                                                    CornerRadius="100"
                                                     CurrentMonthBackgroundColor="{Binding DayCurrentMonthBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                     CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference FancyCalendarView}}"
                                                     DateTime="{Binding DateTime}"
+                                                    HasShadow="False"
                                                     HeightRequest="{Binding DayHeightRequest, Source={x:Reference FancyCalendarView}}"
                                                     HorizontalOptions="{Binding DayHorizontalOptions, Source={x:Reference FancyCalendarView}}"
                                                     OtherMonthBackgroundColor="{Binding DayOtherMonthBackgroundColor, Source={x:Reference FancyCalendarView}}"
@@ -604,55 +608,32 @@
                                                     VerticalOptions="{Binding DayVerticalOptions, Source={x:Reference FancyCalendarView}}"
                                                     WidthRequest="{Binding DayWidthRequest, Source={x:Reference FancyCalendarView}}">
 
-                                                    <xc:CalendarDayView.ControlTemplate>
-                                                        <ControlTemplate>
-                                                            <Frame
-                                                                Margin="3.5"
-                                                                Padding="0"
-                                                                BackgroundColor="Transparent"
-                                                                CornerRadius="100"
-                                                                HasShadow="False">
-                                                                <Frame.Style>
-                                                                    <Style TargetType="{x:Type Frame}">
-                                                                        <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="Transparent" />
-                                                                        <Setter Property="xct:TouchEffect.NormalAnimationDuration" Value="150" />
-                                                                        <Setter Property="xct:TouchEffect.PressedAnimationDuration" Value="75" />
-                                                                        <Style.Triggers>
-                                                                            <MultiTrigger TargetType="{x:Type Frame}">
-                                                                                <MultiTrigger.Conditions>
-                                                                                    <BindingCondition Binding="{Binding IsToday, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                                    <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                                    <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
-                                                                                </MultiTrigger.Conditions>
-                                                                                <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}" />
-                                                                            </MultiTrigger>
+                                                    <xc:CalendarDayView.Style>
+                                                        <Style TargetType="{x:Type xc:CalendarDayView}">
+                                                            <Style.Triggers>
+                                                                <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
+                                                                    <MultiTrigger.Conditions>
+                                                                        <BindingCondition Binding="{Binding IsToday, Source={RelativeSource Self}}" Value="True" />
+                                                                        <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
+                                                                        <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
+                                                                    </MultiTrigger.Conditions>
+                                                                    <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}" />
+                                                                </MultiTrigger>
 
-                                                                            <MultiTrigger TargetType="{x:Type Frame}">
-                                                                                <MultiTrigger.Conditions>
-                                                                                    <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                                    <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                                    <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
-                                                                                </MultiTrigger.Conditions>
-                                                                                <Setter Property="xct:TouchEffect.NormalBackgroundColor" Value="{Binding DaySelectedBackgroundColor, Source={x:Reference FancyCalendarView}}" />
-                                                                            </MultiTrigger>
+                                                                <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
+                                                                    <MultiTrigger.Conditions>
+                                                                        <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
+                                                                        <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
+                                                                        <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
+                                                                    </MultiTrigger.Conditions>
+                                                                    <Setter Property="xct:TouchEffect.NativeAnimation" Value="True" />
+                                                                    <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference FancyCalendarView}}" />
+                                                                    <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource Self}}" />
+                                                                </MultiTrigger>
 
-                                                                            <MultiTrigger TargetType="{x:Type Frame}">
-                                                                                <MultiTrigger.Conditions>
-                                                                                    <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference FancyCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
-                                                                                    <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                                    <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
-                                                                                </MultiTrigger.Conditions>
-                                                                                <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference FancyCalendarView}}" />
-                                                                                <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource TemplatedParent}}" />
-                                                                            </MultiTrigger>
-
-                                                                        </Style.Triggers>
-                                                                    </Style>
-                                                                </Frame.Style>
-                                                                <ContentPresenter />
-                                                            </Frame>
-                                                        </ControlTemplate>
-                                                    </xc:CalendarDayView.ControlTemplate>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </xc:CalendarDayView.Style>
 
                                                 </xc:CalendarDayView>
                                             </ContentView>

@@ -139,13 +139,17 @@
                         <Setter Property="ItemTemplate">
                             <Setter.Value>
                                 <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
-                                    <!--Needs to be nested because collectionview doesn't respect margins-->
+                                    <!--  Needs to be nested because collectionview doesn't respect margins  -->
                                     <ContentView>
                                         <xc:CalendarDayView
+                                            Margin="2.5"
+                                            Padding="0"
                                             CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                            CornerRadius="100"
                                             CurrentMonthBackgroundColor="{Binding DayCurrentMonthBackgroundColor, Source={x:Reference MainCalendarView}}"
                                             CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference MainCalendarView}}"
                                             DateTime="{Binding DateTime}"
+                                            HasShadow="False"
                                             HeightRequest="{Binding DayHeightRequest, Source={x:Reference MainCalendarView}}"
                                             HorizontalOptions="{Binding DayHorizontalOptions, Source={x:Reference MainCalendarView}}"
                                             OtherMonthBackgroundColor="{Binding DayOtherMonthBackgroundColor, Source={x:Reference MainCalendarView}}"
@@ -159,44 +163,32 @@
                                             VerticalOptions="{Binding DayVerticalOptions, Source={x:Reference MainCalendarView}}"
                                             WidthRequest="{Binding DayWidthRequest, Source={x:Reference MainCalendarView}}">
 
-                                            <xc:CalendarDayView.ControlTemplate>
-                                                <ControlTemplate>
-                                                    <Frame
-                                                        Margin="3.5"
-                                                        Padding="0"
-                                                        CornerRadius="100"
-                                                        BackgroundColor="Transparent"
-                                                        HasShadow="False">
-                                                        <Frame.Style>
-                                                            <Style TargetType="{x:Type Frame}">
-                                                                <Style.Triggers>
-                                                                    <MultiTrigger TargetType="{x:Type Frame}">
-                                                                        <MultiTrigger.Conditions>
-                                                                            <BindingCondition Binding="{Binding IsToday, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                            <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                            <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
-                                                                        </MultiTrigger.Conditions>
-                                                                        <Setter Property="BorderColor" Value="#009000"/>
-                                                                    </MultiTrigger>
+                                            <xc:CalendarDayView.Style>
+                                                <Style TargetType="{x:Type xc:CalendarDayView}">
+                                                    <Style.Triggers>
+                                                        <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
+                                                            <MultiTrigger.Conditions>
+                                                                <BindingCondition Binding="{Binding IsToday, Source={RelativeSource Self}}" Value="True" />
+                                                                <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
+                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="BorderColor" Value="#009000" />
+                                                        </MultiTrigger>
 
-                                                                    <MultiTrigger TargetType="{x:Type Frame}">
-                                                                        <MultiTrigger.Conditions>
-                                                                            <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
-                                                                            <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True" />
-                                                                            <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False" />
-                                                                        </MultiTrigger.Conditions>
-                                                                        <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
-                                                                        <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference MainCalendarView}}" />
-                                                                        <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource TemplatedParent}}" />
-                                                                    </MultiTrigger>
+                                                        <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
+                                                            <MultiTrigger.Conditions>
+                                                                <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
+                                                                <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
+                                                                <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="xct:TouchEffect.NativeAnimation" Value="True" />
+                                                            <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference MainCalendarView}}" />
+                                                            <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource Self}}" />
+                                                        </MultiTrigger>
 
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Frame.Style>
-                                                        <ContentPresenter/>
-                                                    </Frame>
-                                                </ControlTemplate>
-                                            </xc:CalendarDayView.ControlTemplate>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </xc:CalendarDayView.Style>
 
                                         </xc:CalendarDayView>
                                     </ContentView>
@@ -216,7 +208,7 @@
                 </CollectionView.Style>
 
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding DayNamesOrder.Count, Source={x:Reference MainCalendarView}}"/>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding DayNamesOrder.Count, Source={x:Reference MainCalendarView}}" />
                 </CollectionView.ItemsLayout>
 
             </CollectionView>
