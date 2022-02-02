@@ -546,20 +546,25 @@
                         ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         DayCurrentMonthBackgroundColor="Transparent"
+                        DayCurrentMonthBorderColor="Transparent"
                         DayCurrentMonthTextColor="{StaticResource ContentTextColor}"
                         DayHeightRequest="{Binding DayHeightRequest}"
                         DayHorizontalOptions="Center"
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         DayOtherMonthBackgroundColor="Transparent"
+                        DayOtherMonthBorderColor="Transparent"
                         DayOtherMonthTextColor="#A0A0A0"
                         DayOutOfRangeBackgroundColor="Transparent"
+                        DayOutOfRangeBorderColor="Transparent"
                         DayOutOfRangeTextColor="{StaticResource TertiaryColor}"
                         DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
                         DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
                         DaySelectedBackgroundColor="{StaticResource PrimaryColor}"
+                        DaySelectedBorderColor="Transparent"
                         DaySelectedTextColor="{StaticResource PrimaryTextColor}"
                         DayTodayBackgroundColor="Transparent"
+                        DayTodayBorderColor="{StaticResource PrimaryColor}"
                         DayTodayTextColor="{StaticResource ContentTextColor}"
                         DayVerticalOptions="Center"
                         DayWidthRequest="{Binding DayWidthRequest}"
@@ -592,18 +597,23 @@
                                                     CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
                                                     CornerRadius="100"
                                                     CurrentMonthBackgroundColor="{Binding DayCurrentMonthBackgroundColor, Source={x:Reference FancyCalendarView}}"
+                                                    CurrentMonthBorderColor="{Binding DayCurrentMonthBorderColor, Source={x:Reference FancyCalendarView}}"
                                                     CurrentMonthTextColor="{Binding DayCurrentMonthTextColor, Source={x:Reference FancyCalendarView}}"
                                                     DateTime="{Binding DateTime}"
                                                     HasShadow="False"
                                                     HeightRequest="{Binding DayHeightRequest, Source={x:Reference FancyCalendarView}}"
                                                     HorizontalOptions="{Binding DayHorizontalOptions, Source={x:Reference FancyCalendarView}}"
                                                     OtherMonthBackgroundColor="{Binding DayOtherMonthBackgroundColor, Source={x:Reference FancyCalendarView}}"
+                                                    OtherMonthBorderColor="{Binding DayOtherMonthBorderColor, Source={x:Reference FancyCalendarView}}"
                                                     OtherMonthTextColor="{Binding DayOtherMonthTextColor, Source={x:Reference FancyCalendarView}}"
                                                     OutOfRangeBackgroundColor="{Binding DayOutOfRangeBackgroundColor, Source={x:Reference FancyCalendarView}}"
+                                                    OutOfRangeBorderColor="{Binding DayOutOfRangeBorderColor, Source={x:Reference FancyCalendarView}}"
                                                     OutOfRangeTextColor="{Binding DayOutOfRangeTextColor, Source={x:Reference FancyCalendarView}}"
                                                     SelectedBackgroundColor="{Binding DaySelectedBackgroundColor, Source={x:Reference FancyCalendarView}}"
+                                                    SelectedBorderColor="{Binding DaySelectedBorderColor, Source={x:Reference FancyCalendarView}}"
                                                     SelectedTextColor="{Binding DaySelectedTextColor, Source={x:Reference FancyCalendarView}}"
                                                     TodayBackgroundColor="{Binding DayTodayBackgroundColor, Source={x:Reference FancyCalendarView}}"
+                                                    TodayBorderColor="{Binding DayTodayBorderColor, Source={x:Reference FancyCalendarView}}"
                                                     TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference FancyCalendarView}}"
                                                     VerticalOptions="{Binding DayVerticalOptions, Source={x:Reference FancyCalendarView}}"
                                                     WidthRequest="{Binding DayWidthRequest, Source={x:Reference FancyCalendarView}}">
@@ -613,16 +623,7 @@
                                                             <Style.Triggers>
                                                                 <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
                                                                     <MultiTrigger.Conditions>
-                                                                        <BindingCondition Binding="{Binding IsToday, Source={RelativeSource Self}}" Value="True" />
-                                                                        <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
-                                                                        <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
-                                                                    </MultiTrigger.Conditions>
-                                                                    <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}" />
-                                                                </MultiTrigger>
-
-                                                                <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
-                                                                    <MultiTrigger.Conditions>
-                                                                        <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
+                                                                        <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference FancyCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
                                                                         <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
                                                                         <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
                                                                     </MultiTrigger.Conditions>
@@ -630,7 +631,6 @@
                                                                     <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference FancyCalendarView}}" />
                                                                     <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource Self}}" />
                                                                 </MultiTrigger>
-
                                                             </Style.Triggers>
                                                         </Style>
                                                     </xc:CalendarDayView.Style>
