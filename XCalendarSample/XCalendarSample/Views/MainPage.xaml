@@ -612,6 +612,7 @@
                                                     SelectedBackgroundColor="{Binding DaySelectedBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                     SelectedBorderColor="{Binding DaySelectedBorderColor, Source={x:Reference FancyCalendarView}}"
                                                     SelectedTextColor="{Binding DaySelectedTextColor, Source={x:Reference FancyCalendarView}}"
+                                                    Text="{Binding DateTime.Day}"
                                                     TodayBackgroundColor="{Binding DayTodayBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                     TodayBorderColor="{Binding DayTodayBorderColor, Source={x:Reference FancyCalendarView}}"
                                                     TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference FancyCalendarView}}"

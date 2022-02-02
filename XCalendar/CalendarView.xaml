@@ -162,6 +162,7 @@
                                             SelectedBackgroundColor="{Binding DaySelectedBackgroundColor, Source={x:Reference MainCalendarView}}"
                                             SelectedBorderColor="{Binding DaySelectedBorderColor, Source={x:Reference MainCalendarView}}"
                                             SelectedTextColor="{Binding DaySelectedTextColor, Source={x:Reference MainCalendarView}}"
+                                            Text="{Binding DateTime.Day}"
                                             TodayBackgroundColor="{Binding DayTodayBackgroundColor, Source={x:Reference MainCalendarView}}"
                                             TodayBorderColor="{Binding DayTodayBorderColor, Source={x:Reference MainCalendarView}}"
                                             TodayTextColor="{Binding DayTodayTextColor, Source={x:Reference MainCalendarView}}"

@@ -117,6 +117,82 @@ namespace XCalendar
             get { return (CalendarView)GetValue(CalendarViewProperty); }
             set { SetValue(CalendarViewProperty, value); }
         }
+        public TextTransform TextTransform
+        {
+            get { return (TextTransform)GetValue(TextTransformProperty); }
+            set { SetValue(TextTransformProperty, value); }
+        }
+        public FormattedString FormattedText
+        {
+            get { return (FormattedString)GetValue(FormattedTextProperty); }
+            set { SetValue(FormattedTextProperty, value); }
+        }
+        public TextAlignment HorizontalTextAlignment
+        {
+            get { return (TextAlignment)GetValue(HorizontalTextAlignmentProperty); }
+            set { SetValue(HorizontalTextAlignmentProperty, value); }
+        }
+        public LineBreakMode LineBreakMode
+        {
+            get { return (LineBreakMode)GetValue(LineBreakModeProperty); }
+            set { SetValue(LineBreakModeProperty, value); }
+        }
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+        public Color TextColor
+        {
+            get { return (Color)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
+        }
+        public double CharacterSpacing
+        {
+            get { return (double)GetValue(CharacterSpacingProperty); }
+            set { SetValue(CharacterSpacingProperty, value); }
+        }
+        public TextAlignment VerticalTextAlignment
+        {
+            get { return (TextAlignment)GetValue(VerticalTextAlignmentProperty); }
+            set { SetValue(VerticalTextAlignmentProperty, value); }
+        }
+        public FontAttributes FontAttributes
+        {
+            get { return (FontAttributes)GetValue(FontAttributesProperty); }
+            set { SetValue(FontAttributesProperty, value); }
+        }
+        public TextDecorations TextDecorations
+        {
+            get { return (TextDecorations)GetValue(TextDecorationsProperty); }
+            set { SetValue(TextDecorationsProperty, value); }
+        }
+        public string FontFamily
+        {
+            get { return (string)GetValue(FontFamilyProperty); }
+            set { SetValue(FontFamilyProperty, value); }
+        }
+        [TypeConverter(typeof(FontSizeConverter))]
+        public double FontSize
+        {
+            get { return (double)GetValue(FontSizeProperty); }
+            set { SetValue(FontSizeProperty, value); }
+        }
+        public double LineHeight
+        {
+            get { return (double)GetValue(LineHeightProperty); }
+            set { SetValue(LineHeightProperty, value); }
+        }
+        public int MaxLines
+        {
+            get { return (int)GetValue(MaxLinesProperty); }
+            set { SetValue(MaxLinesProperty, value); }
+        }
+        public TextType TextType
+        {
+            get { return (TextType)GetValue(TextTypeProperty); }
+            set { SetValue(TextTypeProperty, value); }
+        }
 
         #endregion
 
@@ -142,6 +218,21 @@ namespace XCalendar
         public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(CalendarDayView), Color.White);
         public static readonly BindableProperty SelectedBackgroundColorProperty = BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.FromHex("#E00000"));
         public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor), typeof(Color), typeof(CalendarDayView), Color.FromHex("#E00000"));
+        public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(CalendarDayView), Label.CharacterSpacingProperty.DefaultValue);
+        public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(CalendarDayView), Label.FontAttributesProperty.DefaultValue);
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(CalendarDayView), Label.FontFamilyProperty.DefaultValue);
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(CalendarDayView), Label.FontSizeProperty.DefaultValue);
+        public static readonly BindableProperty FormattedTextProperty = BindableProperty.Create(nameof(FormattedText), typeof(FormattedString), typeof(CalendarDayView), Label.FormattedTextProperty.DefaultValue);
+        public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(nameof(HorizontalTextAlignment), typeof(TextAlignment), typeof(CalendarDayView), TextAlignment.Center);
+        public static readonly BindableProperty LineBreakModeProperty = BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(CalendarDayView), Label.LineBreakModeProperty.DefaultValue);
+        public static readonly BindableProperty LineHeightProperty = BindableProperty.Create(nameof(LineHeight), typeof(double), typeof(CalendarDayView), Label.LineHeightProperty.DefaultValue);
+        public static readonly BindableProperty MaxLinesProperty = BindableProperty.Create(nameof(MaxLines), typeof(int), typeof(CalendarDayView), Label.MaxLinesProperty.DefaultValue);
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(CalendarDayView), Label.TextProperty.DefaultValue);
+        public static readonly BindableProperty TextDecorationsProperty = BindableProperty.Create(nameof(TextDecorations), typeof(TextDecorations), typeof(CalendarDayView), Label.TextDecorationsProperty.DefaultValue);
+        public static readonly BindableProperty TextTransformProperty = BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(CalendarDayView), Label.TextTransformProperty.DefaultValue);
+        public static readonly BindableProperty TextTypeProperty = BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(CalendarDayView), Label.TextTypeProperty.DefaultValue);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(CalendarDayView), Label.TextColorProperty.DefaultValue);
+        public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(CalendarDayView), TextAlignment.Center);
         #endregion
 
         #endregion
@@ -172,31 +263,31 @@ namespace XCalendar
             {
                 BackgroundColor = OutOfRangeBackgroundColor;
                 BorderColor = OutOfRangeBorderColor;
-                MainLabel.TextColor = OutOfRangeTextColor;
+                TextColor = OutOfRangeTextColor;
             }
             else if (IsSelected && IsCurrentMonth)
             {
                 BackgroundColor = SelectedBackgroundColor;
                 BorderColor = SelectedBorderColor;
-                MainLabel.TextColor = SelectedTextColor;
+                TextColor = SelectedTextColor;
             }
             else if (IsToday && IsCurrentMonth)
             {
                 BackgroundColor = TodayBackgroundColor;
                 BorderColor = TodayBorderColor;
-                MainLabel.TextColor = TodayTextColor;
+                TextColor = TodayTextColor;
             }
             else if (!IsCurrentMonth)
             {
                 BackgroundColor = OtherMonthBackgroundColor;
                 BorderColor = OtherMonthBorderColor;
-                MainLabel.TextColor = OtherMonthTextColor;
+                TextColor = OtherMonthTextColor;
             }
             else if (IsCurrentMonth)
             {
                 BackgroundColor = CurrentMonthBackgroundColor;
                 BorderColor = CurrentMonthBorderColor;
-                MainLabel.TextColor = CurrentMonthTextColor;
+                TextColor = CurrentMonthTextColor;
             }
             else
             {
