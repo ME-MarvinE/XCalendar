@@ -8,9 +8,20 @@
     x:DataType="{x:Type xc:CalendarDayView}">
 
     <Label
-        x:Name="MainLabel"
-        HorizontalTextAlignment="Center"
-        Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"
-        VerticalTextAlignment="Center" />
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainCalendarDayView}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference MainCalendarDayView}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference MainCalendarDayView}}"
+        FontSize="{Binding FontSize, Source={x:Reference MainCalendarDayView}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference MainCalendarDayView}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainCalendarDayView}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainCalendarDayView}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference MainCalendarDayView}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference MainCalendarDayView}}"
+        Text="{Binding Text, Source={x:Reference MainCalendarDayView}}"
+        TextColor="{Binding TextColor, Source={x:Reference MainCalendarDayView}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference MainCalendarDayView}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference MainCalendarDayView}}"
+        TextType="{Binding TextType, Source={x:Reference MainCalendarDayView}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainCalendarDayView}}" />
 
 </Frame>
