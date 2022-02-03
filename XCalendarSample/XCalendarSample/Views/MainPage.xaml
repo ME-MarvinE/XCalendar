@@ -423,7 +423,7 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="UseCustomDayNamesOrder"
+                                Text="Use&#10;CustomDayNamesOrder"
                                 VerticalTextAlignment="Center" />
                             <Switch
                                 Grid.Column="1"
