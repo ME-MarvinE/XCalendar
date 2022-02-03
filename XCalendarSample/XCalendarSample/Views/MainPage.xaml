@@ -239,14 +239,14 @@
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding SelectedDate, StringFormat='{0:ddd, MMM d}'}"
+                                Text="{Binding SelectedDate, StringFormat='{0:ddd, MMM yyy}'}"
                                 TextColor="{StaticResource ContentTextColor}"
                                 VerticalOptions="End" />
                             <DatePicker
                                 Grid.Column="1"
                                 Date="{Binding SelectedDate}"
                                 FontSize="{StaticResource SmallFontSize}"
-                                Format="ddd, MMM d"
+                                Format="ddd, MMM yyy"
                                 HorizontalOptions="Center"
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
                                 MinimumDate="{x:Static System:DateTime.MinValue}"
