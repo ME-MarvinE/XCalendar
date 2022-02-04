@@ -13,7 +13,6 @@ namespace XCalendarSample.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         #region Properties
-        public DateTime? SelectedDate { get; set; }
         public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
         public List<XCalendar.Enums.SelectionMode> SelectionModes { get; set; } = Enum.GetValues(typeof(XCalendar.Enums.SelectionMode)).Cast<XCalendar.Enums.SelectionMode>().ToList();
         public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();

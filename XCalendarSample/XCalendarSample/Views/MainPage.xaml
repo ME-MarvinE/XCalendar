@@ -232,32 +232,6 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="SelectedDate"
-                                VerticalTextAlignment="Center" />
-                            <Editor
-                                Grid.Column="1"
-                                AutoSize="TextChanges"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalOptions="Center"
-                                Text="{Binding SelectedDate, StringFormat='{0:ddd, MMM yyy}'}"
-                                TextColor="{StaticResource ContentTextColor}"
-                                VerticalOptions="End" />
-                            <DatePicker
-                                Grid.Column="1"
-                                Date="{Binding SelectedDate}"
-                                FontSize="{StaticResource SmallFontSize}"
-                                Format="ddd, MMM yyy"
-                                HorizontalOptions="Center"
-                                MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
-                                TextColor="Transparent" />
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
                                 Text="SelectedDates"
                                 VerticalTextAlignment="Center" />
                             <CollectionView
@@ -596,7 +570,6 @@
                         NavigationTimeUnit="{Binding NavigationTimeUnit}"
                         PageStartMode="{Binding PageStartMode}"
                         Rows="{Binding Rows}"
-                        SelectedDate="{Binding SelectedDate}"
                         SelectedDates="{Binding SelectedDates}"
                         SelectionMode="{Binding SelectionMode}"
                         StartOfWeek="{Binding StartOfWeek}"
