@@ -313,7 +313,8 @@ namespace XCalendar
                 case null:
                 case Enums.SelectionMode.None: return false;
                 case Enums.SelectionMode.Single: return CalendarView?.SelectedDate?.Date == DateTime.Date;
-                case Enums.SelectionMode.Multiple: return CalendarView?.SelectedDates?.Any(x => x.Date == DateTime.Date) == true;
+                case Enums.SelectionMode.Multiple:
+                case Enums.SelectionMode.Range: return CalendarView?.SelectedDates?.Any(x => x.Date == DateTime.Date) == true;
                 default:
                     throw new NotImplementedException($"{nameof(Enums.SelectionMode)} is not implemented.");
             }

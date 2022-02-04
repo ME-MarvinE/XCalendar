@@ -433,6 +433,16 @@ namespace XCalendar
             get { return (int)GetValue(BackwardsNavigationAmountProperty); }
             set { SetValue(BackwardsNavigationAmountProperty, value); }
         }
+        public DateTime? RangeSelectionStart
+        {
+            get { return (DateTime?)GetValue(RangeSelectionStartProperty); }
+            set { SetValue(RangeSelectionStartProperty, value); }
+        }
+        public DateTime? RangeSelectionEnd
+        {
+            get { return (DateTime?)GetValue(RangeSelectionEndProperty); }
+            set { SetValue(RangeSelectionEndProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -448,6 +458,8 @@ namespace XCalendar
         public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(Enums.SelectionMode), typeof(CalendarView), Enums.SelectionMode.None, propertyChanged: SelectionModePropertyChanged);
         public static readonly BindableProperty SelectedDateProperty = BindableProperty.Create(nameof(SelectedDate), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: SelectedDatePropertyChanged);
         public static readonly BindableProperty SelectedDatesProperty = BindableProperty.Create(nameof(SelectedDates), typeof(ObservableRangeCollection<DateTime>), typeof(CalendarView), propertyChanged: SelectedDatesPropertyChanged, defaultValueCreator: SelectedDatesDefaultValueCreator);
+        public static readonly BindableProperty RangeSelectionStartProperty = BindableProperty.Create(nameof(RangeSelectionStart), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionStartPropertyChanged);
+        public static readonly BindableProperty RangeSelectionEndProperty = BindableProperty.Create(nameof(RangeSelectionEnd), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionEndPropertyChanged);
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayHeightRequestProperty = BindableProperty.Create(nameof(DayHeightRequest), typeof(double), typeof(CalendarView), 45d);
         public static readonly BindableProperty DayWidthRequestProperty = BindableProperty.Create(nameof(DayWidthRequest), typeof(double), typeof(CalendarView), 45d);
@@ -594,8 +606,41 @@ namespace XCalendar
                         SelectedDates.Add(DateTime.Date);
                     }
                     break;
+
+                case Enums.SelectionMode.Range:
+                    if (RangeSelectionStart == null)
+                    {
+                        RangeSelectionStart = DateTime;
+                    }
+                    else
+                    {
+                        RangeSelectionEnd = DateTime;
+                    }
+                    break;
                 default:
                     throw new NotImplementedException();
+            }
+        }
+        /// <summary>
+        ///  Selects a range of dates as defined by <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/>.
+        /// </summary>
+        public virtual void CommitRangeSelection()
+        {
+            if (RangeSelectionStart == null || RangeSelectionEnd == null) { throw new InvalidOperationException($"{nameof(RangeSelectionStart)} and {nameof(RangeSelectionEnd)} must not be null."); }
+            if (SelectionMode == Enums.SelectionMode.Range)
+            {
+                List<DateTime> DateRange = RangeSelectionStart.Value.GetDatesBetween(RangeSelectionEnd.Value);
+
+                if (SelectedDates.SequenceEqual(DateRange))
+                {
+                    SelectedDates.Clear();
+                }
+                else
+                {
+                    SelectedDates.ReplaceRange(DateRange);
+                }
+                RangeSelectionStart = null;
+                RangeSelectionEnd = null;
             }
         }
         /// <summary>
@@ -795,7 +840,7 @@ namespace XCalendar
         }
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (SelectionMode == Enums.SelectionMode.Multiple)
+            if (SelectionMode == Enums.SelectionMode.Multiple || SelectionMode == Enums.SelectionMode.Range)
             {
                 OnMonthViewDaysInvalidated();
 
@@ -932,7 +977,7 @@ namespace XCalendar
             if (OldSelectedDates != null) { OldSelectedDates.CollectionChanged -= Control.SelectedDates_CollectionChanged; }
             if (NewSelectedDates != null) { NewSelectedDates.CollectionChanged += Control.SelectedDates_CollectionChanged; }
 
-            if (Control.SelectionMode == Enums.SelectionMode.Multiple)
+            if (Control.SelectionMode == Enums.SelectionMode.Multiple || Control.SelectionMode == Enums.SelectionMode.Range)
             {
                 Control.OnMonthViewDaysInvalidated();
                 Control.OnDateSelectionChanged(OldSelectedDates ?? new ObservableRangeCollection<DateTime>(), NewSelectedDates ?? new ObservableRangeCollection<DateTime>());
@@ -983,6 +1028,7 @@ namespace XCalendar
                     break;
 
                 case Enums.SelectionMode.Multiple:
+                case Enums.SelectionMode.Range:
                     PreviousSelection = Control.SelectedDates?.ToList() ?? new List<DateTime>();
                     break;
 
@@ -1002,6 +1048,7 @@ namespace XCalendar
                     break;
 
                 case Enums.SelectionMode.Multiple:
+                case Enums.SelectionMode.Range:
                     CurrentSelection = Control.SelectedDates?.ToList() ?? new List<DateTime>();
                     break;
 
@@ -1047,6 +1094,24 @@ namespace XCalendar
             CalendarView Control = (CalendarView)bindable;
             Control.UpdateMonthViewDates(Control.NavigatedDate);
             Control.OnMonthViewDaysInvalidated();
+        }
+        private static void RangeSelectionStartPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+
+            if (Control.RangeSelectionStart != null && Control.RangeSelectionEnd != null)
+            {
+                Control.CommitRangeSelection();
+            }
+        }
+        private static void RangeSelectionEndPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+
+            if (Control.RangeSelectionStart != null && Control.RangeSelectionEnd != null)
+            {
+                Control.CommitRangeSelection();
+            }
         }
         private static object CoerceNavigatedDate(BindableObject bindable, object value)
         {
@@ -1128,6 +1193,7 @@ namespace XCalendar
         {
             return (int)value > 0;
         }
+
         #endregion
 
         #endregion
