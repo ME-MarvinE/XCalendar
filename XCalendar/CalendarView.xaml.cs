@@ -435,6 +435,11 @@ namespace XCalendar
             get { return (DateTime?)GetValue(RangeSelectionEndProperty); }
             set { SetValue(RangeSelectionEndProperty, value); }
         }
+        public SelectionType SelectionType
+        {
+            get { return (SelectionType)GetValue(SelectionTypeProperty); }
+            set { SetValue(SelectionTypeProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -447,7 +452,8 @@ namespace XCalendar
         public static readonly BindableProperty DayRangeMaximumDateProperty = BindableProperty.Create(nameof(DayRangeMaximumDate), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: DayRangeMaximumDatePropertyChanged);
         public static readonly BindableProperty TodayDateProperty = BindableProperty.Create(nameof(TodayDate), typeof(DateTime), typeof(CalendarView), DateTime.Today, propertyChanged: TodayDatePropertyChanged);
         public static readonly BindableProperty StartOfWeekProperty = BindableProperty.Create(nameof(StartOfWeek), typeof(DayOfWeek), typeof(CalendarView), CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, propertyChanged: StartOfWeekPropertyChanged);
-        public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(Enums.SelectionMode), typeof(CalendarView), Enums.SelectionMode.None);
+        public static readonly BindableProperty SelectionTypeProperty = BindableProperty.Create(nameof(SelectionType), typeof(SelectionType), typeof(CalendarView), SelectionType.None);
+        public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(Enums.SelectionMode), typeof(CalendarView), Enums.SelectionMode.Modify);
         public static readonly BindableProperty SelectedDatesProperty = BindableProperty.Create(nameof(SelectedDates), typeof(ObservableRangeCollection<DateTime>), typeof(CalendarView), propertyChanged: SelectedDatesPropertyChanged, defaultValueCreator: SelectedDatesDefaultValueCreator, validateValue: IsSelectedDatesValidValue);
         public static readonly BindableProperty RangeSelectionStartProperty = BindableProperty.Create(nameof(RangeSelectionStart), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionStartPropertyChanged);
         public static readonly BindableProperty RangeSelectionEndProperty = BindableProperty.Create(nameof(RangeSelectionEnd), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionEndPropertyChanged);
@@ -560,77 +566,124 @@ namespace XCalendar
             MonthViewDaysInvalidated?.Invoke(this, new EventArgs());
         }
         /// <summary>
-        /// Selects or unselects a <see cref="DateTime"/> depending on the current <see cref="SelectionMode"/>.
+        /// Performs selection of a <see cref="DateTime"/> depending on the current <see cref="SelectionMode"/> and <see cref="SelectionType"/>.
         /// </summary>
         /// <param name="DateTime">The <see cref="DateTime"/> to select/unselect.</param>
         public virtual void ChangeDateSelection(DateTime DateTime)
         {
-            switch (SelectionMode)
+            switch (SelectionType)
             {
-                case Enums.SelectionMode.None:
+                case SelectionType.None:
                     break;
 
-                case Enums.SelectionMode.Single:
-                    if (SelectedDates.Count == 0)
+                case SelectionType.Single:
+                    switch (SelectionMode)
                     {
-                        SelectedDates.Add(DateTime);
-                    }
-                    else if (SelectedDates.Count == 1 && (SelectedDates.Any(x => x.Date == DateTime.Date)))
-                    {
-                        SelectedDates.Remove(DateTime.Date);
-                    }
-                    else
-                    {
-                        SelectedDates.Replace(DateTime.Date);
+                        case Enums.SelectionMode.Add:
+                            if (!SelectedDates.Any(x => x.Date == DateTime.Date))
+                            {
+                                SelectedDates.Add(DateTime.Date);
+                            }
+                            break;
+
+                        case Enums.SelectionMode.Remove:
+                            if (SelectedDates.Any(x => x.Date == DateTime.Date))
+                            {
+                                SelectedDates.Remove(DateTime.Date);
+                            }
+                            break;
+
+                        case Enums.SelectionMode.Modify:
+                            if (SelectedDates.Any(x => x.Date == DateTime.Date))
+                            {
+                                SelectedDates.Remove(DateTime.Date);
+                            }
+                            else
+                            {
+                                SelectedDates.Add(DateTime.Date);
+                            }
+                            break;
+
+                        case Enums.SelectionMode.Replace:
+                            if (SelectedDates.Count != 1 || (SelectedDates.Count == 1 && SelectedDates.First().Date != DateTime.Date))
+                            {
+                                SelectedDates.Replace(DateTime.Date);
+                            }
+                            break;
+
+                        default:
+                            throw new NotImplementedException();
                     }
                     break;
 
-                case Enums.SelectionMode.Multiple:
-                    if (SelectedDates.Any(x => x.Date == DateTime.Date))
-                    {
-                        SelectedDates.Remove(DateTime.Date);
-                    }
-                    else
-                    {
-                        SelectedDates.Add(DateTime.Date);
-                    }
-                    break;
-
-                case Enums.SelectionMode.Range:
+                case SelectionType.Range:
                     if (RangeSelectionStart == null)
                     {
                         RangeSelectionStart = DateTime;
+                    }
+                    else if (DateTime == RangeSelectionStart)
+                    {
+                        RangeSelectionStart = null;
                     }
                     else if (DateTime != RangeSelectionStart)
                     {
                         RangeSelectionEnd = DateTime;
                     }
                     break;
+
                 default:
                     throw new NotImplementedException();
             }
         }
         /// <summary>
-        ///  Selects a range of dates as defined by <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/>.
+        ///  Performs selection on a range of dates as defined by <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/> depending on the current <see cref="SelectionType"/>.
         /// </summary>
         public virtual void CommitRangeSelection()
         {
             if (RangeSelectionStart == null || RangeSelectionEnd == null) { throw new InvalidOperationException($"{nameof(RangeSelectionStart)} and {nameof(RangeSelectionEnd)} must not be null."); }
-            if (SelectionMode == Enums.SelectionMode.Range)
-            {
-                List<DateTime> DateRange = RangeSelectionStart.Value.GetDatesBetween(RangeSelectionEnd.Value);
 
-                if (SelectedDates.SequenceEqual(DateRange))
-                {
-                    SelectedDates.Clear();
-                }
-                else
-                {
-                    SelectedDates.ReplaceRange(DateRange);
-                }
-                RangeSelectionStart = null;
-                RangeSelectionEnd = null;
+            List<DateTime> DateRange = RangeSelectionStart.Value.GetDatesBetween(RangeSelectionEnd.Value);
+            IEnumerable<DateTime> DatesToAdd = DateRange.Where(x => !SelectedDates.Contains(x.Date));
+            IEnumerable<DateTime> DatesToRemove = DateRange.Where(x => SelectedDates.Contains(x.Date));
+
+            switch (SelectionMode)
+            {
+                case Enums.SelectionMode.Add:
+                    if (DatesToAdd.Count() != 0)
+                    {
+                        SelectedDates.AddRange(DatesToAdd);
+                    }
+                    break;
+
+                case Enums.SelectionMode.Remove:
+                    if (DatesToRemove.Count() != 0)
+                    {
+                        SelectedDates.RemoveRange(DatesToRemove);
+                    }
+                    break;
+
+                case Enums.SelectionMode.Modify:
+                    if (DatesToAdd.Count() != 0 || DatesToRemove.Count() != 0)
+                    {
+                        List<DateTime> NewSelectedDates = SelectedDates.Where(x => !DatesToRemove.Contains(x.Date)).ToList();
+                        NewSelectedDates.AddRange(DatesToAdd);
+                        SelectedDates.ReplaceRange(NewSelectedDates);
+                    }
+                    break;
+
+                case Enums.SelectionMode.Replace:
+                    if (!SelectedDates.SequenceEqual(DateRange))
+                    {
+                        SelectedDates.ReplaceRange(DateRange);
+                    }
+                    break;
+
+                default:
+                    throw new NotImplementedException();
             }
+
+            RangeSelectionStart = null;
+            RangeSelectionEnd = null;
         }
         /// <summary>
         /// Gets the number of rows needed to display the days of a month based on how many weeks the months has.

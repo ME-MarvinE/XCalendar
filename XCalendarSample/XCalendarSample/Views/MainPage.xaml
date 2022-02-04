@@ -260,6 +260,24 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
+                                Text="SelectionType"
+                                VerticalTextAlignment="Center" />
+                            <Label
+                                Grid.Column="1"
+                                xct:TouchEffect.Command="{Binding ShowSelectionTypeDialogCommand}"
+                                xct:TouchEffect.NativeAnimation="True"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding SelectionType}"
+                                TextColor="#0080E0"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
                                 Text="SelectionMode"
                                 VerticalTextAlignment="Center" />
                             <Label
@@ -572,6 +590,7 @@
                         Rows="{Binding Rows}"
                         SelectedDates="{Binding SelectedDates}"
                         SelectionMode="{Binding SelectionMode}"
+                        SelectionType="{Binding SelectionType}"
                         StartOfWeek="{Binding StartOfWeek}"
                         TodayDate="{Binding TodayDate}"
                         UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
@@ -615,7 +634,7 @@
                                                             <Style.Triggers>
                                                                 <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
                                                                     <MultiTrigger.Conditions>
-                                                                        <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference FancyCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
+                                                                        <BindingCondition Binding="{Binding SelectionType, Source={x:Reference FancyCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionType.None}}" Value="False" />
                                                                         <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
                                                                         <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
                                                                     </MultiTrigger.Conditions>

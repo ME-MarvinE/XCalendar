@@ -176,7 +176,7 @@
                                                     <Style.Triggers>
                                                         <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
                                                             <MultiTrigger.Conditions>
-                                                                <BindingCondition Binding="{Binding SelectionMode, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionMode.None}}" Value="False" />
+                                                                <BindingCondition Binding="{Binding SelectionType, Source={x:Reference MainCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionType.None}}" Value="False" />
                                                                 <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True" />
                                                                 <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False" />
                                                             </MultiTrigger.Conditions>

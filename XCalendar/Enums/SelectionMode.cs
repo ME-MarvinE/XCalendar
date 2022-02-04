@@ -2,9 +2,9 @@
 {
     public enum SelectionMode
     {
-        None,
-        Single,
-        Multiple,
-        Range
+        Add,
+        Remove,
+        Modify,
+        Replace
     }
 }
