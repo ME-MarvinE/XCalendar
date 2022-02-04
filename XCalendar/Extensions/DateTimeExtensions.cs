@@ -476,5 +476,44 @@ namespace XCalendar.Extensions
 
             return YearDates;
         }
+        /// <summary>
+        /// Gets the list of dates in a range specified by this instance and a second date.
+        /// </summary>
+        /// <param name="SecondDate">The second date of the range.</param>
+        /// <param name="Inclusive">Whether to include this instance and the <paramref name="SecondDate"/> or not.</param>
+        /// <returns>A <see cref="List{T}"/> of <see cref="DateTime"/>s containing the dates between this instance and the second date.</returns>
+        public static List<DateTime> GetDatesBetween(this DateTime Self, DateTime SecondDate, bool Inclusive = true)
+        {
+            List<DateTime> DateTimes = new List<DateTime>();
+
+            if (Self.Date == SecondDate.Date)
+            {
+                DateTimes.Add(Self.Date);
+            }
+            else
+            {
+                DateTime StartDate = Self.Date < SecondDate.Date ? Self.Date : SecondDate.Date;
+                DateTime EndDate = Self.Date > SecondDate.Date ? Self.Date : SecondDate.Date;
+
+                try
+                {
+                    for (DateTime i = StartDate; i <= EndDate; i = i.AddDays(1))
+                    {
+                        DateTimes.Add(i);
+                    }
+                }
+                catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
+                {
+                }
+            }
+
+            if (!Inclusive)
+            {
+                DateTimes.Remove(Self.Date);
+                DateTimes.Remove(SecondDate.Date);
+            }
+
+            return DateTimes;
+        }
     }
 }
