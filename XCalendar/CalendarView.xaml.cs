@@ -31,6 +31,7 @@ namespace XCalendar
 
         private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
+        private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
         #endregion
 
         #region Properties
@@ -884,29 +885,10 @@ namespace XCalendar
         {
             OnMonthViewDaysInvalidated();
 
-            //Calculating the Previous selection.
-            List<DateTime> PreviousSelection = SelectedDates.ToList();
+            OnDateSelectionChanged(_PreviousSelectedDates, SelectedDates);
 
-            if (e.OldItems != null && e.NewItems != null)
-            {
-                PreviousSelection = e.OldItems.Cast<DateTime>().ToList();
-            }
-            else if (e.OldItems != null)
-            {
-                PreviousSelection.AddRange(e.OldItems.Cast<DateTime>());
-            }
-            else if (e.NewItems != null)
-            {
-                for (int i = 0; i < e.NewItems.Count; i++)
-                {
-                    PreviousSelection.RemoveAll(x => x == (DateTime)e.NewItems[i]);
-                }
-            }
-            else
-            {
-                PreviousSelection = new List<DateTime>();
-            }
-            OnDateSelectionChanged(PreviousSelection, SelectedDates);
+            _PreviousSelectedDates.Clear();
+            _PreviousSelectedDates.AddRange(SelectedDates.ToList());
         }
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -1000,10 +982,13 @@ namespace XCalendar
             if (OldSelectedDates != null) { OldSelectedDates.CollectionChanged -= Control.SelectedDates_CollectionChanged; }
             if (NewSelectedDates != null) { NewSelectedDates.CollectionChanged += Control.SelectedDates_CollectionChanged; }
 
+            Control._PreviousSelectedDates.Clear();
+            Control._PreviousSelectedDates.AddRange(OldSelectedDates);
+
             if (!OldSelectedDates.SequenceEqual(NewSelectedDates))
             {
                 Control.OnMonthViewDaysInvalidated();
-                Control.OnDateSelectionChanged(OldSelectedDates, NewSelectedDates);
+                Control.OnDateSelectionChanged(Control._PreviousSelectedDates, NewSelectedDates);
             }
         }
         private static void CustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
