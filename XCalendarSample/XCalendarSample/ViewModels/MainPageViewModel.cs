@@ -13,8 +13,8 @@ namespace XCalendarSample.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         #region Properties
-        public DateTime? SelectedDate { get; set; }
         public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
+        public List<SelectionType> SelectionTypes { get; set; } = Enum.GetValues(typeof(SelectionType)).Cast<SelectionType>().ToList();
         public List<XCalendar.Enums.SelectionMode> SelectionModes { get; set; } = Enum.GetValues(typeof(XCalendar.Enums.SelectionMode)).Cast<XCalendar.Enums.SelectionMode>().ToList();
         public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
         public List<NavigationTimeUnit> NavigationTimeUnits { get; set; } = Enum.GetValues(typeof(NavigationTimeUnit)).Cast<NavigationTimeUnit>().ToList();
@@ -43,8 +43,9 @@ namespace XCalendarSample.ViewModels
             DayOfWeek.Saturday,
             DayOfWeek.Sunday
         };
-        public XCalendar.Enums.SelectionMode SelectionMode { get; set; } = XCalendar.Enums.SelectionMode.Multiple;
+        public XCalendar.Enums.SelectionMode SelectionMode { get; set; } = XCalendar.Enums.SelectionMode.Modify;
         public NavigationLoopMode NavigationLoopMode { get; set; } = NavigationLoopMode.LoopMinimumAndMaximum;
+        public SelectionType SelectionType { get; set; } = SelectionType.Single;
         public NavigationTimeUnit NavigationTimeUnit { get; set; } = NavigationTimeUnit.Month;
         public PageStartMode PageStartMode { get; set; } = PageStartMode.FirstDayOfMonth;
         public int Rows { get; set; } = 2;
@@ -69,6 +70,7 @@ namespace XCalendarSample.ViewModels
         public ICommand ShowNavigationTimeUnitDialogCommand { get; set; }
         public ICommand ShowPageStartModeDialogCommand { get; set; }
         public ICommand ShowStartOfWeekDialogCommand { get; set; }
+        public ICommand ShowSelectionTypeDialogCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -80,6 +82,7 @@ namespace XCalendarSample.ViewModels
             ShowNavigationTimeUnitDialogCommand = new Command(ShowNavigationTimeUnitDialog);
             ShowPageStartModeDialogCommand = new Command(ShowPageStartModeDialog);
             ShowStartOfWeekDialogCommand = new Command(ShowStartOfWeekDialog);
+            ShowSelectionTypeDialogCommand = new Command(ShowSelectionTypeDialog);
         }
         #endregion
 
@@ -108,6 +111,10 @@ namespace XCalendarSample.ViewModels
         public async void ShowStartOfWeekDialog()
         {
             StartOfWeek = (DayOfWeek)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(StartOfWeek, DaysOfWeek));
+        }
+        public async void ShowSelectionTypeDialog()
+        {
+            SelectionType = (SelectionType)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(SelectionType, SelectionTypes));
         }
         #endregion
     }

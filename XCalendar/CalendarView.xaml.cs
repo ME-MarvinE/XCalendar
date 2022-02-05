@@ -31,6 +31,7 @@ namespace XCalendar
 
         private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
+        private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
         #endregion
 
         #region Properties
@@ -302,14 +303,6 @@ namespace XCalendar
             set { SetValue(NavigationLoopModeProperty, value); }
         }
         /// <summary>
-        /// The date that is currently selected. Null when the <see cref="Enums.SelectionMode"/> is not set to <see cref="Enums.SelectionMode.Single"/>.
-        /// </summary>
-        public DateTime? SelectedDate
-        {
-            get { return (DateTime?)GetValue(SelectedDateProperty); }
-            set { SetValue(SelectedDateProperty, value); }
-        }
-        /// <summary>
         /// The date that is currently selected. Empty when the <see cref="Enums.SelectionMode"/> is not set to <see cref="Enums.SelectionMode.Multiple"/>.
         /// </summary>
         public ObservableRangeCollection<DateTime> SelectedDates
@@ -443,6 +436,11 @@ namespace XCalendar
             get { return (DateTime?)GetValue(RangeSelectionEndProperty); }
             set { SetValue(RangeSelectionEndProperty, value); }
         }
+        public SelectionType SelectionType
+        {
+            get { return (SelectionType)GetValue(SelectionTypeProperty); }
+            set { SetValue(SelectionTypeProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -455,9 +453,9 @@ namespace XCalendar
         public static readonly BindableProperty DayRangeMaximumDateProperty = BindableProperty.Create(nameof(DayRangeMaximumDate), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: DayRangeMaximumDatePropertyChanged);
         public static readonly BindableProperty TodayDateProperty = BindableProperty.Create(nameof(TodayDate), typeof(DateTime), typeof(CalendarView), DateTime.Today, propertyChanged: TodayDatePropertyChanged);
         public static readonly BindableProperty StartOfWeekProperty = BindableProperty.Create(nameof(StartOfWeek), typeof(DayOfWeek), typeof(CalendarView), CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, propertyChanged: StartOfWeekPropertyChanged);
-        public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(Enums.SelectionMode), typeof(CalendarView), Enums.SelectionMode.None, propertyChanged: SelectionModePropertyChanged);
-        public static readonly BindableProperty SelectedDateProperty = BindableProperty.Create(nameof(SelectedDate), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: SelectedDatePropertyChanged);
-        public static readonly BindableProperty SelectedDatesProperty = BindableProperty.Create(nameof(SelectedDates), typeof(ObservableRangeCollection<DateTime>), typeof(CalendarView), propertyChanged: SelectedDatesPropertyChanged, defaultValueCreator: SelectedDatesDefaultValueCreator);
+        public static readonly BindableProperty SelectionTypeProperty = BindableProperty.Create(nameof(SelectionType), typeof(SelectionType), typeof(CalendarView), SelectionType.None);
+        public static readonly BindableProperty SelectionModeProperty = BindableProperty.Create(nameof(SelectionMode), typeof(Enums.SelectionMode), typeof(CalendarView), Enums.SelectionMode.Modify);
+        public static readonly BindableProperty SelectedDatesProperty = BindableProperty.Create(nameof(SelectedDates), typeof(ObservableRangeCollection<DateTime>), typeof(CalendarView), propertyChanged: SelectedDatesPropertyChanged, defaultValueCreator: SelectedDatesDefaultValueCreator, validateValue: IsSelectedDatesValidValue);
         public static readonly BindableProperty RangeSelectionStartProperty = BindableProperty.Create(nameof(RangeSelectionStart), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionStartPropertyChanged);
         public static readonly BindableProperty RangeSelectionEndProperty = BindableProperty.Create(nameof(RangeSelectionEnd), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionEndPropertyChanged);
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
@@ -555,14 +553,8 @@ namespace XCalendar
 
         #region Methods
         /// <remarks>
-        /// Called when <see cref="SelectedDate"/> changes and <see cref="SelectionMode"/> is set to <see cref="Enums.SelectionMode.Single"/>,
-        /// or when <see cref="SelectedDates"/> changes/updates and <see cref="SelectionMode"/> is set to <see cref="Enums.SelectionMode.Multiple"/>.
-        /// or when <see cref="SelectionMode"/> changes and the <see cref="SelectedDate"/> and <see cref="SelectedDates"/> don't match exactly.
+        /// Called when <see cref="SelectedDates"/> changes.
         /// </remarks>
-        /// <example>
-        /// Called when <see cref="SelectionMode"/> changes from <see cref="Enums.SelectionMode.Single"/> to/from <see cref="Enums.SelectionMode.Multiple"/> and <see cref="SelectedDate"/> is 10th January 2022 and <see cref="SelectedDates"/> doesn't contain only 10th January 2022.
-        /// Not called when <see cref="SelectionMode"/> changes from <see cref="Enums.SelectionMode.None"/> to <see cref="Enums.SelectionMode.Single"/> and <see cref="SelectedDate"/> is null.
-        /// Not called when <see cref="SelectionMode"/> changes from <see cref="Enums.SelectionMode.None"/> to <see cref="Enums.SelectionMode.Multiple"/> and <see cref="SelectedDates"/> is empty.</example>
         public void OnDateSelectionChanged(IList<DateTime> OldSelection, IList<DateTime> NewSelection)
         {
             DateSelectionChanged?.Invoke(this, new DateSelectionChangedEventArgs(OldSelection, NewSelection));
@@ -575,73 +567,124 @@ namespace XCalendar
             MonthViewDaysInvalidated?.Invoke(this, new EventArgs());
         }
         /// <summary>
-        /// Selects or unselects a <see cref="DateTime"/> depending on the current <see cref="SelectionMode"/>.
+        /// Performs selection of a <see cref="DateTime"/> depending on the current <see cref="SelectionMode"/> and <see cref="SelectionType"/>.
         /// </summary>
         /// <param name="DateTime">The <see cref="DateTime"/> to select/unselect.</param>
         public virtual void ChangeDateSelection(DateTime DateTime)
         {
-            switch (SelectionMode)
+            switch (SelectionType)
             {
-                case Enums.SelectionMode.None:
+                case SelectionType.None:
                     break;
 
-                case Enums.SelectionMode.Single:
-                    if (DateTime.Date == SelectedDate?.Date)
+                case SelectionType.Single:
+                    switch (SelectionMode)
                     {
-                        SelectedDate = null;
-                    }
-                    else
-                    {
-                        SelectedDate = DateTime.Date;
+                        case Enums.SelectionMode.Add:
+                            if (!SelectedDates.Any(x => x.Date == DateTime.Date))
+                            {
+                                SelectedDates.Add(DateTime.Date);
+                            }
+                            break;
+
+                        case Enums.SelectionMode.Remove:
+                            if (SelectedDates.Any(x => x.Date == DateTime.Date))
+                            {
+                                SelectedDates.Remove(DateTime.Date);
+                            }
+                            break;
+
+                        case Enums.SelectionMode.Modify:
+                            if (SelectedDates.Any(x => x.Date == DateTime.Date))
+                            {
+                                SelectedDates.Remove(DateTime.Date);
+                            }
+                            else
+                            {
+                                SelectedDates.Add(DateTime.Date);
+                            }
+                            break;
+
+                        case Enums.SelectionMode.Replace:
+                            if (SelectedDates.Count != 1 || (SelectedDates.Count == 1 && SelectedDates.First().Date != DateTime.Date))
+                            {
+                                SelectedDates.Replace(DateTime.Date);
+                            }
+                            break;
+
+                        default:
+                            throw new NotImplementedException();
                     }
                     break;
 
-                case Enums.SelectionMode.Multiple:
-                    if (SelectedDates.Any(x => x.Date == DateTime.Date))
-                    {
-                        SelectedDates.Remove(DateTime.Date);
-                    }
-                    else
-                    {
-                        SelectedDates.Add(DateTime.Date);
-                    }
-                    break;
-
-                case Enums.SelectionMode.Range:
+                case SelectionType.Range:
                     if (RangeSelectionStart == null)
                     {
                         RangeSelectionStart = DateTime;
                     }
-                    else
+                    else if (DateTime == RangeSelectionStart)
+                    {
+                        RangeSelectionStart = null;
+                    }
+                    else if (DateTime != RangeSelectionStart)
                     {
                         RangeSelectionEnd = DateTime;
                     }
                     break;
+
                 default:
                     throw new NotImplementedException();
             }
         }
         /// <summary>
-        ///  Selects a range of dates as defined by <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/>.
+        ///  Performs selection on a range of dates as defined by <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/> depending on the current <see cref="SelectionType"/>.
         /// </summary>
         public virtual void CommitRangeSelection()
         {
             if (RangeSelectionStart == null || RangeSelectionEnd == null) { throw new InvalidOperationException($"{nameof(RangeSelectionStart)} and {nameof(RangeSelectionEnd)} must not be null."); }
-            if (SelectionMode == Enums.SelectionMode.Range)
-            {
-                List<DateTime> DateRange = RangeSelectionStart.Value.GetDatesBetween(RangeSelectionEnd.Value);
 
-                if (SelectedDates.SequenceEqual(DateRange))
-                {
-                    SelectedDates.Clear();
-                }
-                else
-                {
-                    SelectedDates.ReplaceRange(DateRange);
-                }
-                RangeSelectionStart = null;
-                RangeSelectionEnd = null;
+            List<DateTime> DateRange = RangeSelectionStart.Value.GetDatesBetween(RangeSelectionEnd.Value);
+            IEnumerable<DateTime> DatesToAdd = DateRange.Where(x => !SelectedDates.Contains(x.Date));
+            IEnumerable<DateTime> DatesToRemove = DateRange.Where(x => SelectedDates.Contains(x.Date));
+
+            switch (SelectionMode)
+            {
+                case Enums.SelectionMode.Add:
+                    if (DatesToAdd.Count() != 0)
+                    {
+                        SelectedDates.AddRange(DatesToAdd);
+                    }
+                    break;
+
+                case Enums.SelectionMode.Remove:
+                    if (DatesToRemove.Count() != 0)
+                    {
+                        SelectedDates.RemoveRange(DatesToRemove);
+                    }
+                    break;
+
+                case Enums.SelectionMode.Modify:
+                    if (DatesToAdd.Count() != 0 || DatesToRemove.Count() != 0)
+                    {
+                        List<DateTime> NewSelectedDates = SelectedDates.Where(x => !DatesToRemove.Contains(x.Date)).ToList();
+                        NewSelectedDates.AddRange(DatesToAdd);
+                        SelectedDates.ReplaceRange(NewSelectedDates);
+                    }
+                    break;
+
+                case Enums.SelectionMode.Replace:
+                    if (!SelectedDates.SequenceEqual(DateRange))
+                    {
+                        SelectedDates.ReplaceRange(DateRange);
+                    }
+                    break;
+
+                default:
+                    throw new NotImplementedException();
             }
+
+            RangeSelectionStart = null;
+            RangeSelectionEnd = null;
         }
         /// <summary>
         /// Gets the number of rows needed to display the days of a month based on how many weeks the months has.
@@ -840,33 +883,12 @@ namespace XCalendar
         }
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (SelectionMode == Enums.SelectionMode.Multiple || SelectionMode == Enums.SelectionMode.Range)
-            {
-                OnMonthViewDaysInvalidated();
+            OnMonthViewDaysInvalidated();
 
-                List<DateTime> PreviousSelection = SelectedDates?.ToList() ?? new List<DateTime>();
+            OnDateSelectionChanged(_PreviousSelectedDates, SelectedDates);
 
-                if (e.OldItems != null && e.NewItems != null)
-                {
-                    PreviousSelection = e.OldItems.Cast<DateTime>().ToList();
-                }
-                else if (e.OldItems != null)
-                {
-                    PreviousSelection.AddRange(e.OldItems.Cast<DateTime>());
-                }
-                else if (e.NewItems != null)
-                {
-                    for (int i = 0; i < e.NewItems.Count; i++)
-                    {
-                        PreviousSelection.RemoveAll(x => x == (DateTime)e.NewItems[i]);
-                    }
-                }
-                else
-                {
-                    PreviousSelection = new List<DateTime>();
-                }
-                OnDateSelectionChanged(PreviousSelection, SelectedDates ?? new ObservableRangeCollection<DateTime>());
-            }
+            _PreviousSelectedDates.Clear();
+            _PreviousSelectedDates.AddRange(SelectedDates.ToList());
         }
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -951,23 +973,6 @@ namespace XCalendar
             CalendarView Control = (CalendarView)bindable;
             Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
         }
-        private static void SelectedDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            CalendarView Control = (CalendarView)bindable;
-            DateTime? OldSelectedDate = (DateTime?)oldValue;
-            DateTime? NewSelectedDate = (DateTime?)newValue;
-
-            if (Control.SelectionMode == Enums.SelectionMode.Single)
-            {
-                Control.OnMonthViewDaysInvalidated();
-
-                List<DateTime> PreviousSelection = new List<DateTime>();
-                List<DateTime> CurrentSelection = new List<DateTime>();
-                if (OldSelectedDate.HasValue) { PreviousSelection.Add(OldSelectedDate.Value); }
-                if (NewSelectedDate.HasValue) { CurrentSelection.Add(NewSelectedDate.Value); }
-                Control.OnDateSelectionChanged(PreviousSelection, CurrentSelection);
-            }
-        }
         private static void SelectedDatesPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
@@ -977,10 +982,13 @@ namespace XCalendar
             if (OldSelectedDates != null) { OldSelectedDates.CollectionChanged -= Control.SelectedDates_CollectionChanged; }
             if (NewSelectedDates != null) { NewSelectedDates.CollectionChanged += Control.SelectedDates_CollectionChanged; }
 
-            if (Control.SelectionMode == Enums.SelectionMode.Multiple || Control.SelectionMode == Enums.SelectionMode.Range)
+            Control._PreviousSelectedDates.Clear();
+            Control._PreviousSelectedDates.AddRange(OldSelectedDates);
+
+            if (!OldSelectedDates.SequenceEqual(NewSelectedDates))
             {
                 Control.OnMonthViewDaysInvalidated();
-                Control.OnDateSelectionChanged(OldSelectedDates ?? new ObservableRangeCollection<DateTime>(), NewSelectedDates ?? new ObservableRangeCollection<DateTime>());
+                Control.OnDateSelectionChanged(Control._PreviousSelectedDates, NewSelectedDates);
             }
         }
         private static void CustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -1005,61 +1013,6 @@ namespace XCalendar
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
                 Control.OnMonthViewDaysInvalidated();
-            }
-        }
-        private static void SelectionModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            CalendarView Control = (CalendarView)bindable;
-            Enums.SelectionMode OldSelectionMode = (Enums.SelectionMode)oldValue;
-            Enums.SelectionMode NewSelectionMode = (Enums.SelectionMode)newValue;
-
-            List<DateTime> PreviousSelection;
-            List<DateTime> CurrentSelection;
-
-            switch (OldSelectionMode)
-            {
-                case Enums.SelectionMode.None:
-                    PreviousSelection = new List<DateTime>();
-                    break;
-
-                case Enums.SelectionMode.Single:
-                    PreviousSelection = new List<DateTime>();
-                    if (Control.SelectedDate.HasValue) { PreviousSelection.Add(Control.SelectedDate.Value); }
-                    break;
-
-                case Enums.SelectionMode.Multiple:
-                case Enums.SelectionMode.Range:
-                    PreviousSelection = Control.SelectedDates?.ToList() ?? new List<DateTime>();
-                    break;
-
-                default:
-                    throw new NotImplementedException();
-            }
-
-            switch (NewSelectionMode)
-            {
-                case Enums.SelectionMode.None:
-                    CurrentSelection = new List<DateTime>();
-                    break;
-
-                case Enums.SelectionMode.Single:
-                    CurrentSelection = new List<DateTime>();
-                    if (Control.SelectedDate.HasValue) { CurrentSelection.Add(Control.SelectedDate.Value); }
-                    break;
-
-                case Enums.SelectionMode.Multiple:
-                case Enums.SelectionMode.Range:
-                    CurrentSelection = Control.SelectedDates?.ToList() ?? new List<DateTime>();
-                    break;
-
-                default:
-                    throw new NotImplementedException();
-            }
-
-            if (!PreviousSelection.SequenceEqual(CurrentSelection))
-            {
-                Control.OnMonthViewDaysInvalidated();
-                Control.OnDateSelectionChanged(PreviousSelection, CurrentSelection);
             }
         }
         private static void AutoRowsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -1192,6 +1145,10 @@ namespace XCalendar
         private static bool IsRowsValidValue(BindableObject bindable, object value)
         {
             return (int)value > 0;
+        }
+        private static bool IsSelectedDatesValidValue(BindableObject bindable, object value)
+        {
+            return value != null;
         }
 
         #endregion
