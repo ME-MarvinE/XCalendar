@@ -21,7 +21,7 @@
 
             <xct:EnumToBoolConverter x:Key="EnumToBoolConverter" />
 
-            <xct:MathExpressionConverter x:Key="MathExpressionConverter"/>
+            <xct:MathExpressionConverter x:Key="MathExpressionConverter" />
 
             <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
                 <Converters:EnumToStringConverter />
@@ -37,8 +37,8 @@
         <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
             <StackLayout
                 Padding="0,5,0,5"
-                HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}"
                 BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference MainCalendarView}}"
+                HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}"
                 Orientation="Horizontal">
 
                 <Frame
@@ -65,7 +65,7 @@
                     FontAttributes="Bold"
                     FontSize="18"
                     HorizontalTextAlignment="Center"
-                    Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyyy}', Source={x:Reference MainCalendarView}}"
+                    Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
                     TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
                     VerticalOptions="Center" />
 
@@ -95,7 +95,10 @@
 
         <!--#region DayNames-->
         <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference MainCalendarView}}">
-            <CollectionView Margin="0,5,0,0" HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}" ItemsSource="{Binding DayNamesOrder, Source={x:Reference MainCalendarView}}">
+            <CollectionView
+                Margin="0,5,0,0"
+                HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}"
+                ItemsSource="{Binding DayNamesOrder, Source={x:Reference MainCalendarView}}">
 
                 <CollectionView.Style>
                     <Style TargetType="{x:Type CollectionView}">
