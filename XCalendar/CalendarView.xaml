@@ -36,8 +36,9 @@
         <!--#region Navigation-->
         <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
             <StackLayout
-                Margin="0,5,0,5"
+                Padding="0,5,0,5"
                 HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}"
+                BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference MainCalendarView}}"
                 Orientation="Horizontal">
 
                 <Frame
@@ -94,7 +95,7 @@
 
         <!--#region DayNames-->
         <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference MainCalendarView}}">
-            <CollectionView HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}" ItemsSource="{Binding DayNamesOrder, Source={x:Reference MainCalendarView}}">
+            <CollectionView Margin="0,5,0,0" HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}" ItemsSource="{Binding DayNamesOrder, Source={x:Reference MainCalendarView}}">
 
                 <CollectionView.Style>
                     <Style TargetType="{x:Type CollectionView}">
