@@ -679,10 +679,14 @@ namespace XCalendar
                     break;
 
                 case Enums.SelectionMode.Replace:
-                    if (!SelectedDates.SequenceEqual(DateRange))
+                    if (SelectedDates.SequenceEqual(DateRange))
+                    {
+                        SelectedDates.Clear();
+                    }
+                    else
                     {
                         SelectedDates.ReplaceRange(DateRange);
-                    }
+                    } 
                     break;
 
                 default:
