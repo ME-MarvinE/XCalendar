@@ -49,7 +49,8 @@
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Center">
+                    VerticalOptions="Center"
+                    HasShadow="False">
 
                     <Label
                         FontAttributes="Bold"
@@ -77,7 +78,8 @@
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Center">
+                    VerticalOptions="Center"
+                    HasShadow="False">
 
                     <Label
                         FontAttributes="Bold"
