@@ -48,6 +48,7 @@
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
+                    HasShadow="False"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Center">
 
@@ -76,6 +77,7 @@
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
+                    HasShadow="False"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Center">
 
