@@ -26,6 +26,9 @@
     <EmbeddedResource Update="CalendarView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="FramedLabel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

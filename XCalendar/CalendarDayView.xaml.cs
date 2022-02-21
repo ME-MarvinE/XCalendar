@@ -8,7 +8,7 @@ using XCalendar.Models;
 namespace XCalendar
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CalendarDayView : Frame
+    public partial class CalendarDayView : FramedLabel
     {
         #region Properties
 
@@ -48,17 +48,6 @@ namespace XCalendar
             get { return (CalendarDayCustomization)GetValue(CustomizationProperty); }
             set { SetValue(CustomizationProperty, value); }
         }
-        public FormattedString FormattedText
-        {
-            get { return (FormattedString)GetValue(FormattedTextProperty); }
-            set { SetValue(FormattedTextProperty, value); }
-        }
-        public string Text
-        {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
-        }
-
         #endregion
 
         #region Bindable Properties Initialisers
@@ -69,8 +58,6 @@ namespace XCalendar
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsOutOfRangeProperty = BindableProperty.Create(nameof(IsOutOfRange), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(CalendarDayView));
-        public static readonly BindableProperty FormattedTextProperty = BindableProperty.Create(nameof(FormattedText), typeof(FormattedString), typeof(CalendarDayView), Label.FormattedTextProperty.DefaultValue);
-        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(CalendarDayView), Label.TextProperty.DefaultValue);
         #endregion
 
         #endregion
@@ -107,36 +94,48 @@ namespace XCalendar
                 VerticalOptions = Customization.VerticalOptions;
                 CornerRadius = Customization.CornerRadius;
                 HasShadow = Customization.HasShadow;
+                CharacterSpacing = Customization.CharacterSpacing;
+                FontAttributes = Customization.FontAttributes;
+                FontFamily = Customization.FontFamily;
+                FontSize = Customization.FontSize;
+                HorizontalTextAlignment = Customization.HorizontalTextAlignment;
+                LineBreakMode = Customization.LineBreakMode;
+                LineHeight = Customization.LineHeight;
+                MaxLines = Customization.MaxLines;
+                TextDecorations = Customization.TextDecorations;
+                TextTransform = Customization.TextTransform;
+                TextType = Customization.TextType;
+                VerticalTextAlignment = Customization.VerticalTextAlignment;
 
                 if (IsOutOfRange)
                 {
                     BackgroundColor = Customization.OutOfRangeBackgroundColor;
                     BorderColor = Customization.OutOfRangeBorderColor;
-                    MainLabel.TextColor = Customization.OutOfRangeTextColor;
+                    TextColor = Customization.OutOfRangeTextColor;
                 }
                 else if (IsSelected && IsCurrentMonth)
                 {
                     BackgroundColor = Customization.SelectedBackgroundColor;
                     BorderColor = Customization.SelectedBorderColor;
-                    MainLabel.TextColor = Customization.SelectedTextColor;
+                    TextColor = Customization.SelectedTextColor;
                 }
                 else if (IsToday && IsCurrentMonth)
                 {
                     BackgroundColor = Customization.TodayBackgroundColor;
                     BorderColor = Customization.TodayBorderColor;
-                    MainLabel.TextColor = Customization.TodayTextColor;
+                    TextColor = Customization.TodayTextColor;
                 }
                 else if (!IsCurrentMonth)
                 {
                     BackgroundColor = Customization.OtherMonthBackgroundColor;
                     BorderColor = Customization.OtherMonthBorderColor;
-                    MainLabel.TextColor = Customization.OtherMonthTextColor;
+                    TextColor = Customization.OtherMonthTextColor;
                 }
                 else if (IsCurrentMonth)
                 {
                     BackgroundColor = Customization.CurrentMonthBackgroundColor;
                     BorderColor = Customization.CurrentMonthBorderColor;
-                    MainLabel.TextColor = Customization.CurrentMonthTextColor;
+                    TextColor = Customization.CurrentMonthTextColor;
                 }
                 else
                 {

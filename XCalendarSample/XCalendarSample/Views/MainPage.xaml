@@ -607,12 +607,13 @@
                                 CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                 HeightRequest="{Binding DayHeightRequest}"
                                 HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
                                 OutOfRangeTextColor="{StaticResource TertiaryColor}"
-                                SelectedBackgroundColor="{StaticResource PrimaryColor}"
                                 SelectedTextColor="{StaticResource PrimaryTextColor}"
                                 TodayBorderColor="{StaticResource PrimaryColor}"
                                 TodayTextColor="{StaticResource ContentTextColor}"
                                 VerticalOptions="Center"
+                                VerticalTextAlignment="Center"
                                 WidthRequest="{Binding DayWidthRequest}"/>
                         </xc:CalendarView.DayCustomization>
 
