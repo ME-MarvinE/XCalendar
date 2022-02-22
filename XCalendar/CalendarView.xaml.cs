@@ -18,17 +18,7 @@ namespace XCalendar
     public partial class CalendarView : ContentView
     {
         #region Fields
-        protected static readonly List<DayOfWeek> DaysOfWeek = new List<DayOfWeek>()
-        {
-            DayOfWeek.Monday,
-            DayOfWeek.Tuesday,
-            DayOfWeek.Wednesday,
-            DayOfWeek.Thursday,
-            DayOfWeek.Friday,
-            DayOfWeek.Saturday,
-            DayOfWeek.Sunday,
-        };
-
+        protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
         private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
@@ -407,14 +397,7 @@ namespace XCalendar
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
-            List<DayOfWeek> InitialStartOfWeekDayNamesOrder = new List<DayOfWeek>();
-            for (int i = 0; i < DaysOfWeek.Count; i++)
-            {
-                int Offset = DaysOfWeek.IndexOf(StartOfWeek);
-                int DayNameIndex = (i + Offset) < DaysOfWeek.Count ? (i + Offset) : (i + Offset) - DaysOfWeek.Count;
-                InitialStartOfWeekDayNamesOrder.Add(DaysOfWeek[DayNameIndex]);
-            }
-            _StartOfWeekDayNamesOrder.ReplaceRange(InitialStartOfWeekDayNamesOrder);
+            _StartOfWeekDayNamesOrder.ReplaceRange(StartOfWeek.GetWeekAsFirst());
 
             InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
@@ -826,23 +809,14 @@ namespace XCalendar
         {
             CalendarView Control = (CalendarView)bindable;
 
-            List<DayOfWeek> NewStartOfWeekDayNamesOrder = new List<DayOfWeek>();
-            for (int i = 0; i < DaysOfWeek.Count; i++)
-            {
-                int Offset = DaysOfWeek.IndexOf(Control.StartOfWeek);
-                int DayNameIndex = (i + Offset) < DaysOfWeek.Count ? (i + Offset) : (i + Offset) - DaysOfWeek.Count;
-                NewStartOfWeekDayNamesOrder.Add(DaysOfWeek[DayNameIndex]);
-            }
-            Control._StartOfWeekDayNamesOrder.ReplaceRange(NewStartOfWeekDayNamesOrder);
+            Control._StartOfWeekDayNamesOrder.ReplaceRange(Control.StartOfWeek.GetWeekAsFirst());
 
+            //If DayNamesOrder is StartOfWeekDayNamesOrder it will automatically update and invalidate the days due to a subscription
+            //of the CollectionChanged event on DayNamesOrder. But when it isn't, it needs to update the StartOfWeek in the CustomDayNamesOrder.
             if (Control.UseCustomDayNamesOrder)
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
                 Control.InvalidateDays();
-            }
-            else
-            {
-                Control.DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
             }
         }
         private static void DayRangeMinimumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -1001,15 +975,20 @@ namespace XCalendar
         private static object DayNamesOrderDefaultValueCreator(BindableObject bindable)
         {
             CalendarView Control = (CalendarView)bindable;
+            ReadOnlyCollection<DayOfWeek> DefaultValue;
 
             if (Control.UseCustomDayNamesOrder)
             {
-                return new ReadOnlyObservableCollection<DayOfWeek>(Control.CustomDayNamesOrder);
+                DefaultValue = new ReadOnlyObservableCollection<DayOfWeek>(Control.CustomDayNamesOrder);
             }
             else
             {
-                return new ReadOnlyObservableCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
+                DefaultValue = new ReadOnlyObservableCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
             }
+
+            ((INotifyCollectionChanged)DefaultValue).CollectionChanged += Control.DayNamesOrder_CollectionChanged;
+
+            return DefaultValue;
         }
         private static object SelectedDatesDefaultValueCreator(BindableObject bindable)
         {

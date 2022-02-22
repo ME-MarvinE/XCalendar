@@ -4,8 +4,9 @@ using System.Globalization;
 
 namespace XCalendar.Extensions
 {
-    public static partial class DateTimeExtensions
+    public static class DateTimeExtensions
     {
+        #region Methods
         /// <summary>
         /// Returns a new <see cref="DateTime"/> that adds the specified number of weeks to the value of instance.
         /// </summary>
@@ -515,5 +516,6 @@ namespace XCalendar.Extensions
 
             return DateTimes;
         }
+        #endregion
     }
 }
