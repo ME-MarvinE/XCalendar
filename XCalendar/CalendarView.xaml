@@ -41,26 +41,23 @@
                 HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}"
                 Orientation="Horizontal">
 
-                <Frame
+                <xc:FramedLabel
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
+                    FontAttributes="Bold"
+                    FontSize="30"
                     HasShadow="False"
+                    HeightRequest="30"
                     HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Center">
-
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="30"
-                        HeightRequest="30"
-                        Text="←"
-                        TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
-                        VerticalTextAlignment="End"
-                        WidthRequest="30"/>
-                </Frame>
+                    Text="←"
+                    TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="End"
+                    WidthRequest="30"/>
 
                 <Label
                     FontAttributes="Bold"
@@ -68,28 +65,25 @@
                     HorizontalTextAlignment="Center"
                     Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
                     TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
-                    VerticalOptions="Center"/>
+                    VerticalTextAlignment="Center"/>
 
-                <Frame
+                <xc:FramedLabel
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
+                    FontAttributes="Bold"
+                    FontSize="30"
                     HasShadow="False"
+                    HeightRequest="30"
                     HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Center">
-
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="30"
-                        HeightRequest="30"
-                        Text="→"
-                        TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
-                        VerticalTextAlignment="End"
-                        WidthRequest="30"/>
-                </Frame>
+                    Text="→"
+                    TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="End"
+                    WidthRequest="30"/>
 
             </StackLayout>
         </ContentView>
