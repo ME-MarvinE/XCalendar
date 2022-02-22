@@ -65,7 +65,7 @@
                     HorizontalTextAlignment="Center"
                     Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
                     TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
-                    VerticalOptions="Center"/>
+                    VerticalTextAlignment="Center"/>
 
                 <xc:FramedLabel
                     Padding="5"
