@@ -21,6 +21,7 @@ namespace XCalendar
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
         private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
+        private ReadOnlyCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new List<DayOfWeek>().AsReadOnly();
         #endregion
 
         #region Properties
@@ -385,6 +386,8 @@ namespace XCalendar
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
+            _StartOfWeekDayNamesOrder = StartOfWeek.GetWeekAsFirst().AsReadOnly();
+
             InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
             InvalidateDays();
@@ -732,11 +735,23 @@ namespace XCalendar
         {
             OnMonthViewDaysInvalidated();
         }
-        public virtual ReadOnlyCollection<DayOfWeek> EvaluateDayNamesOrder()
+        public virtual void UpdateDayNamesOrder()
         {
-            List<DayOfWeek> NewDayNamesOrder = UseCustomDayNamesOrder ? CustomDayNamesOrder.ToList() : StartOfWeek.GetWeekAsFirst();
+            IList<DayOfWeek> CorrectDayNamesOrder;
 
-            return new ReadOnlyCollection<DayOfWeek>(NewDayNamesOrder);
+            if (UseCustomDayNamesOrder)
+            {
+                CorrectDayNamesOrder = CustomDayNamesOrder;
+            }
+            else
+            {
+                CorrectDayNamesOrder = _StartOfWeekDayNamesOrder;
+            }
+
+            if (!DayNamesOrder.SequenceEqual(CorrectDayNamesOrder))
+            {
+                DayNamesOrder = new ReadOnlyCollection<DayOfWeek>(CorrectDayNamesOrder);
+            }
         }
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -749,11 +764,7 @@ namespace XCalendar
         }
         private void CustomDayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            DayNamesOrder = EvaluateDayNamesOrder();
-        }
-        private void StartOfWeekDayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            DayNamesOrder = EvaluateDayNamesOrder();
+            UpdateDayNamesOrder();
         }
 
         #region Bindable Properties Methods
@@ -802,14 +813,14 @@ namespace XCalendar
         private static void StartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
+            ReadOnlyCollection<DayOfWeek> InitialDayNamesOrder = Control.DayNamesOrder;
 
-            ReadOnlyCollection<DayOfWeek> CorrectDayNamesOrder = Control.EvaluateDayNamesOrder();
+            Control._StartOfWeekDayNamesOrder = Control.StartOfWeek.GetWeekAsFirst().AsReadOnly();
+            Control.UpdateDayNamesOrder();
 
-            if (!Control.DayNamesOrder.SequenceEqual(CorrectDayNamesOrder))
-            {
-                Control.DayNamesOrder = CorrectDayNamesOrder;
-            }
-            else
+            //If the daynamesorder hasnt changed (which would cause the dates to update and invalidate),
+            //update and invalidate the dates.
+            if (Control.DayNamesOrder == InitialDayNamesOrder)
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
                 Control.InvalidateDays();
@@ -853,7 +864,7 @@ namespace XCalendar
             if (OldCustomDayNamesOrder != null) { OldCustomDayNamesOrder.CollectionChanged -= Control.CustomDayNamesOrder_CollectionChanged; }
             if (NewCustomDayNamesOrder != null) { NewCustomDayNamesOrder.CollectionChanged += Control.CustomDayNamesOrder_CollectionChanged; }
 
-            Control.DayNamesOrder = Control.EvaluateDayNamesOrder();
+            Control.UpdateDayNamesOrder();
         }
         private static void DayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -885,7 +896,7 @@ namespace XCalendar
         {
             CalendarView Control = (CalendarView)bindable;
 
-           Control.DayNamesOrder = Control.EvaluateDayNamesOrder();
+           Control.UpdateDayNamesOrder();
         }
         private static void PageStartModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -965,7 +976,7 @@ namespace XCalendar
         {
             CalendarView Control = (CalendarView)bindable;
 
-            return Control.EvaluateDayNamesOrder();
+            return new ReadOnlyCollection<DayOfWeek>(Control._StartOfWeekDayNamesOrder);
         }
         private static object SelectedDatesDefaultValueCreator(BindableObject bindable)
         {
