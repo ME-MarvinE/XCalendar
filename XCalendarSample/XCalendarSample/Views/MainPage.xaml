@@ -647,38 +647,38 @@
                                                             FontAttributes="Bold"
                                                             FontSize="18"
                                                             HorizontalTextAlignment="Center"
-                                                            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
-                                                            TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
+                                                            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference FancyCalendarView}}"
+                                                            TextColor="{Binding NavigationTextColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="Center"/>
 
                                                         <xc:FramedLabel
                                                             Padding="5"
-                                                            xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                                                            xct:TouchEffect.CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
+                                                            xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}"
+                                                            xct:TouchEffect.CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"
                                                             xct:TouchEffect.NativeAnimation="True"
-                                                            BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
-                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
+                                                            BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
+                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
                                                             FontAttributes="Bold"
                                                             FontSize="30"
                                                             HeightRequest="30"
                                                             HorizontalOptions="EndAndExpand"
                                                             Text="←"
-                                                            TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                                                            TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="End"
                                                             WidthRequest="30"/>
 
                                                         <xc:FramedLabel
                                                             Padding="5"
-                                                            xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                                                            xct:TouchEffect.CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
+                                                            xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}"
+                                                            xct:TouchEffect.CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"
                                                             xct:TouchEffect.NativeAnimation="True"
-                                                            BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
-                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
+                                                            BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
+                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
                                                             FontAttributes="Bold"
                                                             FontSize="30"
                                                             HeightRequest="30"
                                                             Text="→"
-                                                            TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                                                            TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="End"
                                                             WidthRequest="30"/>
 
@@ -755,7 +755,7 @@
                                                     FontSize="15"
                                                     HorizontalTextAlignment="Center"
                                                     Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
-                                                    TextColor="{Binding DayNameTextColor, Source={x:Reference MainCalendarView}}">
+                                                    TextColor="{Binding DayNameTextColor, Source={x:Reference FancyCalendarView}}">
 
                                                     <Label.Style>
                                                         <Style TargetType="{x:Type Label}">

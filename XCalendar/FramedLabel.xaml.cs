@@ -94,7 +94,7 @@ namespace XCalendar
         public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(FramedLabel), Label.FontFamilyProperty.DefaultValue);
         public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(FramedLabel), Label.FontSizeProperty.DefaultValue);
         public static readonly BindableProperty FormattedTextProperty = BindableProperty.Create(nameof(FormattedText), typeof(FormattedString), typeof(FramedLabel), Label.FormattedTextProperty.DefaultValue);
-        public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(nameof(HorizontalTextAlignment), typeof(TextAlignment), typeof(FramedLabel), Label.HorizontalTextAlignmentProperty.DefaultValue);
+        public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(nameof(HorizontalTextAlignment), typeof(TextAlignment), typeof(FramedLabel), TextAlignment.Center);
         public static readonly BindableProperty LineBreakModeProperty = BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(FramedLabel), Label.LineBreakModeProperty.DefaultValue);
         public static readonly BindableProperty LineHeightProperty = BindableProperty.Create(nameof(LineHeight), typeof(double), typeof(FramedLabel), Label.LineHeightProperty.DefaultValue);
         public static readonly BindableProperty MaxLinesProperty = BindableProperty.Create(nameof(MaxLines), typeof(int), typeof(FramedLabel), Label.MaxLinesProperty.DefaultValue);
@@ -103,7 +103,7 @@ namespace XCalendar
         public static readonly BindableProperty TextTransformProperty = BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(FramedLabel), Label.TextTransformProperty.DefaultValue);
         public static readonly BindableProperty TextTypeProperty = BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(FramedLabel), Label.TextTypeProperty.DefaultValue);
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(FramedLabel), Label.TextColorProperty.DefaultValue);
-        public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(FramedLabel), Label.VerticalTextAlignmentProperty.DefaultValue);
+        public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(FramedLabel), TextAlignment.Center);
         #endregion
 
         #endregion
