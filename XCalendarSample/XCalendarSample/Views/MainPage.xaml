@@ -601,7 +601,7 @@
                         UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
 
                         <xc:CalendarView.DayCustomization>
-                            <Models:CalendarDayCustomization
+                            <Models:DayCustomization
                                 x:DataType="{x:Type ViewModels:MainPageViewModel}"
                                 BindingContext="{Binding BindingContext, Source={x:Reference FancyCalendarView}}"
                                 CurrentMonthTextColor="{StaticResource ContentTextColor}"

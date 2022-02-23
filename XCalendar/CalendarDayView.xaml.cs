@@ -43,16 +43,16 @@ namespace XCalendar
             get { return (CalendarView)GetValue(CalendarViewProperty); }
             set { SetValue(CalendarViewProperty, value); }
         }
-        public CalendarDayCustomization Customization
+        public DayCustomization Customization
         {
-            get { return (CalendarDayCustomization)GetValue(CustomizationProperty); }
+            get { return (DayCustomization)GetValue(CustomizationProperty); }
             set { SetValue(CustomizationProperty, value); }
         }
         #endregion
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty CalendarViewProperty = BindableProperty.Create(nameof(CalendarView), typeof(CalendarView), typeof(CalendarDayView), propertyChanged: CalendarViewPropertyChanged);
-        public static readonly BindableProperty CustomizationProperty = BindableProperty.Create(nameof(Customization), typeof(CalendarDayCustomization), typeof(CalendarDayView), propertyChanged: CustomizationPropertyChanged, defaultValueCreator: CustomizationDefaultValueCreator, validateValue: IsCustomizationValidValue);
+        public static readonly BindableProperty CustomizationProperty = BindableProperty.Create(nameof(Customization), typeof(DayCustomization), typeof(CalendarDayView), propertyChanged: CustomizationPropertyChanged, defaultValueCreator: CustomizationDefaultValueCreator, validateValue: IsCustomizationValidValue);
         public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime), typeof(CalendarDayView));
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
@@ -182,8 +182,8 @@ namespace XCalendar
         private static void CustomizationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarDayView Control = (CalendarDayView)bindable;
-            CalendarDayCustomization OldCustomization = (CalendarDayCustomization)oldValue;
-            CalendarDayCustomization NewCustomiation = (CalendarDayCustomization)newValue;
+            DayCustomization OldCustomization = (DayCustomization)oldValue;
+            DayCustomization NewCustomiation = (DayCustomization)newValue;
 
             if (OldCustomization != null) { OldCustomization.PropertyChanged -= Control.Customization_PropertyChanged; }
             if (NewCustomiation != null) {  NewCustomiation.PropertyChanged += Control.Customization_PropertyChanged; }
@@ -198,7 +198,7 @@ namespace XCalendar
         {
             CalendarDayView Control = (CalendarDayView)bindable;
 
-            CalendarDayCustomization DefaultValue = new CalendarDayCustomization();
+            DayCustomization DefaultValue = new DayCustomization();
             DefaultValue.SetBinding(BindingContextProperty, new Binding(nameof(BindingContext)));
             DefaultValue.PropertyChanged += Control.Customization_PropertyChanged;
 
