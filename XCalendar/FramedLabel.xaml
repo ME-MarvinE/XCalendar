@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Frame
     x:Class="XCalendar.FramedLabel"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -22,6 +22,6 @@
         TextDecorations="{Binding TextDecorations, Source={x:Reference MainFramedLabel}}"
         TextTransform="{Binding TextTransform, Source={x:Reference MainFramedLabel}}"
         TextType="{Binding TextType, Source={x:Reference MainFramedLabel}}"
-        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainFramedLabel}}" />
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainFramedLabel}}"/>
 
 </Frame>

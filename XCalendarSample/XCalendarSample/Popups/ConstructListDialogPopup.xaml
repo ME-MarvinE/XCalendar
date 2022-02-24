@@ -16,19 +16,19 @@
 
         <StackLayout.Resources>
             <Style TargetType="{x:Type Label}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
-                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
             </Style>
 
             <Style TargetType="{x:Type Picker}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
-                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
             </Style>
 
             <Style TargetType="{x:Type Editor}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
-                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
-                <Setter Property="AutoSize" Value="TextChanges" />
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+                <Setter Property="AutoSize" Value="TextChanges"/>
             </Style>
 
             <System:Boolean x:Key="TrueValue">True</System:Boolean>
@@ -52,7 +52,7 @@
                 SelectionMode="Single"
                 VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
@@ -64,17 +64,17 @@
                                 HeightRequest="50"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding .}"
-                                VerticalTextAlignment="Center" />
+                                VerticalTextAlignment="Center"/>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="Common">
                                     <VisualState Name="Normal">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                            <Setter Property="BackgroundColor" Value="Transparent"/>
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="#E0E0E4" />
+                                            <Setter Property="BackgroundColor" Value="#E0E0E4"/>
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -94,7 +94,7 @@
                 ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}"
                 VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
@@ -105,7 +105,7 @@
                                 HeightRequest="40"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding .}"
-                                VerticalTextAlignment="Center" />
+                                VerticalTextAlignment="Center"/>
                         </ScrollView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -114,7 +114,7 @@
             <BoxView
                 Grid.Row="1"
                 Grid.Column="0"
-                BackgroundColor="{StaticResource SeparatorColor}" />
+                BackgroundColor="{StaticResource SeparatorColor}"/>
 
             <StackLayout
                 Grid.Row="2"
@@ -133,7 +133,7 @@
                         HorizontalTextAlignment="Center"
                         Text="Add"
                         TextColor="White"
-                        VerticalTextAlignment="Center" />
+                        VerticalTextAlignment="Center"/>
                 </Frame>
 
                 <Frame
@@ -148,7 +148,7 @@
                         HorizontalTextAlignment="Center"
                         Text="Remove"
                         TextColor="White"
-                        VerticalTextAlignment="Center" />
+                        VerticalTextAlignment="Center"/>
                 </Frame>
 
                 <Frame
@@ -163,7 +163,7 @@
                         HorizontalTextAlignment="Center"
                         Text="Clear"
                         TextColor="White"
-                        VerticalTextAlignment="Center" />
+                        VerticalTextAlignment="Center"/>
                 </Frame>
             </StackLayout>
         </Grid>
@@ -182,7 +182,7 @@
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
-                    VerticalTextAlignment="Center" />
+                    VerticalTextAlignment="Center"/>
             </Frame>
 
             <Frame
@@ -198,7 +198,7 @@
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
-                    VerticalTextAlignment="Center" />
+                    VerticalTextAlignment="Center"/>
             </Frame>
 
             <Frame
@@ -215,7 +215,7 @@
                     FontSize="18"
                     Text="Confirm"
                     TextColor="White"
-                    VerticalTextAlignment="Center" />
+                    VerticalTextAlignment="Center"/>
             </Frame>
         </StackLayout>
     </StackLayout>

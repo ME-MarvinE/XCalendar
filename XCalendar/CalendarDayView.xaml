@@ -4,9 +4,24 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="MainCalendarDayView"
     Padding="0"
     x:DataType="{x:Type xc:CalendarDayView}"
+    xct:TouchEffect.Command="{Binding Command, Source={x:Reference MainCalendarDayView}}"
+    xct:TouchEffect.CommandParameter="{Binding CommandParameter, Source={x:Reference MainCalendarDayView}}"
     CornerRadius="100"
+    HasShadow="False"
     HeightRequest="45"
-    WidthRequest="45"/>
+    Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"
+    WidthRequest="45">
+
+    <xct:TouchEffect.NativeAnimation>
+        <Binding Path="Command" Source="{x:Reference MainCalendarDayView}">
+            <Binding.Converter>
+                <xct:IsNotNullOrEmptyConverter/>
+            </Binding.Converter>
+        </Binding>
+    </xct:TouchEffect.NativeAnimation>
+
+</xc:FramedLabel>
