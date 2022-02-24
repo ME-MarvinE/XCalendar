@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XCalendar.Models;
 
 namespace XCalendar
 {
@@ -118,11 +117,21 @@ namespace XCalendar
             get { return (Color)GetValue(SelectedBorderColorProperty); }
             set { SetValue(SelectedBorderColorProperty, value); }
         }
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+        public object CommandParameter
+        {
+            get { return (object)GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
         #endregion
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty CalendarViewProperty = BindableProperty.Create(nameof(CalendarView), typeof(CalendarView), typeof(CalendarDayView), propertyChanged: CalendarViewPropertyChanged);
-        public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime), typeof(CalendarDayView));
+        public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime), typeof(CalendarDayView), DateTime.Today);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsOutOfRangeProperty = BindableProperty.Create(nameof(IsOutOfRange), typeof(bool), typeof(CalendarDayView));
@@ -142,18 +151,32 @@ namespace XCalendar
         public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(CalendarDayView), Color.White);
         public static readonly BindableProperty SelectedBackgroundColorProperty = BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.FromHex("#E00000"));
         public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor), typeof(Color), typeof(CalendarDayView), BorderColorProperty.DefaultValue);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CalendarDayView));
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(CalendarDayView));
         #endregion
 
+        #endregion
+
+        #region Commands
+        protected ICommand UpdateCalendarViewDateSelectionCommand { get; set; }
         #endregion
 
         #region Constructors
         public CalendarDayView()
         {
+            UpdateCalendarViewDateSelectionCommand = new Command<DateTime>(UpdateCalendarViewDateSelection);
+            Command = UpdateCalendarViewDateSelectionCommand;
+            SetBinding(CommandParameterProperty, new Binding("DateTime", source: this));
+
             InitializeComponent();
         }
         #endregion
 
         #region Methods
+        protected void UpdateCalendarViewDateSelection(DateTime DateTime)
+        {
+            CalendarView?.ChangeDateSelection(DateTime);
+        }
         private void CalendarView_MonthViewDaysInvalidated(object sender, EventArgs e)
         {
             UpdateProperties();
@@ -168,6 +191,8 @@ namespace XCalendar
         }
         public virtual void UpdateView()
         {
+            bool IsOtherMonth = !IsCurrentMonth;
+
             if (IsOutOfRange)
             {
                 BackgroundColor = OutOfRangeBackgroundColor;
@@ -186,7 +211,7 @@ namespace XCalendar
                 BorderColor = TodayBorderColor;
                 TextColor = TodayTextColor;
             }
-            else if (!IsCurrentMonth)
+            else if (IsOtherMonth)
             {
                 BackgroundColor = OtherMonthBackgroundColor;
                 BorderColor = OtherMonthBorderColor;
