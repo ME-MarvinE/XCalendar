@@ -607,13 +607,11 @@
                                 CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                 HeightRequest="{Binding DayHeightRequest}"
                                 HorizontalOptions="Center"
-                                HorizontalTextAlignment="Center"
                                 OutOfRangeTextColor="{StaticResource TertiaryColor}"
                                 SelectedTextColor="{StaticResource PrimaryTextColor}"
                                 TodayBorderColor="{StaticResource PrimaryColor}"
                                 TodayTextColor="{StaticResource ContentTextColor}"
                                 VerticalOptions="Center"
-                                VerticalTextAlignment="Center"
                                 WidthRequest="{Binding DayWidthRequest}"/>
                         </xc:CalendarView.DayCustomization>
 
@@ -633,7 +631,7 @@
                                         Binding="{Binding IsToggled, Source={x:Reference SwitchDefaultImplementation}}"
                                         TargetType="{x:Type xc:CalendarView}"
                                         Value="False">
-                                        
+
                                         <Setter Property="NavigationTemplate">
                                             <ControlTemplate>
                                                 <StackLayout Spacing="0">

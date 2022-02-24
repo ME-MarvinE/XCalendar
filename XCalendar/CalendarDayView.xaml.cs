@@ -86,27 +86,6 @@ namespace XCalendar
         {
             if (Customization != null)
             {
-                Padding = Customization.Padding;
-                Margin = Customization.Margin;
-                WidthRequest = Customization.WidthRequest;
-                HeightRequest = Customization.HeightRequest;
-                HorizontalOptions = Customization.HorizontalOptions;
-                VerticalOptions = Customization.VerticalOptions;
-                CornerRadius = Customization.CornerRadius;
-                HasShadow = Customization.HasShadow;
-                CharacterSpacing = Customization.CharacterSpacing;
-                FontAttributes = Customization.FontAttributes;
-                FontFamily = Customization.FontFamily;
-                FontSize = Customization.FontSize;
-                HorizontalTextAlignment = Customization.HorizontalTextAlignment;
-                LineBreakMode = Customization.LineBreakMode;
-                LineHeight = Customization.LineHeight;
-                MaxLines = Customization.MaxLines;
-                TextDecorations = Customization.TextDecorations;
-                TextTransform = Customization.TextTransform;
-                TextType = Customization.TextType;
-                VerticalTextAlignment = Customization.VerticalTextAlignment;
-
                 if (IsOutOfRange)
                 {
                     BackgroundColor = Customization.OutOfRangeBackgroundColor;
