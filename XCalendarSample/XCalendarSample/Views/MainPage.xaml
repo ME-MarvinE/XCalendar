@@ -11,6 +11,7 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="This"
     ios:Page.UseSafeArea="True"
     x:DataType="{x:Type ViewModels:MainPageViewModel}"
     BackgroundColor="{StaticResource PageBackgroundColor}">
@@ -600,21 +601,6 @@
                         TodayDate="{Binding TodayDate}"
                         UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
 
-                        <xc:CalendarView.DayCustomization>
-                            <Models:DayCustomization
-                                x:DataType="{x:Type ViewModels:MainPageViewModel}"
-                                BindingContext="{Binding BindingContext, Source={x:Reference FancyCalendarView}}"
-                                CurrentMonthTextColor="{StaticResource ContentTextColor}"
-                                HeightRequest="{Binding DayHeightRequest}"
-                                HorizontalOptions="Center"
-                                OutOfRangeTextColor="{StaticResource TertiaryColor}"
-                                SelectedTextColor="{StaticResource PrimaryTextColor}"
-                                TodayBorderColor="{StaticResource PrimaryColor}"
-                                TodayTextColor="{StaticResource ContentTextColor}"
-                                VerticalOptions="Center"
-                                WidthRequest="{Binding DayWidthRequest}"/>
-                        </xc:CalendarView.DayCustomization>
-
                         <xc:CalendarView.Style>
                             <Style TargetType="{x:Type xc:CalendarView}">
 
@@ -624,7 +610,46 @@
                                     </ControlTemplate>
                                 </Setter>
                                 <Setter Property="DayNameTemplate" Value="{x:Null}"/>
-                                <Setter Property="DayTemplate" Value="{x:Null}"/>
+                                <Setter Property="DayTemplate">
+                                    <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
+                                        <ContentView>
+                                            <xc:CalendarDayView
+                                                Margin="2.5"
+                                                CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
+                                                CurrentMonthTextColor="{StaticResource ContentTextColor}"
+                                                DateTime="{Binding DateTime}"
+                                                HasShadow="False"
+                                                HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
+                                                HorizontalOptions="Center"
+                                                OutOfRangeTextColor="{StaticResource TertiaryColor}"
+                                                SelectedTextColor="{StaticResource PrimaryTextColor}"
+                                                Text="{Binding DateTime.Day}"
+                                                TodayBorderColor="{StaticResource PrimaryColor}"
+                                                TodayTextColor="{StaticResource ContentTextColor}"
+                                                VerticalOptions="Center"
+                                                WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
+
+                                                <xc:CalendarDayView.Style>
+                                                    <Style TargetType="{x:Type xc:CalendarDayView}">
+                                                        <Style.Triggers>
+                                                            <MultiTrigger TargetType="{x:Type xc:CalendarDayView}">
+                                                                <MultiTrigger.Conditions>
+                                                                    <BindingCondition Binding="{Binding SelectionType, Source={x:Reference FancyCalendarView}, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static Enums:SelectionType.None}}" Value="False"/>
+                                                                    <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource Self}}" Value="True"/>
+                                                                    <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource Self}}" Value="False"/>
+                                                                </MultiTrigger.Conditions>
+                                                                <Setter Property="xct:TouchEffect.NativeAnimation" Value="True"/>
+                                                                <Setter Property="xct:TouchEffect.Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference FancyCalendarView}}"/>
+                                                                <Setter Property="xct:TouchEffect.CommandParameter" Value="{Binding DateTime, Source={RelativeSource Self}}"/>
+                                                            </MultiTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </xc:CalendarDayView.Style>
+
+                                            </xc:CalendarDayView>
+                                        </ContentView>
+                                    </DataTemplate>
+                                </Setter>
 
                                 <Style.Triggers>
                                     <DataTrigger
@@ -814,10 +839,15 @@
                                             <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
                                                 <ContentView>
                                                     <xc:CalendarDayView
+                                                        Margin="2.5"
                                                         CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
-                                                        Customization="{Binding DayCustomization, Source={x:Reference FancyCalendarView}}"
                                                         DateTime="{Binding DateTime}"
-                                                        Text="{Binding DateTime.Day}">
+                                                        HasShadow="False"
+                                                        HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
+                                                        HorizontalOptions="Center"
+                                                        Text="{Binding DateTime.Day}"
+                                                        VerticalOptions="Center"
+                                                        WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
 
                                                         <xc:CalendarDayView.Style>
                                                             <Style TargetType="{x:Type xc:CalendarDayView}">

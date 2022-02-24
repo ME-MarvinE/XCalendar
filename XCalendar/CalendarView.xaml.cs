@@ -315,11 +315,6 @@ namespace XCalendar
             get { return (Color)GetValue(NavigationBackgroundColorProperty); }
             set { SetValue(NavigationBackgroundColorProperty, value); }
         }
-        public DayCustomization DayCustomization
-        {
-            get { return (DayCustomization)GetValue(DayCustomizationProperty); }
-            set { SetValue(DayCustomizationProperty, value); }
-        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
@@ -338,7 +333,6 @@ namespace XCalendar
         public static readonly BindableProperty RangeSelectionStartProperty = BindableProperty.Create(nameof(RangeSelectionStart), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionStartPropertyChanged);
         public static readonly BindableProperty RangeSelectionEndProperty = BindableProperty.Create(nameof(RangeSelectionEnd), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionEndPropertyChanged);
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
-        public static readonly BindableProperty DayCustomizationProperty = BindableProperty.Create(nameof(DayCustomization), typeof(DayCustomization), typeof(CalendarView), defaultValueCreator: DayCustomizationDefaultValueCreator, validateValue: IsDayCustomizationValidValue);
         public static readonly BindableProperty DayNameTextColorProperty = BindableProperty.Create(nameof(DayNameTextColor), typeof(Color), typeof(CalendarView), Color.Black);
         public static readonly BindableProperty DayNamesOrderProperty = BindableProperty.Create(nameof(DayNamesOrder), typeof(ReadOnlyObservableCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: DayNamesOrderDefaultValueCreator, defaultBindingMode: BindingMode.OneWayToSource, propertyChanged: DayNamesOrderPropertyChanged, validateValue: IsDayNamesOrderValidValue);
         public static readonly BindableProperty StartOfWeekDayNamesOrderProperty = BindableProperty.Create(nameof(StartOfWeekDayNamesOrder), typeof(ReadOnlyObservableCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: StartOfWeekDayNamesOrderDefaultValueCreator, defaultBindingMode: BindingMode.OneWayToSource, validateValue: IsStartOfWeekDayNamesOrderValidValue);
@@ -996,10 +990,6 @@ namespace XCalendar
         {
             return value != null;
         }
-        private static bool IsDayCustomizationValidValue(BindableObject bindable, object value)
-        {
-            return value != null;
-        }
         private static bool IsDayNamesOrderValidValue(BindableObject bindable, object value)
         {
             ReadOnlyObservableCollection<DayOfWeek> ValidationValue = (ReadOnlyObservableCollection<DayOfWeek>)value;
@@ -1010,14 +1000,6 @@ namespace XCalendar
             ReadOnlyObservableCollection<DayOfWeek> ValidationValue = (ReadOnlyObservableCollection<DayOfWeek>)value;
             return ValidationValue != null && ValidationValue.Count > 0;
         }
-        private static object DayCustomizationDefaultValueCreator(BindableObject bindable)
-        {
-            DayCustomization DefaultValue = new DayCustomization();
-            DefaultValue.SetBinding(BindingContextProperty, new Binding(nameof(BindingContext)));
-
-            return DefaultValue;
-        }
-
         #endregion
 
         #endregion

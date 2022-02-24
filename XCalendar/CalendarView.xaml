@@ -144,10 +144,13 @@
                                     <!--  Needs to be nested because collectionview doesn't respect margins  -->
                                     <ContentView>
                                         <xc:CalendarDayView
+                                            Margin="2.5"
                                             CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
-                                            Customization="{Binding DayCustomization, Source={x:Reference MainCalendarView}}"
                                             DateTime="{Binding DateTime}"
-                                            Text="{Binding DateTime.Day}">
+                                            HasShadow="False"
+                                            Text="{Binding DateTime.Day}"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center">
 
                                             <xc:CalendarDayView.Style>
                                                 <Style TargetType="{x:Type xc:CalendarDayView}">
