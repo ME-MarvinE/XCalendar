@@ -146,9 +146,7 @@
                                         <xc:CalendarDayView
                                             Margin="2.5"
                                             CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
-                                            DateTime="{Binding DateTime}"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="Center"/>
+                                            DateTime="{Binding DateTime}"/>
                                     </ContentView>
                                 </DataTemplate>
                             </Setter.Value>

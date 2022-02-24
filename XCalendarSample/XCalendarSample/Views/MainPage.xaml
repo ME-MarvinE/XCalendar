@@ -621,12 +621,10 @@
                                                 CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                                 DateTime="{Binding DateTime}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                HorizontalOptions="Center"
                                                 OutOfRangeTextColor="{StaticResource TertiaryColor}"
                                                 SelectedTextColor="{StaticResource PrimaryTextColor}"
                                                 TodayBorderColor="{StaticResource PrimaryColor}"
                                                 TodayTextColor="{StaticResource ContentTextColor}"
-                                                VerticalOptions="Center"
                                                 WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
                                         </ContentView>
                                     </DataTemplate>

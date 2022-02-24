@@ -27,16 +27,10 @@ namespace XCalendarSample.Popups
             get { return (List<object>)GetValue(AvailableItemsProperty); }
             set { SetValue(AvailableItemsProperty, value); }
         }
-        public object SelectedItem
-        {
-            get { return (object)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
-        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty ReturnValueItemsProperty = BindableProperty.Create(nameof(ReturnValueItems), typeof(ObservableRangeCollection<object>), typeof(ConstructListDialogPopup), defaultValueCreator: ReturnValueItemsDefaultValueCreator);
         public static readonly BindableProperty AvailableItemsProperty = BindableProperty.Create(nameof(AvailableItems), typeof(List<object>), typeof(ConstructListDialogPopup));
-        public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(ConstructListDialogPopup));
         #endregion
 
         #endregion
@@ -45,8 +39,8 @@ namespace XCalendarSample.Popups
         public ICommand DismissDialogCommand { get; set; }
         public ICommand CancelDialogCommand { get; set; }
         public ICommand ResetReturnValueItemsCommand { get; set; }
-        public ICommand AddSelectedItemCommand { get; set; }
-        public ICommand RemoveSelectedItemCommand { get; set; }
+        public ICommand AddItemCommand { get; set; }
+        public ICommand RemoveItemCommand { get; set; }
         public ICommand ClearReturnValueItemsCommand { get; set; }
         #endregion
 
@@ -62,8 +56,8 @@ namespace XCalendarSample.Popups
             DismissDialogCommand = new Command(() => Dismiss(new List<object>(ReturnValueItems)));
             CancelDialogCommand = new Command(CancelDialog);
             ResetReturnValueItemsCommand = new Command(ResetReturnValueItems);
-            AddSelectedItemCommand = new Command(AddSelectedItem);
-            RemoveSelectedItemCommand = new Command<bool>(RemoveSelectedItem);
+            AddItemCommand = new Command<object>(AddItem);
+            RemoveItemCommand = new Command<object>(RemoveItem);
             ClearReturnValueItemsCommand = new Command(ClearReturnValueItems);
 
             InitializeComponent();
@@ -72,7 +66,6 @@ namespace XCalendarSample.Popups
             this.AvailableItems = AvailableItems.Cast<object>().ToList();
 
             ResetReturnValueItems();
-            SelectedItem = this.AvailableItems?.Count > 0 ? this.AvailableItems?[0] : null;
         }
         #endregion
 
@@ -89,25 +82,18 @@ namespace XCalendarSample.Popups
         {
             return _InitialItems;
         }
-        public void AddSelectedItem()
+        public void AddItem(object Item)
         {
-            if (SelectedItem != null)
+            if (Item != null)
             {
-                ReturnValueItems.Add(SelectedItem);
+                ReturnValueItems.Add(Item);
             }
         }
-        public void RemoveSelectedItem(bool RemoveEveryOcurrence)
+        public void RemoveItem(object Item)
         {
-            if (SelectedItem != null)
+            if (Item != null)
             {
-                if (RemoveEveryOcurrence)
-                {
-                    ReturnValueItems.ReplaceRange(ReturnValueItems.Where(x => x != SelectedItem));
-                }
-                else
-                {
-                    ReturnValueItems.Remove(SelectedItem);
-                }
+                ReturnValueItems.Remove(Item);
             }
         }
         public void ClearReturnValueItems()
