@@ -283,15 +283,15 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="SelectionMode"
+                                Text="SelectionAction"
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowSelectionModeDialogCommand}"
+                                xct:TouchEffect.Command="{Binding ShowSelectionActionDialogCommand}"
                                 xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding SelectionMode}"
+                                Text="{Binding SelectionAction}"
                                 TextColor="#0080E0"
                                 VerticalTextAlignment="Center"/>
                         </Grid>
@@ -595,7 +595,7 @@
                         PageStartMode="{Binding PageStartMode}"
                         Rows="{Binding Rows}"
                         SelectedDates="{Binding SelectedDates}"
-                        SelectionMode="{Binding SelectionMode}"
+                        SelectionAction="{Binding SelectionAction}"
                         SelectionType="{Binding SelectionType}"
                         StartOfWeek="{Binding StartOfWeek}"
                         TodayDate="{Binding TodayDate}"

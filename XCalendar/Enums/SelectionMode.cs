@@ -1,6 +1,6 @@
 ﻿namespace XCalendar.Enums
 {
-    public enum SelectionMode
+    public enum SelectionAction
     {
         Add,
         Remove,
