@@ -6,13 +6,21 @@
     <Description>A plugin for Xamarin Forms providing a completely customisable calendar control with complex functionality.</Description>
     <PackageId>Plugin.$(AssemblyName)</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Version>2.0.1</Version>
+    <Version>2.1</Version>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
     <PackageTags>plugin; xamarin; csharp; calendar; xamarin-forms; xamarin-plugin; calendar-component; calendar-view; xamarinforms; calendar-plugin</PackageTags>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <GenerateDocumentationFile>False</GenerateDocumentationFile>
+	  <PackageIcon>XCalendar Nuget Icon.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\XCalendar Nuget Icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0" />

@@ -3,7 +3,6 @@
     x:Class="XCalendarSample.Popups.SelectItemDialogPopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
     xmlns:Popups="clr-namespace:XCalendarSample.Popups"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="MainSelectItemDialogPopup"
@@ -13,8 +12,8 @@
     <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
         <StackLayout.Resources>
             <Style TargetType="{x:Type Label}">
-                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}" />
-                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+                <Setter Property="FontSize" Value="16"/>
             </Style>
         </StackLayout.Resources>
 
@@ -27,7 +26,7 @@
             SelectionMode="Single"
             VerticalScrollBarVisibility="Always">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical" />
+                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
@@ -43,12 +42,12 @@
                             <VisualStateGroup x:Name="Common">
                                 <VisualState Name="Normal">
                                     <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState Name="Selected">
                                     <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="#E0E0E4" />
+                                        <Setter Property="BackgroundColor" Value="#E0E0E4"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -72,7 +71,7 @@
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
-                    VerticalTextAlignment="Center" />
+                    VerticalTextAlignment="Center"/>
             </Frame>
 
             <Frame
@@ -88,7 +87,7 @@
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
-                    VerticalTextAlignment="Center" />
+                    VerticalTextAlignment="Center"/>
             </Frame>
 
             <Frame
@@ -105,7 +104,7 @@
                     FontSize="18"
                     Text="Confirm"
                     TextColor="White"
-                    VerticalTextAlignment="Center" />
+                    VerticalTextAlignment="Center"/>
             </Frame>
         </StackLayout>
     </StackLayout>

@@ -6,7 +6,6 @@
     xmlns:Generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
     xmlns:Popups="clr-namespace:XCalendarSample.Popups"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
-    xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="MainConstructListDialogPopup"
     x:DataType="{x:Type Popups:ConstructListDialogPopup}"
@@ -163,20 +162,20 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <ScrollView
-                                Grid.Column="0"
-                                HorizontalScrollBarVisibility="Never"
-                                Orientation="Horizontal">
+                            Grid.Column="0"
+                            HorizontalScrollBarVisibility="Never"
+                            Orientation="Horizontal">
                             <Label
-                                    FontSize="16"
-                                    HeightRequest="40"
-                                    HorizontalTextAlignment="Center"
-                                    Text="{Binding .}"
-                                    VerticalTextAlignment="Center"/>
+                                FontSize="16"
+                                HeightRequest="40"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding .}"
+                                VerticalTextAlignment="Center"/>
                         </ScrollView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
         </Grid>
 
         <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
