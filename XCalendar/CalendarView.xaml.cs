@@ -388,6 +388,9 @@ namespace XCalendar
 
             _StartOfWeekDayNamesOrder.AddRange(StartOfWeek.GetWeekAsFirst());
 
+            //Initialised in constructor because DayNamesOrderDefaultValueCreator isn't called.
+            DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
+
             InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
             InvalidateDays();
@@ -796,8 +799,9 @@ namespace XCalendar
         private static void StartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
+            DayOfWeek NewStartOfWeek = (DayOfWeek)newValue;
 
-            List<DayOfWeek> CorrectStartOfWeekDayNamesOrder = Control.StartOfWeek.GetWeekAsFirst();
+            List<DayOfWeek> CorrectStartOfWeekDayNamesOrder = NewStartOfWeek.GetWeekAsFirst();
             bool UpdateStartOfWeekDayNamesOrder = !Control._StartOfWeekDayNamesOrder.SequenceEqual(CorrectStartOfWeekDayNamesOrder);
 
             
