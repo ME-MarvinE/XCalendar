@@ -8,13 +8,14 @@
     xmlns:Models="clr-namespace:XCalendar.Models;assembly=XCalendar"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:ViewModels="clr-namespace:XCalendarSample.ViewModels"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
-    ios:Page.UseSafeArea="True"
+    Title="Playground"
     x:DataType="{x:Type ViewModels:MainPageViewModel}"
-    BackgroundColor="{StaticResource PageBackgroundColor}">
+    xct:SafeAreaEffect.SafeArea="True"
+    BackgroundColor="{StaticResource PageBackgroundColor}"
+    Shell.BackgroundColor="#2070FF">
 
     <ContentPage.Resources>
 
@@ -81,22 +82,14 @@
     <StackLayout Spacing="0">
         <Frame
             Padding="5"
-            BackgroundColor="{StaticResource PrimaryColor}"
+            BackgroundColor="#2070FF"
             CornerRadius="0">
-            <StackLayout Spacing="0">
-                <Label
-                    FontSize="22"
-                    HorizontalTextAlignment="Center"
-                    Text="XCalendar Sample"
-                    TextColor="{StaticResource PrimaryTextColor}"
-                    VerticalTextAlignment="Center"/>
-                <Label
-                    FontSize="14"
-                    HorizontalTextAlignment="Center"
-                    Text="Swipe Page To View Calendar"
-                    TextColor="{StaticResource PrimaryTextColor}"
-                    VerticalTextAlignment="Center"/>
-            </StackLayout>
+            <Label
+                FontSize="14"
+                HorizontalTextAlignment="Center"
+                Text="Swipe Page To View Calendar"
+                TextColor="{StaticResource PrimaryTextColor}"
+                VerticalTextAlignment="Center"/>
         </Frame>
 
         <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
@@ -575,7 +568,7 @@
                         x:Name="FancyCalendarView"
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
-                        BackgroundColor="{StaticResource ContentBackgroundColor}"
+                        BackgroundColor="{StaticResource CalendarBackgroundColor}"
                         BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
                         ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
@@ -586,11 +579,11 @@
                         ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
-                        NavigationArrowColor="{StaticResource PrimaryTextColor}"
-                        NavigationBackgroundColor="{StaticResource PrimaryColor}"
+                        NavigationArrowColor="{StaticResource CalendarPrimaryTextColor}"
+                        NavigationBackgroundColor="{StaticResource CalendarPrimaryColor}"
                         NavigationHeightRequest="{Binding NavigationHeightRequest}"
                         NavigationLoopMode="{Binding NavigationLoopMode}"
-                        NavigationTextColor="{StaticResource PrimaryTextColor}"
+                        NavigationTextColor="{StaticResource CalendarPrimaryTextColor}"
                         NavigationTimeUnit="{Binding NavigationTimeUnit}"
                         PageStartMode="{Binding PageStartMode}"
                         Rows="{Binding Rows}"
@@ -609,9 +602,9 @@
                                         <ContentPresenter/>
                                     </ControlTemplate>
                                 </Setter>
-                                
+
                                 <Setter Property="DayNameTemplate" Value="{x:Null}"/>
-                                
+
                                 <Setter Property="DayTemplate">
                                     <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
                                         <ContentView>
@@ -621,10 +614,10 @@
                                                 CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                                 DateTime="{Binding DateTime}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                OutOfRangeTextColor="{StaticResource TertiaryColor}"
-                                                SelectedTextColor="{StaticResource PrimaryTextColor}"
-                                                TodayBorderColor="{StaticResource PrimaryColor}"
-                                                TodayTextColor="{StaticResource ContentTextColor}"
+                                                OutOfRangeTextColor="{StaticResource CalendarTertiaryColor}"
+                                                SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
+                                                TodayBorderColor="{StaticResource CalendarPrimaryColor}"
+                                                TodayTextColor="{StaticResource CalendarBackgroundTextColor}"
                                                 WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
                                         </ContentView>
                                     </DataTemplate>
