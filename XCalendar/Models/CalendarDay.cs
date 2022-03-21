@@ -5,11 +5,11 @@ namespace XCalendar.Models
     public class CalendarDay : BaseObservableModel
     {
         #region Fields
-        private DateTime _DateTime = DateTime.Today;
+        private DateTime? _DateTime = System.DateTime.Today;
         #endregion
 
         #region Properties
-        public DateTime DateTime
+        public DateTime? DateTime
         {
             get
             {

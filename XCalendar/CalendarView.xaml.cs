@@ -620,7 +620,7 @@ namespace XCalendar
                     catch (KeyNotFoundException)
                     {
                         //Catch for when RowDates may not have a certain DayOfWeek, for example when the week spans into unrepresentable DateTimes.
-                        Days[DatesUpdated].DateTime = DateTime.MaxValue;
+                        Days[DatesUpdated].DateTime = null;
                     }
 
                     DatesUpdated += 1;

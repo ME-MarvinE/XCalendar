@@ -12,9 +12,9 @@ namespace XCalendar
         #region Properties
 
         #region Bindable Properties
-        public DateTime DateTime
+        public DateTime? DateTime
         {
-            get { return (DateTime)GetValue(DateTimeProperty); }
+            get { return (DateTime?)GetValue(DateTimeProperty); }
             set { SetValue(DateTimeProperty, value); }
         }
         public bool IsCurrentMonth
@@ -181,7 +181,7 @@ namespace XCalendar
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty CalendarViewProperty = BindableProperty.Create(nameof(CalendarView), typeof(CalendarView), typeof(CalendarDayView), propertyChanged: CalendarViewPropertyChanged);
-        public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime), typeof(CalendarDayView), DateTime.Today);
+        public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(CalendarDayView), System.DateTime.Today);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsOutOfRangeProperty = BindableProperty.Create(nameof(IsOutOfRange), typeof(bool), typeof(CalendarDayView));
@@ -247,10 +247,10 @@ namespace XCalendar
         }
         public virtual void UpdateProperties()
         {
-            IsCurrentMonth = IsDateTimeCurrentMonth(DateTime);
-            IsOutOfRange = IsDateTimeOutOfRange(DateTime);
-            IsSelected = IsDateTimeSelected(DateTime);
-            IsToday = IsDateTimeToday(DateTime);
+            IsCurrentMonth = DateTime != null && IsDateTimeCurrentMonth(DateTime.Value);
+            IsOutOfRange = DateTime != null && IsDateTimeOutOfRange(DateTime.Value);
+            IsSelected = DateTime != null && IsDateTimeSelected(DateTime.Value);
+            IsToday = DateTime != null && IsDateTimeToday(DateTime.Value);
         }
         public virtual void UpdateView()
         {
