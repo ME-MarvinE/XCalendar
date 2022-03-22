@@ -54,6 +54,7 @@
                         <ContentView>
                             <xc:CalendarDayView
                                 Margin="2.5"
+                                HeightRequest="43"
                                 CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
                                 CurrentMonthTextColor="{StaticResource CalendarBackgroundTextColor}"
                                 DateTime="{Binding DateTime}"
