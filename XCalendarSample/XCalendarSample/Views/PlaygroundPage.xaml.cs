@@ -3,12 +3,12 @@ using Xamarin.Forms;
 
 namespace XCalendarSample.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class PlaygroundPage : ContentPage
     {
-        public MainPage()
+        public PlaygroundPage()
         {
             InitializeComponent();
-            BindingContext = new MainPageViewModel();
+            BindingContext = new PlaygroundViewModel();
         }
     }
 }

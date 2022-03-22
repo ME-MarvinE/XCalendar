@@ -16,7 +16,7 @@
         </Grid>
     </Shell.FlyoutHeader>
 
-    <ShellContent Title="Playground" Route="MainPage" ContentTemplate="{DataTemplate Views:MainPage}"/>
+    <ShellContent Title="Playground" Route="PlaygroundPage" ContentTemplate="{DataTemplate Views:PlaygroundPage}"/>
     <ShellContent Title="Examples" Route="ExamplesPage" ContentTemplate="{DataTemplate Views:ExamplesPage}"/>
 
 </Shell>

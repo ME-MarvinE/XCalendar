@@ -10,7 +10,7 @@ using XCalendarSample.Popups;
 
 namespace XCalendarSample.ViewModels
 {
-    public class MainPageViewModel : BaseViewModel
+    public class PlaygroundViewModel : BaseViewModel
     {
         #region Properties
         public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
@@ -74,7 +74,7 @@ namespace XCalendarSample.ViewModels
         #endregion
 
         #region Constructors
-        public MainPageViewModel()
+        public PlaygroundViewModel()
         {
             ShowCustomDayNamesOrderDialogCommand = new Command(ShowCustomDayNamesOrderDialog);
             ShowSelectionActionDialogCommand = new Command(ShowSelectionActionDialog);
@@ -89,32 +89,32 @@ namespace XCalendarSample.ViewModels
         #region Methods
         public async void ShowCustomDayNamesOrderDialog()
         {
-            IEnumerable<DayOfWeek> NewCustomDayNamesOrder = (await Application.Current.MainPage.ShowPopupAsync(new ConstructListDialogPopup(CustomDayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
+            IEnumerable<DayOfWeek> NewCustomDayNamesOrder = (await Shell.Current.ShowPopupAsync(new ConstructListDialogPopup(CustomDayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
             CustomDayNamesOrder.ReplaceRange(NewCustomDayNamesOrder);
         }
         public async void ShowSelectionActionDialog()
         {
-            SelectionAction = (SelectionAction)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(SelectionAction, SelectionActions));
+            SelectionAction = (SelectionAction)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionAction, SelectionActions));
         }
         public async void ShowNavigationTimeUnitDialog()
         {
-            NavigationTimeUnit = (NavigationTimeUnit)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(NavigationTimeUnit, NavigationTimeUnits));
+            NavigationTimeUnit = (NavigationTimeUnit)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(NavigationTimeUnit, NavigationTimeUnits));
         }
         public async void ShowNavigationLoopModeDialog()
         {
-            NavigationLoopMode = (NavigationLoopMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(NavigationLoopMode, NavigationLoopModes));
+            NavigationLoopMode = (NavigationLoopMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(NavigationLoopMode, NavigationLoopModes));
         }
         public async void ShowPageStartModeDialog()
         {
-            PageStartMode = (PageStartMode)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(PageStartMode, PageStartModes));
+            PageStartMode = (PageStartMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(PageStartMode, PageStartModes));
         }
         public async void ShowStartOfWeekDialog()
         {
-            StartOfWeek = (DayOfWeek)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(StartOfWeek, DaysOfWeek));
+            StartOfWeek = (DayOfWeek)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(StartOfWeek, DaysOfWeek));
         }
         public async void ShowSelectionTypeDialog()
         {
-            SelectionType = (SelectionType)await Application.Current.MainPage.ShowPopupAsync(new SelectItemDialogPopup(SelectionType, SelectionTypes));
+            SelectionType = (SelectionType)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionType, SelectionTypes));
         }
         #endregion
     }

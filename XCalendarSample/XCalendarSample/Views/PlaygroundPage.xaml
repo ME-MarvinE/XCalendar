@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="XCalendarSample.Views.MainPage"
+    x:Class="XCalendarSample.Views.PlaygroundPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Converters="clr-namespace:XCalendar.Converters;assembly=XCalendar"
@@ -12,7 +12,7 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     Title="Playground"
-    x:DataType="{x:Type ViewModels:MainPageViewModel}"
+    x:DataType="{x:Type ViewModels:PlaygroundViewModel}"
     xct:SafeAreaEffect.SafeArea="True"
     BackgroundColor="{StaticResource PageBackgroundColor}"
     Shell.BackgroundColor="#2070FF">

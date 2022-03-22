@@ -30,6 +30,9 @@
     <Compile Update="Views\EventCalendarExamplePage.xaml.cs">
       <DependentUpon>EventCalendarExamplePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PlaygroundPage.xaml.cs">
+      <DependentUpon>PlaygroundPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
