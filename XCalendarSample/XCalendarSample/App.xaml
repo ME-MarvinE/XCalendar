@@ -25,5 +25,6 @@
         <Color x:Key="CalendarTertiaryColor">#FFA0A0</Color>
         <Color x:Key="CalendarPrimaryTextColor">White</Color>
         <Color x:Key="CalendarBackgroundTextColor">Black</Color>
+
     </Application.Resources>
 </Application>

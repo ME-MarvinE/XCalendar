@@ -11,4 +11,28 @@
     BackgroundColor="{StaticResource PageBackgroundColor}"
     Shell.BackgroundColor="{StaticResource PrimaryColor}">
 
+    <ContentPage.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+        </Style>
+        
+        <x:Double x:Key="ExamplesTitleFontSize">19</x:Double>
+        <x:Double x:Key="ExamplesDescriptionFontSize">16</x:Double>
+    </ContentPage.Resources>
+
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <StackLayout Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
+            
+            <StackLayout Padding="10" BackgroundColor="{DynamicResource SecondaryColor}" Spacing="0"
+                         xct:TouchEffect.NativeAnimation="True"
+                         xct:TouchEffect.Command="{Binding ShowEventCalendarExampleCommand}">
+                <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="Event Calendar" TextColor="{DynamicResource SecondaryTextColor}"/>
+                <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="Uses indicators to show events for a certain day."/>
+            </StackLayout>
+
+            <BoxView HeightRequest="1" BackgroundColor="{DynamicResource SeparatorColor}"/>
+
+        </StackLayout>
+    </ScrollView>
+
 </ContentPage>
