@@ -12,12 +12,14 @@ namespace XCalendarSample.ViewModels
     {
         #region Commands
         public ICommand ShowEventCalendarExampleCommand { get; set; }
+        public ICommand ShowCustomDatePickerDialogExampleCommand { get; set; }
         #endregion
 
         #region Constructors
         public ExamplesViewModel()
         {
             ShowEventCalendarExampleCommand = new Command(async () => await ShowEventCalendarExample());
+            ShowCustomDatePickerDialogExampleCommand = new Command(async () => await ShowCustomDatePickerDialogExample());
         }
         #endregion
 
@@ -26,6 +28,11 @@ namespace XCalendarSample.ViewModels
         {
             await Shell.Current.Navigation.PushAsync(new EventCalendarExamplePage());
         }
+        public async Task ShowCustomDatePickerDialogExample()
+        {
+            await Shell.Current.Navigation.PushAsync(new CustomDatePickerDialogExamplePage());
+        }
+        
         #endregion
     }
 }
