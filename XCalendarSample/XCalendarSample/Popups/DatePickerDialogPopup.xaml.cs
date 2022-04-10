@@ -52,7 +52,7 @@ namespace XCalendarSample.Popups
         #region Methods
         public void ResetNavigatedDate()
         {
-            NavigatedDate = InitialDate;
+            NavigatedDate = SelectedDate;
         }
         public void ReturnInitialDate()
         {

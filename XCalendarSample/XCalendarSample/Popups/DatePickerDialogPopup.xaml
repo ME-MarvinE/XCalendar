@@ -10,7 +10,7 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     x:TypeArguments="System:DateTime"
-    Size="310, 460">
+    Size="320, 475">
 
     <StackLayout BackgroundColor="White" Spacing="0">
 
@@ -22,13 +22,16 @@
             <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
                 <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}" Value="1"/>
             </x:Array>
+            <!--<Color x:Key="PrimaryPickerColor">#F04080</Color>-->
+            <!--<Color x:Key="PrimaryPickerColor">#4080F0</Color>-->
+            <Color x:Key="PrimaryPickerColor">#8040F0</Color>
         </StackLayout.Resources>
 
         <Label
             Padding="15,20,15,20"
             xct:TouchEffect.Command="{Binding ResetNavigatedDateCommand, Source={x:Reference This}}"
             xct:TouchEffect.NativeAnimation="True"
-            BackgroundColor="#F04080"
+            BackgroundColor="{StaticResource PrimaryPickerColor}"
             FontAttributes="Bold"
             FontSize="34"
             Text="{Binding SelectedDate, StringFormat='{0:ddd, dd MMM}', Source={x:Reference This}}"
@@ -36,8 +39,9 @@
 
         <xc:CalendarView
             x:Name="MainCalendarView"
+            VerticalOptions="FillAndExpand"
             Margin="0,5,0,0"
-            Padding="10,0,10,0"
+            Padding="20,0,20,0"
             MonthViewHeightRequest="246"
             NavigatedDate="{Binding NavigatedDate, Source={x:Reference This}}"
             NavigationArrowColor="{StaticResource ContentTextColor}"
@@ -50,6 +54,7 @@
             <xc:CalendarView.DayNameTemplate>
                 <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
                     <Label
+                        FontSize="12"
                         HorizontalTextAlignment="Center"
                         Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
                         TextColor="#707070"
@@ -64,14 +69,15 @@
                         CurrentMonthBackgroundColor="Transparent"
                         CurrentMonthTextColor="Black"
                         DateTime="{Binding DateTime}"
+                        FontSize="12"
                         HeightRequest="41"
                         OtherMonthTextColor="Transparent"
                         OutOfRangeBackgroundColor="Transparent"
-                        SelectedBackgroundColor="#F04080"
+                        SelectedBackgroundColor="{StaticResource PrimaryPickerColor}"
                         SelectedTextColor="White"
                         TodayBackgroundColor="Transparent"
                         TodayBorderColor="Transparent"
-                        TodayTextColor="#F04080"/>
+                        TodayTextColor="{StaticResource PrimaryPickerColor}"/>
                 </DataTemplate>
             </xc:CalendarView.DayTemplate>
 
@@ -86,21 +92,23 @@
                 xct:TouchEffect.Command="{Binding ReturnInitialDateCommand, Source={x:Reference This}}"
                 xct:TouchEffect.NativeAnimation="True"
                 BackgroundColor="Transparent"
+                CornerRadius="2.5"
                 FontAttributes="Bold"
                 FontSize="14"
                 HorizontalOptions="EndAndExpand"
                 Text="CANCEL"
-                TextColor="#F04080"/>
+                TextColor="{StaticResource PrimaryPickerColor}"/>
             <xc:FramedLabel
                 Margin="15,0,0,0"
                 Padding="15,10,15,10"
                 xct:TouchEffect.Command="{Binding ReturnSelectedDateCommand, Source={x:Reference This}}"
                 xct:TouchEffect.NativeAnimation="True"
                 BackgroundColor="Transparent"
+                CornerRadius="2.5"
                 FontAttributes="Bold"
                 FontSize="14"
                 Text="OK"
-                TextColor="#F04080"/>
+                TextColor="{StaticResource PrimaryPickerColor}"/>
         </StackLayout>
 
     </StackLayout>
