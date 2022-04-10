@@ -30,6 +30,9 @@
     <Compile Update="Views\EventCalendarExamplePage.xaml.cs">
       <DependentUpon>EventCalendarExamplePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\CustomDatePickerDialogExamplePage.xaml.cs">
+      <DependentUpon>CustomDatePickerDialogExamplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PlaygroundPage.xaml.cs">
       <DependentUpon>PlaygroundPage.xaml</DependentUpon>
     </Compile>
@@ -37,6 +40,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Popups\ConstructListDialogPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popups\DatePickerDialogPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Popups\SelectItemDialogPopup.xaml">
