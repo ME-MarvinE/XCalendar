@@ -1,4 +1,4 @@
-﻿namespace XCalendar.Enums
+﻿namespace XCalendar.Core.Enums
 {
     public enum SelectionType
     {

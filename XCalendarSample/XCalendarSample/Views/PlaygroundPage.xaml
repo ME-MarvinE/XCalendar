@@ -3,12 +3,12 @@
     x:Class="XCalendarSample.Views.PlaygroundPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Converters="clr-namespace:XCalendar.Converters;assembly=XCalendar"
-    xmlns:Enums="clr-namespace:XCalendar.Enums;assembly=XCalendar"
-    xmlns:Models="clr-namespace:XCalendar.Models;assembly=XCalendar"
+    xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
+    xmlns:xcEnums="clr-namespace:XCalendar.Core.Enums;assembly=XCalendar.Core"
+    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:ViewModels="clr-namespace:XCalendarSample.ViewModels"
-    xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     Title="Playground"
@@ -66,16 +66,16 @@
         <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
         <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any"/>
 
-        <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
-        <Converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+        <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
+        <xcConverters:EnumToStringConverter x:Key="EnumToStringConverter"/>
 
         <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-            <Converters:EnumToStringConverter/>
-            <Converters:StringCharLimitConverter/>
+            <xcConverters:EnumToStringConverter/>
+            <xcConverters:StringCharLimitConverter/>
         </xct:MultiConverter>
 
         <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
-            <xct:MultiConverterParameter ConverterType="{x:Type Converters:StringCharLimitConverter}" Value="3"/>
+            <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}" Value="3"/>
         </x:Array>
     </ContentPage.Resources>
 
@@ -606,7 +606,7 @@
                                 <Setter Property="DayNameTemplate" Value="{x:Null}"/>
 
                                 <Setter Property="DayTemplate">
-                                    <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
+                                    <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                                         <ContentView>
                                             <xc:CalendarDayView
                                                 Margin="2.5"
@@ -808,7 +808,7 @@
                                         </Setter>
 
                                         <Setter Property="DayTemplate">
-                                            <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
+                                            <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                                                 <ContentView>
                                                     <xc:CalendarDayView
                                                         Margin="2.5"

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCalendar.Models
+namespace XCalendar.Core.Models
 {
     public class CalendarDay : BaseObservableModel
     {

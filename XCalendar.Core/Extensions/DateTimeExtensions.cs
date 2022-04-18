@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace XCalendar.Extensions
+namespace XCalendar.Core.Extensions
 {
     public static class DateTimeExtensions
     {

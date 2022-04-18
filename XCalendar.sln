@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarSample.iOS", "XCal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendarSample", "XCalendarSample\XCalendarSample\XCalendarSample.csproj", "{BCA5C79C-718F-4B7A-A936-8D020D3B6FCB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar", "XCalendar\XCalendar.csproj", "{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Forms", "XCalendar\XCalendar.Forms.csproj", "{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Core", "XCalendar.Core\XCalendar.Core.csproj", "{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,18 @@ Global
 		{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}.Release|iPhone.Build.0 = Release|Any CPU
 		{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Release|iPhone.Build.0 = Release|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

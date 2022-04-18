@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <xc:FramedLabel
-    x:Class="XCalendar.CalendarDayView"
+    x:Class="XCalendar.Forms.Views.CalendarDayView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xc="clr-namespace:XCalendar"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="MainCalendarDayView"
     Padding="0"

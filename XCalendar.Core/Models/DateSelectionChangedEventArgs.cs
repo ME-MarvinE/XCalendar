@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace XCalendar.Models
+namespace XCalendar.Core.Models
 {
     public class DateSelectionChangedEventArgs : EventArgs
     {
