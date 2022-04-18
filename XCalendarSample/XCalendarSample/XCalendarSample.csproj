@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\XCalendar\XCalendar.csproj" />
+    <ProjectReference Include="..\..\XCalendar\XCalendar.Forms.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace XCalendar
+namespace XCalendar.Forms.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CalendarDayView : FramedLabel

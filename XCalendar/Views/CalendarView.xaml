@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentView
-    x:Class="XCalendar.CalendarView"
+    x:Class="XCalendar.Forms.Views.CalendarView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Converters="clr-namespace:XCalendar.Converters"
-    xmlns:Models="clr-namespace:XCalendar.Models"
+    xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
+    xmlns:Models="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:xc="clr-namespace:XCalendar"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="MainCalendarView"
     x:DataType="{x:Type xc:CalendarView}">

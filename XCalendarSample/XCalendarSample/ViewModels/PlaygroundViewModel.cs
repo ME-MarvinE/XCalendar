@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using XCalendar.Enums;
+using XCalendar.Core.Enums;
 using XCalendarSample.Popups;
 
 namespace XCalendarSample.ViewModels

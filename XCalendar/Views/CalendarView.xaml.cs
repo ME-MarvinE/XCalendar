@@ -1,6 +1,6 @@
-﻿using XCalendar.Extensions;
-using XCalendar.Enums;
-using XCalendar.Models;
+﻿using XCalendar.Core.Extensions;
+using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +12,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace XCalendar
+namespace XCalendar.Forms.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CalendarView : ContentView
@@ -579,7 +579,7 @@ namespace XCalendar
                     PageStartDate = new DateTime(NavigatedDate.Year, 1, 1).FirstDayOfWeek(StartOfWeek);
                     break;
                 default:
-                    throw new NotImplementedException($"{nameof(Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
+                    throw new NotImplementedException($"{nameof(Core.Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
             //Add/Remove days until reaching the required count.
@@ -682,7 +682,7 @@ namespace XCalendar
                         break;
 
                     default:
-                        throw new NotImplementedException($"{nameof(Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
+                        throw new NotImplementedException($"{nameof(Core.Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
                 }
 
                 LowerThanMinimumDate = NewNavigatedDate.Date < MinimumDate.Date;

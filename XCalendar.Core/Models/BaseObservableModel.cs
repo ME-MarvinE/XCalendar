@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace XCalendar.Models
+namespace XCalendar.Core.Models
 {
     /// <summary>
     /// A base class for Models that need to implement the INotifyPropertyChanged interface.
