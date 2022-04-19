@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Frame xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:xc="clr-namespace:XCalendar.Maui.Views"
+       x:Class="XCalendar.Maui.Views.FramedLabel"
+       x:DataType="{x:Type xc:FramedLabel}"
+       x:Name="MainFramedLabel">
+
+    <Label
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainFramedLabel}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference MainFramedLabel}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference MainFramedLabel}}"
+        FontSize="{Binding FontSize, Source={x:Reference MainFramedLabel}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference MainFramedLabel}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainFramedLabel}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainFramedLabel}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference MainFramedLabel}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference MainFramedLabel}}"
+        Text="{Binding Text, Source={x:Reference MainFramedLabel}}"
+        TextColor="{Binding TextColor, Source={x:Reference MainFramedLabel}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference MainFramedLabel}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference MainFramedLabel}}"
+        TextType="{Binding TextType, Source={x:Reference MainFramedLabel}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainFramedLabel}}"/>
+
+</Frame>

@@ -4,7 +4,7 @@ namespace XCalendar.Core.Converters
 {
     public static class EnumToStringConverter
     {
-        public static object Convert(object value)
+        public static string Convert(object value)
         {
             try
             {

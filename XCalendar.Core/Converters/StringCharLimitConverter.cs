@@ -2,7 +2,7 @@
 {
     public static class StringCharLimitConverter
     {
-        public static object Convert(object value, object parameter)
+        public static string Convert(object value, object parameter)
         {
             try
             {
