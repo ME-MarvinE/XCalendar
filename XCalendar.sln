@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarSample.iOS", "XCal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendarSample", "XCalendarSample\XCalendarSample\XCalendarSample.csproj", "{BCA5C79C-718F-4B7A-A936-8D020D3B6FCB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Forms", "XCalendar\XCalendar.Forms.csproj", "{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Forms", "XCalendar.Forms\XCalendar.Forms.csproj", "{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Core", "XCalendar.Core\XCalendar.Core.csproj", "{10CDB2E2-8C67-4ED2-8368-DEF8720BB29D}"
 EndProject
