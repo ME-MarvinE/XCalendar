@@ -628,7 +628,6 @@ public partial class CalendarView : ContentView
     /// <summary>
     /// Navigates the date at which the time unit is extracted.
     /// </summary>
-    /// <param name="Forward">Whether the source will be navigated forwards or backwards</param>
     /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
     public virtual void NavigateCalendar(int Amount)
     {

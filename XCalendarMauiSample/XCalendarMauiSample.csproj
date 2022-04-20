@@ -53,4 +53,65 @@
 	  <ProjectReference Include="..\XCalendar.Maui\XCalendar.Maui.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Popups\ConstructListDialogPopup.xaml.cs">
+	    <DependentUpon>Popups\ConstructListDialogPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Popups\DatePickerDialogPopup.xaml.cs">
+	    <DependentUpon>Popups\DatePickerDialogPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Popups\SelectItemDialogPopup.xaml.cs">
+	    <DependentUpon>Popups\SelectItemDialogPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\CustomDatePickerDialogExamplePage.xaml.cs">
+	    <DependentUpon>Views\CustomDatePickerDialogExamplePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\EventCalendarExamplePage.xaml.cs">
+	    <DependentUpon>Views\EventCalendarExamplePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ExamplesPage.xaml.cs">
+	    <DependentUpon>Views\ExamplesPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AppShell.xaml.cs">
+	    <DependentUpon>AppShell.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PlaygroundPage.xaml.cs">
+	    <DependentUpon>Views\PlaygroundPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Popups\ConstructListDialogPopup.xaml">
+			<SubType>Designer</SubType>
+			<Generator></Generator>
+			</MauiXaml>
+		<MauiXaml Update="Popups\DatePickerDialogPopup.xaml">
+			<SubType>Designer</SubType>
+			<Generator></Generator>
+	  </MauiXaml>
+		<MauiXaml Update="Popups\SelectItemDialogPopup.xaml">
+			<SubType>Designer</SubType>
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AppShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CustomDatePickerDialogExamplePage.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EventCalendarExamplePage.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ExamplesPage.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlaygroundPage.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Views="clr-namespace:XCalendarMauiSample.Views"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="XCalendarMauiSample.Views.AppShell"
+    Title="AppShell"
+    BackgroundColor="{StaticResource PrimaryColor}"
+    FlyoutBackgroundColor="{StaticResource ContentBackgroundColor}">
+
+    <!--Android bug in MAUI rc 1 - FlyoutItems invisible: https://github.com/dotnet/maui/issues/6061-->
+    <!--<Shell.FlyoutHeader>
+        <Grid Padding="10,20,10,20" BackgroundColor="{StaticResource PrimaryColor}">
+            <Label Text="XCalendar Sample" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{StaticResource PrimaryTextColor}" FontSize="24"/>
+        </Grid>
+    </Shell.FlyoutHeader>-->
+
+    <!--<FlyoutItem Title="Playground" Route="PlaygroundPage">
+        <ShellContent ContentTemplate="{DataTemplate Views:PlaygroundPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Examples" Route="ExamplesPage">
+        <ShellContent ContentTemplate="{DataTemplate Views:ExamplesPage}"/>
+    </FlyoutItem>-->
+
+    <TabBar>
+        <ShellContent Title="Playground" Route="PlaygroundPage" ContentTemplate="{DataTemplate Views:PlaygroundPage}"/>
+        <ShellContent Title="Examples" Route="ExamplesPage" ContentTemplate="{DataTemplate Views:ExamplesPage}"/>
+    </TabBar>
+
+</Shell>

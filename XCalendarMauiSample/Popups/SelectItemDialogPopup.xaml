@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup
+    x:Class="XCalendarMauiSample.Popups.SelectItemDialogPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Popups="clr-namespace:XCalendarMauiSample.Popups"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="MainSelectItemDialogPopup"
+    x:DataType="{x:Type Popups:SelectItemDialogPopup}"
+    Size="300, 350">
+
+    <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+        <StackLayout.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+        </StackLayout.Resources>
+
+        <CollectionView
+            BackgroundColor="{StaticResource ContentBackgroundColor}"
+            EmptyView="Empty"
+            ItemSizingStrategy="MeasureFirstItem"
+            ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}"
+            SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}"
+            SelectionMode="Single"
+            VerticalScrollBarVisibility="Always">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Null}">
+                    <Label
+                        FontSize="16"
+                        HeightRequest="50"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding .}"
+                        VerticalTextAlignment="Center">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="Common">
+                                <VisualState Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#E0E0E4"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Label>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
+            <Frame
+                Padding="10"
+                BackgroundColor="#0080E0"
+                CornerRadius="0"
+                HasShadow="False">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+                
+                <Label
+                    FontSize="18"
+                    Text="Cancel"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
+            </Frame>
+
+            <Frame
+                Padding="10"
+                BackgroundColor="#0080E0"
+                CornerRadius="0"
+                HasShadow="False">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+                
+                <Label
+                    FontSize="18"
+                    Text="Reset"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
+            </Frame>
+
+            <Frame
+                Padding="10"
+                BackgroundColor="#0080E0"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="EndAndExpand">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+                
+                <Label
+                    FontSize="18"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
+            </Frame>
+        </StackLayout>
+    </StackLayout>
+
+</mct:Popup>

@@ -1,4 +1,6 @@
-﻿namespace XCalendarMauiSample
+﻿using XCalendarMauiSample.Views;
+
+namespace XCalendarMauiSample
 {
     public partial class App : Application
     {
