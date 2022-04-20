@@ -9,13 +9,13 @@
     x:DataType="{x:Type Popups:SelectItemDialogPopup}"
     Size="300, 350">
 
-    <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
-        <StackLayout.Resources>
+    <VerticalStackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+        <VerticalStackLayout.Resources>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
-        </StackLayout.Resources>
+        </VerticalStackLayout.Resources>
 
         <CollectionView
             BackgroundColor="{StaticResource ContentBackgroundColor}"
@@ -56,7 +56,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
+        <HorizontalStackLayout BackgroundColor="#0080E0">
             <Frame
                 Padding="10"
                 BackgroundColor="#0080E0"
@@ -108,7 +108,7 @@
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
             </Frame>
-        </StackLayout>
-    </StackLayout>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
 
 </mct:Popup>

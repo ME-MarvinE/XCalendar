@@ -63,7 +63,7 @@
                                 TodayTextColor="{StaticResource CalendarBackgroundTextColor}">
 
                                 <!--
-                                    Setting ControlTemplate instead of using a StackLayout with views inside because I don't require different parts of the view
+                                    Setting ControlTemplate instead of using a VerticalStackLayout with views inside because I don't require different parts of the view
                                     to have specific user interactions.
                                 -->
                                 <!--
@@ -86,14 +86,13 @@
                                                 Grid.RowSpan="2"
                                                 VerticalOptions="Center"/>
 
-                                            <StackLayout
+                                            <HorizontalStackLayout
                                                 Grid.Row="1"
                                                 HorizontalOptions="Center"
-                                                Orientation="Horizontal"
                                                 Spacing="2.5">
 
                                                 <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
-                                                <StackLayout.IsVisible>
+                                                <HorizontalStackLayout.IsVisible>
                                                     <MultiBinding Converter="{StaticResource AllTrueConverter}">
                                                         <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
                                                         <Binding Path="IsCurrentMonth" Source="{RelativeSource TemplatedParent}"/>
@@ -102,7 +101,7 @@
                                                             Path="IsOutOfRange"
                                                             Source="{RelativeSource TemplatedParent}"/>
                                                     </MultiBinding>
-                                                </StackLayout.IsVisible>
+                                                </HorizontalStackLayout.IsVisible>
 
                                                 <BindableLayout.ItemsSource>
                                                     <Binding Path="DateTime.Date" Source="{RelativeSource TemplatedParent}">
@@ -127,7 +126,7 @@
                                                     </DataTemplate>
                                                 </BindableLayout.ItemTemplate>
 
-                                            </StackLayout>
+                                            </HorizontalStackLayout>
 
                                         </Grid>
                                     </ControlTemplate>
@@ -164,10 +163,10 @@
                             Padding="0"
                             BackgroundColor="{StaticResource ContentBackgroundColor}"
                             CornerRadius="10">
-                            <StackLayout Orientation="Horizontal" Spacing="0">
+                            <HorizontalStackLayout Spacing="0">
                                 <BoxView BackgroundColor="{Binding Color}" WidthRequest="20"/>
 
-                                <StackLayout Padding="10" Spacing="0">
+                                <HorizontalStackLayout Padding="10" Spacing="0">
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
@@ -184,8 +183,8 @@
                                         FontSize="14"
                                         Text="{Binding Description}"
                                         TextColor="{StaticResource ContentTextColor}"/>
-                                </StackLayout>
-                            </StackLayout>
+                                </HorizontalStackLayout>
+                            </HorizontalStackLayout>
                         </Frame>
                     </ContentView>
                 </DataTemplate>

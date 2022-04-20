@@ -11,9 +11,9 @@
     x:DataType="{x:Type Popups:ConstructListDialogPopup}"
     Size="325, 450">
 
-    <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+    <VerticalStackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
 
-        <StackLayout.Resources>
+        <VerticalStackLayout.Resources>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
                 <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
@@ -32,7 +32,7 @@
 
             <System:Boolean x:Key="TrueValue">True</System:Boolean>
             <System:Boolean x:Key="FalseValue">False</System:Boolean>
-        </StackLayout.Resources>
+        </VerticalStackLayout.Resources>
 
         <Grid
             ColumnDefinitions="*, *"
@@ -54,7 +54,7 @@
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.Header>
-                    <StackLayout
+                    <VerticalStackLayout
                         Grid.Row="2"
                         Grid.Column="0"
                         Padding="10"
@@ -77,12 +77,12 @@
                                 TextColor="White"
                                 VerticalTextAlignment="Center"/>
                         </Frame>
-                    </StackLayout>
+                    </VerticalStackLayout>
                 </CollectionView.Header>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
-                        <StackLayout Spacing="5">
+                        <VerticalStackLayout Spacing="5">
 
                             <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
 
@@ -97,10 +97,9 @@
                                     VerticalTextAlignment="Center"/>
                             </ScrollView>
 
-                            <StackLayout
+                            <HorizontalStackLayout
                                 Margin="0,0,0,5"
                                 HorizontalOptions="Center"
-                                Orientation="Horizontal"
                                 Spacing="20">
                                 <Frame
                                     Padding="0"
@@ -143,9 +142,9 @@
                                         TextColor="White"
                                         VerticalTextAlignment="Center"/>
                                 </Frame>
-                            </StackLayout>
+                            </HorizontalStackLayout>
 
-                        </StackLayout>
+                        </VerticalStackLayout>
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -183,7 +182,7 @@
 
         </Grid>
 
-        <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
+        <HorizontalStackLayout BackgroundColor="#0080E0">
             <Frame
                 Padding="10"
                 BackgroundColor="#0080E0"
@@ -236,7 +235,7 @@
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
             </Frame>
-        </StackLayout>
-    </StackLayout>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
 
 </mct:Popup>

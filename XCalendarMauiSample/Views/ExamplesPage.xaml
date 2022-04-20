@@ -21,28 +21,28 @@
     </ContentPage.Resources>
 
     <ScrollView VerticalScrollBarVisibility="Never">
-        <StackLayout Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
+        <VerticalStackLayout Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
 
-            <StackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
-                <StackLayout.GestureRecognizers>
+            <VerticalStackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+                <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowEventCalendarExampleCommand}"/>
-                </StackLayout.GestureRecognizers>
+                </VerticalStackLayout.GestureRecognizers>
                 <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="Event Calendar" TextColor="{StaticResource ContentTextColor}"/>
                 <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="Uses indicators to show events for a certain day."/>
-            </StackLayout>
+            </VerticalStackLayout>
 
             <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
 
-            <StackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
-                <StackLayout.GestureRecognizers>
+            <VerticalStackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+                <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowCustomDatePickerDialogExampleCommand}"/>
-                </StackLayout.GestureRecognizers>
+                </VerticalStackLayout.GestureRecognizers>
                 <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="Custom DatePicker Dialog" TextColor="{StaticResource ContentTextColor}"/>
                 <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="A custom DatePicker dialog."/>
-            </StackLayout>
+            </VerticalStackLayout>
 
             <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
-        </StackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>

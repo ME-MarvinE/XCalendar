@@ -72,11 +72,19 @@
         </mct:MultiConverter>
 
         <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
-            <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}" Value="3"/>
+            <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
+                <mct:MultiConverterParameter.Value>
+                    <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
+                        <mct:MultiConverterParameter.Value>
+                            <System:Int32>3</System:Int32>
+                        </mct:MultiConverterParameter.Value>
+                    </mct:MultiConverterParameter>
+                </mct:MultiConverterParameter.Value>
+            </mct:MultiConverterParameter>
         </x:Array>
     </ContentPage.Resources>
 
-    <StackLayout Spacing="0">
+    <VerticalStackLayout Spacing="0">
         <Frame
             Padding="5"
             BackgroundColor="#2070FF"
@@ -100,14 +108,14 @@
                     BackgroundColor="{StaticResource ContentBackgroundColor}"
                     Orientation="Vertical"
                     VerticalScrollBarVisibility="Always">
-                    <StackLayout Spacing="0">
+                    <VerticalStackLayout Spacing="0">
 
-                        <StackLayout.Resources>
+                        <VerticalStackLayout.Resources>
                             <Style CanCascade="True" TargetType="{x:Type Grid}">
                                 <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
                                 <Setter Property="HeightRequest" Value="50"/>
                             </Style>
-                        </StackLayout.Resources>
+                        </VerticalStackLayout.Resources>
 
                         <Grid>
                             <Label
@@ -564,17 +572,16 @@
                                 VerticalOptions="End"/>
                         </Grid>
 
-                    </StackLayout>
+                    </VerticalStackLayout>
                 </ScrollView>
 
                 <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}"/>
 
-                <StackLayout Grid.Column="2" Spacing="0">
+                <VerticalStackLayout Grid.Column="2" Spacing="0">
 
-                    <StackLayout
+                    <VerticalStackLayout
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
-                        HeightRequest="55"
-                        Orientation="Horizontal">
+                        HeightRequest="55">
                         <Label
                             FontSize="16"
                             HorizontalOptions="EndAndExpand"
@@ -585,7 +592,7 @@
                             x:Name="SwitchDefaultImplementation"
                             HorizontalOptions="StartAndExpand"
                             IsToggled="True"/>
-                    </StackLayout>
+                    </VerticalStackLayout>
 
                     <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
 
@@ -656,12 +663,11 @@
 
                                         <Setter Property="NavigationTemplate">
                                             <ControlTemplate>
-                                                <StackLayout Spacing="0">
+                                                <VerticalStackLayout Spacing="0">
 
-                                                    <StackLayout
+                                                    <HorizontalStackLayout
                                                         Padding="0,5,5,5"
-                                                        BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                        Orientation="Horizontal">
+                                                        BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference FancyCalendarView}}">
                                                         <Label
                                                             Margin="15,0,0,0"
                                                             FontAttributes="Bold"
@@ -708,7 +714,7 @@
 
                                                         </xc:FramedLabel>
 
-                                                    </StackLayout>
+                                                    </HorizontalStackLayout>
 
                                                     <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
 
@@ -771,7 +777,7 @@
                                                         </Label.Style>
                                                     </Label>
 
-                                                </StackLayout>
+                                                </VerticalStackLayout>
                                             </ControlTemplate>
                                         </Setter>
 
@@ -897,10 +903,10 @@
 
                     </xc:CalendarView>
 
-                </StackLayout>
+                </VerticalStackLayout>
 
             </Grid>
         </ScrollView>
-    </StackLayout>
+    </VerticalStackLayout>
 
 </ContentPage>

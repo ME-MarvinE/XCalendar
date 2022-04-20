@@ -11,11 +11,11 @@
     x:Name="MainCalendarView"
     x:DataType="{x:Type xc:CalendarView}">
 
-    <StackLayout Spacing="0">
-        <StackLayout.Resources>
+    <VerticalStackLayout Spacing="0">
+        <VerticalStackLayout.Resources>
             <System:Boolean x:Key="TrueValue">True</System:Boolean>
             <System:Boolean x:Key="FalseValue">False</System:Boolean>
-
+            
             <mct:IsNotEqualConverter x:Key="IsNotEqualConverter"/>
 
             <mct:MathExpressionConverter x:Key="MathExpressionConverter"/>
@@ -32,15 +32,14 @@
                     </mct:MultiConverterParameter.Value>
                 </mct:MultiConverterParameter>
             </x:Array>
-        </StackLayout.Resources>
+        </VerticalStackLayout.Resources>
 
         <!--#region Navigation-->
         <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
-            <StackLayout
+            <HorizontalStackLayout
                 Padding="0,5,0,5"
                 BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference MainCalendarView}}"
-                HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}"
-                Orientation="Horizontal">
+                HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}">
 
                 <xc:FramedLabel
                     Padding="5"
@@ -92,7 +91,7 @@
                     
                 </xc:FramedLabel>
 
-            </StackLayout>
+            </HorizontalStackLayout>
         </ContentView>
         <!--#endregion-->
 
@@ -178,6 +177,6 @@
         </ContentView>
         <!--#endregion-->
 
-    </StackLayout>
+    </VerticalStackLayout>
 
 </ContentView>
