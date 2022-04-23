@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
-using XCalendar.Core.Enums;
+using XCalendar.Maui.Enums;
 using XCalendar.Maui;
 using XCalendarMauiSample.Popups;
 

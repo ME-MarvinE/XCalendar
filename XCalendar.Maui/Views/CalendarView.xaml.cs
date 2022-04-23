@@ -1,5 +1,5 @@
 using XCalendar.Core.Extensions;
-using XCalendar.Core.Enums;
+using XCalendar.Maui.Enums;
 using XCalendar.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -577,7 +577,7 @@ namespace XCalendar.Maui.Views
                     PageStartDate = new DateTime(NavigatedDate.Year, 1, 1).FirstDayOfWeek(StartOfWeek);
                     break;
                 default:
-                    throw new NotImplementedException($"{nameof(Core.Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
+                    throw new NotImplementedException($"{nameof(Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
             //Add/Remove days until reaching the required count.
@@ -679,7 +679,7 @@ namespace XCalendar.Maui.Views
                         break;
 
                     default:
-                        throw new NotImplementedException($"{nameof(Core.Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
+                        throw new NotImplementedException($"{nameof(Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
                 }
 
                 LowerThanMinimumDate = NewNavigatedDate.Date < MinimumDate.Date;

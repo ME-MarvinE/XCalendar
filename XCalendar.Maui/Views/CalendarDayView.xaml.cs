@@ -1,5 +1,5 @@
 using System.Windows.Input;
-using XCalendar.Core.Enums;
+using XCalendar.Maui.Enums;
 
 namespace XCalendar.Maui.Views
 {
