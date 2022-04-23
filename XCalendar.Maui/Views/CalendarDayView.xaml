@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xc:BorderedLabel
+<ContentView
     x:Class="XCalendar.Maui.Views.CalendarDayView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -8,15 +8,27 @@
     Padding="0"
     x:DataType="{x:Type xc:CalendarDayView}"
     HeightRequest="45"
-    Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"
     WidthRequest="45">
 
-    <xc:BorderedLabel.StrokeShape>
-        <Ellipse/>
-    </xc:BorderedLabel.StrokeShape>
-
-    <xc:BorderedLabel.GestureRecognizers>
+    <ContentView.GestureRecognizers>
         <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainCalendarDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainCalendarDayView}}"/>
-    </xc:BorderedLabel.GestureRecognizers>
+    </ContentView.GestureRecognizers>
 
-</xc:BorderedLabel>
+    <Label
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainCalendarDayView}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference MainCalendarDayView}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference MainCalendarDayView}}"
+        FontSize="{Binding FontSize, Source={x:Reference MainCalendarDayView}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference MainCalendarDayView}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainCalendarDayView}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainCalendarDayView}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference MainCalendarDayView}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference MainCalendarDayView}}"
+        Text="{Binding Text, Source={x:Reference MainCalendarDayView}}"
+        TextColor="{Binding TextColor, Source={x:Reference MainCalendarDayView}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference MainCalendarDayView}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference MainCalendarDayView}}"
+        TextType="{Binding TextType, Source={x:Reference MainCalendarDayView}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainCalendarDayView}}"/>
+
+</ContentView>

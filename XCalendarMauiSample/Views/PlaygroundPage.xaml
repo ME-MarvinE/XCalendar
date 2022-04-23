@@ -74,36 +74,26 @@
         <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
             <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
                 <mct:MultiConverterParameter.Value>
-                    <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
-                        <mct:MultiConverterParameter.Value>
-                            <System:Int32>3</System:Int32>
-                        </mct:MultiConverterParameter.Value>
-                    </mct:MultiConverterParameter>
+                    <System:Int32>3</System:Int32>
                 </mct:MultiConverterParameter.Value>
             </mct:MultiConverterParameter>
         </x:Array>
     </ContentPage.Resources>
 
     <VerticalStackLayout Spacing="0">
-        <Frame
+        <Label
             Padding="5"
+            FontSize="14"
             BackgroundColor="#2070FF"
-            CornerRadius="0">
-            <Label
-                FontSize="14"
-                HorizontalTextAlignment="Center"
-                Text="Swipe Page To View Calendar"
-                TextColor="{StaticResource PrimaryTextColor}"
-                VerticalTextAlignment="Center"/>
-        </Frame>
+            HorizontalTextAlignment="Center"
+            Text="Swipe Page To View Calendar"
+            TextColor="{StaticResource PrimaryTextColor}"
+            VerticalTextAlignment="Center"/>
 
-        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Both">
-            <Grid
-                ColumnDefinitions="Auto,1,Auto"
-                ColumnSpacing="0"
-                RowSpacing="0">
+        <ScrollView HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always" Orientation="Both">
+            <HorizontalStackLayout Spacing="0">
                 
-                <VerticalStackLayout Spacing="0" Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
+                <VerticalStackLayout Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
 
                         <VerticalStackLayout.Resources>
                             <Style CanCascade="True" TargetType="{x:Type Grid}">
@@ -569,24 +559,24 @@
 
                     </VerticalStackLayout>
 
-                <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}"/>
+                <BoxView WidthRequest="1" BackgroundColor="{DynamicResource OutlineColor}"/>
 
-                <VerticalStackLayout Grid.Column="2" Spacing="0">
+                <VerticalStackLayout Spacing="0">
 
-                    <VerticalStackLayout
+                    <HorizontalStackLayout
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
                         HeightRequest="55">
                         <Label
                             FontSize="16"
-                            HorizontalOptions="EndAndExpand"
+                            HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
                             Text="Default Implementation"
                             VerticalTextAlignment="Center"/>
                         <Switch
                             x:Name="SwitchDefaultImplementation"
-                            HorizontalOptions="StartAndExpand"
+                            HorizontalOptions="Center"
                             IsToggled="True"/>
-                    </VerticalStackLayout>
+                    </HorizontalStackLayout>
 
                     <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
 
@@ -856,7 +846,7 @@
                                                         VerticalOptions="Center"
                                                         WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
 
-                                                        <!--<xc:CalendarDayView.ControlTemplate>
+                                                        <xc:CalendarDayView.ControlTemplate>
                                                             <ControlTemplate>
                                                                 <Grid>
                                                                     <ContentPresenter Margin="0,0,0,5"/>
@@ -888,7 +878,7 @@
                                                                     </Frame>
                                                                 </Grid>
                                                             </ControlTemplate>
-                                                        </xc:CalendarDayView.ControlTemplate>-->
+                                                        </xc:CalendarDayView.ControlTemplate>
 
                                                     </xc:CalendarDayView>
 
@@ -905,7 +895,7 @@
 
                 </VerticalStackLayout>
 
-            </Grid>
+            </HorizontalStackLayout>
         </ScrollView>
     </VerticalStackLayout>
 

@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using XCalendar.Maui;
 using XCalendarMauiSample.Models;
 
 namespace XCalendarMauiSample.ViewModels
@@ -14,7 +15,7 @@ namespace XCalendarMauiSample.ViewModels
         #region Properties
         public static readonly Random Random = new Random();
         public List<Color> Colors { get; } = new List<Color>() { Microsoft.Maui.Graphics.Colors.Red, Microsoft.Maui.Graphics.Colors.Orange, Microsoft.Maui.Graphics.Colors.Yellow, Color.FromArgb("#FF00A000"), Microsoft.Maui.Graphics.Colors.Blue, Color.FromArgb("#FF8010E0") };
-        public RangeObservableCollection<Event> Events { get; } = new RangeObservableCollection<Event>()
+        public ObservableRangeCollection<Event> Events { get; } = new ObservableRangeCollection<Event>()
         {
             new Event() { Title = "Bowling", Description = "Bowling with friends" },
             new Event() { Title = "Swimming", Description = "Swimming with friends" },
@@ -51,8 +52,8 @@ namespace XCalendarMauiSample.ViewModels
             new Event() { Title = "Sailing", Description = "Sailing with friends" },
             new Event() { Title = "Cooking", Description = "Cooking with friends" }
         };
-        public RangeObservableCollection<DateTime> SelectedDates { get; } = new RangeObservableCollection<DateTime>();
-        public RangeObservableCollection<Event> SelectedEvents { get; } = new RangeObservableCollection<Event>();
+        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
+        public ObservableRangeCollection<Event> SelectedEvents { get; } = new ObservableRangeCollection<Event>();
         #endregion
 
         #region Constructors

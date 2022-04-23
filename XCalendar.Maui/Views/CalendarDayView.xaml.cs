@@ -1,11 +1,9 @@
-
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
 using System.Windows.Input;
+using XCalendar.Core.Enums;
 
 namespace XCalendar.Maui.Views
 {
-    public partial class CalendarDayView : BorderedLabel
+    public partial class CalendarDayView : ContentView
     {
         #region Properties
 
@@ -14,6 +12,11 @@ namespace XCalendar.Maui.Views
         {
             get { return (DateTime?)GetValue(DateTimeProperty); }
             set { SetValue(DateTimeProperty, value); }
+        }
+        public DayState DayState
+        {
+            get { return (DayState)GetValue(DayStateProperty); }
+            set { SetValue(DayStateProperty, value); }
         }
         public bool IsCurrentMonth
         {
@@ -34,6 +37,31 @@ namespace XCalendar.Maui.Views
         {
             get { return (bool)GetValue(IsTodayProperty); }
             set { SetValue(IsTodayProperty, value); }
+        }
+        public bool IsDayStateCurrentMonth
+        {
+            get { return (bool)GetValue(IsDayStateCurrentMonthProperty); }
+            set { SetValue(IsDayStateCurrentMonthProperty, value); }
+        }
+        public bool IsDayStateOtherMonth
+        {
+            get { return (bool)GetValue(IsDayStateOtherMonthProperty); }
+            set { SetValue(IsDayStateOtherMonthProperty, value); }
+        }
+        public bool IsDayStateToday
+        {
+            get { return (bool)GetValue(IsDayStateTodayProperty); }
+            set { SetValue(IsDayStateTodayProperty, value); }
+        }
+        public bool IsDayStateSelected
+        {
+            get { return (bool)GetValue(IsDayStateSelectedProperty); }
+            set { SetValue(IsDayStateSelectedProperty, value); }
+        }
+        public bool IsDayStateOutOfRange
+        {
+            get { return (bool)GetValue(IsDayStateOutOfRangeProperty); }
+            set { SetValue(IsDayStateOutOfRangeProperty, value); }
         }
         public CalendarView CalendarView
         {
@@ -175,15 +203,96 @@ namespace XCalendar.Maui.Views
             get { return (object)GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
+        public TextTransform TextTransform
+        {
+            get { return (TextTransform)GetValue(TextTransformProperty); }
+            set { SetValue(TextTransformProperty, value); }
+        }
+        public FormattedString FormattedText
+        {
+            get { return (FormattedString)GetValue(FormattedTextProperty); }
+            set { SetValue(FormattedTextProperty, value); }
+        }
+        public TextAlignment HorizontalTextAlignment
+        {
+            get { return (TextAlignment)GetValue(HorizontalTextAlignmentProperty); }
+            set { SetValue(HorizontalTextAlignmentProperty, value); }
+        }
+        public LineBreakMode LineBreakMode
+        {
+            get { return (LineBreakMode)GetValue(LineBreakModeProperty); }
+            set { SetValue(LineBreakModeProperty, value); }
+        }
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+        public Color TextColor
+        {
+            get { return (Color)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
+        }
+        public double CharacterSpacing
+        {
+            get { return (double)GetValue(CharacterSpacingProperty); }
+            set { SetValue(CharacterSpacingProperty, value); }
+        }
+        public TextAlignment VerticalTextAlignment
+        {
+            get { return (TextAlignment)GetValue(VerticalTextAlignmentProperty); }
+            set { SetValue(VerticalTextAlignmentProperty, value); }
+        }
+        public FontAttributes FontAttributes
+        {
+            get { return (FontAttributes)GetValue(FontAttributesProperty); }
+            set { SetValue(FontAttributesProperty, value); }
+        }
+        public TextDecorations TextDecorations
+        {
+            get { return (TextDecorations)GetValue(TextDecorationsProperty); }
+            set { SetValue(TextDecorationsProperty, value); }
+        }
+        public string FontFamily
+        {
+            get { return (string)GetValue(FontFamilyProperty); }
+            set { SetValue(FontFamilyProperty, value); }
+        }
+        public double FontSize
+        {
+            get { return (double)GetValue(FontSizeProperty); }
+            set { SetValue(FontSizeProperty, value); }
+        }
+        public double LineHeight
+        {
+            get { return (double)GetValue(LineHeightProperty); }
+            set { SetValue(LineHeightProperty, value); }
+        }
+        public int MaxLines
+        {
+            get { return (int)GetValue(MaxLinesProperty); }
+            set { SetValue(MaxLinesProperty, value); }
+        }
+        public TextType TextType
+        {
+            get { return (TextType)GetValue(TextTypeProperty); }
+            set { SetValue(TextTypeProperty, value); }
+        }
         #endregion
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty CalendarViewProperty = BindableProperty.Create(nameof(CalendarView), typeof(CalendarView), typeof(CalendarDayView), propertyChanged: CalendarViewPropertyChanged);
         public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(CalendarDayView), System.DateTime.Today);
+        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(IsToday), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsOutOfRangeProperty = BindableProperty.Create(nameof(IsOutOfRange), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateCurrentMonthProperty = BindableProperty.Create(nameof(IsDayStateCurrentMonth), typeof(bool), typeof(CalendarDayView), true);
+        public static readonly BindableProperty IsDayStateOtherMonthProperty = BindableProperty.Create(nameof(IsDayStateOtherMonth), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateTodayProperty = BindableProperty.Create(nameof(IsDayStateToday), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateSelectedProperty = BindableProperty.Create(nameof(IsDayStateSelected), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateOutOfRangeProperty = BindableProperty.Create(nameof(IsDayStateOutOfRange), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(CalendarDayView), Colors.Black);
         public static readonly BindableProperty CurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(CurrentMonthBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
         public static readonly BindableProperty CurrentMonthBorderColorProperty = BindableProperty.Create(nameof(CurrentMonthBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
@@ -211,6 +320,21 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty SelectedCommandParameterProperty = BindableProperty.Create(nameof(SelectedCommandParameter), typeof(object), typeof(CalendarDayView));
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CalendarDayView));
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(CalendarDayView));
+        public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(BorderedLabel), Label.CharacterSpacingProperty.DefaultValue);
+        public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(BorderedLabel), Label.FontAttributesProperty.DefaultValue);
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(BorderedLabel), Label.FontFamilyProperty.DefaultValue);
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(BorderedLabel), Label.FontSizeProperty.DefaultValue);
+        public static readonly BindableProperty FormattedTextProperty = BindableProperty.Create(nameof(FormattedText), typeof(FormattedString), typeof(BorderedLabel), Label.FormattedTextProperty.DefaultValue);
+        public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(nameof(HorizontalTextAlignment), typeof(TextAlignment), typeof(BorderedLabel), TextAlignment.Center);
+        public static readonly BindableProperty LineBreakModeProperty = BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(BorderedLabel), Label.LineBreakModeProperty.DefaultValue);
+        public static readonly BindableProperty LineHeightProperty = BindableProperty.Create(nameof(LineHeight), typeof(double), typeof(BorderedLabel), Label.LineHeightProperty.DefaultValue);
+        public static readonly BindableProperty MaxLinesProperty = BindableProperty.Create(nameof(MaxLines), typeof(int), typeof(BorderedLabel), Label.MaxLinesProperty.DefaultValue);
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(BorderedLabel), Label.TextProperty.DefaultValue);
+        public static readonly BindableProperty TextDecorationsProperty = BindableProperty.Create(nameof(TextDecorations), typeof(TextDecorations), typeof(BorderedLabel), Label.TextDecorationsProperty.DefaultValue);
+        public static readonly BindableProperty TextTransformProperty = BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(BorderedLabel), Label.TextTransformProperty.DefaultValue);
+        public static readonly BindableProperty TextTypeProperty = BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(BorderedLabel), Label.TextTypeProperty.DefaultValue);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BorderedLabel), Label.TextColorProperty.DefaultValue);
+        public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(BorderedLabel), TextAlignment.Center);
         #endregion
 
         #endregion
@@ -222,7 +346,7 @@ namespace XCalendar.Maui.Views
         #region Constructors
         public CalendarDayView()
         {
-            UpdateCalendarViewDateSelectionCommand = new Command<DateTime>((DateTime) => { CalendarView?.ChangeDateSelection(DateTime); });
+            UpdateCalendarViewDateSelectionCommand = new Command<DateTime?>((DateTime) => { CalendarView?.ChangeDateSelection(DateTime.Value); });
 
             CurrentMonthCommand = UpdateCalendarViewDateSelectionCommand;
             SetBinding(CurrentMonthCommandParameterProperty, new Binding("DateTime", source: this));
@@ -232,6 +356,8 @@ namespace XCalendar.Maui.Views
 
             SelectedCommand = UpdateCalendarViewDateSelectionCommand;
             SetBinding(SelectedCommandParameterProperty, new Binding("DateTime", source: this));
+
+            SetBinding(TextProperty, new Binding("DateTime.Day", source: this));
 
             InitializeComponent();
         }
@@ -320,6 +446,17 @@ namespace XCalendar.Maui.Views
             base.OnBindingContextChanged();
             UpdateProperties();
             UpdateView();
+        }
+        private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+            DayState NewDayState = (DayState)newValue;
+
+            Control.IsDayStateCurrentMonth = NewDayState == DayState.CurrentMonth;
+            Control.IsDayStateOtherMonth = NewDayState == DayState.OtherMonth;
+            Control.IsDayStateToday = NewDayState == DayState.Today;
+            Control.IsDayStateSelected = NewDayState == DayState.Selected;
+            Control.IsDayStateOutOfRange = NewDayState == DayState.OutOfRange;
         }
 
         #region Bindable Properties Methods

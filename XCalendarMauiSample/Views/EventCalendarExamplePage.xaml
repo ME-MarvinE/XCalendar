@@ -70,9 +70,9 @@
                                     If I wanted to have a seperate tappable section that calls the same command when selecting a date,
                                     I would put the view in a layout in the parent ContenView and use CalendarView's 'ChangeDateSelectionCommand'.-->
                                 
-                                <!--<xc:CalendarDayView.ControlTemplate>
+                                <xc:CalendarDayView.ControlTemplate>
                                     <ControlTemplate>
-                                          --><!--Using a Grid to stack views on the z axis--><!--  
+                                          <!--Using a Grid to stack views on the z axis-->  
                                         <Grid RowSpacing="2">
 
                                             <Grid.RowDefinitions>
@@ -80,7 +80,7 @@
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
 
-                                              --><!--ContentPresenter displays the default content for the control--><!--  
+                                              <!--ContentPresenter displays the default content for the control-->  
                                             <ContentPresenter
                                                 Grid.Row="0"
                                                 Grid.RowSpan="2"
@@ -91,10 +91,10 @@
                                                 HorizontalOptions="Center"
                                                 Spacing="2.5">
 
-                                                  --><!--I want the event indicators to only be visible when the DateTime is in the currently navigated month--><!--  
+                                                  <!--I want the event indicators to only be visible when the DateTime is in the currently navigated month-->  
                                                 <HorizontalStackLayout.IsVisible>
                                                     <MultiBinding Converter="{StaticResource AllTrueConverter}">
-                                                          --><!--TemplatedParent refers to the view that the ControlTemplate resides in--><!--  
+                                                          <!--TemplatedParent refers to the view that the ControlTemplate resides in-->  
                                                         <Binding Path="IsCurrentMonth" Source="{RelativeSource TemplatedParent}"/>
                                                         <Binding
                                                             Converter="{StaticResource InvertedBoolConverter}"
@@ -130,7 +130,7 @@
 
                                         </Grid>
                                     </ControlTemplate>
-                                </xc:CalendarDayView.ControlTemplate>-->
+                                </xc:CalendarDayView.ControlTemplate>
 
                             </xc:CalendarDayView>
                         </ContentView>

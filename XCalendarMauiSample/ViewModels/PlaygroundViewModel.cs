@@ -6,6 +6,7 @@ using System.Windows.Input;
 using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
 using XCalendar.Core.Enums;
+using XCalendar.Maui;
 using XCalendarMauiSample.Popups;
 
 namespace XCalendarMauiSample.ViewModels
@@ -13,7 +14,7 @@ namespace XCalendarMauiSample.ViewModels
     public class PlaygroundViewModel : BaseViewModel
     {
         #region Properties
-        public RangeObservableCollection<DateTime> SelectedDates { get; } = new RangeObservableCollection<DateTime>();
+        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
         public List<SelectionType> SelectionTypes { get; set; } = Enum.GetValues(typeof(SelectionType)).Cast<SelectionType>().ToList();
         public List<SelectionAction> SelectionActions { get; set; } = Enum.GetValues(typeof(SelectionAction)).Cast<SelectionAction>().ToList();
         public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
@@ -33,7 +34,7 @@ namespace XCalendarMauiSample.ViewModels
         public DateTime DayRangeMinimumDate { get; set; } = DateTime.Today.AddYears(-2);
         public DateTime DayRangeMaximumDate { get; set; } = DateTime.Today.AddYears(2);
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
-        public RangeObservableCollection<DayOfWeek> CustomDayNamesOrder { get; } = new RangeObservableCollection<DayOfWeek>()
+        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; } = new ObservableRangeCollection<DayOfWeek>()
         {
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XCalendar.Core.Enums;
 
 namespace XCalendar.Forms.Views
 {
@@ -17,10 +18,20 @@ namespace XCalendar.Forms.Views
             get { return (DateTime?)GetValue(DateTimeProperty); }
             set { SetValue(DateTimeProperty, value); }
         }
+        public DayState DayState
+        {
+            get { return (DayState)GetValue(DayStateProperty); }
+            set { SetValue(DayStateProperty, value); }
+        }
         public bool IsCurrentMonth
         {
             get { return (bool)GetValue(IsCurrentMonthProperty); }
             set { SetValue(IsCurrentMonthProperty, value); }
+        }
+        public bool IsToday
+        {
+            get { return (bool)GetValue(IsTodayProperty); }
+            set { SetValue(IsTodayProperty, value); }
         }
         public bool IsSelected
         {
@@ -32,10 +43,30 @@ namespace XCalendar.Forms.Views
             get { return (bool)GetValue(IsOutOfRangeProperty); }
             set { SetValue(IsOutOfRangeProperty, value); }
         }
-        public bool IsToday
+        public bool IsDayStateCurrentMonth
         {
-            get { return (bool)GetValue(IsTodayProperty); }
-            set { SetValue(IsTodayProperty, value); }
+            get { return (bool)GetValue(IsDayStateCurrentMonthProperty); }
+            set { SetValue(IsDayStateCurrentMonthProperty, value); }
+        }
+        public bool IsDayStateOtherMonth
+        {
+            get { return (bool)GetValue(IsDayStateOtherMonthProperty); }
+            set { SetValue(IsDayStateOtherMonthProperty, value); }
+        }
+        public bool IsDayStateToday
+        {
+            get { return (bool)GetValue(IsDayStateTodayProperty); }
+            set { SetValue(IsDayStateTodayProperty, value); }
+        }
+        public bool IsDayStateSelected
+        {
+            get { return (bool)GetValue(IsDayStateSelectedProperty); }
+            set { SetValue(IsDayStateSelectedProperty, value); }
+        }
+        public bool IsDayStateOutOfRange
+        {
+            get { return (bool)GetValue(IsDayStateOutOfRangeProperty); }
+            set { SetValue(IsDayStateOutOfRangeProperty, value); }
         }
         public CalendarView CalendarView
         {
@@ -182,10 +213,16 @@ namespace XCalendar.Forms.Views
         #region Bindable Properties Initialisers
         public static readonly BindableProperty CalendarViewProperty = BindableProperty.Create(nameof(CalendarView), typeof(CalendarView), typeof(CalendarDayView), propertyChanged: CalendarViewPropertyChanged);
         public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(CalendarDayView), System.DateTime.Today);
+        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(IsToday), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsOutOfRangeProperty = BindableProperty.Create(nameof(IsOutOfRange), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateCurrentMonthProperty = BindableProperty.Create(nameof(IsDayStateCurrentMonth), typeof(bool), typeof(CalendarDayView), true);
+        public static readonly BindableProperty IsDayStateOtherMonthProperty = BindableProperty.Create(nameof(IsDayStateOtherMonth), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateTodayProperty = BindableProperty.Create(nameof(IsDayStateToday), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateSelectedProperty = BindableProperty.Create(nameof(IsDayStateSelected), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateOutOfRangeProperty = BindableProperty.Create(nameof(IsDayStateOutOfRange), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(CalendarDayView), Color.Black);
         public static readonly BindableProperty CurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(CurrentMonthBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.Transparent);
         public static readonly BindableProperty CurrentMonthBorderColorProperty = BindableProperty.Create(nameof(CurrentMonthBorderColor), typeof(Color), typeof(CalendarDayView), BorderColorProperty.DefaultValue);
@@ -322,6 +359,17 @@ namespace XCalendar.Forms.Views
             base.OnBindingContextChanged();
             UpdateProperties();
             UpdateView();
+        }
+        private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+            DayState NewDayState = (DayState)newValue;
+
+            Control.IsDayStateCurrentMonth = NewDayState == DayState.CurrentMonth;
+            Control.IsDayStateOtherMonth = NewDayState == DayState.OtherMonth;
+            Control.IsDayStateToday = NewDayState == DayState.Today;
+            Control.IsDayStateSelected = NewDayState == DayState.Selected;
+            Control.IsDayStateOutOfRange = NewDayState == DayState.OutOfRange;
         }
 
         #region Bindable Properties Methods

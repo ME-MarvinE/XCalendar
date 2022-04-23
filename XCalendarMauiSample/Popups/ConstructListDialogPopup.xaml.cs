@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
+using XCalendar.Maui;
 
 namespace XCalendarMauiSample.Popups
 {
@@ -14,9 +15,9 @@ namespace XCalendarMauiSample.Popups
         private List<object> _InitialItems { get; }
 
         #region Bindable Properties
-        public RangeObservableCollection<object> ReturnValueItems
+        public ObservableRangeCollection<object> ReturnValueItems
         {
-            get { return (RangeObservableCollection<object>)GetValue(ReturnValueItemsProperty); }
+            get { return (ObservableRangeCollection<object>)GetValue(ReturnValueItemsProperty); }
             set { SetValue(ReturnValueItemsProperty, value); }
         }
         public List<object> AvailableItems
@@ -26,7 +27,7 @@ namespace XCalendarMauiSample.Popups
         }
 
         #region Bindable Properties Initialisers
-        public static readonly BindableProperty ReturnValueItemsProperty = BindableProperty.Create(nameof(ReturnValueItems), typeof(RangeObservableCollection<object>), typeof(ConstructListDialogPopup), defaultValueCreator: ReturnValueItemsDefaultValueCreator);
+        public static readonly BindableProperty ReturnValueItemsProperty = BindableProperty.Create(nameof(ReturnValueItems), typeof(ObservableRangeCollection<object>), typeof(ConstructListDialogPopup), defaultValueCreator: ReturnValueItemsDefaultValueCreator);
         public static readonly BindableProperty AvailableItemsProperty = BindableProperty.Create(nameof(AvailableItems), typeof(List<object>), typeof(ConstructListDialogPopup));
         #endregion
 
@@ -98,7 +99,7 @@ namespace XCalendarMauiSample.Popups
         #region Bindable Properties Methods
         private static object ReturnValueItemsDefaultValueCreator(BindableObject bindable)
         {
-            return new RangeObservableCollection<object>();
+            return new ObservableRangeCollection<object>();
         }
         #endregion
 

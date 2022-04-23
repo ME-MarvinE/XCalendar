@@ -19,7 +19,7 @@ namespace XCalendar.Maui.Views
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
         private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
-        private readonly RangeObservableCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new RangeObservableCollection<DayOfWeek>();
+        private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
         #endregion
 
         #region Properties
@@ -205,9 +205,9 @@ namespace XCalendar.Maui.Views
         /// <summary>
         /// The dates that are currently selected.
         /// </summary>
-        public RangeObservableCollection<DateTime> SelectedDates
+        public ObservableRangeCollection<DateTime> SelectedDates
         {
-            get { return (RangeObservableCollection<DateTime>)GetValue(SelectedDatesProperty); }
+            get { return (ObservableRangeCollection<DateTime>)GetValue(SelectedDatesProperty); }
             set { SetValue(SelectedDatesProperty, value); }
         }
         /// <summary>
@@ -215,9 +215,9 @@ namespace XCalendar.Maui.Views
         /// </summary>
         /// <remarks>Does not affect logic.</remarks>
         /// <seealso cref="UseCustomDayNamesOrder"/>
-        public RangeObservableCollection<DayOfWeek> CustomDayNamesOrder
+        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder
         {
-            get { return (RangeObservableCollection<DayOfWeek>)GetValue(CustomDayNamesOrderProperty); }
+            get { return (ObservableRangeCollection<DayOfWeek>)GetValue(CustomDayNamesOrderProperty); }
             set { SetValue(CustomDayNamesOrderProperty, value); }
         }
         /// <summary>
@@ -327,14 +327,14 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty StartOfWeekProperty = BindableProperty.Create(nameof(StartOfWeek), typeof(DayOfWeek), typeof(CalendarView), CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, propertyChanged: StartOfWeekPropertyChanged);
         public static readonly BindableProperty SelectionTypeProperty = BindableProperty.Create(nameof(SelectionType), typeof(SelectionType), typeof(CalendarView), SelectionType.None);
         public static readonly BindableProperty SelectionActionProperty = BindableProperty.Create(nameof(SelectionAction), typeof(SelectionAction), typeof(CalendarView), SelectionAction.Modify);
-        public static readonly BindableProperty SelectedDatesProperty = BindableProperty.Create(nameof(SelectedDates), typeof(RangeObservableCollection<DateTime>), typeof(CalendarView), propertyChanged: SelectedDatesPropertyChanged, defaultValueCreator: SelectedDatesDefaultValueCreator, validateValue: IsSelectedDatesValidValue);
+        public static readonly BindableProperty SelectedDatesProperty = BindableProperty.Create(nameof(SelectedDates), typeof(ObservableRangeCollection<DateTime>), typeof(CalendarView), propertyChanged: SelectedDatesPropertyChanged, defaultValueCreator: SelectedDatesDefaultValueCreator, validateValue: IsSelectedDatesValidValue);
         public static readonly BindableProperty RangeSelectionStartProperty = BindableProperty.Create(nameof(RangeSelectionStart), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionStartPropertyChanged);
         public static readonly BindableProperty RangeSelectionEndProperty = BindableProperty.Create(nameof(RangeSelectionEnd), typeof(DateTime?), typeof(CalendarView), defaultBindingMode: BindingMode.TwoWay, propertyChanged: RangeSelectionEndPropertyChanged);
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNameTextColorProperty = BindableProperty.Create(nameof(DayNameTextColor), typeof(Color), typeof(CalendarView), Colors.Black);
         public static readonly BindableProperty DayNamesOrderProperty = BindableProperty.Create(nameof(DayNamesOrder), typeof(ReadOnlyObservableCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: DayNamesOrderDefaultValueCreator, defaultBindingMode: BindingMode.OneWayToSource, propertyChanged: DayNamesOrderPropertyChanged, validateValue: IsDayNamesOrderValidValue);
         public static readonly BindableProperty StartOfWeekDayNamesOrderProperty = BindableProperty.Create(nameof(StartOfWeekDayNamesOrder), typeof(ReadOnlyObservableCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: StartOfWeekDayNamesOrderDefaultValueCreator, defaultBindingMode: BindingMode.OneWayToSource, validateValue: IsStartOfWeekDayNamesOrderValidValue);
-        public static readonly BindableProperty CustomDayNamesOrderProperty = BindableProperty.Create(nameof(CustomDayNamesOrder), typeof(RangeObservableCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: CustomDayNamesOrderDefaultValueCreator, propertyChanged: CustomDayNamesOrderPropertyChanged);
+        public static readonly BindableProperty CustomDayNamesOrderProperty = BindableProperty.Create(nameof(CustomDayNamesOrder), typeof(ObservableRangeCollection<DayOfWeek>), typeof(CalendarView), defaultValueCreator: CustomDayNamesOrderDefaultValueCreator, propertyChanged: CustomDayNamesOrderPropertyChanged);
         public static readonly BindableProperty UseCustomDayNamesOrderProperty = BindableProperty.Create(nameof(UseCustomDayNamesOrder), typeof(bool), typeof(CalendarView), false, propertyChanged: UseCustomDayNamesOrderPropertyChanged);
         public static readonly BindableProperty DayNamesTemplateProperty = BindableProperty.Create(nameof(DayNamesTemplate), typeof(ControlTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNamesHeightRequestProperty = BindableProperty.Create(nameof(DayNamesHeightRequest), typeof(double), typeof(CalendarView), 25d);
@@ -826,8 +826,8 @@ namespace XCalendar.Maui.Views
         private static void SelectedDatesPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            RangeObservableCollection<DateTime> OldSelectedDates = (RangeObservableCollection<DateTime>)oldValue;
-            RangeObservableCollection<DateTime> NewSelectedDates = (RangeObservableCollection<DateTime>)newValue;
+            ObservableRangeCollection<DateTime> OldSelectedDates = (ObservableRangeCollection<DateTime>)oldValue;
+            ObservableRangeCollection<DateTime> NewSelectedDates = (ObservableRangeCollection<DateTime>)newValue;
 
             if (OldSelectedDates != null) { OldSelectedDates.CollectionChanged -= Control.SelectedDates_CollectionChanged; }
             if (NewSelectedDates != null) { NewSelectedDates.CollectionChanged += Control.SelectedDates_CollectionChanged; }
@@ -844,7 +844,7 @@ namespace XCalendar.Maui.Views
         private static void CustomDayNamesOrderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            RangeObservableCollection<DayOfWeek> NewCustomDayNamesOrder = (RangeObservableCollection<DayOfWeek>)newValue;
+            ObservableRangeCollection<DayOfWeek> NewCustomDayNamesOrder = (ObservableRangeCollection<DayOfWeek>)newValue;
 
             if (Control.UseCustomDayNamesOrder)
             {
@@ -869,7 +869,7 @@ namespace XCalendar.Maui.Views
         {
             CalendarView Control = (CalendarView)bindable;
 
-            RangeObservableCollection<DayOfWeek> CorrectDayNamesOrder = (bool)newValue ? Control.CustomDayNamesOrder : Control._StartOfWeekDayNamesOrder;
+            ObservableRangeCollection<DayOfWeek> CorrectDayNamesOrder = (bool)newValue ? Control.CustomDayNamesOrder : Control._StartOfWeekDayNamesOrder;
 
             Control.DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(CorrectDayNamesOrder);
         }
@@ -956,7 +956,7 @@ namespace XCalendar.Maui.Views
         }
         private static object CustomDayNamesOrderDefaultValueCreator(BindableObject bindable)
         {
-            return new RangeObservableCollection<DayOfWeek>(DaysOfWeek);
+            return new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
         }
         private static object DayNamesOrderDefaultValueCreator(BindableObject bindable)
         {
@@ -973,7 +973,7 @@ namespace XCalendar.Maui.Views
         private static object SelectedDatesDefaultValueCreator(BindableObject bindable)
         {
             CalendarView Control = (CalendarView)bindable;
-            RangeObservableCollection<DateTime> DefaultValue = new RangeObservableCollection<DateTime>();
+            ObservableRangeCollection<DateTime> DefaultValue = new ObservableRangeCollection<DateTime>();
 
             DefaultValue.CollectionChanged += Control.SelectedDates_CollectionChanged;
             return DefaultValue;

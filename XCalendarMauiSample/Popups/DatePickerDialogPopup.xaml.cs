@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
+using XCalendar.Maui;
 
 namespace XCalendarMauiSample.Popups
 {
@@ -14,7 +15,7 @@ namespace XCalendarMauiSample.Popups
         #region Properties
         public DateTime InitialDate { get; }
         public DateTime SelectedDate { get; set; }
-        public RangeObservableCollection<DateTime> SelectedDates { get; } = new RangeObservableCollection<DateTime>() { DateTime.Today };
+        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>() { DateTime.Today };
         public DateTime NavigatedDate { get; set; } = DateTime.Today;
         #endregion
 
