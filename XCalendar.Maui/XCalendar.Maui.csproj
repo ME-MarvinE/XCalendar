@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -23,8 +23,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\FramedLabel.xaml.cs">
-	    <DependentUpon>FramedLabel.xaml</DependentUpon>
+	  <Compile Update="Views\BorderedLabel.xaml.cs">
+	    <DependentUpon>BorderedLabel.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

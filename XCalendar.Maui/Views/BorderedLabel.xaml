@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:xc="clr-namespace:XCalendar.Maui.Views"
+       x:Class="XCalendar.Maui.Views.BorderedLabel"
+       x:DataType="{x:Type xc:BorderedLabel}"
+       x:Name="MainBorderedLabel">
+
+    <Label
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainBorderedLabel}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference MainBorderedLabel}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference MainBorderedLabel}}"
+        FontSize="{Binding FontSize, Source={x:Reference MainBorderedLabel}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference MainBorderedLabel}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainBorderedLabel}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainBorderedLabel}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference MainBorderedLabel}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference MainBorderedLabel}}"
+        Text="{Binding Text, Source={x:Reference MainBorderedLabel}}"
+        TextColor="{Binding TextColor, Source={x:Reference MainBorderedLabel}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference MainBorderedLabel}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference MainBorderedLabel}}"
+        TextType="{Binding TextType, Source={x:Reference MainBorderedLabel}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainBorderedLabel}}"/>
+
+</Border>

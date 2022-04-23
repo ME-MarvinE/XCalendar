@@ -93,36 +93,42 @@
         <HorizontalStackLayout
             Margin="0,0,15,10"
             Spacing="0">
-            <xc:FramedLabel
+            <xc:BorderedLabel
                 Padding="15,10,15,10"
                 BackgroundColor="Transparent"
-                CornerRadius="2.5"
                 FontAttributes="Bold"
                 FontSize="14"
                 HorizontalOptions="EndAndExpand"
                 Text="CANCEL"
                 TextColor="{StaticResource PrimaryPickerColor}">
 
-                <xc:FramedLabel.GestureRecognizers>
+                <xc:BorderedLabel.StrokeShape>
+                    <RoundRectangle CornerRadius="2.5"/>
+                </xc:BorderedLabel.StrokeShape>
+
+                <xc:BorderedLabel.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReturnInitialDateCommand, Source={x:Reference This}}"/>
-                </xc:FramedLabel.GestureRecognizers>
+                </xc:BorderedLabel.GestureRecognizers>
                 
-            </xc:FramedLabel>
-            <xc:FramedLabel
+            </xc:BorderedLabel>
+            <xc:BorderedLabel
                 Margin="15,0,0,0"
                 Padding="15,10,15,10"
                 BackgroundColor="Transparent"
-                CornerRadius="2.5"
                 FontAttributes="Bold"
                 FontSize="14"
                 Text="OK"
                 TextColor="{StaticResource PrimaryPickerColor}">
 
-                <xc:FramedLabel.GestureRecognizers>
+                <xc:BorderedLabel.StrokeShape>
+                    <RoundRectangle CornerRadius="2.5"/>
+                </xc:BorderedLabel.StrokeShape>
+
+                <xc:BorderedLabel.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReturnSelectedDateCommand, Source={x:Reference This}}"/>
-                </xc:FramedLabel.GestureRecognizers>
+                </xc:BorderedLabel.GestureRecognizers>
                 
-            </xc:FramedLabel>
+            </xc:BorderedLabel>
         </HorizontalStackLayout>
 
     </VerticalStackLayout>

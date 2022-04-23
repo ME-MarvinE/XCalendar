@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xc:FramedLabel
+<xc:BorderedLabel
     x:Class="XCalendar.Maui.Views.CalendarDayView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -7,14 +7,16 @@
     x:Name="MainCalendarDayView"
     Padding="0"
     x:DataType="{x:Type xc:CalendarDayView}"
-    CornerRadius="100"
-    HasShadow="False"
     HeightRequest="45"
     Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"
     WidthRequest="45">
 
-    <xc:FramedLabel.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainCalendarDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainCalendarDayView}}"/>
-    </xc:FramedLabel.GestureRecognizers>
+    <xc:BorderedLabel.StrokeShape>
+        <Ellipse/>
+    </xc:BorderedLabel.StrokeShape>
 
-</xc:FramedLabel>
+    <xc:BorderedLabel.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainCalendarDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainCalendarDayView}}"/>
+    </xc:BorderedLabel.GestureRecognizers>
+
+</xc:BorderedLabel>

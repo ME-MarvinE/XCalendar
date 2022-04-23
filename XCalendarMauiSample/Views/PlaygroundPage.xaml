@@ -97,18 +97,13 @@
                 VerticalTextAlignment="Center"/>
         </Frame>
 
-        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Both">
             <Grid
                 ColumnDefinitions="Auto,1,Auto"
                 ColumnSpacing="0"
                 RowSpacing="0">
-
-                <ScrollView
-                    Grid.Column="0"
-                    BackgroundColor="{StaticResource ContentBackgroundColor}"
-                    Orientation="Vertical"
-                    VerticalScrollBarVisibility="Always">
-                    <VerticalStackLayout Spacing="0">
+                
+                <VerticalStackLayout Spacing="0" Grid.Column="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
 
                         <VerticalStackLayout.Resources>
                             <Style CanCascade="True" TargetType="{x:Type Grid}">
@@ -573,7 +568,6 @@
                         </Grid>
 
                     </VerticalStackLayout>
-                </ScrollView>
 
                 <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}"/>
 
@@ -677,10 +671,9 @@
                                                             TextColor="{Binding NavigationTextColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="Center"/>
 
-                                                        <xc:FramedLabel
+                                                        <xc:BorderedLabel
                                                             Padding="5"
                                                             BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
                                                             FontAttributes="Bold"
                                                             FontSize="30"
                                                             HeightRequest="30"
@@ -690,16 +683,19 @@
                                                             VerticalTextAlignment="End"
                                                             WidthRequest="30">
 
-                                                            <xc:FramedLabel.GestureRecognizers>
+                                                            <xc:BorderedLabel.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
-                                                            </xc:FramedLabel.GestureRecognizers>
+                                                            </xc:BorderedLabel.GestureRecognizers>
 
-                                                        </xc:FramedLabel>
+                                                            <xc:BorderedLabel.StrokeShape>
+                                                                <RoundRectangle CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"/>
+                                                            </xc:BorderedLabel.StrokeShape>
 
-                                                        <xc:FramedLabel
+                                                        </xc:BorderedLabel>
+
+                                                        <xc:BorderedLabel
                                                             Padding="5"
                                                             BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
                                                             FontAttributes="Bold"
                                                             FontSize="30"
                                                             HeightRequest="30"
@@ -708,11 +704,15 @@
                                                             VerticalTextAlignment="End"
                                                             WidthRequest="30">
 
-                                                            <xc:FramedLabel.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
-                                                            </xc:FramedLabel.GestureRecognizers>
+                                                            <xc:BorderedLabel.StrokeShape>
+                                                                <RoundRectangle CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"/>
+                                                            </xc:BorderedLabel.StrokeShape>
 
-                                                        </xc:FramedLabel>
+                                                            <xc:BorderedLabel.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
+                                                            </xc:BorderedLabel.GestureRecognizers>
+                                                            
+                                                        </xc:BorderedLabel>
 
                                                     </HorizontalStackLayout>
 
@@ -856,7 +856,7 @@
                                                         VerticalOptions="Center"
                                                         WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
 
-                                                        <xc:CalendarDayView.ControlTemplate>
+                                                        <!--<xc:CalendarDayView.ControlTemplate>
                                                             <ControlTemplate>
                                                                 <Grid>
                                                                     <ContentPresenter Margin="0,0,0,5"/>
@@ -888,7 +888,7 @@
                                                                     </Frame>
                                                                 </Grid>
                                                             </ControlTemplate>
-                                                        </xc:CalendarDayView.ControlTemplate>
+                                                        </xc:CalendarDayView.ControlTemplate>-->
 
                                                     </xc:CalendarDayView>
 
