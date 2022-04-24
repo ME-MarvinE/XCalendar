@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarSample.Android", "XCalendarSample\XCalendarSample.Android\XCalendarSample.Android.csproj", "{AD2173C3-7624-4EBE-A24F-C65E6CEEC468}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarFormsSample.Android", "XCalendarFormsSample\XCalendarFormsSample.Android\XCalendarFormsSample.Android.csproj", "{AD2173C3-7624-4EBE-A24F-C65E6CEEC468}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarSample.iOS", "XCalendarSample\XCalendarSample.iOS\XCalendarSample.iOS.csproj", "{85D8AB80-FF6C-4DD0-AC10-E22EAAF956A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarFormsSample.iOS", "XCalendarFormsSample\XCalendarFormsSample.iOS\XCalendarFormsSample.iOS.csproj", "{85D8AB80-FF6C-4DD0-AC10-E22EAAF956A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendarSample", "XCalendarSample\XCalendarSample\XCalendarSample.csproj", "{BCA5C79C-718F-4B7A-A936-8D020D3B6FCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendarFormsSample", "XCalendarFormsSample\XCalendarFormsSample\XCalendarFormsSample.csproj", "{BCA5C79C-718F-4B7A-A936-8D020D3B6FCB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Forms", "XCalendar.Forms\XCalendar.Forms.csproj", "{62B67B03-53AB-4CA3-93BE-0D6BBCDB606E}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Core", "XCalendar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendar.Maui", "XCalendar.Maui\XCalendar.Maui.csproj", "{FAC35CFF-E97D-4D1B-9385-A9706675DE4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarMauiSample", "XCalendarMauiSample\XCalendarMauiSample.csproj", "{1E020A12-68EB-4C81-AB72-AB72659E6157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCalendarMauiSample", "XCalendarMauiSample\XCalendarMauiSample.csproj", "{1E020A12-68EB-4C81-AB72-AB72659E6157}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

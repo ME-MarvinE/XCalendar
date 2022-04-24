@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xct:Popup
+    x:Class="XCalendarFormsSample.Popups.DatePickerDialogPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+    xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
+    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="This"
+    x:TypeArguments="System:DateTime"
+    Size="320, 475">
+
+    <StackLayout BackgroundColor="White" Spacing="0">
+
+        <StackLayout.Resources>
+            <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
+                <xcConverters:EnumToStringConverter/>
+                <xcConverters:StringCharLimitConverter/>
+            </xct:MultiConverter>
+            <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
+                <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}" Value="1"/>
+            </x:Array>
+            <!--<Color x:Key="PrimaryPickerColor">#F04080</Color>-->
+            <!--<Color x:Key="PrimaryPickerColor">#4080F0</Color>-->
+            <Color x:Key="PrimaryPickerColor">#8040F0</Color>
+        </StackLayout.Resources>
+
+        <Label
+            Padding="15,20,15,20"
+            xct:TouchEffect.Command="{Binding ResetNavigatedDateCommand, Source={x:Reference This}}"
+            xct:TouchEffect.NativeAnimation="True"
+            BackgroundColor="{StaticResource PrimaryPickerColor}"
+            FontAttributes="Bold"
+            FontSize="34"
+            Text="{Binding SelectedDate, StringFormat='{0:ddd, dd MMM}', Source={x:Reference This}}"
+            TextColor="White"/>
+
+        <xc:CalendarView
+            x:Name="MainCalendarView"
+            VerticalOptions="FillAndExpand"
+            Margin="0,5,0,0"
+            Padding="20,0,20,0"
+            MonthViewHeightRequest="246"
+            NavigatedDate="{Binding NavigatedDate, Source={x:Reference This}}"
+            NavigationArrowColor="{StaticResource ContentTextColor}"
+            NavigationBackgroundColor="Transparent"
+            NavigationTextColor="{StaticResource ContentTextColor}"
+            SelectedDates="{Binding SelectedDates, Source={x:Reference This}}"
+            SelectionAction="Replace"
+            SelectionType="Single">
+
+            <xc:CalendarView.DayNameTemplate>
+                <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
+                    <Label
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
+                        TextColor="#707070"
+                        VerticalTextAlignment="Center"/>
+                </DataTemplate>
+            </xc:CalendarView.DayNameTemplate>
+
+            <xc:CalendarView.DayTemplate>
+                <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                    <xc:CalendarDayView
+                        CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                        CurrentMonthBackgroundColor="Transparent"
+                        CurrentMonthTextColor="Black"
+                        DateTime="{Binding DateTime}"
+                        FontSize="12"
+                        HeightRequest="41"
+                        OtherMonthTextColor="Transparent"
+                        OutOfRangeBackgroundColor="Transparent"
+                        SelectedBackgroundColor="{StaticResource PrimaryPickerColor}"
+                        SelectedTextColor="White"
+                        TodayBackgroundColor="Transparent"
+                        TodayBorderColor="Transparent"
+                        TodayTextColor="{StaticResource PrimaryPickerColor}"/>
+                </DataTemplate>
+            </xc:CalendarView.DayTemplate>
+
+        </xc:CalendarView>
+
+        <StackLayout
+            Margin="0,0,15,10"
+            Orientation="Horizontal"
+            Spacing="0">
+            <xc:FramedLabel
+                Padding="15,10,15,10"
+                xct:TouchEffect.Command="{Binding ReturnInitialDateCommand, Source={x:Reference This}}"
+                xct:TouchEffect.NativeAnimation="True"
+                BackgroundColor="Transparent"
+                CornerRadius="2.5"
+                FontAttributes="Bold"
+                FontSize="14"
+                HorizontalOptions="EndAndExpand"
+                Text="CANCEL"
+                TextColor="{StaticResource PrimaryPickerColor}"/>
+            <xc:FramedLabel
+                Margin="15,0,0,0"
+                Padding="15,10,15,10"
+                xct:TouchEffect.Command="{Binding ReturnSelectedDateCommand, Source={x:Reference This}}"
+                xct:TouchEffect.NativeAnimation="True"
+                BackgroundColor="Transparent"
+                CornerRadius="2.5"
+                FontAttributes="Bold"
+                FontSize="14"
+                Text="OK"
+                TextColor="{StaticResource PrimaryPickerColor}"/>
+        </StackLayout>
+
+    </StackLayout>
+</xct:Popup>
