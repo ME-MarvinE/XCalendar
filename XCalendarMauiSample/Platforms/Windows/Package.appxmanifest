@@ -5,10 +5,11 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity Publisher="CN=User Name" />
+  <Identity Publisher="CN=User Name"  Name="XCalendarMauiSample"/>
 
   <Properties>
     <PublisherDisplayName>User Name</PublisherDisplayName>
+    <DisplayName>XCalendar</DisplayName>
   </Properties>
 
   <Dependencies>
@@ -22,7 +23,7 @@
 
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
-      <uap:VisualElements />
+      <uap:VisualElements/>
     </Application>
   </Applications>
 

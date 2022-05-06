@@ -610,7 +610,7 @@
                         TodayDate="{Binding TodayDate}"
                         UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
 
-                        <xc:CalendarView.Style>
+                        <!--<xc:CalendarView.Style>
                             <Style TargetType="{x:Type xc:CalendarView}">
 
                                 <Setter Property="NavigationTemplate">
@@ -889,7 +889,7 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </xc:CalendarView.Style>
+                        </xc:CalendarView.Style>-->
 
                     </xc:CalendarView>
 
