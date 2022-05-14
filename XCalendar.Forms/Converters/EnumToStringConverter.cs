@@ -8,12 +8,20 @@ namespace XCalendar.Forms.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Core.Converters.EnumToStringConverter.Convert(value);
+            try
+            {
+                return Enum.GetName(value.GetType(), value);
+            }
+
+            catch
+            {
+                return value?.ToString();
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Core.Converters.EnumToStringConverter.ConvertBack(value, parameter);
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,7 +6,27 @@ public class StringCharLimitConverter : BaseConverterOneWay<string, string, int>
 {
     public override string ConvertFrom(string value, int parameter, CultureInfo culture)
     {
-        return Core.Converters.StringCharLimitConverter.Convert(value, parameter);
+        try
+        {
+            int TargetLength = parameter;
+
+            if (TargetLength == 0)
+            {
+                return "";
+            }
+            else if (TargetLength >= value.Length)
+            {
+                return value;
+            }
+            else
+            {
+                return value.Substring(0, TargetLength);
+            }
+        }
+        catch
+        {
+            return "";
+        }
     }
 }
 
