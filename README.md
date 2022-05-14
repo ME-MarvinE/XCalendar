@@ -1,6 +1,6 @@
 # XCalendar
 
-## Notice: The wiki is outdated. It currently details version 2.1.0
+## Notice: The wiki is outdated. It is currently on version 2.1.0
 
 A plugin for Xamarin Forms and .NET MAUI providing a completely customisable calendar control with complex functionality.
 
@@ -29,18 +29,36 @@ Take a look at the sample app, it has a page where you can modify every single n
   * https://www.nuget.org/packages/XCalendar.Maui/
   
 ### Add the following xmlns to your page
+#### Forms
 ```xaml
-xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
+xmlns:xcViews="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+```
+#### Maui
+```xaml
+xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
 ```
 ### Now you can start using the CalendarView
+#### Forms
 ```xaml
 <ContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="XCalendarSample.Views.MainPage"
-    xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar">
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XCalendarFormsSample.Views.PlaygroundPage"
+    xmlns:xcViews="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms">
 
-    <xc:CalendarView/>
+    <xcViews:CalendarView/>
+
+</ContentPage>
+```
+#### Maui
+```xaml
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XCalendarMauiSample.Views.PlaygroundPage"
+    xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
+
+    <xcViews:CalendarView/>
 
 </ContentPage>
 ```
