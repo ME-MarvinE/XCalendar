@@ -23,8 +23,7 @@ Take a look at the sample app, it has a page where you can modify every single n
 
 ## Usage
 
-
-### Install the NuGet package depending on your platform
+### Install the NuGet package depending on your target platform
   * https://www.nuget.org/packages/XCalendar.Forms/
   * https://www.nuget.org/packages/XCalendar.Maui/
   
