@@ -1,6 +1,8 @@
 # XCalendar
 
-A plugin for Xamarin Forms providing a completely customisable calendar control with complex functionality.
+## Notice: The wiki is outdated. It currently details version 2.1.0
+
+A plugin for Xamarin Forms and .NET MAUI providing a completely customisable calendar control with complex functionality.
 
 Features include:
 * Templates for NavigationView, MonthView, DayView, DayNamesView, and DayNameView with exposed commands.
@@ -22,8 +24,9 @@ Take a look at the sample app, it has a page where you can modify every single n
 ## Usage
 
 
-### Install the NuGet package
-  * https://www.nuget.org/packages/Plugin.XCalendar/
+### Install the NuGet package depending on your platform
+  * https://www.nuget.org/packages/XCalendar.Forms/
+  * https://www.nuget.org/packages/XCalendar.Maui/
   
 ### Add the following xmlns to your page
 ```xaml
@@ -45,5 +48,5 @@ xmlns:xc="clr-namespace:XCalendar;assembly=XCalendar"
 View guides and a full list of available properties on the [Wiki](https://github.com/ME-MarvinE/XCalendar/wiki).
 
 ## MAUI
-I plan to port this to .NET MAUI and maybe even get it into the MAUI Community Toolkit.
+I plan to get this into the MAUI Community Toolkit.
 Follow the discussion [here](https://github.com/CommunityToolkit/Maui/discussions/265).
