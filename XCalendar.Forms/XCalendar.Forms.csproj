@@ -4,19 +4,26 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>MarvinE</Authors>
     <Description>A plugin for Xamarin Forms providing a completely customisable calendar control with complex functionality.</Description>
-    <PackageId>Plugin.$(AssemblyName)</PackageId>
+    <PackageId>$(AssemblyName)</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Version>2.1</Version>
+    <Version>3.0.0</Version>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
-    <PackageTags>plugin; xamarin; csharp; calendar; xamarin-forms; xamarin-plugin; calendar-component; calendar-view; xamarinforms; calendar-plugin</PackageTags>
+    <PackageTags>csharp; dotnet; cross-platform; calendar; calendar-component;  plugin; xamarin; xamarinforms; xamarin-forms;</PackageTags>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <GenerateDocumentationFile>False</GenerateDocumentationFile>
 	  <PackageIcon>XCalendar Nuget Icon.png</PackageIcon>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <AssemblyVersion></AssemblyVersion>
+	  <FileVersion></FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Desktop\XCalendar Nuget Icon.png">
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\XCalendar Nuget Icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

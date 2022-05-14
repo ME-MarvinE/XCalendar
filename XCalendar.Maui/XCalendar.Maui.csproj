@@ -15,7 +15,28 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<Authors>MarvinE</Authors>
+		<Version>3.0.0-pre1</Version>
+		<Description>A plugin for .NET MAUI providing a completely customisable calendar control with complex functionality.</Description>
+		<PackageIcon>XCalendar Nuget Icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>csharp; dotnet; cross-platform; calendar; calendar-component;  plugin; maui; dotnet-maui;</PackageTags>
+		<AssemblyVersion></AssemblyVersion>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\XCalendar Nuget Icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0-rc2" />
