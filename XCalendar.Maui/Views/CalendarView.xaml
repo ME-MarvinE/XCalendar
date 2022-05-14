@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="XCalendar.Maui.Views.CalendarView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:XCalendar.Maui.Converters"
+    xmlns:Models="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:xc="clr-namespace:XCalendar.Maui.Views"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="MainCalendarView"
+    x:DataType="{x:Type xc:CalendarView}">
+
+    <VerticalStackLayout Spacing="0">
+        <VerticalStackLayout.Resources>
+            <System:Boolean x:Key="TrueValue">True</System:Boolean>
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
+            
+            <mct:IsNotEqualConverter x:Key="IsNotEqualConverter"/>
+
+            <mct:MathExpressionConverter x:Key="MathExpressionConverter"/>
+
+            <mct:MultiConverter x:Key="EnumToStringCharLimitConverter">
+                <Converters:EnumToStringConverter/>
+                <Converters:StringCharLimitConverter/>
+            </mct:MultiConverter>
+
+            <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
+                <mct:MultiConverterParameter ConverterType="{x:Type Converters:StringCharLimitConverter}">
+                    <mct:MultiConverterParameter.Value>
+                        <System:Int32>3</System:Int32>
+                    </mct:MultiConverterParameter.Value>
+                </mct:MultiConverterParameter>
+            </x:Array>
+        </VerticalStackLayout.Resources>
+
+        <!--#region Navigation-->
+        <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
+            <HorizontalStackLayout
+                Padding="0,5,0,5"
+                BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference MainCalendarView}}"
+                HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}">
+
+                <xc:BorderedLabel
+                    Padding="5"
+                    BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HeightRequest="30"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="←"
+                    TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="End"
+                    WidthRequest="30">
+
+                    <xc:BorderedLabel.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference MainCalendarView}}"/>
+                    </xc:BorderedLabel.GestureRecognizers>
+
+                </xc:BorderedLabel>
+
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
+                    TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
+                    VerticalTextAlignment="Center"/>
+
+                <xc:BorderedLabel
+                    Padding="5"
+                    BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HeightRequest="30"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="→"
+                    TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="End"
+                    WidthRequest="30">
+
+                    <xc:BorderedLabel.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference MainCalendarView}}"/>
+                    </xc:BorderedLabel.GestureRecognizers>
+                    
+                </xc:BorderedLabel>
+
+            </HorizontalStackLayout>
+        </ContentView>
+        <!--#endregion-->
+
+        <!--#region DayNames-->
+        <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference MainCalendarView}}">
+            <CollectionView
+                Margin="0,5,0,0"
+                HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}"
+                ItemsSource="{Binding DayNamesOrder, Source={x:Reference MainCalendarView}}">
+
+                <CollectionView.Style>
+                    <Style TargetType="{x:Type CollectionView}">
+                        <Setter Property="ItemTemplate">
+                            <Setter.Value>
+                                <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
+                                    <Label
+                                        FontSize="15"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
+                                        TextColor="{Binding DayNameTextColor, Source={x:Reference MainCalendarView}}"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding DayNameTemplate, Source={x:Reference MainCalendarView}, Converter={StaticResource IsNotEqualConverter}, ConverterParameter={x:Null}}"
+                                TargetType="{x:Type CollectionView}"
+                                Value="{StaticResource TrueValue}">
+                                <Setter Property="ItemTemplate" Value="{Binding DayNameTemplate, Source={x:Reference MainCalendarView}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </CollectionView.Style>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="{Binding DayNameHorizontalSpacing, Source={x:Reference MainCalendarView}}"
+                        Orientation="Vertical"
+                        Span="{Binding DayNamesOrder.Count, Source={x:Reference MainCalendarView}}"
+                        VerticalItemSpacing="{Binding DayNameVerticalSpacing, Source={x:Reference MainCalendarView}}"/>
+                </CollectionView.ItemsLayout>
+
+            </CollectionView>
+        </ContentView>
+        <!--#endregion-->
+
+        <!--#region MonthView-->
+        <ContentView ControlTemplate="{Binding MonthViewTemplate, Source={x:Reference MainCalendarView}}">
+            <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}" ItemsSource="{Binding Days, Source={x:Reference MainCalendarView}}">
+                <CollectionView.Style>
+                    <Style TargetType="{x:Type CollectionView}">
+                        <Setter Property="ItemTemplate">
+                            <Setter.Value>
+                                <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
+                                    <!--  Needs to be nested because collectionview doesn't respect margins  -->
+                                    <ContentView>
+                                        <xc:CalendarDayView
+                                            Margin="2.5"
+                                            CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                            DateTime="{Binding DateTime}"/>
+                                    </ContentView>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding DayTemplate, Source={x:Reference MainCalendarView}, Converter={StaticResource IsNotEqualConverter}, ConverterParameter={x:Null}}"
+                                TargetType="{x:Type CollectionView}"
+                                Value="{StaticResource TrueValue}">
+                                <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference MainCalendarView}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </CollectionView.Style>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding DayNamesOrder.Count, Source={x:Reference MainCalendarView}}"/>
+                </CollectionView.ItemsLayout>
+
+            </CollectionView>
+        </ContentView>
+        <!--#endregion-->
+
+    </VerticalStackLayout>
+
+</ContentView>

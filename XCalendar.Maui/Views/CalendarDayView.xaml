@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="XCalendar.Maui.Views.CalendarDayView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xc="clr-namespace:XCalendar.Maui.Views"
+    x:Name="MainCalendarDayView"
+    Padding="0"
+    x:DataType="{x:Type xc:CalendarDayView}"
+    HeightRequest="45"
+    WidthRequest="45">
+
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainCalendarDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainCalendarDayView}}"/>
+    </ContentView.GestureRecognizers>
+
+    <Label
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainCalendarDayView}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference MainCalendarDayView}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference MainCalendarDayView}}"
+        FontSize="{Binding FontSize, Source={x:Reference MainCalendarDayView}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference MainCalendarDayView}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainCalendarDayView}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainCalendarDayView}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference MainCalendarDayView}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference MainCalendarDayView}}"
+        Text="{Binding Text, Source={x:Reference MainCalendarDayView}}"
+        TextColor="{Binding TextColor, Source={x:Reference MainCalendarDayView}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference MainCalendarDayView}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference MainCalendarDayView}}"
+        TextType="{Binding TextType, Source={x:Reference MainCalendarDayView}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainCalendarDayView}}"/>
+
+</ContentView>
