@@ -367,7 +367,7 @@ namespace XCalendar.Maui.Views
         private void CalendarView_MonthViewDaysInvalidated(object sender, EventArgs e)
         {
             UpdateProperties();
-            UpdateView();
+            EvaluateDayState();
         }
         public virtual void UpdateProperties()
         {
@@ -376,7 +376,7 @@ namespace XCalendar.Maui.Views
             IsSelected = DateTime != null && IsDateTimeSelected(DateTime.Value);
             IsToday = DateTime != null && IsDateTimeToday(DateTime.Value);
         }
-        public virtual void UpdateView()
+        public virtual void EvaluateDayState()
         {
             bool IsOtherMonth = !IsCurrentMonth;
 
@@ -450,7 +450,7 @@ namespace XCalendar.Maui.Views
         {
             base.OnBindingContextChanged();
             UpdateProperties();
-            UpdateView();
+            EvaluateDayState();
         }
         private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -475,7 +475,7 @@ namespace XCalendar.Maui.Views
             if (NewCalendarView != null) { NewCalendarView.MonthViewDaysInvalidated += Control.CalendarView_MonthViewDaysInvalidated; }
 
             Control.UpdateProperties();
-            Control.UpdateView();
+            Control.EvaluateDayState();
         }
         #endregion
 
