@@ -382,6 +382,7 @@ namespace XCalendar.Maui.Views
 
             if (IsOutOfRange)
             {
+                DayState = DayState.OutOfRange;
                 BackgroundColor = OutOfRangeBackgroundColor;
                 //BorderColor = OutOfRangeBorderColor;
                 TextColor = OutOfRangeTextColor;
@@ -390,6 +391,7 @@ namespace XCalendar.Maui.Views
             }
             else if (IsSelected && IsCurrentMonth)
             {
+                DayState = DayState.Selected;
                 BackgroundColor = SelectedBackgroundColor;
                 //BorderColor = SelectedBorderColor;
                 TextColor = SelectedTextColor;
@@ -398,6 +400,7 @@ namespace XCalendar.Maui.Views
             }
             else if (IsToday && IsCurrentMonth)
             {
+                DayState = DayState.Today;
                 BackgroundColor = TodayBackgroundColor;
                 //BorderColor = TodayBorderColor;
                 TextColor = TodayTextColor;
@@ -406,6 +409,7 @@ namespace XCalendar.Maui.Views
             }
             else if (IsOtherMonth)
             {
+                DayState = DayState.OtherMonth;
                 BackgroundColor = OtherMonthBackgroundColor;
                 //BorderColor = OtherMonthBorderColor;
                 TextColor = OtherMonthTextColor;
@@ -414,6 +418,7 @@ namespace XCalendar.Maui.Views
             }
             else if (IsCurrentMonth)
             {
+                DayState = DayState.CurrentMonth;
                 BackgroundColor = CurrentMonthBackgroundColor;
                 //BorderColor = CurrentMonthBorderColor;
                 TextColor = CurrentMonthTextColor;
