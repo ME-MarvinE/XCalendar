@@ -617,7 +617,7 @@
                                                 CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                                 DateTime="{Binding DateTime}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                OutOfRangeTextColor="{StaticResource CalendarTertiaryColor}"
+                                                InvalidTextColor="{StaticResource CalendarTertiaryColor}"
                                                 SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
                                                 TodayBorderColor="{StaticResource CalendarPrimaryColor}"
                                                 TodayTextColor="{StaticResource CalendarBackgroundTextColor}"
@@ -855,7 +855,7 @@
                                                                                         <MultiTrigger.Conditions>
                                                                                             <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True"/>
                                                                                             <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                            <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                                                            <BindingCondition Binding="{Binding IsInvalid, Source={RelativeSource TemplatedParent}}" Value="False"/>
                                                                                         </MultiTrigger.Conditions>
                                                                                         <Setter Property="BackgroundColor" Value="#00A900"/>
                                                                                     </MultiTrigger>

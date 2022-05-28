@@ -59,7 +59,7 @@
                                 CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
                                 CurrentMonthTextColor="{StaticResource CalendarBackgroundTextColor}"
                                 DateTime="{Binding DateTime}"
-                                OutOfRangeTextColor="{StaticResource CalendarTertiaryColor}"
+                                InvalidTextColor="{StaticResource CalendarTertiaryColor}"
                                 SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
                                 TodayBorderColor="{StaticResource CalendarPrimaryColor}"
                                 TodayTextColor="{StaticResource CalendarBackgroundTextColor}">
@@ -103,7 +103,7 @@
                                                         <Binding Path="IsCurrentMonth" Source="{RelativeSource TemplatedParent}"/>
                                                         <Binding
                                                             Converter="{StaticResource InvertedBoolConverter}"
-                                                            Path="IsOutOfRange"
+                                                            Path="IsInvalid"
                                                             Source="{RelativeSource TemplatedParent}"/>
                                                     </MultiBinding>
                                                 </StackLayout.IsVisible>
