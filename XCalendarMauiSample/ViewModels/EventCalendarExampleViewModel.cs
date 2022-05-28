@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Collections.Specialized;
 using XCalendar.Maui;
 using XCalendarMauiSample.Models;
 
@@ -15,6 +9,7 @@ namespace XCalendarMauiSample.ViewModels
         #region Properties
         public static readonly Random Random = new Random();
         public List<Color> Colors { get; } = new List<Color>() { Microsoft.Maui.Graphics.Colors.Red, Microsoft.Maui.Graphics.Colors.Orange, Microsoft.Maui.Graphics.Colors.Yellow, Color.FromArgb("#FF00A000"), Microsoft.Maui.Graphics.Colors.Blue, Color.FromArgb("#FF8010E0") };
+        public EventDayResolver EventDayResolver { get; set; } = new EventDayResolver();
         public ObservableRangeCollection<Event> Events { get; } = new ObservableRangeCollection<Event>()
         {
             new Event() { Title = "Bowling", Description = "Bowling with friends" },
@@ -64,6 +59,8 @@ namespace XCalendarMauiSample.ViewModels
                 Event.DateTime = DateTime.Today.AddDays(Random.Next(-20, 21)).AddSeconds(Random.Next(86400));
                 Event.Color = Colors[Random.Next(6)];
             }
+
+            EventDayResolver.Events = Events;
 
             SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
         }

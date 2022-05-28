@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using XCalendar.Core.Interfaces;
 using XCalendarFormsSample.Models;
 
 namespace XCalendarFormsSample.ViewModels

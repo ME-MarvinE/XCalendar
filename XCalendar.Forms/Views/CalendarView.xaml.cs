@@ -414,7 +414,7 @@ namespace XCalendar.Forms.Views
             DateSelectionChanged?.Invoke(this, new DateSelectionChangedEventArgs(OldSelection, NewSelection));
         }
         /// <summary>
-        /// Called when the <see cref="CalendarView"/> needs to notify <see cref="ICalendarDayView"/>s to reevaluate their properties due to a change.
+        /// Called when the <see cref="CalendarView"/> needs to notify <see cref="CalendarDayView"/>s to reevaluate their properties due to a change.
         /// </summary>
         protected virtual void OnMonthViewDaysInvalidated()
         {
@@ -897,18 +897,6 @@ namespace XCalendar.Forms.Views
                 Control.OnMonthViewDaysInvalidated();
             }
         }
-        private static void DayResolverPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            CalendarView Control = (CalendarView)bindable;
-
-            ICalendarDayResolver OldDayResolver = (ICalendarDayResolver)oldValue;
-            ICalendarDayResolver NewDayResolver = (ICalendarDayResolver)newValue;
-
-            Control._Days.Clear();
-            Control.UpdateMonthViewDates(Control.NavigatedDate);
-            Control.OnMonthViewDaysInvalidated();
-        }
-
         private static void PageStartModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
@@ -932,6 +920,14 @@ namespace XCalendar.Forms.Views
             {
                 Control.CommitRangeSelection();
             }
+        }
+        private static void DayResolverPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+
+            Control._Days.Clear();
+            Control.UpdateMonthViewDates(Control.NavigatedDate);
+            Control.OnMonthViewDaysInvalidated();
         }
         private static object CoerceNavigatedDate(BindableObject bindable, object value)
         {

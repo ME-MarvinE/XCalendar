@@ -39,8 +39,8 @@
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
-                DayResolver="{Binding EventDayResolver}"
                 Grid.Row="0"
+                DayResolver="{Binding EventDayResolver}"
                 DayNameTextColor="{StaticResource ContentTextColor}"
                 NavigationArrowColor="{StaticResource ContentTextColor}"
                 NavigationBackgroundColor="Transparent"
@@ -88,8 +88,6 @@
                                                 Grid.RowSpan="2"
                                                 VerticalOptions="Center"/>
                                             
-                                            
-
                                             <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
                                             <StackLayout
                                                 Grid.Row="1"

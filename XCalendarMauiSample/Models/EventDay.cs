@@ -1,9 +1,9 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.ObjectModel;
 using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
+using XCalendar.Maui;
 
-namespace XCalendarFormsSample.Models
+namespace XCalendarMauiSample.Models
 {
     public class EventDay : BaseObservableModel, ICalendarDay
     {
