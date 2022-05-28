@@ -401,7 +401,7 @@ namespace XCalendar.Forms.Views
 
             InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
-            InvalidateDays();
+            OnMonthViewDaysInvalidated();
         }
         #endregion
 
@@ -743,13 +743,9 @@ namespace XCalendar.Forms.Views
         /// <summary>
         /// Raises an event signaling that the days' properties need to be reevaluated due to changes in the <see cref="CalendarView"/>
         /// </summary>
-        public virtual void InvalidateDays()
-        {
-            OnMonthViewDaysInvalidated();
-        }
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            InvalidateDays();
+            OnMonthViewDaysInvalidated();
 
             OnDateSelectionChanged(_PreviousSelectedDates, SelectedDates);
 
@@ -759,7 +755,7 @@ namespace XCalendar.Forms.Views
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             UpdateMonthViewDates(NavigatedDate);
-            InvalidateDays();
+            OnMonthViewDaysInvalidated();
         }
 
         #region Bindable Properties Methods
@@ -775,7 +771,7 @@ namespace XCalendar.Forms.Views
             else
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
         }
         private static void NavigatedDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -787,7 +783,7 @@ namespace XCalendar.Forms.Views
             if (Control.Rows == CoercedRows)
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
             else
             {
@@ -803,7 +799,7 @@ namespace XCalendar.Forms.Views
         private static void TodayDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.InvalidateDays();
+            Control.OnMonthViewDaysInvalidated();
         }
         private static void StartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -822,7 +818,7 @@ namespace XCalendar.Forms.Views
             if (!UpdateStartOfWeekDayNamesOrder || Control.UseCustomDayNamesOrder)
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
         }
         private static void DayRangeMinimumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -849,7 +845,7 @@ namespace XCalendar.Forms.Views
 
             if (!OldSelectedDates.SequenceEqual(NewSelectedDates))
             {
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
                 Control.OnDateSelectionChanged(Control._PreviousSelectedDates, NewSelectedDates);
             }
         }
@@ -898,7 +894,7 @@ namespace XCalendar.Forms.Views
             if (!OldDayNamesOrder.SequenceEqual(NewDayNamesOrder))
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
         }
         private static void DayResolverPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -910,14 +906,14 @@ namespace XCalendar.Forms.Views
 
             Control._Days.Clear();
             Control.UpdateMonthViewDates(Control.NavigatedDate);
-            Control.InvalidateDays();
+            Control.OnMonthViewDaysInvalidated();
         }
 
         private static void PageStartModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
             Control.UpdateMonthViewDates(Control.NavigatedDate);
-            Control.InvalidateDays();
+            Control.OnMonthViewDaysInvalidated();
         }
         private static void RangeSelectionStartPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {

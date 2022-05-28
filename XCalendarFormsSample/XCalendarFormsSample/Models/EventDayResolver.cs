@@ -16,14 +16,9 @@ namespace XCalendarFormsSample.Models
         }
         public void UpdateDay(ICalendarDay Day, DateTime? DateTime)
         {
-            Day.DateTime = DateTime;
-
             EventDay EventDay = (EventDay)Day;
             EventDay.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == DateTime?.Date));
-            if (EventDay.Events.Any())
-            {
-                var thing = true;
-            }
+            EventDay.DateTime = DateTime;
         }
     }
 }
