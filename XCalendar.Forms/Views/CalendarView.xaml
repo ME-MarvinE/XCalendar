@@ -3,11 +3,10 @@
     x:Class="XCalendar.Forms.Views.CalendarView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
-    xmlns:Models="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
-    xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views" xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="MainCalendarView"
     x:DataType="{x:Type xc:CalendarView}">
 
@@ -139,7 +138,7 @@
                     <Style TargetType="{x:Type CollectionView}">
                         <Setter Property="ItemTemplate">
                             <Setter.Value>
-                                <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
+                                <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                                     <!--  Needs to be nested because collectionview doesn't respect margins  -->
                                     <ContentView>
                                         <xc:CalendarDayView

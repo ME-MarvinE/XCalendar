@@ -8,6 +8,7 @@ using CommunityToolkit.Maui.Views;
 using XCalendar.Maui.Enums;
 using XCalendar.Maui;
 using XCalendarMauiSample.Popups;
+using XCalendar.Core;
 
 namespace XCalendarMauiSample.ViewModels
 {
@@ -62,6 +63,7 @@ namespace XCalendarMauiSample.ViewModels
         public double NavigationHeightRequest { get; set; } = 40;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
+        public DefaultCalendarDayResolver DayResolver { get; } = new DefaultCalendarDayResolver();
         #endregion
 
         #region Commands

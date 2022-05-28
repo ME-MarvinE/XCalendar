@@ -7,6 +7,7 @@
     xmlns:Models="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="MainCalendarView"
     x:DataType="{x:Type xc:CalendarView}">
@@ -142,7 +143,7 @@
                     <Style TargetType="{x:Type CollectionView}">
                         <Setter Property="ItemTemplate">
                             <Setter.Value>
-                                <DataTemplate x:DataType="{x:Type Models:CalendarDay}">
+                                <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                                     <!--  Needs to be nested because collectionview doesn't respect margins  -->
                                     <ContentView>
                                         <xc:CalendarDayView

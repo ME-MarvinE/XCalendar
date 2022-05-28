@@ -582,6 +582,7 @@
 
                     <xc:CalendarView
                         x:Name="FancyCalendarView"
+                        DayResolver="{Binding DayResolver}"
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         BackgroundColor="{StaticResource CalendarBackgroundColor}"

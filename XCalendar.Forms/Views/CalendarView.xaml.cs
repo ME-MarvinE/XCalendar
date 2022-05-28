@@ -11,6 +11,8 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XCalendar.Core;
+using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Forms.Views
 {
@@ -19,7 +21,7 @@ namespace XCalendar.Forms.Views
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
-        private readonly ObservableCollection<CalendarDay> _Days = new ObservableCollection<CalendarDay>();
+        private readonly ObservableCollection<ICalendarDay> _Days = new ObservableCollection<ICalendarDay>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
         #endregion
@@ -30,9 +32,9 @@ namespace XCalendar.Forms.Views
         /// <summary>
         /// The list of displayed days.
         /// </summary>
-        public ReadOnlyObservableCollection<CalendarDay> Days
+        public ReadOnlyObservableCollection<ICalendarDay> Days
         {
-            get { return (ReadOnlyObservableCollection<CalendarDay>)GetValue(DaysProperty); }
+            get { return (ReadOnlyObservableCollection<ICalendarDay>)GetValue(DaysProperty); }
             protected set { SetValue(DaysPropertyKey, value); }
         }
         /// <summary>
@@ -232,7 +234,7 @@ namespace XCalendar.Forms.Views
             set { SetValue(RowsProperty, value); }
         }
         /// <summary>
-        /// The template used to display a <see cref="CalendarDay"/>
+        /// The template used to display a <see cref="ICalendarDay"/>
         /// </summary>
         public DataTemplate DayTemplate
         {
@@ -315,10 +317,15 @@ namespace XCalendar.Forms.Views
             get { return (Color)GetValue(NavigationBackgroundColorProperty); }
             set { SetValue(NavigationBackgroundColorProperty, value); }
         }
+        public ICalendarDayResolver DayResolver
+        {
+            get { return (ICalendarDayResolver)GetValue(DayResolverProperty); }
+            set { SetValue(DayResolverProperty, value); }
+        }
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Now, defaultBindingMode: BindingMode.TwoWay, propertyChanged: NavigatedDatePropertyChanged, coerceValue: CoerceNavigatedDate);
-        private static readonly BindablePropertyKey DaysPropertyKey = BindableProperty.CreateReadOnly(nameof(Days), typeof(ReadOnlyObservableCollection<CalendarDay>), typeof(CalendarView), null, defaultValueCreator: DaysDefaultValueCreator);
+        private static readonly BindablePropertyKey DaysPropertyKey = BindableProperty.CreateReadOnly(nameof(Days), typeof(ReadOnlyObservableCollection<ICalendarDay>), typeof(CalendarView), null, defaultValueCreator: DaysDefaultValueCreator);
         public static readonly BindableProperty DaysProperty = DaysPropertyKey.BindableProperty;
         public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged, validateValue: IsRowsValidValue);
         public static readonly BindableProperty AutoRowsProperty = BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsPropertyChanged);
@@ -358,6 +365,7 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty BackwardsNavigationAmountProperty = BindableProperty.Create(nameof(BackwardsNavigationAmount), typeof(int), typeof(CalendarView), -1);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         public static readonly BindableProperty ClampNavigationToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigationToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigationToDayRangePropertyChanged);
+        public static readonly BindableProperty DayResolverProperty = BindableProperty.Create(nameof(DayResolver), typeof(ICalendarDayResolver), typeof(CalendarView), new DefaultCalendarDayResolver(), propertyChanged: DayResolverPropertyChanged);
         #endregion
 
         #endregion
@@ -393,7 +401,7 @@ namespace XCalendar.Forms.Views
 
             InitializeComponent();
             UpdateMonthViewDates(NavigatedDate);
-            InvalidateDays();
+            OnMonthViewDaysInvalidated();
         }
         #endregion
 
@@ -587,7 +595,8 @@ namespace XCalendar.Forms.Views
             {
                 if (DaysRequiredToNavigate - Days.Count > 0)
                 {
-                    _Days.Add(new CalendarDay());
+
+                    _Days.Add(DayResolver.CreateDay(null));
                 }
                 else
                 {
@@ -618,12 +627,12 @@ namespace XCalendar.Forms.Views
                 {
                     try
                     {
-                        Days[DatesUpdated].DateTime = Row[DayNamesOrderList[i]];
+                        DayResolver.UpdateDay(Days[DatesUpdated], Row[DayNamesOrderList[i]]);
                     }
                     catch (KeyNotFoundException)
                     {
                         //Catch for when RowDates may not have a certain DayOfWeek, for example when the week spans into unrepresentable DateTimes.
-                        Days[DatesUpdated].DateTime = null;
+                        DayResolver.UpdateDay(Days[DatesUpdated], null);
                     }
 
                     DatesUpdated += 1;
@@ -734,13 +743,9 @@ namespace XCalendar.Forms.Views
         /// <summary>
         /// Raises an event signaling that the days' properties need to be reevaluated due to changes in the <see cref="CalendarView"/>
         /// </summary>
-        public virtual void InvalidateDays()
-        {
-            OnMonthViewDaysInvalidated();
-        }
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            InvalidateDays();
+            OnMonthViewDaysInvalidated();
 
             OnDateSelectionChanged(_PreviousSelectedDates, SelectedDates);
 
@@ -750,7 +755,7 @@ namespace XCalendar.Forms.Views
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             UpdateMonthViewDates(NavigatedDate);
-            InvalidateDays();
+            OnMonthViewDaysInvalidated();
         }
 
         #region Bindable Properties Methods
@@ -766,7 +771,7 @@ namespace XCalendar.Forms.Views
             else
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
         }
         private static void NavigatedDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -778,7 +783,7 @@ namespace XCalendar.Forms.Views
             if (Control.Rows == CoercedRows)
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
             else
             {
@@ -794,7 +799,7 @@ namespace XCalendar.Forms.Views
         private static void TodayDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            Control.InvalidateDays();
+            Control.OnMonthViewDaysInvalidated();
         }
         private static void StartOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -813,7 +818,7 @@ namespace XCalendar.Forms.Views
             if (!UpdateStartOfWeekDayNamesOrder || Control.UseCustomDayNamesOrder)
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
         }
         private static void DayRangeMinimumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -840,7 +845,7 @@ namespace XCalendar.Forms.Views
 
             if (!OldSelectedDates.SequenceEqual(NewSelectedDates))
             {
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
                 Control.OnDateSelectionChanged(Control._PreviousSelectedDates, NewSelectedDates);
             }
         }
@@ -889,14 +894,14 @@ namespace XCalendar.Forms.Views
             if (!OldDayNamesOrder.SequenceEqual(NewDayNamesOrder))
             {
                 Control.UpdateMonthViewDates(Control.NavigatedDate);
-                Control.InvalidateDays();
+                Control.OnMonthViewDaysInvalidated();
             }
         }
         private static void PageStartModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
             Control.UpdateMonthViewDates(Control.NavigatedDate);
-            Control.InvalidateDays();
+            Control.OnMonthViewDaysInvalidated();
         }
         private static void RangeSelectionStartPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -915,6 +920,14 @@ namespace XCalendar.Forms.Views
             {
                 Control.CommitRangeSelection();
             }
+        }
+        private static void DayResolverPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+
+            Control._Days.Clear();
+            Control.UpdateMonthViewDates(Control.NavigatedDate);
+            Control.OnMonthViewDaysInvalidated();
         }
         private static object CoerceNavigatedDate(BindableObject bindable, object value)
         {
@@ -984,7 +997,7 @@ namespace XCalendar.Forms.Views
         private static object DaysDefaultValueCreator(BindableObject bindable)
         {
             CalendarView Control = (CalendarView)bindable;
-            return new ReadOnlyObservableCollection<CalendarDay>(Control._Days);
+            return new ReadOnlyObservableCollection<ICalendarDay>(Control._Days);
         }
         private static bool IsRowsValidValue(BindableObject bindable, object value)
         {
