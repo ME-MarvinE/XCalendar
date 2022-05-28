@@ -588,23 +588,10 @@ namespace XCalendar.Maui.Views
                     throw new NotImplementedException($"{nameof(Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
-            //Add/Remove days until reaching the required count.
-            while (DaysRequiredToNavigate - Days.Count != 0)
-            {
-                if (DaysRequiredToNavigate - Days.Count > 0)
-                {
-                    _Days.Add(DayResolver.CreateDay(null));
-                }
-                else
-                {
-                    _Days.RemoveAt(Days.Count - 1);
-                }
-            }
-
             //Update the dates for each row.
             for (int RowsAdded = 0; DatesUpdated < DaysRequiredToNavigate; RowsAdded++)
             {
-                Dictionary<DayOfWeek, DateTime> Row = new Dictionary<DayOfWeek, DateTime>();
+                Dictionary<DayOfWeek, DateTime?> Row = new Dictionary<DayOfWeek, DateTime?>();
 
                 //Get the updated dates for the row.
                 for (int i = 0; i < DaysOfWeek.Count; i++)
@@ -619,21 +606,34 @@ namespace XCalendar.Maui.Views
                     }
                 }
 
-                //Update the dates in the row based on the DayNamesOrder.
+                //Update or create CalendarDays for the row based on the DayNamesOrder.
                 for (int i = 0; i < DayNamesOrderList.Count; i++)
                 {
-                    try
+
+                    //Handle the case that a week spans into an unrepresentable DateTime. E.g After DateTime.MaxValue.
+                    if (!Row.TryGetValue(DayNamesOrderList[i], out DateTime? NewDateTime))
                     {
-                        DayResolver.UpdateDay(Days[DatesUpdated], Row[DayNamesOrderList[i]]);
+                        NewDateTime = null;
                     }
-                    catch (KeyNotFoundException)
+
+                    //Update the CalendarDay. Create one if it doesn't exist.
+                    if (Days.Count <= DatesUpdated)
                     {
-                        //Catch for when RowDates may not have a certain DayOfWeek, for example when the week spans into unrepresentable DateTimes.
-                        DayResolver.UpdateDay(Days[DatesUpdated], null);
+                        _Days.Add(DayResolver.CreateDay(NewDateTime));
+                    }
+                    else
+                    {
+                        DayResolver.UpdateDay(Days[DatesUpdated], NewDateTime);
                     }
 
                     DatesUpdated += 1;
                 }
+            }
+
+            //Remove any extra CalendarDays
+            while (Days.Count > DaysRequiredToNavigate)
+            {
+                _Days.RemoveAt(Days.Count - 1);
             }
         }
         /// <summary>

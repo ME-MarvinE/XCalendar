@@ -534,7 +534,7 @@ namespace XCalendar.Forms.Views
                     else
                     {
                         SelectedDates.ReplaceRange(DateRange);
-                    } 
+                    }
                     break;
 
                 default:
@@ -590,24 +590,10 @@ namespace XCalendar.Forms.Views
                     throw new NotImplementedException($"{nameof(Core.Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
-            //Add/Remove days until reaching the required count.
-            while (DaysRequiredToNavigate - Days.Count != 0)
-            {
-                if (DaysRequiredToNavigate - Days.Count > 0)
-                {
-
-                    _Days.Add(DayResolver.CreateDay(null));
-                }
-                else
-                {
-                    _Days.RemoveAt(Days.Count - 1);
-                }
-            }
-
             //Update the dates for each row.
             for (int RowsAdded = 0; DatesUpdated < DaysRequiredToNavigate; RowsAdded++)
             {
-                Dictionary<DayOfWeek, DateTime> Row = new Dictionary<DayOfWeek, DateTime>();
+                Dictionary<DayOfWeek, DateTime?> Row = new Dictionary<DayOfWeek, DateTime?>();
 
                 //Get the updated dates for the row.
                 for (int i = 0; i < DaysOfWeek.Count; i++)
@@ -622,21 +608,33 @@ namespace XCalendar.Forms.Views
                     }
                 }
 
-                //Update the dates in the row based on the DayNamesOrder.
+                //Update or create days for the row based on the DayNamesOrder.
                 for (int i = 0; i < DayNamesOrderList.Count; i++)
                 {
-                    try
+
+                    //Handle the case that a week spans into an unrepresentable DateTime. E.g After DateTime.MaxValue.
+                    if (!Row.TryGetValue(DayNamesOrderList[i], out DateTime? NewDateTime))
                     {
-                        DayResolver.UpdateDay(Days[DatesUpdated], Row[DayNamesOrderList[i]]);
+                        NewDateTime = null;
                     }
-                    catch (KeyNotFoundException)
+
+                    if (Days.Count <= DatesUpdated)
                     {
-                        //Catch for when RowDates may not have a certain DayOfWeek, for example when the week spans into unrepresentable DateTimes.
-                        DayResolver.UpdateDay(Days[DatesUpdated], null);
+                        _Days.Add(DayResolver.CreateDay(NewDateTime));
+                    }
+                    else
+                    {
+                        DayResolver.UpdateDay(Days[DatesUpdated], NewDateTime);
                     }
 
                     DatesUpdated += 1;
                 }
+            }
+
+            //Remove any extra CalendarDays
+            while (Days.Count > DaysRequiredToNavigate)
+            {
+                _Days.RemoveAt(Days.Count - 1);
             }
         }
         /// <summary>
@@ -709,7 +707,7 @@ namespace XCalendar.Forms.Views
                 NewNavigatedDate = MaximumDate;
                 //The code below makes sure that the correct amount of weeks are added after looping.
                 //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
-                    
+
                 ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
                 ////The minimum date may not always have the first day of week so the last day of week is used to do this.
                 //TimeSpan Difference = DateTime.LastDayOfWeek(StartOfWeek) - MinimumDate.LastDayOfWeek(StartOfWeek);
@@ -726,7 +724,7 @@ namespace XCalendar.Forms.Views
                 NewNavigatedDate = MinimumDate;
                 //The code below makes sure that the correct amount of weeks are added after looping.
                 //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
-                    
+
                 ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
                 ////The maximum date may not always have the last day of week so the first day of week is used to do this.
                 //TimeSpan Difference = MaximumDate.FirstDayOfWeek(StartOfWeek) - DateTime.FirstDayOfWeek(StartOfWeek);
@@ -809,7 +807,7 @@ namespace XCalendar.Forms.Views
             List<DayOfWeek> CorrectStartOfWeekDayNamesOrder = NewStartOfWeek.GetWeekAsFirst();
             bool UpdateStartOfWeekDayNamesOrder = !Control._StartOfWeekDayNamesOrder.SequenceEqual(CorrectStartOfWeekDayNamesOrder);
 
-            
+
             if (UpdateStartOfWeekDayNamesOrder)
             {
                 Control._StartOfWeekDayNamesOrder.ReplaceRange(CorrectStartOfWeekDayNamesOrder);
@@ -972,7 +970,7 @@ namespace XCalendar.Forms.Views
         }
         private static object CustomDayNamesOrderDefaultValueCreator(BindableObject bindable)
         {
-           return new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
+            return new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
         }
         private static object DayNamesOrderDefaultValueCreator(BindableObject bindable)
         {
