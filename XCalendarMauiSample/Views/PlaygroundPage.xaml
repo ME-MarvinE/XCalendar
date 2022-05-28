@@ -157,7 +157,7 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="DayRangeMinDate"
+                                Text="NavigationLowerBound"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
@@ -182,7 +182,7 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="DayRangeMaxDate"
+                                Text="NavigationUpperBound"
                                 VerticalTextAlignment="Center"/>
                         <Editor
                                 Grid.Column="1"
