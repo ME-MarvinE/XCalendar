@@ -152,7 +152,7 @@
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding TodayDate, Source={x:Reference FancyCalendarView}}"
+                                Date="{Binding TodayDate}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
