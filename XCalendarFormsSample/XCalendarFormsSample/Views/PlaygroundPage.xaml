@@ -173,11 +173,11 @@
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Date="{Binding NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
@@ -561,7 +561,7 @@
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
-                        DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
+                        NavigationLowerBound="{Binding NavigationLowerBound}"
                         ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"

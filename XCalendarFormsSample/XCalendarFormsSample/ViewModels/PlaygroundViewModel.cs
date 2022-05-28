@@ -31,7 +31,7 @@ namespace XCalendarFormsSample.ViewModels
             DayOfWeek.Sunday
         };
         public DateTime NavigatedDate { get; set; } = DateTime.Today;
-        public DateTime DayRangeMinimumDate { get; set; } = DateTime.Today.AddYears(-2);
+        public DateTime NavigationLowerBound { get; set; } = DateTime.Today.AddYears(-2);
         public DateTime DayRangeMaximumDate { get; set; } = DateTime.Today.AddYears(2);
         public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
         public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; } = new ObservableRangeCollection<DayOfWeek>()

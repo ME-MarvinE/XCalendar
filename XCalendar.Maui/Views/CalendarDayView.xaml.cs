@@ -436,7 +436,7 @@ namespace XCalendar.Maui.Views
         }
         public virtual bool IsDateTimeOutOfRange(DateTime DateTime)
         {
-            return DateTime.Date < CalendarView?.DayRangeMinimumDate.Date || DateTime.Date > CalendarView?.DayRangeMaximumDate.Date;
+            return DateTime.Date < CalendarView?.NavigationLowerBound.Date || DateTime.Date > CalendarView?.DayRangeMaximumDate.Date;
         }
         public virtual bool IsDateTimeToday(DateTime DateTime)
         {
