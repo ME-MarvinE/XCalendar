@@ -216,19 +216,6 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="ClampNavigation&#10;ToDayRange"
-                                VerticalTextAlignment="Center"/>
-                            <Switch
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                IsToggled="{Binding ClampNavigationToDayRange}"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
                                 Text="SelectedDates"
                                 VerticalTextAlignment="Center"/>
                             <CollectionView
@@ -570,7 +557,6 @@
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         BackgroundColor="{StaticResource CalendarBackgroundColor}"
                         BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
-                        ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"

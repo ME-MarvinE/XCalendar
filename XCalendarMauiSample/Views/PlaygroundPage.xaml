@@ -177,21 +177,21 @@
                                 TextColor="Transparent"/>
                         </Grid>
 
-                        <Grid>
-                            <Label
+                    <Grid>
+                        <Label
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="DayRangeMaxDate"
                                 VerticalTextAlignment="Center"/>
-                            <Editor
+                        <Editor
                                 Grid.Column="1"
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
                                 Text="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
-                            <DatePicker
+                        <DatePicker
                                 Grid.Column="1"
                                 Date="{Binding DayRangeMaximumDate}"
                                 FontSize="{StaticResource SmallFontSize}"
@@ -200,22 +200,9 @@
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
                                 MinimumDate="{x:Static System:DateTime.MinValue}"
                                 TextColor="Transparent"/>
-                        </Grid>
+                    </Grid>
 
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="ClampNavigation&#10;ToDayRange"
-                                VerticalTextAlignment="Center"/>
-                            <Switch
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                IsToggled="{Binding ClampNavigationToDayRange}"/>
-                        </Grid>
-
-                        <Grid>
+                    <Grid>
                             <Label
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
@@ -587,7 +574,6 @@
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         BackgroundColor="{StaticResource CalendarBackgroundColor}"
                         BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
-                        ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"

@@ -272,11 +272,6 @@ namespace XCalendar.Maui.Views
             get { return (ReadOnlyObservableCollection<DayOfWeek>)GetValue(StartOfWeekDayNamesOrderProperty); }
             protected set { SetValue(StartOfWeekDayNamesOrderProperty, value); }
         }
-        public bool ClampNavigationToDayRange
-        {
-            get { return (bool)GetValue(ClampNavigationToDayRangeProperty); }
-            set { SetValue(ClampNavigationToDayRangeProperty, value); }
-        }
         /// <summary>
         /// The height of the view used to display the navigated date and navigation controls.
         /// </summary>
@@ -362,7 +357,6 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty ForwardsNavigationAmountProperty = BindableProperty.Create(nameof(ForwardsNavigationAmount), typeof(int), typeof(CalendarView), 1);
         public static readonly BindableProperty BackwardsNavigationAmountProperty = BindableProperty.Create(nameof(BackwardsNavigationAmount), typeof(int), typeof(CalendarView), -1);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
-        public static readonly BindableProperty ClampNavigationToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigationToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigationToDayRangePropertyChanged);
         public static readonly BindableProperty DayResolverProperty = BindableProperty.Create(nameof(DayResolver), typeof(ICalendarDayResolver), typeof(CalendarView), new DefaultCalendarDayResolver(), propertyChanged: DayResolverPropertyChanged);
         #endregion
 
@@ -642,10 +636,7 @@ namespace XCalendar.Maui.Views
         /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
         public virtual void NavigateCalendar(int Amount)
         {
-            DateTime MinimumDate = ClampNavigationToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
-            DateTime MaximumDate = ClampNavigationToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
-
-            NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateTime(NavigatedDate, DayRangeMinimumDate, DayRangeMaximumDate, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
         /// <summary>
         /// Performs navigation on a DateTime.
@@ -786,12 +777,6 @@ namespace XCalendar.Maui.Views
                 Control.Rows = CoercedRows;
             }
         }
-        private static void ClampNavigationToDayRangePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            CalendarView Control = (CalendarView)bindable;
-            Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
-            //Control.CoerceValue(NavigatedDateProperty);
-        }
         private static void TodayDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
@@ -930,8 +915,8 @@ namespace XCalendar.Maui.Views
             DateTime InitialValue = (DateTime)value;
             CalendarView Control = (CalendarView)bindable;
 
-            DateTime MinimumDate = Control.ClampNavigationToDayRange ? Control.DayRangeMinimumDate : DateTime.MinValue;
-            DateTime MaximumDate = Control.ClampNavigationToDayRange ? Control.DayRangeMaximumDate : DateTime.MaxValue;
+            DateTime MinimumDate = Control.DayRangeMinimumDate;
+            DateTime MaximumDate = Control.DayRangeMaximumDate;
 
             switch (Control.NavigationLoopMode)
             {

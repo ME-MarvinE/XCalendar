@@ -59,7 +59,6 @@ namespace XCalendarMauiSample.ViewModels
         public double DayNamesHeightRequest { get; set; } = 25;
         public bool UseCustomDayNamesOrder { get; set; } = false;
         public DateTime TodayDate { get; set; } = DateTime.Today;
-        public bool ClampNavigationToDayRange { get; set; } = true;
         public double NavigationHeightRequest { get; set; } = 40;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
