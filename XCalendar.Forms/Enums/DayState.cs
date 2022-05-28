@@ -6,6 +6,6 @@
         OtherMonth,
         Today,
         Selected,
-        OutOfRange
+        Invalid
     }
 }

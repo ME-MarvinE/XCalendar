@@ -79,7 +79,7 @@
                         FontSize="12"
                         HeightRequest="41"
                         OtherMonthTextColor="Transparent"
-                        OutOfRangeBackgroundColor="Transparent"
+                        InvalidBackgroundColor="Transparent"
                         SelectedBackgroundColor="{StaticResource PrimaryPickerColor}"
                         SelectedTextColor="White"
                         TodayBackgroundColor="Transparent"

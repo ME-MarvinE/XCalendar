@@ -38,10 +38,10 @@ namespace XCalendar.Forms.Views
             get { return (bool)GetValue(IsSelectedProperty); }
             set { SetValue(IsSelectedProperty, value); }
         }
-        public bool IsOutOfRange
+        public bool IsInvalid
         {
-            get { return (bool)GetValue(IsOutOfRangeProperty); }
-            set { SetValue(IsOutOfRangeProperty, value); }
+            get { return (bool)GetValue(IsInvalidProperty); }
+            set { SetValue(IsInvalidProperty, value); }
         }
         public bool IsDayStateCurrentMonth
         {
@@ -63,10 +63,10 @@ namespace XCalendar.Forms.Views
             get { return (bool)GetValue(IsDayStateSelectedProperty); }
             set { SetValue(IsDayStateSelectedProperty, value); }
         }
-        public bool IsDayStateOutOfRange
+        public bool IsDayStateInvalid
         {
-            get { return (bool)GetValue(IsDayStateOutOfRangeProperty); }
-            set { SetValue(IsDayStateOutOfRangeProperty, value); }
+            get { return (bool)GetValue(IsDayStateInvalidProperty); }
+            set { SetValue(IsDayStateInvalidProperty, value); }
         }
         public CalendarView CalendarView
         {
@@ -148,30 +148,30 @@ namespace XCalendar.Forms.Views
             get { return (object)GetValue(OtherMonthCommandParameterProperty); }
             set { SetValue(OtherMonthCommandParameterProperty, value); }
         }
-        public Color OutOfRangeTextColor
+        public Color InvalidTextColor
         {
-            get { return (Color)GetValue(OutOfRangeTextColorProperty); }
-            set { SetValue(OutOfRangeTextColorProperty, value); }
+            get { return (Color)GetValue(InvalidTextColorProperty); }
+            set { SetValue(InvalidTextColorProperty, value); }
         }
-        public Color OutOfRangeBackgroundColor
+        public Color InvalidBackgroundColor
         {
-            get { return (Color)GetValue(OutOfRangeBackgroundColorProperty); }
-            set { SetValue(OutOfRangeBackgroundColorProperty, value); }
+            get { return (Color)GetValue(InvalidBackgroundColorProperty); }
+            set { SetValue(InvalidBackgroundColorProperty, value); }
         }
-        public Color OutOfRangeBorderColor
+        public Color InvalidBorderColor
         {
-            get { return (Color)GetValue(OutOfRangeBorderColorProperty); }
-            set { SetValue(OutOfRangeBorderColorProperty, value); }
+            get { return (Color)GetValue(InvalidBorderColorProperty); }
+            set { SetValue(InvalidBorderColorProperty, value); }
         }
-        public ICommand OutOfRangeCommand
+        public ICommand InvalidCommand
         {
-            get { return (ICommand)GetValue(OutOfRangeCommandProperty); }
-            set { SetValue(OutOfRangeCommandProperty, value); }
+            get { return (ICommand)GetValue(InvalidCommandProperty); }
+            set { SetValue(InvalidCommandProperty, value); }
         }
-        public object OutOfRangeCommandParameter
+        public object InvalidCommandParameter
         {
-            get { return (object)GetValue(OutOfRangeCommandParameterProperty); }
-            set { SetValue(OutOfRangeCommandParameterProperty, value); }
+            get { return (object)GetValue(InvalidCommandParameterProperty); }
+            set { SetValue(InvalidCommandParameterProperty, value); }
         }
         public Color SelectedTextColor
         {
@@ -216,13 +216,13 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(IsToday), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
-        public static readonly BindableProperty IsOutOfRangeProperty = BindableProperty.Create(nameof(IsOutOfRange), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsInvalidProperty = BindableProperty.Create(nameof(IsInvalid), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsDayStateCurrentMonthProperty = BindableProperty.Create(nameof(IsDayStateCurrentMonth), typeof(bool), typeof(CalendarDayView), true);
         public static readonly BindableProperty IsDayStateOtherMonthProperty = BindableProperty.Create(nameof(IsDayStateOtherMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsDayStateTodayProperty = BindableProperty.Create(nameof(IsDayStateToday), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsDayStateSelectedProperty = BindableProperty.Create(nameof(IsDayStateSelected), typeof(bool), typeof(CalendarDayView));
-        public static readonly BindableProperty IsDayStateOutOfRangeProperty = BindableProperty.Create(nameof(IsDayStateOutOfRange), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty IsDayStateInvalidProperty = BindableProperty.Create(nameof(IsDayStateInvalid), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(CalendarDayView), Color.Black);
         public static readonly BindableProperty CurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(CurrentMonthBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.Transparent);
         public static readonly BindableProperty CurrentMonthBorderColorProperty = BindableProperty.Create(nameof(CurrentMonthBorderColor), typeof(Color), typeof(CalendarDayView), BorderColorProperty.DefaultValue);
@@ -238,11 +238,11 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty OtherMonthBorderColorProperty = BindableProperty.Create(nameof(OtherMonthBorderColor), typeof(Color), typeof(CalendarDayView), BorderColorProperty.DefaultValue);
         public static readonly BindableProperty OtherMonthCommandProperty = BindableProperty.Create(nameof(OtherMonthCommand), typeof(ICommand), typeof(CalendarDayView));
         public static readonly BindableProperty OtherMonthCommandParameterProperty = BindableProperty.Create(nameof(OtherMonthCommandParameter), typeof(object), typeof(CalendarDayView));
-        public static readonly BindableProperty OutOfRangeTextColorProperty = BindableProperty.Create(nameof(OutOfRangeTextColor), typeof(Color), typeof(CalendarDayView), Color.FromHex("#FFA0A0"));
-        public static readonly BindableProperty OutOfRangeBackgroundColorProperty = BindableProperty.Create(nameof(OutOfRangeBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.Transparent);
-        public static readonly BindableProperty OutOfRangeBorderColorProperty = BindableProperty.Create(nameof(OutOfRangeBorderColor), typeof(Color), typeof(CalendarDayView), BorderColorProperty.DefaultValue);
-        public static readonly BindableProperty OutOfRangeCommandProperty = BindableProperty.Create(nameof(OutOfRangeCommand), typeof(ICommand), typeof(CalendarDayView));
-        public static readonly BindableProperty OutOfRangeCommandParameterProperty = BindableProperty.Create(nameof(OutOfRangeCommandParameter), typeof(object), typeof(CalendarDayView));
+        public static readonly BindableProperty InvalidTextColorProperty = BindableProperty.Create(nameof(InvalidTextColor), typeof(Color), typeof(CalendarDayView), Color.FromHex("#FFA0A0"));
+        public static readonly BindableProperty InvalidBackgroundColorProperty = BindableProperty.Create(nameof(InvalidBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.Transparent);
+        public static readonly BindableProperty InvalidBorderColorProperty = BindableProperty.Create(nameof(InvalidBorderColor), typeof(Color), typeof(CalendarDayView), BorderColorProperty.DefaultValue);
+        public static readonly BindableProperty InvalidCommandProperty = BindableProperty.Create(nameof(InvalidCommand), typeof(ICommand), typeof(CalendarDayView));
+        public static readonly BindableProperty InvalidCommandParameterProperty = BindableProperty.Create(nameof(InvalidCommandParameter), typeof(object), typeof(CalendarDayView));
         public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(CalendarDayView), Color.White);
         public static readonly BindableProperty SelectedBackgroundColorProperty = BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.FromHex("#E00000"));
         public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor), typeof(Color), typeof(CalendarDayView), BorderColorProperty.DefaultValue);
@@ -285,7 +285,7 @@ namespace XCalendar.Forms.Views
         public virtual void UpdateProperties()
         {
             IsCurrentMonth = DateTime != null && IsDateTimeCurrentMonth(DateTime.Value);
-            IsOutOfRange = DateTime != null && IsDateTimeOutOfRange(DateTime.Value);
+            IsInvalid = DateTime != null && IsDateTimeInvalid(DateTime.Value);
             IsSelected = DateTime != null && IsDateTimeSelected(DateTime.Value);
             IsToday = DateTime != null && IsDateTimeToday(DateTime.Value);
         }
@@ -293,14 +293,14 @@ namespace XCalendar.Forms.Views
         {
             bool IsOtherMonth = !IsCurrentMonth;
 
-            if (IsOutOfRange)
+            if (IsInvalid)
             {
-                DayState = DayState.OutOfRange;
-                BackgroundColor = OutOfRangeBackgroundColor;
-                BorderColor = OutOfRangeBorderColor;
-                TextColor = OutOfRangeTextColor;
-                Command = OutOfRangeCommand;
-                CommandParameter = OutOfRangeCommandParameter;
+                DayState = DayState.Invalid;
+                BackgroundColor = InvalidBackgroundColor;
+                BorderColor = InvalidBorderColor;
+                TextColor = InvalidTextColor;
+                Command = InvalidCommand;
+                CommandParameter = InvalidCommandParameter;
             }
             else if (IsSelected && IsCurrentMonth)
             {
@@ -347,9 +347,9 @@ namespace XCalendar.Forms.Views
         {
             return DateTime.Month == CalendarView?.NavigatedDate.Month && DateTime.Year == CalendarView?.NavigatedDate.Year;
         }
-        public virtual bool IsDateTimeOutOfRange(DateTime DateTime)
+        public virtual bool IsDateTimeInvalid(DateTime DateTime)
         {
-            return DateTime.Date < CalendarView?.DayRangeMinimumDate.Date || DateTime.Date > CalendarView?.DayRangeMaximumDate.Date;
+            return DateTime.Date < CalendarView?.NavigationLowerBound.Date || DateTime.Date > CalendarView?.NavigationUpperBound.Date;
         }
         public virtual bool IsDateTimeToday(DateTime DateTime)
         {
@@ -374,7 +374,7 @@ namespace XCalendar.Forms.Views
             Control.IsDayStateOtherMonth = NewDayState == DayState.OtherMonth;
             Control.IsDayStateToday = NewDayState == DayState.Today;
             Control.IsDayStateSelected = NewDayState == DayState.Selected;
-            Control.IsDayStateOutOfRange = NewDayState == DayState.OutOfRange;
+            Control.IsDayStateInvalid = NewDayState == DayState.Invalid;
         }
 
         #region Bindable Properties Methods

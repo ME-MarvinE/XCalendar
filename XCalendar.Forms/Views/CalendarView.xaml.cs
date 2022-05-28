@@ -57,19 +57,19 @@ namespace XCalendar.Forms.Views
         /// The lower bound of the day range.
         /// </summary>
         /// <seealso cref="NavigationLoopMode"/>
-        public DateTime DayRangeMinimumDate
+        public DateTime NavigationLowerBound
         {
-            get { return (DateTime)GetValue(DayRangeMinimumDateProperty); }
-            set { SetValue(DayRangeMinimumDateProperty, value); }
+            get { return (DateTime)GetValue(NavigationLowerBoundProperty); }
+            set { SetValue(NavigationLowerBoundProperty, value); }
         }
         /// <summary>
         /// The upper bound of the day range.
         /// </summary>
         /// <seealso cref="NavigationLoopMode"/>
-        public DateTime DayRangeMaximumDate
+        public DateTime NavigationUpperBound
         {
-            get { return (DateTime)GetValue(DayRangeMaximumDateProperty); }
-            set { SetValue(DayRangeMaximumDateProperty, value); }
+            get { return (DateTime)GetValue(NavigationUpperBoundProperty); }
+            set { SetValue(NavigationUpperBoundProperty, value); }
         }
         /// <summary>
         /// The day of week that should be considered as the start of the week.
@@ -198,7 +198,7 @@ namespace XCalendar.Forms.Views
             set { SetValue(SelectionActionProperty, value); }
         }
         /// <summary>
-        /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="DayRangeMinimumDate"/>, and <see cref="DayRangeMaximumDate"/>.
+        /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="NavigationLowerBound"/>, and <see cref="NavigationUpperBound"/>.
         /// </summary>
         /// <seealso cref="NavigateCalendar(int)"/>
         public NavigationLoopMode NavigationLoopMode
@@ -274,11 +274,6 @@ namespace XCalendar.Forms.Views
             get { return (ReadOnlyObservableCollection<DayOfWeek>)GetValue(StartOfWeekDayNamesOrderProperty); }
             protected set { SetValue(StartOfWeekDayNamesOrderProperty, value); }
         }
-        public bool ClampNavigationToDayRange
-        {
-            get { return (bool)GetValue(ClampNavigationToDayRangeProperty); }
-            set { SetValue(ClampNavigationToDayRangeProperty, value); }
-        }
         /// <summary>
         /// The height of the view used to display the navigated date and navigation controls.
         /// </summary>
@@ -330,8 +325,8 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty RowsProperty = BindableProperty.Create(nameof(Rows), typeof(int), typeof(CalendarView), 6, defaultBindingMode: BindingMode.TwoWay, propertyChanged: RowsPropertyChanged, validateValue: IsRowsValidValue);
         public static readonly BindableProperty AutoRowsProperty = BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsPropertyChanged);
         public static readonly BindableProperty AutoRowsIsConsistentProperty = BindableProperty.Create(nameof(AutoRowsIsConsistent), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsIsConsistentPropertyChanged);
-        public static readonly BindableProperty DayRangeMinimumDateProperty = BindableProperty.Create(nameof(DayRangeMinimumDate), typeof(DateTime), typeof(CalendarView), DateTime.MinValue, propertyChanged: DayRangeMinimumDatePropertyChanged);
-        public static readonly BindableProperty DayRangeMaximumDateProperty = BindableProperty.Create(nameof(DayRangeMaximumDate), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: DayRangeMaximumDatePropertyChanged);
+        public static readonly BindableProperty NavigationLowerBoundProperty = BindableProperty.Create(nameof(NavigationLowerBound), typeof(DateTime), typeof(CalendarView), DateTime.MinValue, propertyChanged: NavigationLowerBoundPropertyChanged);
+        public static readonly BindableProperty NavigationUpperBoundProperty = BindableProperty.Create(nameof(NavigationUpperBound), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: NavigationUpperBoundPropertyChanged);
         public static readonly BindableProperty TodayDateProperty = BindableProperty.Create(nameof(TodayDate), typeof(DateTime), typeof(CalendarView), DateTime.Today, propertyChanged: TodayDatePropertyChanged);
         public static readonly BindableProperty StartOfWeekProperty = BindableProperty.Create(nameof(StartOfWeek), typeof(DayOfWeek), typeof(CalendarView), CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, propertyChanged: StartOfWeekPropertyChanged);
         public static readonly BindableProperty SelectionTypeProperty = BindableProperty.Create(nameof(SelectionType), typeof(SelectionType), typeof(CalendarView), SelectionType.None);
@@ -364,7 +359,6 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty ForwardsNavigationAmountProperty = BindableProperty.Create(nameof(ForwardsNavigationAmount), typeof(int), typeof(CalendarView), 1);
         public static readonly BindableProperty BackwardsNavigationAmountProperty = BindableProperty.Create(nameof(BackwardsNavigationAmount), typeof(int), typeof(CalendarView), -1);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
-        public static readonly BindableProperty ClampNavigationToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigationToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigationToDayRangePropertyChanged);
         public static readonly BindableProperty DayResolverProperty = BindableProperty.Create(nameof(DayResolver), typeof(ICalendarDayResolver), typeof(CalendarView), new DefaultCalendarDayResolver(), propertyChanged: DayResolverPropertyChanged);
         #endregion
 
@@ -644,10 +638,7 @@ namespace XCalendar.Forms.Views
         /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
         public virtual void NavigateCalendar(int Amount)
         {
-            DateTime MinimumDate = ClampNavigationToDayRange ? DayRangeMinimumDate : DateTime.MinValue;
-            DateTime MaximumDate = ClampNavigationToDayRange ? DayRangeMaximumDate : DateTime.MaxValue;
-
-            NavigatedDate = NavigateDateTime(NavigatedDate, MinimumDate, MaximumDate, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateTime(NavigatedDate, NavigationLowerBound, NavigationUpperBound, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
         /// <summary>
         /// Performs navigation on a DateTime.
@@ -788,12 +779,6 @@ namespace XCalendar.Forms.Views
                 Control.Rows = CoercedRows;
             }
         }
-        private static void ClampNavigationToDayRangePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            CalendarView Control = (CalendarView)bindable;
-            Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
-            //Control.CoerceValue(NavigatedDateProperty);
-        }
         private static void TodayDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
@@ -819,12 +804,12 @@ namespace XCalendar.Forms.Views
                 Control.OnMonthViewDaysInvalidated();
             }
         }
-        private static void DayRangeMinimumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void NavigationLowerBoundPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
             Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
         }
-        private static void DayRangeMaximumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void NavigationUpperBoundPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
             Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
@@ -932,8 +917,8 @@ namespace XCalendar.Forms.Views
             DateTime InitialValue = (DateTime)value;
             CalendarView Control = (CalendarView)bindable;
 
-            DateTime MinimumDate = Control.ClampNavigationToDayRange ? Control.DayRangeMinimumDate : DateTime.MinValue;
-            DateTime MaximumDate = Control.ClampNavigationToDayRange ? Control.DayRangeMaximumDate : DateTime.MaxValue;
+            DateTime MinimumDate = Control.NavigationLowerBound;
+            DateTime MaximumDate = Control.NavigationUpperBound;
 
             switch (Control.NavigationLoopMode)
             {

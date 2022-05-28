@@ -166,18 +166,18 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="DayRangeMinDate"
+                                Text="NavigationLowerBound"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding DayRangeMinimumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Date="{Binding NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
@@ -191,37 +191,24 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="DayRangeMaxDate"
+                                Text="NavigationUpperBound"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding DayRangeMaximumDate}"
+                                Date="{Binding NavigationUpperBound}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
                                 MinimumDate="{x:Static System:DateTime.MinValue}"
                                 TextColor="Transparent"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="ClampNavigation&#10;ToDayRange"
-                                VerticalTextAlignment="Center"/>
-                            <Switch
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                IsToggled="{Binding ClampNavigationToDayRange}"/>
                         </Grid>
 
                         <Grid>
@@ -570,12 +557,11 @@
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         BackgroundColor="{StaticResource CalendarBackgroundColor}"
                         BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
-                        ClampNavigationToDayRange="{Binding ClampNavigationToDayRange}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                        DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
-                        DayRangeMinimumDate="{Binding DayRangeMinimumDate}"
+                        NavigationUpperBound="{Binding NavigationUpperBound}"
+                        NavigationLowerBound="{Binding NavigationLowerBound}"
                         ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
@@ -614,7 +600,7 @@
                                                 CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                                 DateTime="{Binding DateTime}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                OutOfRangeTextColor="{StaticResource CalendarTertiaryColor}"
+                                                InvalidTextColor="{StaticResource CalendarTertiaryColor}"
                                                 SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
                                                 TodayBorderColor="{StaticResource CalendarPrimaryColor}"
                                                 TodayTextColor="{StaticResource CalendarBackgroundTextColor}"
@@ -841,7 +827,7 @@
                                                                                         <MultiTrigger.Conditions>
                                                                                             <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True"/>
                                                                                             <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                            <BindingCondition Binding="{Binding IsOutOfRange, Source={RelativeSource TemplatedParent}}" Value="False"/>
+                                                                                            <BindingCondition Binding="{Binding IsInvalid, Source={RelativeSource TemplatedParent}}" Value="False"/>
                                                                                         </MultiTrigger.Conditions>
                                                                                         <Setter Property="BackgroundColor" Value="#00A900"/>
                                                                                     </MultiTrigger>
