@@ -189,11 +189,11 @@
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding DayRangeMaximumDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                         <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding DayRangeMaximumDate}"
+                                Date="{Binding NavigationUpperBound}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
@@ -577,7 +577,7 @@
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
                         DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                        DayRangeMaximumDate="{Binding DayRangeMaximumDate}"
+                        NavigationUpperBound="{Binding NavigationUpperBound}"
                         NavigationLowerBound="{Binding NavigationLowerBound}"
                         ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"

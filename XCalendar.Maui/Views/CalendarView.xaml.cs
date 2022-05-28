@@ -64,10 +64,10 @@ namespace XCalendar.Maui.Views
         /// The upper bound of the day range.
         /// </summary>
         /// <seealso cref="NavigationLoopMode"/>
-        public DateTime DayRangeMaximumDate
+        public DateTime NavigationUpperBound
         {
-            get { return (DateTime)GetValue(DayRangeMaximumDateProperty); }
-            set { SetValue(DayRangeMaximumDateProperty, value); }
+            get { return (DateTime)GetValue(NavigationUpperBoundProperty); }
+            set { SetValue(NavigationUpperBoundProperty, value); }
         }
         /// <summary>
         /// The day of week that should be considered as the start of the week.
@@ -196,7 +196,7 @@ namespace XCalendar.Maui.Views
             set { SetValue(SelectionActionProperty, value); }
         }
         /// <summary>
-        /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="NavigationLowerBound"/>, and <see cref="DayRangeMaximumDate"/>.
+        /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="NavigationLowerBound"/>, and <see cref="NavigationUpperBound"/>.
         /// </summary>
         /// <seealso cref="NavigateCalendar(int)"/>
         public NavigationLoopMode NavigationLoopMode
@@ -324,7 +324,7 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty AutoRowsProperty = BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsPropertyChanged);
         public static readonly BindableProperty AutoRowsIsConsistentProperty = BindableProperty.Create(nameof(AutoRowsIsConsistent), typeof(bool), typeof(CalendarView), true, propertyChanged: AutoRowsIsConsistentPropertyChanged);
         public static readonly BindableProperty NavigationLowerBoundProperty = BindableProperty.Create(nameof(NavigationLowerBound), typeof(DateTime), typeof(CalendarView), DateTime.MinValue, propertyChanged: NavigationLowerBoundPropertyChanged);
-        public static readonly BindableProperty DayRangeMaximumDateProperty = BindableProperty.Create(nameof(DayRangeMaximumDate), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: DayRangeMaximumDatePropertyChanged);
+        public static readonly BindableProperty NavigationUpperBoundProperty = BindableProperty.Create(nameof(NavigationUpperBound), typeof(DateTime), typeof(CalendarView), DateTime.MaxValue, propertyChanged: NavigationUpperBoundPropertyChanged);
         public static readonly BindableProperty TodayDateProperty = BindableProperty.Create(nameof(TodayDate), typeof(DateTime), typeof(CalendarView), DateTime.Today, propertyChanged: TodayDatePropertyChanged);
         public static readonly BindableProperty StartOfWeekProperty = BindableProperty.Create(nameof(StartOfWeek), typeof(DayOfWeek), typeof(CalendarView), CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, propertyChanged: StartOfWeekPropertyChanged);
         public static readonly BindableProperty SelectionTypeProperty = BindableProperty.Create(nameof(SelectionType), typeof(SelectionType), typeof(CalendarView), SelectionType.None);
@@ -636,7 +636,7 @@ namespace XCalendar.Maui.Views
         /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
         public virtual void NavigateCalendar(int Amount)
         {
-            NavigatedDate = NavigateDateTime(NavigatedDate, NavigationLowerBound, DayRangeMaximumDate, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateTime(NavigatedDate, NavigationLowerBound, NavigationUpperBound, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
         }
         /// <summary>
         /// Performs navigation on a DateTime.
@@ -807,7 +807,7 @@ namespace XCalendar.Maui.Views
             CalendarView Control = (CalendarView)bindable;
             Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
         }
-        private static void DayRangeMaximumDatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void NavigationUpperBoundPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
             Control.NavigatedDate = (DateTime)CoerceNavigatedDate(Control, Control.NavigatedDate);
@@ -916,7 +916,7 @@ namespace XCalendar.Maui.Views
             CalendarView Control = (CalendarView)bindable;
 
             DateTime MinimumDate = Control.NavigationLowerBound;
-            DateTime MaximumDate = Control.DayRangeMaximumDate;
+            DateTime MaximumDate = Control.NavigationUpperBound;
 
             switch (Control.NavigationLoopMode)
             {
