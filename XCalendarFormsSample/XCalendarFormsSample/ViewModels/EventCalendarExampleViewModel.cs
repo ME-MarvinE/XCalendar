@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using XCalendar.Core.Interfaces;
 using XCalendarFormsSample.Models;
 
 namespace XCalendarFormsSample.ViewModels
@@ -15,6 +16,7 @@ namespace XCalendarFormsSample.ViewModels
         #region Properties
         public static readonly Random Random = new Random();
         public List<Color> Colors { get; } = new List<Color>() { Color.Red, Color.Orange, Color.Yellow, Color.FromHex("#00A000"), Color.Blue, Color.FromHex("#8010E0") };
+        public EventDayResolver EventDayResolver { get; set; } = new EventDayResolver();
         public ObservableRangeCollection<Event> Events { get; } = new ObservableRangeCollection<Event>()
         {
             new Event() { Title = "Bowling", Description = "Bowling with friends" },
@@ -64,6 +66,8 @@ namespace XCalendarFormsSample.ViewModels
                 Event.DateTime = DateTime.Today.AddDays(Random.Next(-20, 21)).AddSeconds(Random.Next(86400));
                 Event.Color = Colors[Random.Next(6)];
             }
+
+            EventDayResolver.Events = Events;
 
             SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
         }

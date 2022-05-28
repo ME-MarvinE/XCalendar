@@ -365,7 +365,7 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty BackwardsNavigationAmountProperty = BindableProperty.Create(nameof(BackwardsNavigationAmount), typeof(int), typeof(CalendarView), -1);
         public static readonly BindableProperty PageStartModeProperty = BindableProperty.Create(nameof(PageStartMode), typeof(PageStartMode), typeof(CalendarView), PageStartMode.FirstDayOfMonth, propertyChanged: PageStartModePropertyChanged);
         public static readonly BindableProperty ClampNavigationToDayRangeProperty = BindableProperty.Create(nameof(ClampNavigationToDayRange), typeof(bool), typeof(CalendarView), true, propertyChanged: ClampNavigationToDayRangePropertyChanged);
-        public static readonly BindableProperty DayResolverProperty = BindableProperty.Create(nameof(DayResolver), typeof(ICalendarDayResolver), typeof(CalendarView), new DefaultCalendarDayResolver());
+        public static readonly BindableProperty DayResolverProperty = BindableProperty.Create(nameof(DayResolver), typeof(ICalendarDayResolver), typeof(CalendarView), new DefaultCalendarDayResolver(), propertyChanged: DayResolverPropertyChanged);
         #endregion
 
         #endregion
@@ -901,6 +901,18 @@ namespace XCalendar.Forms.Views
                 Control.InvalidateDays();
             }
         }
+        private static void DayResolverPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+
+            ICalendarDayResolver OldDayResolver = (ICalendarDayResolver)oldValue;
+            ICalendarDayResolver NewDayResolver = (ICalendarDayResolver)newValue;
+
+            Control._Days.Clear();
+            Control.UpdateMonthViewDates(Control.NavigatedDate);
+            Control.InvalidateDays();
+        }
+
         private static void PageStartModePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;

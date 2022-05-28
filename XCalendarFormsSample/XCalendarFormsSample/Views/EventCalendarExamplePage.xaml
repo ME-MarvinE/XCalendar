@@ -39,6 +39,7 @@
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
+                DayResolver="{Binding EventDayResolver}"
                 Grid.Row="0"
                 DayNameTextColor="{StaticResource ContentTextColor}"
                 NavigationArrowColor="{StaticResource ContentTextColor}"
@@ -49,7 +50,7 @@
                 SelectionType="Single">
 
                 <xc:CalendarView.DayTemplate>
-                    <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                    <DataTemplate x:DataType="{x:Type Models:EventDay}">
                         <!--  ContentView so that the margin is respected by the MonthView  -->
                         <ContentView>
                             <xc:CalendarDayView
@@ -74,7 +75,7 @@
                                 <xc:CalendarDayView.ControlTemplate>
                                     <ControlTemplate>
                                         <!--  Using a Grid to stack views on the z axis  -->
-                                        <Grid RowSpacing="2">
+                                        <Grid RowSpacing="2" BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}">
 
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="1.5*"/>
@@ -86,12 +87,16 @@
                                                 Grid.Row="0"
                                                 Grid.RowSpan="2"
                                                 VerticalOptions="Center"/>
+                                            
+                                            
 
+                                            <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
                                             <StackLayout
                                                 Grid.Row="1"
                                                 HorizontalOptions="Center"
                                                 Orientation="Horizontal"
-                                                Spacing="2.5">
+                                                Spacing="2.5"
+                                                BindableLayout.ItemsSource="{Binding Events}">
 
                                                 <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
                                                 <StackLayout.IsVisible>
@@ -104,17 +109,6 @@
                                                             Source="{RelativeSource TemplatedParent}"/>
                                                     </MultiBinding>
                                                 </StackLayout.IsVisible>
-
-                                                <BindableLayout.ItemsSource>
-                                                    <Binding Path="DateTime.Date" Source="{RelativeSource TemplatedParent}">
-                                                        <Binding.Converter>
-                                                            <Converters:EventWhereConverter
-                                                                Items="{Binding BindingContext.Events, Source={x:Reference This}}"
-                                                                UseTimeComponent="False"
-                                                                WhiteList="True"/>
-                                                        </Binding.Converter>
-                                                    </Binding>
-                                                </BindableLayout.ItemsSource>
 
                                                 <BindableLayout.ItemTemplate>
                                                     <DataTemplate x:DataType="{x:Type Models:Event}">
