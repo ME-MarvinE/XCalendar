@@ -18,8 +18,11 @@ namespace XCalendar.Core.Models
             }
             set
             {
-                _DateTime = value;
-                OnPropertyChanged();
+                if (_DateTime != value)
+                {
+                    _DateTime = value;
+                    OnPropertyChanged();
+                }
             }
         }
         #endregion
