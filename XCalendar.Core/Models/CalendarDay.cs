@@ -1,8 +1,9 @@
 ﻿using System;
+using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Core.Models
 {
-    public class CalendarDay : BaseObservableModel
+    public class CalendarDay : BaseObservableModel, ICalendarDay
     {
         #region Fields
         private DateTime? _DateTime = System.DateTime.Today;
