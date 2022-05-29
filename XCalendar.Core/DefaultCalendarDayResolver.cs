@@ -6,6 +6,7 @@ namespace XCalendar.Core
 {
     public class DefaultCalendarDayResolver : ICalendarDayResolver
     {
+        #region Methods
         public ICalendarDay CreateDay(DateTime? DateTime)
         {
             CalendarDay Day = new CalendarDay();
@@ -16,5 +17,6 @@ namespace XCalendar.Core
         {
             Day.DateTime = DateTime;
         }
+        #endregion
     }
 }

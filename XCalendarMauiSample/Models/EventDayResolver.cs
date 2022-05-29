@@ -7,7 +7,11 @@ namespace XCalendarMauiSample.Models
 {
     public class EventDayResolver : ICalendarDayResolver
     {
+        #region Properties
         public IEnumerable<Event> Events { get; set; }
+        #endregion
+
+        #region Methods
         public ICalendarDay CreateDay(DateTime? DateTime)
         {
             EventDay EventDay = new EventDay();
@@ -20,5 +24,6 @@ namespace XCalendarMauiSample.Models
             EventDay.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == DateTime?.Date));
             EventDay.DateTime = DateTime;
         }
+        #endregion
     }
 }

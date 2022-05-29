@@ -17,6 +17,7 @@ namespace XCalendarFormsSample.ViewModels
         #region Commands
         public ICommand ShowDatePickerDialogCommand { get; set; }
         #endregion
+
         #region Constructors
         public CustomDatePickerDialogExampleViewModel()
         {
