@@ -8,20 +8,9 @@
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     Title="Examples"
     x:DataType="{x:Type ViewModels:ExamplesViewModel}"
-    xct:SafeAreaEffect.SafeArea="True"
-    BackgroundColor="{StaticResource PageBackgroundColor}"
-    Shell.BackgroundColor="{StaticResource PrimaryColor}"
-    x:Name="MainExamplesPage">
+    x:Name="MainExamplesPage"
+    Style="{StaticResource DefaultPageStyle}">
 
-    <ContentPage.Resources>
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-        </Style>
-
-        <x:Double x:Key="ExamplesTitleFontSize">19</x:Double>
-        <x:Double x:Key="ExamplesDescriptionFontSize">16</x:Double>
-    </ContentPage.Resources>
-    
     <StackLayout Spacing="0">
         
         <SearchBar Text="{Binding SearchText}" BackgroundColor="{StaticResource PrimaryColor}" SearchCommand="{Binding SearchExamplesCommand}" CancelButtonColor="White" TextColor="White"/>

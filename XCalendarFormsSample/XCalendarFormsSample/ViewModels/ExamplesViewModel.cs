@@ -25,6 +25,12 @@ namespace XCalendarFormsSample.ViewModels
                 Page = new CustomDatePickerDialogExamplePage(),
                 Title = "Custom DatePicker Dialog",
                 Description = "A custom DatePicker made using a CalendarView."
+            },
+            new Example()
+            {
+                Page = new SelectionExamplePage(),
+                Title = "Selection Showcase",
+                Description = "Showcase of CalendarView's selection capabilities."
             }
         };
         public ObservableRangeCollection<Example> DisplayedExamples { get; } = new ObservableRangeCollection<Example>();

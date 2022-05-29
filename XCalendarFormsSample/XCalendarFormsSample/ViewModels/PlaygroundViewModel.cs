@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using XCalendar.Core;
 using XCalendar.Core.Enums;
-using XCalendarFormsSample.Popups;
+using XCalendarFormsSample.Helpers;
 
 namespace XCalendarFormsSample.ViewModels
 {
@@ -15,21 +12,6 @@ namespace XCalendarFormsSample.ViewModels
     {
         #region Properties
         public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
-        public List<SelectionType> SelectionTypes { get; set; } = Enum.GetValues(typeof(SelectionType)).Cast<SelectionType>().ToList();
-        public List<SelectionAction> SelectionActions { get; set; } = Enum.GetValues(typeof(SelectionAction)).Cast<SelectionAction>().ToList();
-        public List<PageStartMode> PageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
-        public List<NavigationTimeUnit> NavigationTimeUnits { get; set; } = Enum.GetValues(typeof(NavigationTimeUnit)).Cast<NavigationTimeUnit>().ToList();
-        public List<NavigationLoopMode> NavigationLoopModes { get; set; } = Enum.GetValues(typeof(NavigationLoopMode)).Cast<NavigationLoopMode>().ToList();
-        public List<DayOfWeek> DaysOfWeek { get; set; } = new List<DayOfWeek>()
-        {
-            DayOfWeek.Monday,
-            DayOfWeek.Tuesday,
-            DayOfWeek.Wednesday,
-            DayOfWeek.Thursday,
-            DayOfWeek.Friday,
-            DayOfWeek.Saturday,
-            DayOfWeek.Sunday
-        };
         public DateTime NavigatedDate { get; set; } = DateTime.Today;
         public DateTime NavigationLowerBound { get; set; } = DateTime.Today.AddYears(-2);
         public DateTime NavigationUpperBound { get; set; } = DateTime.Today.AddYears(2);
@@ -90,32 +72,31 @@ namespace XCalendarFormsSample.ViewModels
         #region Methods
         public async void ShowCustomDayNamesOrderDialog()
         {
-            IEnumerable<DayOfWeek> NewCustomDayNamesOrder = (await Shell.Current.ShowPopupAsync(new ConstructListDialogPopup(CustomDayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
-            CustomDayNamesOrder.ReplaceRange(NewCustomDayNamesOrder);
+            CustomDayNamesOrder.ReplaceRange(await PopupHelper.ShowCustomDayNamesOrderDialog(CustomDayNamesOrder));
         }
         public async void ShowSelectionActionDialog()
         {
-            SelectionAction = (SelectionAction)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionAction, SelectionActions));
+            SelectionAction = await PopupHelper.ShowSelectionActionDialog(SelectionAction);
         }
         public async void ShowNavigationTimeUnitDialog()
         {
-            NavigationTimeUnit = (NavigationTimeUnit)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(NavigationTimeUnit, NavigationTimeUnits));
+            NavigationTimeUnit = await PopupHelper.ShowNavigationTimeUnitDialog(NavigationTimeUnit);
         }
         public async void ShowNavigationLoopModeDialog()
         {
-            NavigationLoopMode = (NavigationLoopMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(NavigationLoopMode, NavigationLoopModes));
+            NavigationLoopMode = await PopupHelper.ShowNavigationLoopModeDialog(NavigationLoopMode);
         }
         public async void ShowPageStartModeDialog()
         {
-            PageStartMode = (PageStartMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(PageStartMode, PageStartModes));
+            PageStartMode = await PopupHelper.ShowPageStartModeDialog(PageStartMode);
         }
         public async void ShowStartOfWeekDialog()
         {
-            StartOfWeek = (DayOfWeek)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(StartOfWeek, DaysOfWeek));
+            StartOfWeek = await PopupHelper.ShowStartOfWeekDialog(StartOfWeek);
         }
         public async void ShowSelectionTypeDialog()
         {
-            SelectionType = (SelectionType)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionType, SelectionTypes));
+            SelectionType = await PopupHelper.ShowSelectionTypeDialog(SelectionType);
         }
         #endregion
     }

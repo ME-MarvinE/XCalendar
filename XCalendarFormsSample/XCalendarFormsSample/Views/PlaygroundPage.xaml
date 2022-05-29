@@ -3,54 +3,18 @@
     x:Class="XCalendarFormsSample.Views.PlaygroundPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
-    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
-    xmlns:System="clr-namespace:System;assembly=System.Runtime"
-    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
-    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
+    xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     x:Name="This"
     Title="Playground"
     x:DataType="{x:Type ViewModels:PlaygroundViewModel}"
-    xct:SafeAreaEffect.SafeArea="True"
-    BackgroundColor="{StaticResource PageBackgroundColor}"
-    Shell.BackgroundColor="#2070FF">
+    Style="{StaticResource DefaultPageStyle}">
 
     <ContentPage.Resources>
-
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-        </Style>
-
-        <Style TargetType="{x:Type Entry}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-        </Style>
-
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-            <Setter Property="AutoSize" Value="TextChanges"/>
-        </Style>
-
-        <Style TargetType="{x:Type Picker}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-        </Style>
-
-        <Style TargetType="{x:Type Switch}">
-            <Setter Property="OnColor" Value="{StaticResource PrimaryColor}"/>
-            <Setter Property="ThumbColor" Value="#EEEEEF"/>
-        </Style>
-
-        <Style TargetType="{x:Type Grid}">
-            <Setter Property="ColumnSpacing" Value="0"/>
-            <Setter Property="RowSpacing" Value="0"/>
-        </Style>
-
-        <System:Boolean x:Key="TrueValue">True</System:Boolean>
-        <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
         <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
 
@@ -253,7 +217,7 @@
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding SelectionType}"
-                                TextColor="#0080E0"
+                                TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"/>
                         </Grid>
 
@@ -271,7 +235,7 @@
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding SelectionAction}"
-                                TextColor="#0080E0"
+                                TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"/>
                         </Grid>
 
@@ -319,7 +283,7 @@
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding NavigationTimeUnit}"
-                                TextColor="#0080E0"
+                                TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"/>
                         </Grid>
 
@@ -337,7 +301,7 @@
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding NavigationLoopMode}"
-                                TextColor="#0080E0"
+                                TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"
                                 WidthRequest="125"/>
                         </Grid>
@@ -356,7 +320,7 @@
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding PageStartMode}"
-                                TextColor="#0080E0"
+                                TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"/>
                         </Grid>
 
@@ -374,7 +338,7 @@
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding StartOfWeek}"
-                                TextColor="#0080E0"
+                                TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"/>
                         </Grid>
 
@@ -392,7 +356,7 @@
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="Edit"
-                                TextColor="#0080E0"
+                                TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"/>
                         </Grid>
 
