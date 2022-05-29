@@ -10,7 +10,7 @@
     x:DataType="{x:Type ViewModels:ExamplesViewModel}"
     BackgroundColor="{StaticResource PageBackgroundColor}"
     Shell.BackgroundColor="{StaticResource PrimaryColor}"
-    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    x:Name="MainExamplesPage">
 
     <ContentPage.Resources>
         <Style TargetType="{x:Type Label}">
