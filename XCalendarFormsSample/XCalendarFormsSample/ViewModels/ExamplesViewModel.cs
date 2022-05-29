@@ -1,38 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PropertyChanged;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using XCalendarFormsSample.Models;
 using XCalendarFormsSample.Views;
 
 namespace XCalendarFormsSample.ViewModels
 {
     public class ExamplesViewModel : BaseViewModel
     {
+        #region Properties
+        public ObservableRangeCollection<Example> Examples { get; } = new ObservableRangeCollection<Example>()
+        {
+            new Example()
+            {
+                Page = new EventCalendarExamplePage(),
+                Title = "Event Calendar",
+                Description = "Uses indicators to show events for a certain day."
+            },
+            new Example()
+            {
+                Page = new CustomDatePickerDialogExamplePage(),
+                Title = "Custom DatePicker Dialog",
+                Description = "A custom DatePicker made using a CalendarView."
+            }
+        };
+        public ObservableRangeCollection<Example> DisplayedExamples { get; } = new ObservableRangeCollection<Example>();
+        [OnChangedMethod(nameof(OnSearchTextChanged))]
+        public string SearchText { get; set; }
+        #endregion
+
         #region Commands
-        public ICommand ShowEventCalendarExampleCommand { get; set; }
-        public ICommand ShowCustomDatePickerDialogExampleCommand { get; set; }
+        public ICommand SearchExamplesCommand { get; set; }
+        public ICommand ShowPageCommand { get; set; }
         #endregion
 
         #region Constructors
         public ExamplesViewModel()
         {
-            ShowEventCalendarExampleCommand = new Command(async () => await ShowEventCalendarExample());
-            ShowCustomDatePickerDialogExampleCommand = new Command(async () => await ShowCustomDatePickerDialogExample());
+            SearchExamplesCommand = new Command(SearchExamples);
+            ShowPageCommand = new Command<Page>(async(Page Page) => await ShowPage(Page));
+            SearchExamples();
         }
         #endregion
 
         #region Methods
-        public async Task ShowEventCalendarExample()
+        private void OnSearchTextChanged()
         {
-            await Shell.Current.Navigation.PushAsync(new EventCalendarExamplePage());
+            SearchExamples();
         }
-        public async Task ShowCustomDatePickerDialogExample()
+        public void SearchExamples()
         {
-            await Shell.Current.Navigation.PushAsync(new CustomDatePickerDialogExamplePage());
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                DisplayedExamples.ReplaceRange(Examples);
+            }
+            else
+            {
+                DisplayedExamples.ReplaceRange(Examples.Where(x => x.Title.ToLower().Contains(SearchText.ToLower())));
+            }
         }
-        
+        public async Task ShowPage(Page Page)
+        {
+            await Shell.Current.Navigation.PushAsync(Page);
+        }
         #endregion
     }
 }

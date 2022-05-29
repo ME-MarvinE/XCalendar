@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
+    xmlns:Models="clr-namespace:XCalendarMauiSample.Models"
     Title="Examples"
     x:DataType="{x:Type ViewModels:ExamplesViewModel}"
     BackgroundColor="{StaticResource PageBackgroundColor}"
@@ -20,29 +21,38 @@
         <x:Double x:Key="ExamplesDescriptionFontSize">16</x:Double>
     </ContentPage.Resources>
 
-    <ScrollView VerticalScrollBarVisibility="Never">
-        <VerticalStackLayout Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
+    <StackLayout Spacing="0">
 
-            <VerticalStackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowEventCalendarExampleCommand}"/>
-                </VerticalStackLayout.GestureRecognizers>
-                <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="Event Calendar" TextColor="{StaticResource ContentTextColor}"/>
-                <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="Uses indicators to show events for a certain day."/>
-            </VerticalStackLayout>
+        <SearchBar Text="{Binding SearchText}" BackgroundColor="{StaticResource PrimaryColor}" SearchCommand="{Binding SearchExamplesCommand}" CancelButtonColor="White" TextColor="White"/>
 
-            <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
+        <CollectionView ItemsSource="{Binding DisplayedExamples}">
 
-            <VerticalStackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ShowCustomDatePickerDialogExampleCommand}"/>
-                </VerticalStackLayout.GestureRecognizers>
-                <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="Custom DatePicker Dialog" TextColor="{StaticResource ContentTextColor}"/>
-                <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="A custom DatePicker dialog."/>
-            </VerticalStackLayout>
+            <CollectionView.EmptyView>
+                <Label Text="No Search Results" FontSize="24" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            </CollectionView.EmptyView>
 
-            <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
-        </VerticalStackLayout>
-    </ScrollView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type Models:Example}">
+                    <StackLayout Spacing="0">
+                        <StackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+                            
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.ShowPageCommand, Source={x:Reference MainExamplesPage}}" CommandParameter="{Binding Page}"/>
+                            </StackLayout.GestureRecognizers>
+                            
+                            <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="{Binding Title}" TextColor="{StaticResource ContentTextColor}"/>
+                            <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="{Binding Description}"/>
+                        </StackLayout>
+
+                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+    </StackLayout>
 
 </ContentPage>
