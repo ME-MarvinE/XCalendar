@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Authors>MarvinE</Authors>
     <Description>A package providing core components for XCalendar</Description>
     <PackageIcon>XCalendar Nuget Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile></PackageReadmeFile>
     <PackageTags>csharp; dotnet; cross-platform; calendar;</PackageTags>
     <AssemblyVersion></AssemblyVersion>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
@@ -15,10 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
     <None Include="..\XCalendar Nuget Icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
