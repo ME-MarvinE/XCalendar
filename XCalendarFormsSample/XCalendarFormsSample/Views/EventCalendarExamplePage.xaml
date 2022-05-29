@@ -29,12 +29,13 @@
 
         <Frame
             Margin="10"
-            Padding="0"
+            Padding="10"
             BackgroundColor="{StaticResource ContentBackgroundColor}"
             CornerRadius="15">
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
+                Style="{StaticResource DefaultCalendarViewStyle}"
                 Grid.Row="0"
                 DayResolver="{Binding EventDayResolver}"
                 DayNameTextColor="{StaticResource ContentTextColor}"
@@ -50,15 +51,12 @@
                         <!--  ContentView so that the margin is respected by the MonthView  -->
                         <ContentView>
                             <xc:CalendarDayView
+                                Style="{StaticResource DefaultDayViewStyle}"
                                 Margin="2.5"
-                                HeightRequest="43"
+                                HeightRequest="41"
                                 CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
-                                CurrentMonthTextColor="{StaticResource CalendarBackgroundTextColor}"
                                 DateTime="{Binding DateTime}"
-                                InvalidTextColor="{StaticResource CalendarTertiaryColor}"
-                                SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
-                                TodayBorderColor="{StaticResource CalendarPrimaryColor}"
-                                TodayTextColor="{StaticResource CalendarBackgroundTextColor}">
+                                >
 
                                 <!--
                                     Setting ControlTemplate instead of using a StackLayout with views inside because I don't require different parts of the view

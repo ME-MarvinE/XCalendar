@@ -3,11 +3,15 @@
     x:Class="XCalendarFormsSample.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core">
     
     <Application.Resources>
-        <Color x:Key="PrimaryColor">#2070FF</Color>
+        <Color x:Key="PrimaryColor">#2060FF</Color>
         <Color x:Key="TertiaryColor">#A0A0FF</Color>
+        <!--<Color x:Key="PrimaryColor">#E00000</Color>
+        <Color x:Key="TertiaryColor">#FFA0A0</Color>-->
         <Color x:Key="SeparatorColor">#E0E0E0</Color>
         <Color x:Key="OutlineColor">#B0B0B0</Color>
 
@@ -36,14 +40,26 @@
         <x:Boolean x:Key="TrueValue">True</x:Boolean>
         <x:Boolean x:Key="FalseValue">False</x:Boolean>
 
+        <Style TargetType="{x:Type xc:CalendarView}" x:Key="DefaultCalendarViewStyle">
+            <Setter Property="NavigationBackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="NavigationArrowColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+            <Setter Property="NavigationTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource CalendarBackgroundColor}"/>
+        </Style>
+
+        <Style TargetType="{x:Type xc:CalendarDayView}" x:Key="DefaultDayViewStyle">
+            <Setter Property="CurrentMonthTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
+            <Setter Property="TodayTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
+            <Setter Property="TodayBorderColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="InvalidTextColor" Value="{StaticResource CalendarTertiaryColor}"/>
+            <Setter Property="SelectedBackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="SelectedTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+        </Style>
+
         <Style TargetType="{x:Type ContentPage}" x:Key="DefaultPageStyle">
             <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}"/>
             <Setter Property="xct:SafeAreaEffect.SafeArea" Value="True"/>
             <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryColor}"/>
-        </Style>
-
-        <Style TargetType="{x:Type ContentPage}" x:Key="DefaultCalendarViewStyle">
-            <Setter Property="BackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
         </Style>
 
         <Style TargetType="{x:Type Label}">

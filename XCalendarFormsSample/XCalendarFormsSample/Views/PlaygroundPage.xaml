@@ -45,7 +45,7 @@
     <StackLayout Spacing="0">
         <Frame
             Padding="5"
-            BackgroundColor="#2070FF"
+            BackgroundColor="{StaticResource PrimaryColor}"
             CornerRadius="0">
             <Label
                 FontSize="14"
@@ -519,21 +519,16 @@
                         DayResolver="{Binding DayResolver}"
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
-                        BackgroundColor="{StaticResource CalendarBackgroundColor}"
                         BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
-                        DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         NavigationUpperBound="{Binding NavigationUpperBound}"
                         NavigationLowerBound="{Binding NavigationLowerBound}"
                         ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
-                        NavigationArrowColor="{StaticResource CalendarPrimaryTextColor}"
-                        NavigationBackgroundColor="{StaticResource CalendarPrimaryColor}"
                         NavigationHeightRequest="{Binding NavigationHeightRequest}"
                         NavigationLoopMode="{Binding NavigationLoopMode}"
-                        NavigationTextColor="{StaticResource CalendarPrimaryTextColor}"
                         NavigationTimeUnit="{Binding NavigationTimeUnit}"
                         PageStartMode="{Binding PageStartMode}"
                         Rows="{Binding Rows}"
@@ -545,7 +540,7 @@
                         UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
 
                         <xc:CalendarView.Style>
-                            <Style TargetType="{x:Type xc:CalendarView}">
+                            <Style TargetType="{x:Type xc:CalendarView}" BasedOn="{StaticResource DefaultCalendarViewStyle}">
 
                                 <Setter Property="NavigationTemplate">
                                     <ControlTemplate>
@@ -559,15 +554,11 @@
                                     <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                                         <ContentView>
                                             <xc:CalendarDayView
+                                                Style="{StaticResource DefaultDayViewStyle}"
                                                 Margin="2.5"
                                                 CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
-                                                CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                                 DateTime="{Binding DateTime}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                InvalidTextColor="{StaticResource CalendarTertiaryColor}"
-                                                SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
-                                                TodayBorderColor="{StaticResource CalendarPrimaryColor}"
-                                                TodayTextColor="{StaticResource CalendarBackgroundTextColor}"
                                                 WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
                                         </ContentView>
                                     </DataTemplate>
@@ -761,6 +752,7 @@
                                             <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                                                 <ContentView>
                                                     <xc:CalendarDayView
+                                                        Style="{StaticResource DefaultDayViewStyle}"
                                                         Margin="2.5"
                                                         CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
                                                         DateTime="{Binding DateTime}"
