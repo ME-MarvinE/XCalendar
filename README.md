@@ -59,5 +59,13 @@ xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XCalendarMauiSample.Views.PlaygroundPage"
+    xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
+
+    <xcViews:CalendarView/>
+
+</ContentPage>
+```
+
 ## Wiki
 View guides and a full list of available properties on the [Wiki](https://github.com/ME-MarvinE/XCalendar/wiki).
