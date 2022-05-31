@@ -21,21 +21,17 @@ Take a look at the sample app, it has a page where you can modify every single n
 
 ## Usage
 
-### Install the NuGet package depending on your target platform
-  * https://www.nuget.org/packages/XCalendar.Forms/
-  * https://www.nuget.org/packages/XCalendar.Maui/
-  
-### Add the following xmlns to your page
-#### Forms
+### Xamarin Forms
+
+#### Install the NuGet package
+* https://www.nuget.org/packages/XCalendar.Forms/
+
+#### Add the following xmlns to your page or view
 ```xaml
 xmlns:xcViews="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
 ```
-#### Maui
-```xaml
-xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
-```
-### Now you can start using the CalendarView
-#### Forms
+
+#### Now you can start using the CalendarView
 ```xaml
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -47,21 +43,21 @@ xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
 
 </ContentPage>
 ```
-#### Maui
+
+### .NET MAUI
+
+#### Install the NuGet package
+* https://www.nuget.org/packages/XCalendar.Maui/
+
+#### Add the following xmlns to your page or view
+```xaml
+xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
+```
+
+#### Now you can start using the CalendarView
 ```xaml
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="XCalendarMauiSample.Views.PlaygroundPage"
-    xmlns:xcViews="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
-
-    <xcViews:CalendarView/>
-
-</ContentPage>
-```
 ## Wiki
 View guides and a full list of available properties on the [Wiki](https://github.com/ME-MarvinE/XCalendar/wiki).
-
-## MAUI
-I plan to get this into the MAUI Community Toolkit.
-Follow the discussion [here](https://github.com/CommunityToolkit/Maui/discussions/265).
