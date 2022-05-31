@@ -1,7 +1,5 @@
 # XCalendar
 
-## Notice: The wiki is outdated. It is currently on version 2.1.0
-
 A plugin for Xamarin Forms and .NET MAUI providing a completely customisable calendar control with complex functionality.
 
 Features include:
