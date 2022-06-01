@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+             x:Class="XCalendarFormsSample.Views.UsingCalendarDayViewExamplePage"
+             xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
+             xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+             x:DataType="{x:Type ViewModels:UsingCalendarDayViewExampleViewModel}"
+             Title="Using CalendarDayView"
+             Shell.BackgroundColor="{StaticResource PrimaryColor}">
+
+    <ScrollView>
+        <StackLayout Spacing="0">
+
+            <xc:CalendarView MonthViewHeightRequest="320" x:Name="MainCalendarView" NavigatedDate="{Binding NavigatedDate}" SelectionType="Single" SelectionAction="Replace" SelectedDates="{Binding SelectedDates}">
+                <xc:CalendarView.DayTemplate>
+                    <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
+                        <ContentView>
+                            <!-- Inside the CalendarView -->
+                            <xc:CalendarDayView
+                            HeightRequest="47"
+                            Margin="2.5"
+                            CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                            DateTime="{Binding DateTime}"/>
+                        </ContentView>
+                    </DataTemplate>
+                </xc:CalendarView.DayTemplate>
+            </xc:CalendarView>
+
+            <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
+
+            <Label Text="Navigated Date" FontSize="{StaticResource MediumFontSize}" TextColor="{StaticResource PageTextColor}" HorizontalTextAlignment="Center"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <!-- Outside the CalendarView -->
+                <xc:CalendarDayView
+                    HeightRequest="47"
+                    Margin="0,5,0,5"
+                    CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                    DateTime="{Binding NavigatedDate}"/>
+                <DatePicker Format="/MM/yyy" Date="{Binding NavigatedDate}"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

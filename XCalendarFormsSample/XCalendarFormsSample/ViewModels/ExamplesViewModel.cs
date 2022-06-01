@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using XCalendar.Forms.Views;
 using XCalendarFormsSample.Models;
 using XCalendarFormsSample.Views;
 
@@ -24,13 +25,19 @@ namespace XCalendarFormsSample.ViewModels
             {
                 Page = new CustomDatePickerDialogExamplePage(),
                 Title = "Custom DatePicker Dialog",
-                Description = "A custom DatePicker made using a CalendarView."
+                Description = $"A custom DatePicker made using a {nameof(CalendarView)}."
             },
             new Example()
             {
                 Page = new SelectionExamplePage(),
-                Title = "Selection Showcase",
-                Description = "Showcase of CalendarView's selection capabilities."
+                Title = "Date Selection",
+                Description = $"Showcase of {nameof(CalendarView)}'s selection capabilities."
+            },
+            new Example()
+            {
+                Page = new UsingCalendarDayViewExamplePage(),
+                Title = $"Using {nameof(CalendarDayView)}",
+                Description = $"How to use the {nameof(CalendarDayView)} control."
             }
         };
         public ObservableRangeCollection<Example> DisplayedExamples { get; } = new ObservableRangeCollection<Example>();
