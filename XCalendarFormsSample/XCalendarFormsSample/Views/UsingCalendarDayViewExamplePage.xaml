@@ -18,10 +18,10 @@
                         <ContentView>
                             <!-- Inside the CalendarView -->
                             <xc:CalendarDayView
-                            HeightRequest="47"
-                            Margin="2.5"
-                            CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
-                            DateTime="{Binding DateTime}"/>
+                                HeightRequest="47"
+                                Margin="2.5"
+                                CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                DateTime="{Binding DateTime}"/>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
@@ -31,13 +31,16 @@
 
             <Label Text="Navigated Date" FontSize="{StaticResource MediumFontSize}" TextColor="{StaticResource PageTextColor}" HorizontalTextAlignment="Center"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                
                 <!-- Outside the CalendarView -->
                 <xc:CalendarDayView
                     HeightRequest="47"
                     Margin="0,5,0,5"
                     CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
                     DateTime="{Binding NavigatedDate}"/>
+                
                 <DatePicker Format="/MM/yyy" Date="{Binding NavigatedDate}"/>
+                
             </StackLayout>
 
         </StackLayout>

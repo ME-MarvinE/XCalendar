@@ -1,4 +1,5 @@
 ﻿using PropertyChanged;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,7 +20,13 @@ namespace XCalendarFormsSample.ViewModels
             {
                 Page = new EventCalendarExamplePage(),
                 Title = "Event Calendar",
-                Description = "Uses indicators to show events for a certain day."
+                Description = "Uses indicators to show events for a certain day.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "ICalendarDay" },
+                    new Tag() { Title = "ICalendarDayResolver" },
+                    new Tag() { Title = "DayResolver" }
+                }
             },
             new Example()
             {
@@ -37,7 +44,11 @@ namespace XCalendarFormsSample.ViewModels
             {
                 Page = new UsingCalendarDayViewExamplePage(),
                 Title = $"Using {nameof(CalendarDayView)}",
-                Description = $"How to use the {nameof(CalendarDayView)} control."
+                Description = $"How to use the {nameof(CalendarDayView)} control.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "DayTemplate" }
+                }
             }
         };
         public ObservableRangeCollection<Example> DisplayedExamples { get; } = new ObservableRangeCollection<Example>();
@@ -66,13 +77,15 @@ namespace XCalendarFormsSample.ViewModels
         }
         public void SearchExamples()
         {
+            bool SearchTags = true;
+
             if (string.IsNullOrWhiteSpace(SearchText))
             {
                 DisplayedExamples.ReplaceRange(Examples);
             }
             else
             {
-                DisplayedExamples.ReplaceRange(Examples.Where(x => x.Title.ToLower().Contains(SearchText.ToLower())));
+                DisplayedExamples.ReplaceRange(Examples.Where(x => x.Title.ToLower().Contains(SearchText.ToLower()) || (SearchTags && x.Tags.Any(Tag => Tag.Title.ToLower().Contains(SearchText.ToLower())))));
             }
         }
         public async Task ShowPage(Page Page)
