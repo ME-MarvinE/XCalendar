@@ -2,7 +2,7 @@
 
 A plugin for Xamarin Forms and .NET MAUI providing a completely customisable calendar control with complex functionality.  
 
-* **[Getting Started](https://github.com/ME-MarvinE/XCalendar/wiki/Usage)**
+* **[Getting Started](https://github.com/ME-MarvinE/XCalendar/wiki/Getting-Started)**
 * **[Sample App](https://github.com/ME-MarvinE/XCalendar/wiki/Sample-App)**
 * **[Wiki](https://github.com/ME-MarvinE/XCalendar/wiki)**
 
