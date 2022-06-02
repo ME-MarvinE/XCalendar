@@ -43,7 +43,6 @@ namespace XCalendarFormsSample.ViewModels
         public double NavigationHeightRequest { get; set; } = 40;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
-        public DefaultCalendarDayResolver DayResolver { get; } = new DefaultCalendarDayResolver();
         #endregion
 
         #region Commands
