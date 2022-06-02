@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using CommunityToolkit.Maui.Views;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
-using XCalendar.Forms.Enums;
-using XCalendarFormsSample.Helpers;
-using XCalendarFormsSample.Popups;
+using XCalendar.Maui.Enums;
+using XCalendarMauiSample.Helpers;
+using XCalendarMauiSample.Popups;
 
-namespace XCalendarFormsSample.ViewModels
+namespace XCalendarMauiSample.ViewModels
 {
     public class SelectionExampleViewModel : BaseViewModel
     {

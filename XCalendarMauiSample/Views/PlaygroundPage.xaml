@@ -3,55 +3,19 @@
     x:Class="XCalendarMauiSample.Views.PlaygroundPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
-    xmlns:xcEnums="clr-namespace:XCalendar.Maui.Enums;assembly=XCalendar.Maui"
-    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
-    xmlns:System="clr-namespace:System;assembly=System.Runtime"
-    xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
-    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
+    xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
+    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
+    xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="This"
     Title="Playground"
     x:DataType="{x:Type ViewModels:PlaygroundViewModel}"
-    Shell.BackgroundColor="{StaticResource PrimaryColor}"
-    BackgroundColor="{StaticResource PageBackgroundColor}">
+    Style="{StaticResource DefaultPageStyle}">
 
     <ContentPage.Resources>
-
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-        </Style>
-
-        <Style TargetType="{x:Type Entry}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-        </Style>
-
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-            <Setter Property="AutoSize" Value="TextChanges"/>
-        </Style>
-
-        <Style TargetType="{x:Type Picker}">
-            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
-            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-        </Style>
-
-        <Style TargetType="{x:Type Switch}">
-            <Setter Property="OnColor" Value="{StaticResource PrimaryColor}"/>
-            <Setter Property="ThumbColor" Value="#EEEEEF"/>
-        </Style>
-
-        <Style TargetType="{x:Type Grid}">
-            <Setter Property="ColumnSpacing" Value="0"/>
-            <Setter Property="RowSpacing" Value="0"/>
-        </Style>
-
-        <System:Boolean x:Key="TrueValue">True</System:Boolean>
-        <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
 
@@ -85,75 +49,83 @@
         <Label
             Padding="5"
             FontSize="14"
-            BackgroundColor="#2070FF"
+            BackgroundColor="{StaticResource PrimaryColor}"
             HorizontalTextAlignment="Center"
             Text="Swipe Page To View Calendar"
             TextColor="{StaticResource PrimaryTextColor}"
             VerticalTextAlignment="Center"/>
 
-        <ScrollView HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always" Orientation="Both">
-            <HorizontalStackLayout Spacing="0">
-                
-                <VerticalStackLayout Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
+        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+            <Grid
+                ColumnDefinitions="*,1,*"
+                ColumnSpacing="0"
+                RowSpacing="0">
 
-                    <VerticalStackLayout.Resources>
-                        <Style CanCascade="True" TargetType="{x:Type Grid}">
-                            <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
-                            <Setter Property="HeightRequest" Value="50"/>
-                        </Style>
-                    </VerticalStackLayout.Resources>
+                <ScrollView
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource ContentBackgroundColor}"
+                    Orientation="Vertical"
+                    VerticalScrollBarVisibility="Always">
+                    <VerticalStackLayout Spacing="0">
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="NavigatedDate"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            AutoSize="TextChanges"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalOptions="Center"
-                            Text="{Binding NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                            VerticalOptions="End"/>
-                        <DatePicker
-                            Grid.Column="1"
-                            Date="{Binding NavigatedDate}"
-                            FontSize="{StaticResource SmallFontSize}"
-                            Format="ddd, MMM d yyy"
-                            HorizontalOptions="Center"
-                            MaximumDate="{x:Static System:DateTime.MaxValue}"
-                            MinimumDate="{x:Static System:DateTime.MinValue}"
-                            TextColor="Transparent"/>
-                    </Grid>
+                        <VerticalStackLayout.Resources>
+                            <Style CanCascade="True" TargetType="{x:Type Grid}">
+                                <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
+                                <Setter Property="HeightRequest" Value="50"/>
+                            </Style>
+                        </VerticalStackLayout.Resources>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="TodayDate"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            AutoSize="TextChanges"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalOptions="Center"
-                            Text="{Binding TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                            VerticalOptions="End"/>
-                        <DatePicker
-                            Grid.Column="1"
-                            Date="{Binding TodayDate}"
-                            FontSize="{StaticResource SmallFontSize}"
-                            Format="ddd, MMM d yyy"
-                            HorizontalOptions="Center"
-                            MaximumDate="{x:Static System:DateTime.MaxValue}"
-                            MinimumDate="{x:Static System:DateTime.MinValue}"
-                            TextColor="Transparent"/>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="NavigatedDate"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                AutoSize="TextChanges"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalOptions="Center"
+                                Text="{Binding NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                VerticalOptions="End"/>
+                            <DatePicker
+                                Grid.Column="1"
+                                Date="{Binding NavigatedDate}"
+                                FontSize="{StaticResource SmallFontSize}"
+                                Format="ddd, MMM d yyy"
+                                HorizontalOptions="Center"
+                                MaximumDate="{x:Static System:DateTime.MaxValue}"
+                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                TextColor="Transparent"/>
+                        </Grid>
 
-                    <Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="TodayDate"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                AutoSize="TextChanges"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalOptions="Center"
+                                Text="{Binding TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                VerticalOptions="End"/>
+                            <DatePicker
+                                Grid.Column="1"
+                                Date="{Binding TodayDate}"
+                                FontSize="{StaticResource SmallFontSize}"
+                                Format="ddd, MMM d yyy"
+                                HorizontalOptions="Center"
+                                MaximumDate="{x:Static System:DateTime.MaxValue}"
+                                MinimumDate="{x:Static System:DateTime.MinValue}"
+                                TextColor="Transparent"/>
+                        </Grid>
+
+                        <Grid>
                             <Label
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
@@ -178,21 +150,21 @@
                                 TextColor="Transparent"/>
                         </Grid>
 
-                    <Grid>
-                        <Label
+                        <Grid>
+                            <Label
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="NavigationUpperBound"
                                 VerticalTextAlignment="Center"/>
-                        <Editor
+                            <Editor
                                 Grid.Column="1"
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
                                 Text="{Binding NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
-                        <DatePicker
+                            <DatePicker
                                 Grid.Column="1"
                                 Date="{Binding NavigationUpperBound}"
                                 FontSize="{StaticResource SmallFontSize}"
@@ -201,9 +173,9 @@
                                 MaximumDate="{x:Static System:DateTime.MaxValue}"
                                 MinimumDate="{x:Static System:DateTime.MinValue}"
                                 TextColor="Transparent"/>
-                    </Grid>
+                        </Grid>
 
-                    <Grid>
+                        <Grid>
                             <Label
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
@@ -231,338 +203,339 @@
                             </CollectionView>
                         </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="SelectionType"
-                            VerticalTextAlignment="Center"/>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding SelectionType}"
-                            TextColor="#0080E0"
-                            VerticalTextAlignment="Center">
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="SelectionType"
+                                VerticalTextAlignment="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding SelectionType}"
+                                TextColor="{StaticResource TappableSettingTextColor}"
+                                VerticalTextAlignment="Center">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                        </Grid>
 
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
-                            </Label.GestureRecognizers>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="SelectionAction"
+                                VerticalTextAlignment="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding SelectionAction}"
+                                TextColor="{StaticResource TappableSettingTextColor}"
+                                VerticalTextAlignment="Center">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                        </Grid>
 
-                        </Label>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="Forwards&#10;NavigationAmount"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding ForwardsNavigationAmount}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="SelectionAction"
-                            VerticalTextAlignment="Center"/>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding SelectionAction}"
-                            TextColor="#0080E0"
-                            VerticalTextAlignment="Center">
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="Backwards&#10;NavigationAmount"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding BackwardsNavigationAmount}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
-                            </Label.GestureRecognizers>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="NavigationTimeUnit"
+                                VerticalTextAlignment="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding NavigationTimeUnit}"
+                                TextColor="{StaticResource TappableSettingTextColor}"
+                                VerticalTextAlignment="Center">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                        </Grid>
 
-                        </Label>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="NavigationLoopMode"
+                                VerticalTextAlignment="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding NavigationLoopMode}"
+                                TextColor="{StaticResource TappableSettingTextColor}"
+                                VerticalTextAlignment="Center"
+                                WidthRequest="125">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                        </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="Forwards&#10;NavigationAmount"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding ForwardsNavigationAmount}"
-                            VerticalOptions="End"/>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="PageStartMode"
+                                VerticalTextAlignment="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding PageStartMode}"
+                                TextColor="{StaticResource TappableSettingTextColor}"
+                                VerticalTextAlignment="Center">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowPageStartModeDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                        </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="Backwards&#10;NavigationAmount"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding BackwardsNavigationAmount}"
-                            VerticalOptions="End"/>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="StartOfWeek"
+                                VerticalTextAlignment="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding StartOfWeek}"
+                                TextColor="{StaticResource TappableSettingTextColor}"
+                                VerticalTextAlignment="Center">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowStartOfWeekDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                        </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="NavigationTimeUnit"
-                            VerticalTextAlignment="Center"/>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding NavigationTimeUnit}"
-                            TextColor="#0080E0"
-                            VerticalTextAlignment="Center">
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="CustomDayNamesOrder"
+                                VerticalTextAlignment="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="Edit"
+                                TextColor="{StaticResource TappableSettingTextColor}"
+                                VerticalTextAlignment="Center">
+                                
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowCustomDayNamesOrderDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
+                        </Grid>
 
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
-                            </Label.GestureRecognizers>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="Use&#10;CustomDayNamesOrder"
+                                VerticalTextAlignment="Center"/>
+                            <Switch
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                IsToggled="{Binding UseCustomDayNamesOrder}"/>
+                        </Grid>
 
-                        </Label>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="Rows"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding Rows}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="NavigationLoopMode"
-                            VerticalTextAlignment="Center"/>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding NavigationLoopMode}"
-                            TextColor="#0080E0"
-                            VerticalTextAlignment="Center"
-                            WidthRequest="125">
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="AutoRows"
+                                VerticalTextAlignment="Center"/>
+                            <Switch
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                IsToggled="{Binding AutoRows}"/>
+                        </Grid>
 
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
-                            </Label.GestureRecognizers>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="AutoRowsIsConsistent"
+                                VerticalTextAlignment="Center"/>
+                            <Switch
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                IsToggled="{Binding AutoRowsIsConsistent}"/>
+                        </Grid>
 
-                        </Label>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="NavigationHeight"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding NavigationHeightRequest}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="PageStartMode"
-                            VerticalTextAlignment="Center"/>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding PageStartMode}"
-                            TextColor="#0080E0"
-                            VerticalTextAlignment="Center">
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="DayNamesHeight"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding DayNamesHeightRequest}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowPageStartModeDialogCommand}"/>
-                            </Label.GestureRecognizers>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="MonthViewHeight"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding MonthViewHeightRequest}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                        </Label>
-                    </Grid>
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="DayHeight"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding DayHeightRequest}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="StartOfWeek"
-                            VerticalTextAlignment="Center"/>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding StartOfWeek}"
-                            TextColor="#0080E0"
-                            VerticalTextAlignment="Center">
+                        <Grid>
+                            <Label
+                                Grid.Column="0"
+                                FontSize="{StaticResource SmallFontSize}"
+                                HorizontalTextAlignment="Center"
+                                Text="DayWidth"
+                                VerticalTextAlignment="Center"/>
+                            <Editor
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Keyboard="Numeric"
+                                Text="{Binding DayWidthRequest}"
+                                VerticalOptions="End"/>
+                        </Grid>
 
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowStartOfWeekDialogCommand}"/>
-                            </Label.GestureRecognizers>
+                    </VerticalStackLayout>
+                </ScrollView>
 
-                        </Label>
-                    </Grid>
+                <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}"/>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="CustomDayNamesOrder"
-                            VerticalTextAlignment="Center"/>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="Edit"
-                            TextColor="#0080E0"
-                            VerticalTextAlignment="Center">
-
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowCustomDayNamesOrderDialogCommand}"/>
-                            </Label.GestureRecognizers>
-
-                        </Label>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="Use&#10;CustomDayNamesOrder"
-                            VerticalTextAlignment="Center"/>
-                        <Switch
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            IsToggled="{Binding UseCustomDayNamesOrder}"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="Rows"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding Rows}"
-                            VerticalOptions="End"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="AutoRows"
-                            VerticalTextAlignment="Center"/>
-                        <Switch
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            IsToggled="{Binding AutoRows}"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="AutoRowsIsConsistent"
-                            VerticalTextAlignment="Center"/>
-                        <Switch
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            IsToggled="{Binding AutoRowsIsConsistent}"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="NavigationHeight"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding NavigationHeightRequest}"
-                            VerticalOptions="End"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="DayNamesHeight"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding DayNamesHeightRequest}"
-                            VerticalOptions="End"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="MonthViewHeight"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding MonthViewHeightRequest}"
-                            VerticalOptions="End"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="DayHeight"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding DayHeightRequest}"
-                            VerticalOptions="End"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="DayWidth"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding DayWidthRequest}"
-                            VerticalOptions="End"/>
-                    </Grid>
-
-                </VerticalStackLayout>
-
-                <BoxView WidthRequest="1" BackgroundColor="{DynamicResource OutlineColor}"/>
-
-                <VerticalStackLayout Spacing="0">
+                <VerticalStackLayout Grid.Column="2" Spacing="0">
 
                     <HorizontalStackLayout
                         BackgroundColor="{StaticResource ContentBackgroundColor}"
                         HeightRequest="55">
                         <Label
                             FontSize="16"
-                            HorizontalOptions="Center"
+                            HorizontalOptions="EndAndExpand"
                             HorizontalTextAlignment="Center"
                             Text="Default Implementation"
                             VerticalTextAlignment="Center"/>
                         <Switch
                             x:Name="SwitchDefaultImplementation"
-                            HorizontalOptions="Center"
+                            HorizontalOptions="StartAndExpand"
                             IsToggled="True"/>
                     </HorizontalStackLayout>
 
@@ -570,24 +543,18 @@
 
                     <xc:CalendarView
                         x:Name="FancyCalendarView"
-                        DayResolver="{Binding DayResolver}"
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
-                        BackgroundColor="{StaticResource CalendarBackgroundColor}"
                         BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
                         CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
-                        DayNameTextColor="{StaticResource ContentTextColor}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         NavigationUpperBound="{Binding NavigationUpperBound}"
                         NavigationLowerBound="{Binding NavigationLowerBound}"
                         ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigatedDate="{Binding NavigatedDate}"
-                        NavigationArrowColor="{StaticResource CalendarPrimaryTextColor}"
-                        NavigationBackgroundColor="{StaticResource CalendarPrimaryColor}"
                         NavigationHeightRequest="{Binding NavigationHeightRequest}"
                         NavigationLoopMode="{Binding NavigationLoopMode}"
-                        NavigationTextColor="{StaticResource CalendarPrimaryTextColor}"
                         NavigationTimeUnit="{Binding NavigationTimeUnit}"
                         PageStartMode="{Binding PageStartMode}"
                         Rows="{Binding Rows}"
@@ -649,7 +616,7 @@
                         </xc:CalendarView.MonthViewTemplate>
 
                         <xc:CalendarView.Style>
-                            <Style TargetType="{x:Type xc:CalendarView}">
+                            <Style TargetType="{x:Type xc:CalendarView}" BasedOn="{StaticResource DefaultCalendarViewStyle}">
 
                                 <Setter Property="NavigationTemplate">
                                     <ControlTemplate>
@@ -663,15 +630,11 @@
                                     <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                                         <ContentView>
                                             <xc:CalendarDayView
+                                                Style="{StaticResource DefaultDayViewStyle}"
                                                 Margin="2.5"
                                                 CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
-                                                CurrentMonthTextColor="{StaticResource ContentTextColor}"
                                                 DateTime="{Binding DateTime}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                InvalidTextColor="{StaticResource CalendarTertiaryColor}"
-                                                SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
-                                                TodayBorderColor="{StaticResource CalendarPrimaryColor}"
-                                                TodayTextColor="{StaticResource CalendarBackgroundTextColor}"
                                                 WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
                                         </ContentView>
                                     </DataTemplate>
@@ -739,7 +702,7 @@
                                                             <xc:BorderedLabel.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
                                                             </xc:BorderedLabel.GestureRecognizers>
-                                                            
+
                                                         </xc:BorderedLabel>
 
                                                     </HorizontalStackLayout>
@@ -876,6 +839,7 @@
                                             <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                                                 <ContentView>
                                                     <xc:CalendarDayView
+                                                        Style="{StaticResource DefaultDayViewStyle}"
                                                         Margin="2.5"
                                                         CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
                                                         DateTime="{Binding DateTime}"
@@ -933,7 +897,7 @@
 
                 </VerticalStackLayout>
 
-            </HorizontalStackLayout>
+            </Grid>
         </ScrollView>
     </VerticalStackLayout>
 

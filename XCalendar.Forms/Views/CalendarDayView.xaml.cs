@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XCalendar.Core.Enums;
+using XCalendar.Forms.Enums;
 
 namespace XCalendar.Forms.Views
 {

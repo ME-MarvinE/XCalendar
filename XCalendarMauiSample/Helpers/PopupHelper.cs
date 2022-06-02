@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
-using XCalendar.Forms.Enums;
-using XCalendarFormsSample.Popups;
+﻿using CommunityToolkit.Maui.Views;
+using XCalendar.Maui.Enums;
+using XCalendarMauiSample.Popups;
 
-namespace XCalendarFormsSample.Helpers
+namespace XCalendarMauiSample.Helpers
 {
     public class PopupHelper
     {
@@ -36,7 +31,8 @@ namespace XCalendarFormsSample.Helpers
         }
         public static async Task<IEnumerable<DayOfWeek>> ShowCustomDayNamesOrderDialog(IEnumerable<DayOfWeek> CustomDayNamesOrder, IEnumerable<DayOfWeek> DaysOfWeek)
         {
-            return (await Shell.Current.ShowPopupAsync(new ConstructListDialogPopup(CustomDayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
+            List<object> Result = (List<object>)await Shell.Current.ShowPopupAsync(new ConstructListDialogPopup(CustomDayNamesOrder, DaysOfWeek));
+            return Result.Cast<DayOfWeek>();
         }
         public static async Task<SelectionAction> ShowSelectionActionDialog(SelectionAction SelectionAction)
         {

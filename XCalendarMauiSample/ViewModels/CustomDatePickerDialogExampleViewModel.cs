@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CommunityToolkit.Maui.Views;
 using System.Windows.Input;
-using CommunityToolkit.Maui.Extensions;
-using CommunityToolkit.Maui.Views;
 using XCalendarMauiSample.Popups;
 
 namespace XCalendarMauiSample.ViewModels
@@ -17,6 +13,7 @@ namespace XCalendarMauiSample.ViewModels
         #region Commands
         public ICommand ShowDatePickerDialogCommand { get; set; }
         #endregion
+
         #region Constructors
         public CustomDatePickerDialogExampleViewModel()
         {

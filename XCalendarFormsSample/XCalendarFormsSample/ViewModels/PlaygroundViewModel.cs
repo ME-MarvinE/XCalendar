@@ -3,7 +3,7 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using XCalendar.Core;
-using XCalendar.Core.Enums;
+using XCalendar.Forms.Enums;
 using XCalendarFormsSample.Helpers;
 
 namespace XCalendarFormsSample.ViewModels
@@ -43,7 +43,6 @@ namespace XCalendarFormsSample.ViewModels
         public double NavigationHeightRequest { get; set; } = 40;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
-        public DefaultCalendarDayResolver DayResolver { get; } = new DefaultCalendarDayResolver();
         #endregion
 
         #region Commands

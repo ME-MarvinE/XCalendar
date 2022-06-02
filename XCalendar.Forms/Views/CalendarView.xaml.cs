@@ -1,7 +1,4 @@
-﻿using XCalendar.Core.Extensions;
-using XCalendar.Core.Enums;
-using XCalendar.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -12,7 +9,10 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Interfaces;
+using XCalendar.Core.Models;
+using XCalendar.Forms.Enums;
 
 namespace XCalendar.Forms.Views
 {
@@ -581,7 +581,7 @@ namespace XCalendar.Forms.Views
                     PageStartDate = new DateTime(NavigatedDate.Year, 1, 1).FirstDayOfWeek(StartOfWeek);
                     break;
                 default:
-                    throw new NotImplementedException($"{nameof(Core.Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
+                    throw new NotImplementedException($"{nameof(Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
             //Update the dates for each row.
@@ -679,7 +679,7 @@ namespace XCalendar.Forms.Views
                         break;
 
                     default:
-                        throw new NotImplementedException($"{nameof(Core.Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
+                        throw new NotImplementedException($"{nameof(Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
                 }
 
                 LowerThanMinimumDate = NewNavigatedDate.Date < MinimumDate.Date;

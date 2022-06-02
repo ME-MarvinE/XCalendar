@@ -3,18 +3,15 @@
     x:Class="XCalendarMauiSample.Views.EventCalendarExamplePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Converters="clr-namespace:XCalendarMauiSample.Converters"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
+    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
     xmlns:Models="clr-namespace:XCalendarMauiSample.Models"
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
-    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
-    xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
-    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
-    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="This"
     Title="Event Calendar"
     x:DataType="{x:Type ViewModels:EventCalendarExampleViewModel}"
-    BackgroundColor="{StaticResource PageBackgroundColor}"
-    Shell.BackgroundColor="{StaticResource PrimaryColor}">
+    Style="{StaticResource DefaultPageStyle}">
 
     <ContentPage.Resources>
         <!--  Limits a string to a certain amount of characters  -->
@@ -32,12 +29,13 @@
 
         <Frame
             Margin="10"
-            Padding="0"
+            Padding="10"
             BackgroundColor="{StaticResource ContentBackgroundColor}"
             CornerRadius="15">
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
+                Style="{StaticResource DefaultCalendarViewStyle}"
                 Grid.Row="0"
                 DayResolver="{Binding EventDayResolver}"
                 DayNameTextColor="{StaticResource ContentTextColor}"
@@ -53,27 +51,24 @@
                         <!--  ContentView so that the margin is respected by the MonthView  -->
                         <ContentView>
                             <xc:CalendarDayView
+                                Style="{StaticResource DefaultDayViewStyle}"
                                 Margin="2.5"
-                                HeightRequest="43"
+                                HeightRequest="41"
                                 CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
-                                CurrentMonthTextColor="{StaticResource CalendarBackgroundTextColor}"
                                 DateTime="{Binding DateTime}"
-                                InvalidTextColor="{StaticResource CalendarTertiaryColor}"
-                                SelectedTextColor="{StaticResource CalendarPrimaryTextColor}"
-                                TodayBorderColor="{StaticResource CalendarPrimaryColor}"
-                                TodayTextColor="{StaticResource CalendarBackgroundTextColor}">
+                                >
 
-                                
-                                    <!--Setting ControlTemplate instead of using a VerticalStackLayout with views inside because I don't require different parts of the view
+                                <!--
+                                    Setting ControlTemplate instead of using a StackLayout with views inside because I don't require different parts of the view
                                     to have specific user interactions.
-                                
-                                
+                                -->
+                                <!--
                                     If I wanted to have a seperate tappable section that calls the same command when selecting a date,
-                                    I would put the view in a layout in the parent ContenView and use CalendarView's 'ChangeDateSelectionCommand'.-->
-                                
+                                    I would put the view in a layout in the parent ContenView and use CalendarView's 'ChangeDateSelectionCommand'.
+                                -->
                                 <xc:CalendarDayView.ControlTemplate>
                                     <ControlTemplate>
-                                          <!--Using a Grid to stack views on the z axis-->
+                                        <!--  Using a Grid to stack views on the z axis  -->
                                         <Grid RowSpacing="2" BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}">
 
                                             <Grid.RowDefinitions>
@@ -81,23 +76,23 @@
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
 
-                                              <!--ContentPresenter displays the default content for the control-->  
+                                            <!--  ContentPresenter displays the default content for the control  -->
                                             <ContentPresenter
                                                 Grid.Row="0"
                                                 Grid.RowSpan="2"
                                                 VerticalOptions="Center"/>
                                             
                                             <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
-                                            <HorizontalStackLayout
+                                            <HorizontalStackLayout 
                                                 Grid.Row="1"
                                                 HorizontalOptions="Center"
                                                 Spacing="2.5"
                                                 BindableLayout.ItemsSource="{Binding Events}">
 
-                                                  <!--I want the event indicators to only be visible when the DateTime is in the currently navigated month-->
+                                                <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
                                                 <HorizontalStackLayout.IsVisible>
                                                     <MultiBinding Converter="{StaticResource AllTrueConverter}">
-                                                        <!--TemplatedParent refers to the view that the ControlTemplate resides in-->
+                                                        <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
                                                         <Binding Path="IsCurrentMonth" Source="{RelativeSource TemplatedParent}"/>
                                                         <Binding
                                                             Converter="{StaticResource InvertedBoolConverter}"

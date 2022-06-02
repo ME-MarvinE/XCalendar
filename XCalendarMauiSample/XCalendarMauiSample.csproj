@@ -51,7 +51,7 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <PackageReference Include="PropertyChanged.Fody" Version="3.4.1" />
 	</ItemGroup>
@@ -79,11 +79,17 @@
 	  <Compile Update="Views\ExamplesPage.xaml.cs">
 	    <DependentUpon>Views\ExamplesPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\AppShell.xaml.cs">
-	    <DependentUpon>AppShell.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Views\AppShell.xaml.cs">
+			<DependentUpon>Views\AppShell.xaml</DependentUpon>
+		</Compile>
 	  <Compile Update="Views\PlaygroundPage.xaml.cs">
 	    <DependentUpon>Views\PlaygroundPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SelectionExamplePage.xaml.cs">
+	    <DependentUpon>Views\SelectionExamplePage.xamlSelectionExamplePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\UsingCalendarDayViewExamplePage.xaml.cs">
+	    <DependentUpon>Views\UsingCalendarDayViewExamplePage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -100,25 +106,12 @@
 			<SubType>Designer</SubType>
 	    <Generator></Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AppShell.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomDatePickerDialogExamplePage.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator></Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\EventCalendarExamplePage.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator></Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\ExamplesPage.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator></Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\PlaygroundPage.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\SelectionExamplePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\UsingCalendarDayViewExamplePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

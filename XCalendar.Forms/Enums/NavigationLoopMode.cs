@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCalendar.Core.Enums
+namespace XCalendar.Forms.Enums
 {
     [Flags]
     public enum NavigationLoopMode

@@ -38,22 +38,23 @@
         </xct:MultiConverter>
 
         <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
-            <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}" Value="3"/>
+            <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
+                <xct:MultiConverterParameter.Value>
+                    <System:Int32>3</System:Int32>
+                </xct:MultiConverterParameter.Value>
+            </xct:MultiConverterParameter>
         </x:Array>
     </ContentPage.Resources>
 
     <StackLayout Spacing="0">
-        <Frame
+        <Label
             Padding="5"
+            FontSize="14"
             BackgroundColor="{StaticResource PrimaryColor}"
-            CornerRadius="0">
-            <Label
-                FontSize="14"
-                HorizontalTextAlignment="Center"
-                Text="Swipe Page To View Calendar"
-                TextColor="{StaticResource PrimaryTextColor}"
-                VerticalTextAlignment="Center"/>
-        </Frame>
+            HorizontalTextAlignment="Center"
+            Text="Swipe Page To View Calendar"
+            TextColor="{StaticResource PrimaryTextColor}"
+            VerticalTextAlignment="Center"/>
 
         <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
             <Grid
@@ -516,7 +517,6 @@
 
                     <xc:CalendarView
                         x:Name="FancyCalendarView"
-                        DayResolver="{Binding DayResolver}"
                         AutoRows="{Binding AutoRows}"
                         AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
                         BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
