@@ -1,4 +1,4 @@
-﻿namespace XCalendar.Core.Enums
+﻿namespace XCalendar.Forms.Enums
 {
     public enum NavigationTimeUnit
     {

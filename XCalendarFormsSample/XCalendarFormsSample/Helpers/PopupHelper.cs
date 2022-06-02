@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
-using XCalendar.Core.Enums;
+using XCalendar.Forms.Enums;
 using XCalendarFormsSample.Popups;
 
 namespace XCalendarFormsSample.Helpers

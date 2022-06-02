@@ -1,9 +1,8 @@
-﻿using PropertyChanged;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
-using XCalendar.Core.Enums;
+using XCalendar.Forms.Enums;
 using XCalendarFormsSample.Helpers;
 using XCalendarFormsSample.Popups;
 
