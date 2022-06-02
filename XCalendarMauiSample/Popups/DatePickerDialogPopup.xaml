@@ -27,12 +27,12 @@
             </x:Array>
             <!--<Color x:Key="PrimaryPickerColor">#F04080</Color>-->
             <!--<Color x:Key="PrimaryPickerColor">#4080F0</Color>-->
-            <Color x:Key="PrimaryPickerColor">#8040F0</Color>
+            <!--<Color x:Key="PrimaryPickerColor">#8040F0</Color>-->
         </VerticalStackLayout.Resources>
 
         <Label
             Padding="15,20,15,20"
-            BackgroundColor="{StaticResource PrimaryPickerColor}"
+            BackgroundColor="{StaticResource PrimaryColor}"
             FontAttributes="Bold"
             FontSize="34"
             Text="{Binding SelectedDate, StringFormat='{0:ddd, dd MMM}', Source={x:Reference This}}"
@@ -80,11 +80,11 @@
                         HeightRequest="41"
                         OtherMonthTextColor="Transparent"
                         InvalidBackgroundColor="Transparent"
-                        SelectedBackgroundColor="{StaticResource PrimaryPickerColor}"
+                        SelectedBackgroundColor="{StaticResource PrimaryColor}"
                         SelectedTextColor="White"
                         TodayBackgroundColor="Transparent"
                         TodayBorderColor="Transparent"
-                        TodayTextColor="{StaticResource PrimaryPickerColor}"/>
+                        TodayTextColor="{StaticResource PrimaryColor}"/>
                 </DataTemplate>
             </xc:CalendarView.DayTemplate>
 
@@ -100,7 +100,7 @@
                 FontSize="14"
                 HorizontalOptions="EndAndExpand"
                 Text="CANCEL"
-                TextColor="{StaticResource PrimaryPickerColor}">
+                TextColor="{StaticResource PrimaryColor}">
 
                 <xc:BorderedLabel.StrokeShape>
                     <RoundRectangle CornerRadius="2.5"/>
@@ -118,7 +118,7 @@
                 FontAttributes="Bold"
                 FontSize="14"
                 Text="OK"
-                TextColor="{StaticResource PrimaryPickerColor}">
+                TextColor="{StaticResource PrimaryColor}">
 
                 <xc:BorderedLabel.StrokeShape>
                     <RoundRectangle CornerRadius="2.5"/>

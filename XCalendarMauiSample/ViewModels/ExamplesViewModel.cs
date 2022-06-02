@@ -1,10 +1,7 @@
 ﻿using PropertyChanged;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using XCalendar.Maui;
+using XCalendar.Maui.Views;
 using XCalendarMauiSample.Models;
 using XCalendarMauiSample.Views;
 
@@ -19,13 +16,35 @@ namespace XCalendarMauiSample.ViewModels
             {
                 Page = new EventCalendarExamplePage(),
                 Title = "Event Calendar",
-                Description = "Uses indicators to show events for a certain day."
+                Description = "Uses indicators to show events for a certain day.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "ICalendarDay" },
+                    new Tag() { Title = "ICalendarDayResolver" },
+                    new Tag() { Title = "DayResolver" }
+                }
             },
             new Example()
             {
                 Page = new CustomDatePickerDialogExamplePage(),
                 Title = "Custom DatePicker Dialog",
-                Description = "A custom DatePicker made using a CalendarView."
+                Description = $"A custom DatePicker made using a {nameof(CalendarView)}."
+            },
+            new Example()
+            {
+                Page = new SelectionExamplePage(),
+                Title = "Date Selection",
+                Description = $"Showcase of {nameof(CalendarView)}'s selection capabilities."
+            },
+            new Example()
+            {
+                Page = new UsingCalendarDayViewExamplePage(),
+                Title = $"Using {nameof(CalendarDayView)}",
+                Description = $"How to use the {nameof(CalendarDayView)} control.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "DayTemplate" }
+                }
             }
         };
         public ObservableRangeCollection<Example> DisplayedExamples { get; } = new ObservableRangeCollection<Example>();
@@ -42,7 +61,7 @@ namespace XCalendarMauiSample.ViewModels
         public ExamplesViewModel()
         {
             SearchExamplesCommand = new Command(SearchExamples);
-            ShowPageCommand = new Command<Page>(async (Page Page) => await ShowPage(Page));
+            ShowPageCommand = new Command<Page>(async(Page Page) => await ShowPage(Page));
             SearchExamples();
         }
         #endregion
@@ -54,13 +73,15 @@ namespace XCalendarMauiSample.ViewModels
         }
         public void SearchExamples()
         {
+            bool SearchTags = true;
+
             if (string.IsNullOrWhiteSpace(SearchText))
             {
                 DisplayedExamples.ReplaceRange(Examples);
             }
             else
             {
-                DisplayedExamples.ReplaceRange(Examples.Where(x => x.Title.ToLower().Contains(SearchText.ToLower())));
+                DisplayedExamples.ReplaceRange(Examples.Where(x => x.Title.ToLower().Contains(SearchText.ToLower()) || (SearchTags && x.Tags.Any(Tag => Tag.Title.ToLower().Contains(SearchText.ToLower())))));
             }
         }
         public async Task ShowPage(Page Page)

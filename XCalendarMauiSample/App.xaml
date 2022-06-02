@@ -1,12 +1,16 @@
 ﻿<?xml version = "1.0" encoding = "UTF-8" ?>
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:XCalendarMauiSample"
-             x:Class="XCalendarMauiSample.App">
+             x:Class="XCalendarMauiSample.App"
+             xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
+    
     <Application.Resources>
         <!--<ResourceDictionary Source="Resources/Styles.xaml" />-->
-        <Color x:Key="PrimaryColor">#2070FF</Color>
+        
+        <Color x:Key="PrimaryColor">#2060FF</Color>
         <Color x:Key="TertiaryColor">#A0A0FF</Color>
+        <!--<Color x:Key="PrimaryColor">#E00000</Color>
+        <Color x:Key="TertiaryColor">#FFA0A0</Color>-->
         <Color x:Key="SeparatorColor">#E0E0E0</Color>
         <Color x:Key="OutlineColor">#B0B0B0</Color>
 
@@ -25,6 +29,67 @@
         <Color x:Key="CalendarBackgroundColor">White</Color>
         <Color x:Key="CalendarTertiaryColor">#FFA0A0</Color>
         <Color x:Key="CalendarPrimaryTextColor">White</Color>
-    <Color x:Key="CalendarBackgroundTextColor">Black</Color>
+        <Color x:Key="CalendarBackgroundTextColor">Black</Color>
+
+        <Color x:Key="TappableSettingTextColor">#0080E0</Color>
+
+        <x:Double x:Key="ExamplesTitleFontSize">19</x:Double>
+        <x:Double x:Key="ExamplesDescriptionFontSize">16</x:Double>
+
+        <x:Boolean x:Key="TrueValue">True</x:Boolean>
+        <x:Boolean x:Key="FalseValue">False</x:Boolean>
+
+        <Style TargetType="{x:Type xc:CalendarView}" x:Key="DefaultCalendarViewStyle">
+            <Setter Property="NavigationBackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="NavigationArrowColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+            <Setter Property="NavigationTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource CalendarBackgroundColor}"/>
+        </Style>
+
+        <Style TargetType="{x:Type xc:CalendarDayView}" x:Key="DefaultDayViewStyle">
+            <Setter Property="CurrentMonthTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
+            <Setter Property="TodayTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
+            <Setter Property="TodayBorderColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="InvalidTextColor" Value="{StaticResource CalendarTertiaryColor}"/>
+            <Setter Property="SelectedBackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="SelectedTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+        </Style>
+
+        <Style TargetType="{x:Type ContentPage}" x:Key="DefaultPageStyle">
+            <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}"/>
+            <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryColor}"/>
+        </Style>
+
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        </Style>
+
+        <Style TargetType="{x:Type Entry}">
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        </Style>
+
+        <Style TargetType="{x:Type Editor}">
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+            <Setter Property="AutoSize" Value="TextChanges"/>
+        </Style>
+
+        <Style TargetType="{x:Type Picker}">
+            <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
+            <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        </Style>
+
+        <Style TargetType="{x:Type Switch}">
+            <Setter Property="OnColor" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="ThumbColor" Value="#EEEEEF"/>
+        </Style>
+
+        <Style TargetType="{x:Type Grid}">
+            <Setter Property="ColumnSpacing" Value="0"/>
+            <Setter Property="RowSpacing" Value="0"/>
+        </Style>
+
     </Application.Resources>
 </Application>

@@ -3,19 +3,17 @@
     x:Class="XCalendarMauiSample.Views.CustomDatePickerDialogExamplePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
     Title="Custom DatePicker Dialog"
     x:DataType="{x:Type ViewModels:CustomDatePickerDialogExampleViewModel}"
-    BackgroundColor="{StaticResource PageBackgroundColor}"
-    Shell.BackgroundColor="{StaticResource PrimaryColor}">
+    Style="{StaticResource DefaultPageStyle}">
 
     <ScrollView VerticalScrollBarVisibility="Never">
         <VerticalStackLayout Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
 
-            <VerticalStackLayout Padding="10" BackgroundColor="{DynamicResource SecondaryColor}" Spacing="0">
+            <ContentView Padding="10" BackgroundColor="{DynamicResource SecondaryColor}">
                 <Label FontSize="19" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Tap on a date to open a DatePicker" TextColor="{DynamicResource ContentTextColor}"/>
-            </VerticalStackLayout>
+            </ContentView>
 
             <BoxView HeightRequest="1" BackgroundColor="{DynamicResource SeparatorColor}"/>
 
@@ -29,11 +27,9 @@
             <VerticalStackLayout Padding="10" BackgroundColor="{DynamicResource SecondaryColor}" Spacing="0">
                 <Label FontSize="19" FontAttributes="Bold" Text="Custom Dialog" TextColor="{DynamicResource ContentTextColor}"/>
                 <Label Margin="0,5,0,0" Padding="0,5,0,5" Text="{Binding SelectedDate, StringFormat='{0: dd MMMM yyyy}'}" FontSize="16" BackgroundColor="{StaticResource ContentBackgroundColor}" TextColor="{StaticResource ContentTextColor}">
-
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ShowDatePickerDialogCommand}" CommandParameter="{Binding SelectedDate}"/>
                     </Label.GestureRecognizers>
-
                 </Label>
                 <BoxView HeightRequest="1" BackgroundColor="Black"/>
             </VerticalStackLayout>
