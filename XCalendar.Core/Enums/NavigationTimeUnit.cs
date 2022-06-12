@@ -1,4 +1,4 @@
-﻿namespace XCalendar.Maui.Enums
+﻿namespace XCalendar.Core.Enums
 {
     public enum NavigationTimeUnit
     {

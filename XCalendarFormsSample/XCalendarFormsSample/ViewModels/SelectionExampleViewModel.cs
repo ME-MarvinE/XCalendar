@@ -2,7 +2,8 @@
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
-using XCalendar.Forms.Enums;
+using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 using XCalendarFormsSample.Helpers;
 using XCalendarFormsSample.Popups;
 
@@ -11,14 +12,17 @@ namespace XCalendarFormsSample.ViewModels
     public class SelectionExampleViewModel : BaseViewModel
     {
         #region Properties
-        public SelectionType SelectionType { get; set; } = SelectionType.Single;
-        public SelectionAction SelectionAction { get; set; } = SelectionAction.Replace;
         public List<string> CommonFunctionalities { get; } = new List<string>()
         {
             "None",
             "Single",
             "Multiple",
             "Range"
+        };
+        public Calendar Calendar { get; set; } = new Calendar()
+        {
+            SelectionType = SelectionType.Single,
+            SelectionAction = SelectionAction.Replace
         };
         #endregion
 
@@ -41,11 +45,11 @@ namespace XCalendarFormsSample.ViewModels
         #region Methods
         public async void ShowSelectionTypeDialog()
         {
-            SelectionType = await PopupHelper.ShowSelectionTypeDialog(SelectionType);
+            Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
         }
         public async void ShowSelectionActionDialog()
         {
-            SelectionAction = await PopupHelper.ShowSelectionActionDialog(SelectionAction);
+            Calendar.SelectionAction = await PopupHelper.ShowSelectionActionDialog(Calendar.SelectionAction);
         }
         public async void ShowCommonFunctionalityDialog()
         {
@@ -54,22 +58,22 @@ namespace XCalendarFormsSample.ViewModels
             switch (CommonFunctionality)
             {
                 case "None":
-                    SelectionType = SelectionType.None;
+                    Calendar.SelectionType = SelectionType.None;
                     break;
 
                 case "Single":
-                    SelectionType = SelectionType.Single;
-                    SelectionAction = SelectionAction.Replace;
+                    Calendar.SelectionType = SelectionType.Single;
+                    Calendar.SelectionAction = SelectionAction.Replace;
                     break;
 
                 case "Multiple":
-                    SelectionType = SelectionType.Single;
-                    SelectionAction = SelectionAction.Modify;
+                    Calendar.SelectionType = SelectionType.Single;
+                    Calendar.SelectionAction = SelectionAction.Modify;
                     break;
 
                 case "Range":
-                    SelectionType = SelectionType.Range;
-                    SelectionAction = SelectionAction.Replace;
+                    Calendar.SelectionType = SelectionType.Range;
+                    Calendar.SelectionAction = SelectionAction.Replace;
                     break;
             }
         }

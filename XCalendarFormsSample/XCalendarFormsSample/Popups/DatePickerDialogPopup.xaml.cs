@@ -3,10 +3,11 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.Popups
 {
@@ -17,8 +18,13 @@ namespace XCalendarFormsSample.Popups
         #region Properties
         public DateTime InitialDate { get; }
         public DateTime SelectedDate { get; set; }
-        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>() { DateTime.Today };
-        public DateTime NavigatedDate { get; set; } = DateTime.Today;
+        public Calendar Calendar { get; } = new Calendar()
+        {
+            NavigatedDate = DateTime.Today,
+            SelectedDates = new ObservableRangeCollection<DateTime>() { DateTime.Today },
+            SelectionAction = SelectionAction.Replace,
+            SelectionType = SelectionType.Single
+        };
         #endregion
 
         #region Commands
@@ -34,10 +40,10 @@ namespace XCalendarFormsSample.Popups
             ReturnInitialDateCommand = new Command(ReturnInitialDate);
             ResetNavigatedDateCommand = new Command(ResetNavigatedDate);
 
-            SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
+            Calendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
 
             this.InitialDate = InitialDate;
-            SelectedDates.Replace(InitialDate);
+            Calendar.SelectedDates.Replace(InitialDate);
 
             InitializeComponent();
             ResetNavigatedDate();
@@ -45,14 +51,14 @@ namespace XCalendarFormsSample.Popups
 
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SelectedDate = SelectedDates.FirstOrDefault();
+            SelectedDate = Calendar.SelectedDates.FirstOrDefault();
         }
         #endregion
 
         #region Methods
         public void ResetNavigatedDate()
         {
-            NavigatedDate = SelectedDate;
+            Calendar.NavigatedDate = SelectedDate;
         }
         public void ReturnInitialDate()
         {

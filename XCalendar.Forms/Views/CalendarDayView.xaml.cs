@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XCalendar.Forms.Enums;
+using XCalendar.Core.Enums;
 
 namespace XCalendar.Forms.Views
 {
@@ -261,7 +261,7 @@ namespace XCalendar.Forms.Views
         #region Constructors
         public CalendarDayView()
         {
-            UpdateCalendarViewDateSelectionCommand = new Command<DateTime>((DateTime) => { CalendarView?.ChangeDateSelection(DateTime); });
+            UpdateCalendarViewDateSelectionCommand = new Command<DateTime>((DateTime) => { CalendarView?.ChangeDateSelectionCommand.Execute(DateTime); });
 
             CurrentMonthCommand = UpdateCalendarViewDateSelectionCommand;
             SetBinding(CurrentMonthCommandParameterProperty, new Binding("DateTime", source: this));
@@ -345,19 +345,19 @@ namespace XCalendar.Forms.Views
         }
         public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
         {
-            return DateTime.Month == CalendarView?.NavigatedDate.Month && DateTime.Year == CalendarView?.NavigatedDate.Year;
+            return DateTime.Month == CalendarView?.Calendar.NavigatedDate.Month && DateTime.Year == CalendarView?.Calendar.NavigatedDate.Year;
         }
         public virtual bool IsDateTimeInvalid(DateTime DateTime)
         {
-            return DateTime.Date < CalendarView?.NavigationLowerBound.Date || DateTime.Date > CalendarView?.NavigationUpperBound.Date;
+            return DateTime.Date < CalendarView?.Calendar.NavigationLowerBound.Date || DateTime.Date > CalendarView?.Calendar.NavigationUpperBound.Date;
         }
         public virtual bool IsDateTimeToday(DateTime DateTime)
         {
-            return DateTime.Date == CalendarView?.TodayDate.Date;
+            return DateTime.Date == CalendarView?.Calendar.TodayDate.Date;
         }
         public virtual bool IsDateTimeSelected(DateTime DateTime)
         {
-            return CalendarView?.SelectedDates.Any(x => x.Date == DateTime.Date) == true;
+            return CalendarView?.Calendar.SelectedDates.Any(x => x.Date == DateTime.Date) == true;
         }
         protected override void OnBindingContextChanged()
         {
@@ -384,8 +384,8 @@ namespace XCalendar.Forms.Views
             CalendarView OldCalendarView = (CalendarView)oldValue;
             CalendarView NewCalendarView = (CalendarView)newValue;
 
-            if (OldCalendarView != null) { OldCalendarView.MonthViewDaysInvalidated -= Control.CalendarView_MonthViewDaysInvalidated; }
-            if (NewCalendarView != null) { NewCalendarView.MonthViewDaysInvalidated += Control.CalendarView_MonthViewDaysInvalidated; }
+            if (OldCalendarView != null) { OldCalendarView.Calendar.MonthViewDaysInvalidated -= Control.CalendarView_MonthViewDaysInvalidated; }
+            if (NewCalendarView != null) { NewCalendarView.Calendar.MonthViewDaysInvalidated += Control.CalendarView_MonthViewDaysInvalidated; }
 
             Control.UpdateProperties();
             Control.EvaluateDayState();

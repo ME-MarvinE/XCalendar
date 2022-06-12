@@ -6,6 +6,8 @@ using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using XCalendar.Maui;
+using XCalendar.Core.Models;
+using XCalendar.Core.Enums;
 
 namespace XCalendarMauiSample.Popups
 {
@@ -15,8 +17,13 @@ namespace XCalendarMauiSample.Popups
         #region Properties
         public DateTime InitialDate { get; }
         public DateTime SelectedDate { get; set; }
-        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>() { DateTime.Today };
-        public DateTime NavigatedDate { get; set; } = DateTime.Today;
+        public Calendar Calendar { get; } = new Calendar()
+        {
+            NavigatedDate = DateTime.Today,
+            SelectedDates = new ObservableRangeCollection<DateTime>() { DateTime.Today },
+            SelectionAction = SelectionAction.Replace,
+            SelectionType = SelectionType.Single
+        };
         #endregion
 
         #region Commands
@@ -32,11 +39,11 @@ namespace XCalendarMauiSample.Popups
             ReturnInitialDateCommand = new Command(ReturnInitialDate);
             ResetNavigatedDateCommand = new Command(ResetNavigatedDate);
 
-            SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
+            Calendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
 
             this.InitialDate = InitialDate;
             ResultWhenUserTapsOutsideOfPopup = InitialDate;
-            SelectedDates.ReplaceRange(new List<DateTime>() { InitialDate } );
+            Calendar.SelectedDates.ReplaceRange(new List<DateTime>() { InitialDate } );
 
             InitializeComponent();
             ResetNavigatedDate();
@@ -44,14 +51,14 @@ namespace XCalendarMauiSample.Popups
 
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SelectedDate = SelectedDates.FirstOrDefault();
+            SelectedDate = Calendar.SelectedDates.FirstOrDefault();
         }
         #endregion
 
         #region Methods
         public void ResetNavigatedDate()
         {
-            NavigatedDate = SelectedDate;
+            Calendar.NavigatedDate = SelectedDate;
         }
         public void ReturnInitialDate()
         {

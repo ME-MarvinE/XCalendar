@@ -22,7 +22,7 @@
                 </Style>
             </VerticalStackLayout.Resources>
 
-            <xc:CalendarView x:Name="MainCalendarView" Style="{StaticResource DefaultCalendarViewStyle}" SelectionAction="{Binding SelectionAction}" SelectionType="{Binding SelectionType}">
+            <xc:CalendarView x:Name="MainCalendarView" Style="{StaticResource DefaultCalendarViewStyle}" Calendar="{Binding Calendar}">
                 
                 <!--Not Required, used only for styling.-->
                 <xc:CalendarView.DayTemplate>
@@ -48,7 +48,7 @@
                     Grid.Column="1"
                     FontSize="{StaticResource SmallFontSize}"
                     HorizontalTextAlignment="Center"
-                    Text="{Binding SelectionType}"
+                    Text="{Binding Calendar.SelectionType}"
                     TextColor="{StaticResource TappableSettingTextColor}"
                     VerticalTextAlignment="Center">
 
@@ -70,7 +70,7 @@
                     Grid.Column="1"
                     FontSize="{StaticResource SmallFontSize}"
                     HorizontalTextAlignment="Center"
-                    Text="{Binding SelectionAction}"
+                    Text="{Binding Calendar.SelectionAction}"
                     TextColor="{StaticResource TappableSettingTextColor}"
                     VerticalTextAlignment="Center">
 

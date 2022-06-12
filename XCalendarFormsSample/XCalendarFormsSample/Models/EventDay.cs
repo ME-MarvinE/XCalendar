@@ -1,5 +1,4 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.ObjectModel;
 using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
 
