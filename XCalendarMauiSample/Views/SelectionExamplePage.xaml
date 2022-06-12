@@ -22,13 +22,13 @@
                 </Style>
             </VerticalStackLayout.Resources>
 
-            <xc:CalendarView x:Name="MainCalendarView" Style="{StaticResource DefaultCalendarViewStyle}" SelectionAction="{Binding SelectionAction}" SelectionType="{Binding SelectionType}">
+            <xc:CalendarView x:Name="MainCalendarView" Style="{StaticResource DefaultCalendarViewStyle}" Calendar="{Binding Calendar}">
                 
                 <!--Not Required, used only for styling.-->
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                         <ContentView>
-                            <xc:CalendarDayView Style="{StaticResource DefaultDayViewStyle}" Margin="2.5" CalendarView="{Binding ., Source={x:Reference MainCalendarView}}" DateTime="{Binding DateTime}"/>
+                            <xc:CalendarDayView Style="{StaticResource DefaultDayViewStyle}" Margin="2.5" Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}" DateTime="{Binding DateTime}"/>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
@@ -48,7 +48,7 @@
                     Grid.Column="1"
                     FontSize="{StaticResource SmallFontSize}"
                     HorizontalTextAlignment="Center"
-                    Text="{Binding SelectionType}"
+                    Text="{Binding Calendar.SelectionType}"
                     TextColor="{StaticResource TappableSettingTextColor}"
                     VerticalTextAlignment="Center">
 
@@ -70,7 +70,7 @@
                     Grid.Column="1"
                     FontSize="{StaticResource SmallFontSize}"
                     HorizontalTextAlignment="Center"
-                    Text="{Binding SelectionAction}"
+                    Text="{Binding Calendar.SelectionAction}"
                     TextColor="{StaticResource TappableSettingTextColor}"
                     VerticalTextAlignment="Center">
 

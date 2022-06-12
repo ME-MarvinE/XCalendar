@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
-using XCalendar.Maui.Enums;
+using XCalendar.Core.Enums;
 using XCalendarMauiSample.Popups;
 
 namespace XCalendarMauiSample.Helpers

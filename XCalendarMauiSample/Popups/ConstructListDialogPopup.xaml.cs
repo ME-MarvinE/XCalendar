@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
+using XCalendar.Core.Models;
 using XCalendar.Maui;
 
 namespace XCalendarMauiSample.Popups

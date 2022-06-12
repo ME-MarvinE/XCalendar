@@ -42,7 +42,7 @@
                 <xc:FramedLabel
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
+                    xct:TouchEffect.CommandParameter="{Binding Calendar.BackwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
@@ -61,14 +61,14 @@
                     FontAttributes="Bold"
                     FontSize="18"
                     HorizontalTextAlignment="Center"
-                    Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
+                    Text="{Binding Calendar.NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
                     TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
                     VerticalTextAlignment="Center"/>
 
                 <xc:FramedLabel
                     Padding="5"
                     xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
+                    xct:TouchEffect.CommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference MainCalendarView}}"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
@@ -92,7 +92,7 @@
             <CollectionView
                 Margin="0,5,0,0"
                 HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}"
-                ItemsSource="{Binding DayNamesOrder, Source={x:Reference MainCalendarView}}">
+                ItemsSource="{Binding Calendar.DayNamesOrder, Source={x:Reference MainCalendarView}}">
 
                 <CollectionView.Style>
                     <Style TargetType="{x:Type CollectionView}">
@@ -123,7 +123,7 @@
                     <GridItemsLayout
                         HorizontalItemSpacing="{Binding DayNameHorizontalSpacing, Source={x:Reference MainCalendarView}}"
                         Orientation="Vertical"
-                        Span="{Binding DayNamesOrder.Count, Source={x:Reference MainCalendarView}}"
+                        Span="{Binding Calendar.DayNamesOrder.Count, Source={x:Reference MainCalendarView}}"
                         VerticalItemSpacing="{Binding DayNameVerticalSpacing, Source={x:Reference MainCalendarView}}"/>
                 </CollectionView.ItemsLayout>
 
@@ -133,7 +133,7 @@
 
         <!--#region MonthView-->
         <ContentView ControlTemplate="{Binding MonthViewTemplate, Source={x:Reference MainCalendarView}}">
-            <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}" ItemsSource="{Binding Days, Source={x:Reference MainCalendarView}}">
+            <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}" ItemsSource="{Binding Calendar.Days, Source={x:Reference MainCalendarView}}">
                 <CollectionView.Style>
                     <Style TargetType="{x:Type CollectionView}">
                         <Setter Property="ItemTemplate">
@@ -143,7 +143,7 @@
                                     <ContentView>
                                         <xc:CalendarDayView
                                             Margin="2.5"
-                                            CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                            Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
                                             DateTime="{Binding DateTime}"/>
                                     </ContentView>
                                 </DataTemplate>
@@ -162,7 +162,7 @@
                 </CollectionView.Style>
 
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding DayNamesOrder.Count, Source={x:Reference MainCalendarView}}"/>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding Calendar.DayNamesOrder.Count, Source={x:Reference MainCalendarView}}"/>
                 </CollectionView.ItemsLayout>
 
             </CollectionView>

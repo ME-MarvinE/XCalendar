@@ -8,8 +8,10 @@
     xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
     xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:Popups="clr-namespace:XCalendarMauiSample.Popups"
     x:Name="This"
-    Size="320, 475">
+    Size="320, 475"
+    x:DataType="{x:Type Popups:DatePickerDialogPopup}">
 
     <VerticalStackLayout BackgroundColor="White" Spacing="0">
 
@@ -50,13 +52,10 @@
             Margin="0,5,0,0"
             Padding="20,0,20,0"
             MonthViewHeightRequest="246"
-            NavigatedDate="{Binding NavigatedDate, Source={x:Reference This}}"
+            Calendar="{Binding Calendar, Source={x:Reference This}}"
             NavigationArrowColor="{StaticResource ContentTextColor}"
             NavigationBackgroundColor="Transparent"
-            NavigationTextColor="{StaticResource ContentTextColor}"
-            SelectedDates="{Binding SelectedDates, Source={x:Reference This}}"
-            SelectionAction="Replace"
-            SelectionType="Single">
+            NavigationTextColor="{StaticResource ContentTextColor}">
 
             <xc:CalendarView.DayNameTemplate>
                 <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
@@ -72,7 +71,7 @@
             <xc:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                     <xc:CalendarDayView
-                        CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                        Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
                         CurrentMonthBackgroundColor="Transparent"
                         CurrentMonthTextColor="Black"
                         DateTime="{Binding DateTime}"

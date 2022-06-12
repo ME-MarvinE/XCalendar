@@ -1,10 +1,16 @@
-﻿using XCalendar.Maui;
+﻿using System;
+using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 
 namespace XCalendarMauiSample.ViewModels
 {
     public class UsingCalendarDayViewExampleViewModel : BaseViewModel
     {
-        public DateTime NavigatedDate { get; set; } = DateTime.Now;
-        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>() { DateTime.Now };
+        public Calendar Calendar { get; set; } = new Calendar()
+        {
+            SelectedDates = new ObservableRangeCollection<DateTime>() { DateTime.Now },
+            SelectionAction = SelectionAction.Replace,
+            SelectionType = SelectionType.Single
+        };
     }
 }

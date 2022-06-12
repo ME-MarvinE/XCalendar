@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 using XCalendarFormsSample.Models;
 
 namespace XCalendarFormsSample.ViewModels
@@ -11,9 +12,15 @@ namespace XCalendarFormsSample.ViewModels
     public class EventCalendarExampleViewModel : BaseViewModel
     {
         #region Properties
+        public Calendar Calendar { get; set; } = new Calendar()
+        {
+            SelectedDates = new ObservableRangeCollection<DateTime>(),
+            SelectionAction = SelectionAction.Modify,
+            SelectionType = SelectionType.Single
+        };
         public static readonly Random Random = new Random();
         public List<Color> Colors { get; } = new List<Color>() { Color.Red, Color.Orange, Color.Yellow, Color.FromHex("#00A000"), Color.Blue, Color.FromHex("#8010E0") };
-        public EventDayResolver EventDayResolver { get; set; } = new EventDayResolver();
+        public EventDayResolver EventDayResolver { get; } = new EventDayResolver();
         public ObservableRangeCollection<Event> Events { get; } = new ObservableRangeCollection<Event>()
         {
             new Event() { Title = "Bowling", Description = "Bowling with friends" },
@@ -51,7 +58,6 @@ namespace XCalendarFormsSample.ViewModels
             new Event() { Title = "Sailing", Description = "Sailing with friends" },
             new Event() { Title = "Cooking", Description = "Cooking with friends" }
         };
-        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
         public ObservableRangeCollection<Event> SelectedEvents { get; } = new ObservableRangeCollection<Event>();
         #endregion
 
@@ -66,14 +72,15 @@ namespace XCalendarFormsSample.ViewModels
 
             EventDayResolver.Events = Events;
 
-            SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
+            Calendar.DayResolver = EventDayResolver;
+            Calendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
         }
         #endregion
 
         #region Methods
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SelectedEvents.ReplaceRange(Events.Where(x => SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
+            SelectedEvents.ReplaceRange(Events.Where(x => Calendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
         }
         #endregion
     }

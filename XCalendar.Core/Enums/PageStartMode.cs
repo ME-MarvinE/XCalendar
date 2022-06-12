@@ -1,4 +1,4 @@
-﻿namespace XCalendar.Forms.Enums
+﻿namespace XCalendar.Core.Enums
 {
     public enum PageStartMode
     {

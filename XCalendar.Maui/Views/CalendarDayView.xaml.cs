@@ -1,5 +1,6 @@
 using System.Windows.Input;
-using XCalendar.Maui.Enums;
+using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 
 namespace XCalendar.Maui.Views
 {
@@ -63,10 +64,10 @@ namespace XCalendar.Maui.Views
             get { return (bool)GetValue(IsDayStateInvalidProperty); }
             set { SetValue(IsDayStateInvalidProperty, value); }
         }
-        public CalendarView CalendarView
+        public Calendar Calendar
         {
-            get { return (CalendarView)GetValue(CalendarViewProperty); }
-            set { SetValue(CalendarViewProperty, value); }
+            get { return (Calendar)GetValue(CalendarProperty); }
+            set { SetValue(CalendarProperty, value); }
         }
         public Color CurrentMonthTextColor
         {
@@ -281,7 +282,7 @@ namespace XCalendar.Maui.Views
         #endregion
 
         #region Bindable Properties Initialisers
-        public static readonly BindableProperty CalendarViewProperty = BindableProperty.Create(nameof(CalendarView), typeof(CalendarView), typeof(CalendarDayView), propertyChanged: CalendarViewPropertyChanged);
+        public static readonly BindableProperty CalendarProperty = BindableProperty.Create(nameof(Calendar), typeof(Calendar), typeof(CalendarDayView), propertyChanged: CalendarPropertyChanged);
         public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(CalendarDayView), System.DateTime.Today);
         public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(IsToday), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
@@ -340,21 +341,21 @@ namespace XCalendar.Maui.Views
         #endregion
 
         #region Commands
-        public ICommand UpdateCalendarViewDateSelectionCommand { get; private set; }
+        public ICommand UpdateCalendarDateSelectionCommand { get; private set; }
         #endregion
 
         #region Constructors
         public CalendarDayView()
         {
-            UpdateCalendarViewDateSelectionCommand = new Command<DateTime?>((DateTime) => { CalendarView?.ChangeDateSelection(DateTime.Value); });
+            UpdateCalendarDateSelectionCommand = new Command<DateTime>((DateTime) => { Calendar?.ChangeDateSelection(DateTime); });
 
-            CurrentMonthCommand = UpdateCalendarViewDateSelectionCommand;
+            CurrentMonthCommand = UpdateCalendarDateSelectionCommand;
             SetBinding(CurrentMonthCommandParameterProperty, new Binding("DateTime", source: this));
 
-            TodayCommand = UpdateCalendarViewDateSelectionCommand;
+            TodayCommand = UpdateCalendarDateSelectionCommand;
             SetBinding(TodayCommandParameterProperty, new Binding("DateTime", source: this));
 
-            SelectedCommand = UpdateCalendarViewDateSelectionCommand;
+            SelectedCommand = UpdateCalendarDateSelectionCommand;
             SetBinding(SelectedCommandParameterProperty, new Binding("DateTime", source: this));
 
             SetBinding(TextProperty, new Binding("DateTime.Day", source: this));
@@ -364,7 +365,7 @@ namespace XCalendar.Maui.Views
         #endregion
 
         #region Methods
-        private void CalendarView_MonthViewDaysInvalidated(object sender, EventArgs e)
+        private void Calendar_MonthViewDaysInvalidated(object sender, EventArgs e)
         {
             UpdateProperties();
             EvaluateDayState();
@@ -432,19 +433,19 @@ namespace XCalendar.Maui.Views
         }
         public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
         {
-            return DateTime.Month == CalendarView?.NavigatedDate.Month && DateTime.Year == CalendarView?.NavigatedDate.Year;
+            return DateTime.Month == Calendar?.NavigatedDate.Month && DateTime.Year == Calendar?.NavigatedDate.Year;
         }
         public virtual bool IsDateTimeInvalid(DateTime DateTime)
         {
-            return DateTime.Date < CalendarView?.NavigationLowerBound.Date || DateTime.Date > CalendarView?.NavigationUpperBound.Date;
+            return DateTime.Date < Calendar?.NavigationLowerBound.Date || DateTime.Date > Calendar?.NavigationUpperBound.Date;
         }
         public virtual bool IsDateTimeToday(DateTime DateTime)
         {
-            return DateTime.Date == CalendarView?.TodayDate.Date;
+            return DateTime.Date == Calendar?.TodayDate.Date;
         }
         public virtual bool IsDateTimeSelected(DateTime DateTime)
         {
-            return CalendarView?.SelectedDates.Any(x => x.Date == DateTime.Date) == true;
+            return Calendar?.SelectedDates.Any(x => x.Date == DateTime.Date) == true;
         }
         protected override void OnBindingContextChanged()
         {
@@ -465,14 +466,14 @@ namespace XCalendar.Maui.Views
         }
 
         #region Bindable Properties Methods
-        private static void CalendarViewPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void CalendarPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarDayView Control = (CalendarDayView)bindable;
-            CalendarView OldCalendarView = (CalendarView)oldValue;
-            CalendarView NewCalendarView = (CalendarView)newValue;
+            Calendar OldCalendar = (Calendar)oldValue;
+            Calendar NewCalendar = (Calendar)newValue;
 
-            if (OldCalendarView != null) { OldCalendarView.MonthViewDaysInvalidated -= Control.CalendarView_MonthViewDaysInvalidated; }
-            if (NewCalendarView != null) { NewCalendarView.MonthViewDaysInvalidated += Control.CalendarView_MonthViewDaysInvalidated; }
+            if (OldCalendar != null) { OldCalendar.MonthViewDaysInvalidated -= Control.Calendar_MonthViewDaysInvalidated; }
+            if (NewCalendar != null) { NewCalendar.MonthViewDaysInvalidated += Control.Calendar_MonthViewDaysInvalidated; }
 
             Control.UpdateProperties();
             Control.EvaluateDayState();

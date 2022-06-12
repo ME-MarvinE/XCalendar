@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using PropertyChanged;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace XCalendar.Core.Models
@@ -6,6 +7,7 @@ namespace XCalendar.Core.Models
     /// <summary>
     /// A base class for Models that need to implement the INotifyPropertyChanged interface.
     /// </summary>
+    [AddINotifyPropertyChangedInterface]
     public abstract class BaseObservableModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using XCalendar.Core;
-using XCalendar.Forms.Enums;
+using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 using XCalendarFormsSample.Helpers;
 
 namespace XCalendarFormsSample.ViewModels
@@ -11,38 +10,41 @@ namespace XCalendarFormsSample.ViewModels
     public class PlaygroundViewModel : BaseViewModel
     {
         #region Properties
-        public ObservableRangeCollection<DateTime> SelectedDates { get; } = new ObservableRangeCollection<DateTime>();
-        public DateTime NavigatedDate { get; set; } = DateTime.Today;
-        public DateTime NavigationLowerBound { get; set; } = DateTime.Today.AddYears(-2);
-        public DateTime NavigationUpperBound { get; set; } = DateTime.Today.AddYears(2);
-        public DayOfWeek StartOfWeek { get; set; } = DayOfWeek.Monday;
-        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; } = new ObservableRangeCollection<DayOfWeek>()
+        public Calendar Calendar { get; set; } = new Calendar()
         {
-            DayOfWeek.Monday,
-            DayOfWeek.Tuesday,
-            DayOfWeek.Wednesday,
-            DayOfWeek.Thursday,
-            DayOfWeek.Friday,
-            DayOfWeek.Saturday,
-            DayOfWeek.Sunday
+            SelectedDates = new ObservableRangeCollection<DateTime>(),
+            NavigatedDate = DateTime.Today,
+            NavigationLowerBound = DateTime.Today.AddYears(-2),
+            NavigationUpperBound = DateTime.Today.AddYears(2),
+            StartOfWeek = DayOfWeek.Monday,
+            CustomDayNamesOrder = new ObservableRangeCollection<DayOfWeek>()
+            {
+                DayOfWeek.Monday,
+                DayOfWeek.Tuesday,
+                DayOfWeek.Wednesday,
+                DayOfWeek.Thursday,
+                DayOfWeek.Friday,
+                DayOfWeek.Saturday,
+                DayOfWeek.Sunday
+            },
+            SelectionAction = SelectionAction.Modify,
+            NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum,
+            SelectionType = SelectionType.Single,
+            NavigationTimeUnit = NavigationTimeUnit.Month,
+            PageStartMode = PageStartMode.FirstDayOfMonth,
+            Rows = 2,
+            AutoRows = true,
+            AutoRowsIsConsistent = true,
+            UseCustomDayNamesOrder = false,
+            TodayDate = DateTime.Today,
+            ForwardsNavigationAmount = 1,
+            BackwardsNavigationAmount = -1
         };
-        public SelectionAction SelectionAction { get; set; } = SelectionAction.Modify;
-        public NavigationLoopMode NavigationLoopMode { get; set; } = NavigationLoopMode.LoopMinimumAndMaximum;
-        public SelectionType SelectionType { get; set; } = SelectionType.Single;
-        public NavigationTimeUnit NavigationTimeUnit { get; set; } = NavigationTimeUnit.Month;
-        public PageStartMode PageStartMode { get; set; } = PageStartMode.FirstDayOfMonth;
-        public int Rows { get; set; } = 2;
-        public bool AutoRows { get; set; } = true;
-        public bool AutoRowsIsConsistent { get; set; } = true;
         public double DayHeightRequest { get; set; } = 45;
         public double DayWidthRequest { get; set; } = 45;
         public double MonthViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
-        public bool UseCustomDayNamesOrder { get; set; } = false;
-        public DateTime TodayDate { get; set; } = DateTime.Today;
         public double NavigationHeightRequest { get; set; } = 40;
-        public int ForwardsNavigationAmount { get; set; } = 1;
-        public int BackwardsNavigationAmount { get; set; } = -1;
         #endregion
 
         #region Commands
@@ -71,31 +73,31 @@ namespace XCalendarFormsSample.ViewModels
         #region Methods
         public async void ShowCustomDayNamesOrderDialog()
         {
-            CustomDayNamesOrder.ReplaceRange(await PopupHelper.ShowCustomDayNamesOrderDialog(CustomDayNamesOrder));
+            Calendar.CustomDayNamesOrder.ReplaceRange(await PopupHelper.ShowCustomDayNamesOrderDialog(Calendar.CustomDayNamesOrder));
         }
         public async void ShowSelectionActionDialog()
         {
-            SelectionAction = await PopupHelper.ShowSelectionActionDialog(SelectionAction);
+            Calendar.SelectionAction = await PopupHelper.ShowSelectionActionDialog(Calendar.SelectionAction);
         }
         public async void ShowNavigationTimeUnitDialog()
         {
-            NavigationTimeUnit = await PopupHelper.ShowNavigationTimeUnitDialog(NavigationTimeUnit);
+            Calendar.NavigationTimeUnit = await PopupHelper.ShowNavigationTimeUnitDialog(Calendar.NavigationTimeUnit);
         }
         public async void ShowNavigationLoopModeDialog()
         {
-            NavigationLoopMode = await PopupHelper.ShowNavigationLoopModeDialog(NavigationLoopMode);
+            Calendar.NavigationLoopMode = await PopupHelper.ShowNavigationLoopModeDialog(Calendar.NavigationLoopMode);
         }
         public async void ShowPageStartModeDialog()
         {
-            PageStartMode = await PopupHelper.ShowPageStartModeDialog(PageStartMode);
+            Calendar.PageStartMode = await PopupHelper.ShowPageStartModeDialog(Calendar.PageStartMode);
         }
         public async void ShowStartOfWeekDialog()
         {
-            StartOfWeek = await PopupHelper.ShowStartOfWeekDialog(StartOfWeek);
+            Calendar.StartOfWeek = await PopupHelper.ShowStartOfWeekDialog(Calendar.StartOfWeek);
         }
         public async void ShowSelectionTypeDialog()
         {
-            SelectionType = await PopupHelper.ShowSelectionTypeDialog(SelectionType);
+            Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
         }
         #endregion
     }

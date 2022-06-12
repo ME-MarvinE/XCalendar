@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XCalendar.Maui.Enums
+namespace XCalendar.Core.Enums
 {
     [Flags]
     public enum NavigationLoopMode

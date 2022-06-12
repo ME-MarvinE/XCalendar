@@ -87,11 +87,11 @@
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding Calendar.NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding NavigatedDate}"
+                                Date="{Binding Calendar.NavigatedDate}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
@@ -112,11 +112,11 @@
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding Calendar.TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding TodayDate}"
+                                Date="{Binding Calendar.TodayDate}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
@@ -137,11 +137,11 @@
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Date="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
@@ -162,11 +162,11 @@
                                 AutoSize="TextChanges"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalOptions="Center"
-                                Text="{Binding NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                                Text="{Binding Calendar.NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
                                 VerticalOptions="End"/>
                             <DatePicker
                                 Grid.Column="1"
-                                Date="{Binding NavigationUpperBound}"
+                                Date="{Binding Calendar.NavigationUpperBound}"
                                 FontSize="{StaticResource SmallFontSize}"
                                 Format="ddd, MMM d yyy"
                                 HorizontalOptions="Center"
@@ -187,7 +187,7 @@
                                 BackgroundColor="{StaticResource PageBackgroundColor}"
                                 HeightRequest="50"
                                 ItemSizingStrategy="MeasureFirstItem"
-                                ItemsSource="{Binding SelectedDates}"
+                                ItemsSource="{Binding Calendar.SelectedDates}"
                                 WidthRequest="100">
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
@@ -214,7 +214,7 @@
                                 Grid.Column="1"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding SelectionType}"
+                                Text="{Binding Calendar.SelectionType}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
                                 
@@ -236,7 +236,7 @@
                                 Grid.Column="1"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding SelectionAction}"
+                                Text="{Binding Calendar.SelectionAction}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
                                 
@@ -258,7 +258,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 Keyboard="Numeric"
-                                Text="{Binding ForwardsNavigationAmount}"
+                                Text="{Binding Calendar.ForwardsNavigationAmount}"
                                 VerticalOptions="End"/>
                         </Grid>
 
@@ -273,7 +273,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 Keyboard="Numeric"
-                                Text="{Binding BackwardsNavigationAmount}"
+                                Text="{Binding Calendar.BackwardsNavigationAmount}"
                                 VerticalOptions="End"/>
                         </Grid>
 
@@ -288,7 +288,7 @@
                                 Grid.Column="1"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding NavigationTimeUnit}"
+                                Text="{Binding Calendar.NavigationTimeUnit}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
                                 
@@ -310,7 +310,7 @@
                                 Grid.Column="1"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding NavigationLoopMode}"
+                                Text="{Binding Calendar.NavigationLoopMode}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"
                                 WidthRequest="125">
@@ -333,7 +333,7 @@
                                 Grid.Column="1"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding PageStartMode}"
+                                Text="{Binding Calendar.PageStartMode}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
                                 
@@ -355,7 +355,7 @@
                                 Grid.Column="1"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding StartOfWeek}"
+                                Text="{Binding Calendar.StartOfWeek}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
                                 
@@ -398,7 +398,7 @@
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding UseCustomDayNamesOrder}"/>
+                                IsToggled="{Binding Calendar.UseCustomDayNamesOrder}"/>
                         </Grid>
 
                         <Grid>
@@ -412,7 +412,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
                                 Keyboard="Numeric"
-                                Text="{Binding Rows}"
+                                Text="{Binding Calendar.Rows}"
                                 VerticalOptions="End"/>
                         </Grid>
 
@@ -426,7 +426,7 @@
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding AutoRows}"/>
+                                IsToggled="{Binding Calendar.AutoRows}"/>
                         </Grid>
 
                         <Grid>
@@ -439,7 +439,7 @@
                             <Switch
                                 Grid.Column="1"
                                 HorizontalOptions="Center"
-                                IsToggled="{Binding AutoRowsIsConsistent}"/>
+                                IsToggled="{Binding Calendar.AutoRowsIsConsistent}"/>
                         </Grid>
 
                         <Grid>
@@ -543,27 +543,10 @@
 
                     <xc:CalendarView
                         x:Name="FancyCalendarView"
-                        AutoRows="{Binding AutoRows}"
-                        AutoRowsIsConsistent="{Binding AutoRowsIsConsistent}"
-                        BackwardsNavigationAmount="{Binding BackwardsNavigationAmount}"
-                        CustomDayNamesOrder="{Binding CustomDayNamesOrder}"
+                        Calendar="{Binding Calendar}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                        NavigationUpperBound="{Binding NavigationUpperBound}"
-                        NavigationLowerBound="{Binding NavigationLowerBound}"
-                        ForwardsNavigationAmount="{Binding ForwardsNavigationAmount}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
-                        NavigatedDate="{Binding NavigatedDate}"
-                        NavigationHeightRequest="{Binding NavigationHeightRequest}"
-                        NavigationLoopMode="{Binding NavigationLoopMode}"
-                        NavigationTimeUnit="{Binding NavigationTimeUnit}"
-                        PageStartMode="{Binding PageStartMode}"
-                        Rows="{Binding Rows}"
-                        SelectedDates="{Binding SelectedDates}"
-                        SelectionAction="{Binding SelectionAction}"
-                        SelectionType="{Binding SelectionType}"
-                        StartOfWeek="{Binding StartOfWeek}"
-                        TodayDate="{Binding TodayDate}"
-                        UseCustomDayNamesOrder="{Binding UseCustomDayNamesOrder}">
+                        NavigationHeightRequest="{Binding NavigationHeightRequest}">
 
                         <xc:CalendarView.MonthViewTemplate>
                             <OnPlatform x:TypeArguments="ControlTemplate">
@@ -580,7 +563,7 @@
                                                                     <ContentView>
                                                                         <xc:CalendarDayView
                                                                 Margin="2.5"
-                                                                CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
+                                                                Calendar="{Binding Calendar, Source={x:Reference FancyCalendarView}}"
                                                                 DateTime="{Binding DateTime}"/>
                                                                     </ContentView>
                                                                 </DataTemplate>
@@ -632,7 +615,7 @@
                                             <xc:CalendarDayView
                                                 Style="{StaticResource DefaultDayViewStyle}"
                                                 Margin="2.5"
-                                                CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
+                                                Calendar="{Binding Calendar, Source={x:Reference FancyCalendarView}}"
                                                 DateTime="{Binding DateTime}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                                 WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
@@ -841,7 +824,7 @@
                                                     <xc:CalendarDayView
                                                         Style="{StaticResource DefaultDayViewStyle}"
                                                         Margin="2.5"
-                                                        CalendarView="{Binding ., Source={x:Reference FancyCalendarView}}"
+                                                        Calendar="{Binding Calendar, Source={x:Reference FancyCalendarView}}"
                                                         DateTime="{Binding DateTime}"
                                                         HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                                         HorizontalOptions="Center"

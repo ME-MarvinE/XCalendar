@@ -12,7 +12,7 @@
     <ScrollView>
         <StackLayout Spacing="0">
 
-            <xc:CalendarView Style="{StaticResource DefaultCalendarViewStyle}" MonthViewHeightRequest="320" x:Name="MainCalendarView" NavigatedDate="{Binding NavigatedDate}" SelectionType="Single" SelectionAction="Replace" SelectedDates="{Binding SelectedDates}">
+            <xc:CalendarView Style="{StaticResource DefaultCalendarViewStyle}" MonthViewHeightRequest="320" x:Name="MainCalendarView" Calendar="{Binding Calendar}">
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                         <ContentView>
@@ -21,7 +21,7 @@
                                 Style="{StaticResource DefaultDayViewStyle}"
                                 HeightRequest="47"
                                 Margin="2.5"
-                                CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
                                 DateTime="{Binding DateTime}"/>
                         </ContentView>
                     </DataTemplate>
@@ -38,10 +38,10 @@
                     Style="{StaticResource DefaultDayViewStyle}"
                     HeightRequest="47"
                     Margin="0,5,0,5"
-                    CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
-                    DateTime="{Binding NavigatedDate}"/>
-                
-                <DatePicker Format="/MM/yyy" Date="{Binding NavigatedDate}"/>
+                    Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
+                    DateTime="{Binding Calendar.NavigatedDate}"/>
+
+                <DatePicker Format="/MM/yyy" Date="{Binding Calendar.NavigatedDate}"/>
                 
             </StackLayout>
 
