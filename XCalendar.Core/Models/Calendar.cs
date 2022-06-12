@@ -560,29 +560,26 @@ namespace XCalendar.Core.Models
         }
         private void OnNavigationLowerBoundChanged(DateTime oldValue, DateTime newValue)
         {
-            NavigatedDate = (DateTime)CoerceNavigatedDate(NavigatedDate);
+            NavigatedDate = CoerceNavigatedDate(NavigatedDate);
         }
         private void OnNavigationUpperBoundChanged(DateTime oldValue, DateTime newValue)
         {
-            NavigatedDate = (DateTime)CoerceNavigatedDate(NavigatedDate);
+            NavigatedDate = CoerceNavigatedDate(NavigatedDate);
         }
         private void OnSelectedDatesChanged(ObservableRangeCollection<DateTime> oldValue, ObservableRangeCollection<DateTime> newValue)
         {
             if (!IsSelectedDatesValidValue(newValue)) { throw new ArgumentException(nameof(newValue)); }
 
-            ObservableRangeCollection<DateTime> OldSelectedDates = (ObservableRangeCollection<DateTime>)oldValue;
-            ObservableRangeCollection<DateTime> NewSelectedDates = (ObservableRangeCollection<DateTime>)newValue;
-
-            if (OldSelectedDates != null) { OldSelectedDates.CollectionChanged -= SelectedDates_CollectionChanged; }
-            if (NewSelectedDates != null) { NewSelectedDates.CollectionChanged += SelectedDates_CollectionChanged; }
+            if (oldValue != null) { oldValue.CollectionChanged -= SelectedDates_CollectionChanged; }
+            if (newValue != null) { newValue.CollectionChanged += SelectedDates_CollectionChanged; }
 
             _PreviousSelectedDates.Clear();
-            _PreviousSelectedDates.AddRange(OldSelectedDates);
+            _PreviousSelectedDates.AddRange(oldValue);
 
-            if (OldSelectedDates == null || !OldSelectedDates.SequenceEqual(NewSelectedDates))
+            if (oldValue == null || !oldValue.SequenceEqual(newValue))
             {
                 OnMonthViewDaysInvalidated();
-                OnDateSelectionChanged(_PreviousSelectedDates, NewSelectedDates);
+                OnDateSelectionChanged(_PreviousSelectedDates, newValue);
             }
         }
         private void OnStartOfWeekDayNamesOrderChanged(ReadOnlyObservableCollection<DayOfWeek> oldValue, ReadOnlyObservableCollection<DayOfWeek> newValue)
@@ -591,11 +588,9 @@ namespace XCalendar.Core.Models
         }
         private void OnCustomDayNamesOrderChanged(ObservableRangeCollection<DayOfWeek> oldValue, ObservableRangeCollection<DayOfWeek> newValue)
         {
-            ObservableRangeCollection<DayOfWeek> NewCustomDayNamesOrder = (ObservableRangeCollection<DayOfWeek>)newValue;
-
             if (UseCustomDayNamesOrder)
             {
-                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(NewCustomDayNamesOrder);
+                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(newValue);
             }
         }
         private void OnAutoRowsChanged(bool oldValue, bool newValue)
@@ -616,13 +611,10 @@ namespace XCalendar.Core.Models
         {
             if (!IsDayNamesOrderValidValue(newValue)) { throw new ArgumentException(nameof(newValue)); }
 
-            ReadOnlyObservableCollection<DayOfWeek> OldDayNamesOrder = (ReadOnlyObservableCollection<DayOfWeek>)oldValue;
-            ReadOnlyObservableCollection<DayOfWeek> NewDayNamesOrder = (ReadOnlyObservableCollection<DayOfWeek>)newValue;
+            if (oldValue != null) { ((INotifyCollectionChanged)oldValue).CollectionChanged -= DayNamesOrder_CollectionChanged; }
+            if (newValue != null) { ((INotifyCollectionChanged)newValue).CollectionChanged += DayNamesOrder_CollectionChanged; }
 
-            if (OldDayNamesOrder != null) { ((INotifyCollectionChanged)OldDayNamesOrder).CollectionChanged -= DayNamesOrder_CollectionChanged; }
-            if (NewDayNamesOrder != null) { ((INotifyCollectionChanged)NewDayNamesOrder).CollectionChanged += DayNamesOrder_CollectionChanged; }
-
-            if (OldDayNamesOrder == null || !OldDayNamesOrder.SequenceEqual(NewDayNamesOrder))
+            if (oldValue == null || !oldValue.SequenceEqual(newValue))
             {
                 UpdateMonthViewDates(NavigatedDate);
                 OnMonthViewDaysInvalidated();
@@ -655,37 +647,35 @@ namespace XCalendar.Core.Models
         }
         private DateTime CoerceNavigatedDate(DateTime value)
         {
-            DateTime InitialValue = (DateTime)value;
-
             DateTime MinimumDate = NavigationLowerBound;
             DateTime MaximumDate = NavigationUpperBound;
 
             switch (NavigationLoopMode)
             {
                 case NavigationLoopMode.DontLoop:
-                    if (InitialValue.Date < MinimumDate.Date) { return MinimumDate; }
-                    if (InitialValue.Date > MaximumDate.Date) { return MaximumDate; }
+                    if (value.Date < MinimumDate.Date) { return MinimumDate; }
+                    if (value.Date > MaximumDate.Date) { return MaximumDate; }
                     break;
                 case NavigationLoopMode.LoopMinimum:
-                    if (InitialValue.Date < MinimumDate.Date) { return MaximumDate; }
-                    if (InitialValue.Date > MaximumDate.Date) { return MaximumDate; }
+                    if (value.Date < MinimumDate.Date) { return MaximumDate; }
+                    if (value.Date > MaximumDate.Date) { return MaximumDate; }
                     break;
 
                 case NavigationLoopMode.LoopMaximum:
-                    if (InitialValue.Date < MinimumDate.Date) { return MinimumDate; }
-                    if (InitialValue.Date > MaximumDate.Date) { return MinimumDate; }
+                    if (value.Date < MinimumDate.Date) { return MinimumDate; }
+                    if (value.Date > MaximumDate.Date) { return MinimumDate; }
                     break;
 
                 case NavigationLoopMode.LoopMinimumAndMaximum:
-                    if (InitialValue.Date < MinimumDate.Date) { return MaximumDate; }
-                    if (InitialValue.Date > MaximumDate.Date) { return MinimumDate; }
+                    if (value.Date < MinimumDate.Date) { return MaximumDate; }
+                    if (value.Date > MaximumDate.Date) { return MinimumDate; }
                     break;
 
                 default:
                     throw new NotImplementedException($"{nameof(NavigationLoopMode)} is not implemented.");
             }
 
-            return InitialValue;
+            return value;
         }
         private int CoerceRows(int value)
         {
