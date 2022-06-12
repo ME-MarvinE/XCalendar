@@ -71,7 +71,7 @@
             <xc:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                     <xc:CalendarDayView
-                        CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                        Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
                         CurrentMonthBackgroundColor="Transparent"
                         CurrentMonthTextColor="Black"
                         DateTime="{Binding DateTime}"

@@ -148,7 +148,7 @@
                                     <ContentView>
                                         <xc:CalendarDayView
                                             Margin="2.5"
-                                            CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                            Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
                                             DateTime="{Binding DateTime}"/>
                                     </ContentView>
                                 </DataTemplate>

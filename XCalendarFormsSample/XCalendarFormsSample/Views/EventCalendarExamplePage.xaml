@@ -51,7 +51,7 @@
                                 Style="{StaticResource DefaultDayViewStyle}"
                                 Margin="2.5"
                                 HeightRequest="41"
-                                CalendarView="{Binding ., Source={x:Reference MainCalendarView}}"
+                                Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
                                 DateTime="{Binding DateTime}"
                                 >
 
