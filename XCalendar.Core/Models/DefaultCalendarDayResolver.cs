@@ -1,8 +1,7 @@
 ﻿using System;
 using XCalendar.Core.Interfaces;
-using XCalendar.Core.Models;
 
-namespace XCalendar.Core
+namespace XCalendar.Core.Models
 {
     public class DefaultCalendarDayResolver : ICalendarDayResolver
     {
