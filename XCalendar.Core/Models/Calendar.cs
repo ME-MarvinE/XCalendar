@@ -24,8 +24,6 @@ namespace XCalendar.Core.Models
         #endregion
 
         #region Properties
-
-        #region Bindable Properties
         /// <summary>
         /// The list of displayed days.
         /// </summary>
@@ -134,8 +132,6 @@ namespace XCalendar.Core.Models
         public SelectionType SelectionType { get; set; } = SelectionType.None;
         [OnChangedMethod(nameof(OnDayResolverChanged))]
         public ICalendarDayResolver DayResolver { get; set; } = new DefaultCalendarDayResolver();
-        #endregion
-
         #endregion
 
         #region Events
@@ -411,7 +407,7 @@ namespace XCalendar.Core.Models
         /// <param name="StartOfWeek">The start of the week.</param>
         /// <returns>The <see cref="DateTime"/> resulting from the navigation.</returns>
         /// <exception cref="NotImplementedException">The <see cref="NavigationTimeUnit"/> is not implemented.</exception>
-        public DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
+        public static DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
         {
             bool LowerThanMinimumDate;
             bool HigherThanMaximumDate;
@@ -504,8 +500,6 @@ namespace XCalendar.Core.Models
         {
             UpdateDays(NavigatedDate);
         }
-
-        #region Bindable Properties Methods
         private void OnRowsChanged(int oldValue, int newValue)
         {
             int CoercedRows = CoerceRows(Rows);
@@ -676,8 +670,6 @@ namespace XCalendar.Core.Models
         {
             return AutoRows ? GetMonthRows(NavigatedDate, AutoRowsIsConsistent, StartOfWeek) : value;
         }
-        #endregion
-
         #endregion
     }
 }
