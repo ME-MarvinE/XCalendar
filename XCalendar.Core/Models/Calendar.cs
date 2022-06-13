@@ -140,7 +140,7 @@ namespace XCalendar.Core.Models
 
         #region Events
         public event EventHandler<DateSelectionChangedEventArgs> DateSelectionChanged;
-        public event EventHandler MonthViewDaysInvalidated;
+        public event EventHandler DaysUpdated;
         #endregion
 
         #region Constructors
@@ -154,7 +154,6 @@ namespace XCalendar.Core.Models
             SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
 
             UpdateDays(NavigatedDate);
-            OnMonthViewDaysInvalidated();
         }
         #endregion
 
@@ -169,9 +168,9 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// Called when the <see cref="CalendarView"/> needs to notify <see cref="CalendarDayView"/>s to reevaluate their properties due to a change.
         /// </summary>
-        protected virtual void OnMonthViewDaysInvalidated()
+        protected virtual void OnDaysUpdated()
         {
-            MonthViewDaysInvalidated?.Invoke(this, new EventArgs());
+            DaysUpdated?.Invoke(this, new EventArgs());
         }
         /// <summary>
         /// Performs selection of a <see cref="DateTime"/> depending on the current <see cref="SelectionAction"/> and <see cref="SelectionType"/>.
@@ -389,6 +388,8 @@ namespace XCalendar.Core.Models
             {
                 _Days.RemoveAt(Days.Count - 1);
             }
+
+            OnDaysUpdated();
         }
         /// <summary>
         /// Navigates the date at which the time unit is extracted.
@@ -492,7 +493,7 @@ namespace XCalendar.Core.Models
         /// </summary>
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnMonthViewDaysInvalidated();
+            UpdateDays(NavigatedDate);
 
             OnDateSelectionChanged(_PreviousSelectedDates, SelectedDates);
 
@@ -502,7 +503,6 @@ namespace XCalendar.Core.Models
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             UpdateDays(NavigatedDate);
-            OnMonthViewDaysInvalidated();
         }
 
         #region Bindable Properties Methods
@@ -519,7 +519,6 @@ namespace XCalendar.Core.Models
             else
             {
                 UpdateDays(NavigatedDate);
-                OnMonthViewDaysInvalidated();
             }
         }
         private void OnNavigatedDateChanged(DateTime oldValue, DateTime newValue)
@@ -531,7 +530,6 @@ namespace XCalendar.Core.Models
             if (Rows == CoercedRows)
             {
                 UpdateDays(NavigatedDate);
-                OnMonthViewDaysInvalidated();
             }
             else
             {
@@ -540,7 +538,7 @@ namespace XCalendar.Core.Models
         }
         private void OnTodayDateChanged(DateTime oldValue, DateTime newValue)
         {
-            OnMonthViewDaysInvalidated();
+            UpdateDays(NavigatedDate);
         }
         private void OnStartOfWeekChanged(DayOfWeek oldValue, DayOfWeek newValue)
         {
@@ -555,7 +553,6 @@ namespace XCalendar.Core.Models
             if (!UpdateStartOfWeekDayNamesOrder || UseCustomDayNamesOrder)
             {
                 UpdateDays(NavigatedDate);
-                OnMonthViewDaysInvalidated();
             }
         }
         private void OnNavigationLowerBoundChanged(DateTime oldValue, DateTime newValue)
@@ -578,7 +575,7 @@ namespace XCalendar.Core.Models
 
             if (oldValue == null || !oldValue.SequenceEqual(newValue))
             {
-                OnMonthViewDaysInvalidated();
+                UpdateDays(NavigatedDate);
                 OnDateSelectionChanged(_PreviousSelectedDates, newValue);
             }
         }
@@ -617,13 +614,11 @@ namespace XCalendar.Core.Models
             if (oldValue == null || !oldValue.SequenceEqual(newValue))
             {
                 UpdateDays(NavigatedDate);
-                OnMonthViewDaysInvalidated();
             }
         }
         private void OnPageStartModeChanged(PageStartMode oldValue, PageStartMode newValue)
         {
             UpdateDays(NavigatedDate);
-            OnMonthViewDaysInvalidated();
         }
         private void OnRangeSelectionStartChanged(DateTime? oldValue, DateTime? newValue)
         {
@@ -644,7 +639,6 @@ namespace XCalendar.Core.Models
             //Days must be cleared otherwise DayResolver's 'CreateDay' method may not be called due to performance optimisations in UpdateDays.
             _Days.Clear();
             UpdateDays(NavigatedDate);
-            OnMonthViewDaysInvalidated();
         }
         private DateTime CoerceNavigatedDate(DateTime value)
         {

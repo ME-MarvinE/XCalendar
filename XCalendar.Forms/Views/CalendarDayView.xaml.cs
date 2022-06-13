@@ -278,7 +278,7 @@ namespace XCalendar.Forms.Views
         #endregion
 
         #region Methods
-        private void Calendar_MonthViewDaysInvalidated(object sender, EventArgs e)
+        private void Calendar_DaysUpdated(object sender, EventArgs e)
         {
             UpdateProperties();
             EvaluateDayState();
@@ -385,8 +385,8 @@ namespace XCalendar.Forms.Views
             Calendar OldCalendar = (Calendar)oldValue;
             Calendar NewCalendar = (Calendar)newValue;
 
-            if (OldCalendar != null) { OldCalendar.MonthViewDaysInvalidated -= Control.Calendar_MonthViewDaysInvalidated; }
-            if (NewCalendar != null) { NewCalendar.MonthViewDaysInvalidated += Control.Calendar_MonthViewDaysInvalidated; }
+            if (OldCalendar != null) { OldCalendar.DaysUpdated -= Control.Calendar_DaysUpdated; }
+            if (NewCalendar != null) { NewCalendar.DaysUpdated += Control.Calendar_DaysUpdated; }
 
             Control.UpdateProperties();
             Control.EvaluateDayState();
