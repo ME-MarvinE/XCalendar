@@ -510,7 +510,7 @@ namespace XCalendar.Core.Models
         {
             int CoercedRows = CoerceRows(Rows);
 
-            if (!IsRowsValidValue(CoercedRows)) { throw new ArgumentException(nameof(newValue)); }
+            if (CoercedRows < 1) { throw new ArgumentException(nameof(newValue)); }
 
             if (Rows != CoercedRows)
             {
@@ -565,7 +565,7 @@ namespace XCalendar.Core.Models
         }
         private void OnSelectedDatesChanged(ObservableRangeCollection<DateTime> oldValue, ObservableRangeCollection<DateTime> newValue)
         {
-            if (!IsSelectedDatesValidValue(newValue)) { throw new ArgumentException(nameof(newValue)); }
+            if (newValue == null) { throw new ArgumentException(nameof(newValue)); }
 
             if (oldValue != null) { oldValue.CollectionChanged -= SelectedDates_CollectionChanged; }
             if (newValue != null) { newValue.CollectionChanged += SelectedDates_CollectionChanged; }
@@ -581,7 +581,7 @@ namespace XCalendar.Core.Models
         }
         private void OnStartOfWeekDayNamesOrderChanged(ReadOnlyObservableCollection<DayOfWeek> oldValue, ReadOnlyObservableCollection<DayOfWeek> newValue)
         {
-            if (!IsStartOfWeekDayNamesOrderValidValue(newValue)) { throw new ArgumentException(nameof(newValue)); }
+            if (newValue == null || newValue.Count == 0) { throw new ArgumentException(nameof(newValue)); }
         }
         private void OnCustomDayNamesOrderChanged(ObservableRangeCollection<DayOfWeek> oldValue, ObservableRangeCollection<DayOfWeek> newValue)
         {
@@ -606,7 +606,7 @@ namespace XCalendar.Core.Models
         }
         private void OnDayNamesOrderChanged(ReadOnlyObservableCollection<DayOfWeek> oldValue, ReadOnlyObservableCollection<DayOfWeek> newValue)
         {
-            if (!IsDayNamesOrderValidValue(newValue)) { throw new ArgumentException(nameof(newValue)); }
+            if (newValue == null || newValue.Count == 0) { throw new ArgumentException(nameof(newValue)); }
 
             if (oldValue != null) { ((INotifyCollectionChanged)oldValue).CollectionChanged -= DayNamesOrder_CollectionChanged; }
             if (newValue != null) { ((INotifyCollectionChanged)newValue).CollectionChanged += DayNamesOrder_CollectionChanged; }
@@ -675,22 +675,6 @@ namespace XCalendar.Core.Models
         private int CoerceRows(int value)
         {
             return AutoRows ? GetMonthRows(NavigatedDate, AutoRowsIsConsistent, StartOfWeek) : value;
-        }
-        private static bool IsRowsValidValue(int value)
-        {
-            return value > 0;
-        }
-        private static bool IsSelectedDatesValidValue(ObservableRangeCollection<DateTime> value)
-        {
-            return value != null;
-        }
-        private static bool IsDayNamesOrderValidValue(ReadOnlyObservableCollection<DayOfWeek> value)
-        {
-            return value != null && value.Count > 0;
-        }
-        private static bool IsStartOfWeekDayNamesOrderValidValue(ReadOnlyObservableCollection<DayOfWeek> value)
-        {
-            return value != null && value.Count > 0;
         }
         #endregion
 
