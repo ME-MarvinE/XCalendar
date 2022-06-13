@@ -641,6 +641,7 @@ namespace XCalendar.Core.Models
         }
         private void OnDayResolverChanged(ICalendarDayResolver oldValue, ICalendarDayResolver newValue)
         {
+            //Days must be cleared otherwise DayResolver's 'CreateDay' method may not be called due to performance optimisations in UpdateMonthViewDates.
             _Days.Clear();
             UpdateMonthViewDates(NavigatedDate);
             OnMonthViewDaysInvalidated();

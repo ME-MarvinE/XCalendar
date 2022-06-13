@@ -553,7 +553,7 @@
                                 <On Platform="WinUI">
                                     <On.Value>
                                         <ControlTemplate>
-                                            <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference FancyCalendarView}}" ItemsSource="{Binding Days, Source={x:Reference FancyCalendarView}}">
+                                            <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference FancyCalendarView}}" ItemsSource="{Binding Calendar.Days, Source={x:Reference FancyCalendarView}}">
                                                 <CollectionView.Style>
                                                     <Style TargetType="{x:Type CollectionView}">
                                                         <Setter Property="ItemTemplate">
@@ -641,7 +641,7 @@
                                                             FontAttributes="Bold"
                                                             FontSize="18"
                                                             HorizontalTextAlignment="Center"
-                                                            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference FancyCalendarView}}"
+                                                            Text="{Binding Calendar.NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference FancyCalendarView}}"
                                                             TextColor="{Binding NavigationTextColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="Center"/>
 
@@ -658,7 +658,7 @@
                                                             WidthRequest="30">
 
                                                             <xc:BorderedLabel.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding BackwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
+                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding Calendar.BackwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
                                                             </xc:BorderedLabel.GestureRecognizers>
 
                                                             <xc:BorderedLabel.StrokeShape>
@@ -683,7 +683,7 @@
                                                             </xc:BorderedLabel.StrokeShape>
 
                                                             <xc:BorderedLabel.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
+                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
                                                             </xc:BorderedLabel.GestureRecognizers>
 
                                                         </xc:BorderedLabel>
@@ -700,48 +700,48 @@
                                                             <Style TargetType="{x:Type Label}">
                                                                 <Setter Property="TextColor" Value="Black"/>
                                                                 <Setter Property="FontAttributes" Value="Bold"/>
-                                                                <Setter Property="Text" Value="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}!'}"/>
+                                                                <Setter Property="Text" Value="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}!'}"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger
-                                                                        Binding="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
+                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
                                                                         TargetType="{x:Type Label}"
                                                                         Value="{x:Static System:DayOfWeek.Monday}">
                                                                         <Setter Property="TextColor" Value="Gray"/>
                                                                         <Setter Property="FontAttributes" Value="Italic"/>
-                                                                        <Setter Property="Text" Value="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}, I hate {0}s.'}"/>
+                                                                        <Setter Property="Text" Value="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}. I hate {0}s.'}"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger
-                                                                        Binding="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
+                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
                                                                         TargetType="{x:Type Label}"
                                                                         Value="{x:Static System:DayOfWeek.Tuesday}">
                                                                         <Setter Property="TextColor" Value="Red"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger
-                                                                        Binding="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
+                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
                                                                         TargetType="{x:Type Label}"
                                                                         Value="{x:Static System:DayOfWeek.Wednesday}">
                                                                         <Setter Property="TextColor" Value="Orange"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger
-                                                                        Binding="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
+                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
                                                                         TargetType="{x:Type Label}"
                                                                         Value="{x:Static System:DayOfWeek.Thursday}">
                                                                         <Setter Property="TextColor" Value="Yellow"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger
-                                                                        Binding="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
+                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
                                                                         TargetType="{x:Type Label}"
                                                                         Value="{x:Static System:DayOfWeek.Friday}">
                                                                         <Setter Property="TextColor" Value="Green"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger
-                                                                        Binding="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
+                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
                                                                         TargetType="{x:Type Label}"
                                                                         Value="{x:Static System:DayOfWeek.Saturday}">
                                                                         <Setter Property="TextColor" Value="Blue"/>
                                                                     </DataTrigger>
                                                                     <DataTrigger
-                                                                        Binding="{Binding TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
+                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
                                                                         TargetType="{x:Type Label}"
                                                                         Value="{x:Static System:DayOfWeek.Sunday}">
                                                                         <Setter Property="TextColor" Value="#A000A0"/>
