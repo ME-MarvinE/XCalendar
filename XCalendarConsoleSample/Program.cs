@@ -63,14 +63,7 @@ namespace XCalendarConsoleSample
                     Console.WriteLine();
                 }
 
-                if (Day.DateTime == null)
-                {
-                    Console.Write("  ");
-                }
-                else
-                {
-                    WriteDay(Calendar.Days[i].DateTime.Value, Calendar);
-                }
+                WriteDay(Day);
 
                 Console.Write("  ");
                 Console.ResetColor();
@@ -91,9 +84,9 @@ namespace XCalendarConsoleSample
                 }
             }
         }
-        public static void WriteDay(DateTime DateTime, Calendar<CalendarDay> Calendar)
+        public static void WriteDay(ICalendarDay Day)
         {
-            DayState DayState = EvaluateDayState(DateTime, Calendar);
+            DayState DayState = EvaluateDayState(Day);
 
             switch (DayState)
             {
@@ -118,7 +111,7 @@ namespace XCalendarConsoleSample
                     break;
             }
 
-            Console.Write(DateTime.ToString("dd"));
+            Console.Write(Day.DateTime == null ? "   "  : Day.DateTime.Value.ToString("dd"));
         }
         public static void PerformCalendarAction(ConsoleKey Key)
         {
@@ -162,31 +155,27 @@ namespace XCalendarConsoleSample
                     break;
             }
         }
-        public static DayState EvaluateDayState(DateTime DateTime, Calendar<CalendarDay> Calendar)
+        public static DayState EvaluateDayState(ICalendarDay Day)
         {
-            bool IsCurrentMonth = IsDateTimeCurrentMonth(DateTime, Calendar.NavigatedDate);
-            bool IsOtherMonth = !IsCurrentMonth;
-            bool IsToday = IsDateTimeToday(DateTime, Calendar.TodayDate);
-            bool IsSelected = IsDateTimeSelected(DateTime, Calendar.SelectedDates);
-            bool IsInvalid = IsDateTimeInvalid(DateTime, Calendar.NavigationLowerBound, Calendar.NavigationUpperBound);
+            bool DayIsOtherMonth = !Day.IsCurrentMonth;
 
-            if (IsInvalid)
+            if (Day.IsInvalid)
             {
                 return DayState.Invalid;
             }
-            else if (IsSelected && IsCurrentMonth)
+            else if (Day.IsSelected && Day.IsCurrentMonth)
             {
                 return DayState.Selected;
             }
-            else if (IsToday && IsCurrentMonth)
+            else if (Day.IsToday && Day.IsCurrentMonth)
             {
                 return DayState.Today;
             }
-            else if (IsOtherMonth)
+            else if (DayIsOtherMonth)
             {
                 return DayState.OtherMonth;
             }
-            else if (IsCurrentMonth)
+            else if (Day.IsCurrentMonth)
             {
                 return DayState.CurrentMonth;
             }

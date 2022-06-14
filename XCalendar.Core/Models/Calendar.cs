@@ -386,11 +386,11 @@ namespace XCalendar.Core.Models
 
                     if (Days.Count <= DatesUpdated)
                     {
-                        _Days.Add(DayResolver.CreateDay(NewDateTime));
+                        _Days.Add(DayResolver.CreateDay(NewDateTime, this));
                     }
                     else
                     {
-                        DayResolver.UpdateDay(Days[DatesUpdated], NewDateTime);
+                        DayResolver.UpdateDay(Days[DatesUpdated], NewDateTime, this);
                     }
 
                     DatesUpdated += 1;
