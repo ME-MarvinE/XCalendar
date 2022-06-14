@@ -9,7 +9,7 @@ namespace XCalendarConsoleSample
 {
     public class Program
     {
-        public static Calendar Calendar = new Calendar()
+        public static Calendar<CalendarDay> Calendar = new Calendar<CalendarDay>(new DefaultCalendarDayResolver<CalendarDay>())
         {
             SelectedDates = new ObservableRangeCollection<DateTime>(),
             NavigatedDate = DateTime.Today,
@@ -91,7 +91,7 @@ namespace XCalendarConsoleSample
                 }
             }
         }
-        public static void WriteDay(DateTime DateTime, Calendar Calendar)
+        public static void WriteDay(DateTime DateTime, Calendar<CalendarDay> Calendar)
         {
             DayState DayState = EvaluateDayState(DateTime, Calendar);
 
@@ -162,13 +162,13 @@ namespace XCalendarConsoleSample
                     break;
             }
         }
-        public static DayState EvaluateDayState(DateTime DateTime, Calendar Calendar)
+        public static DayState EvaluateDayState(DateTime DateTime, Calendar<CalendarDay> Calendar)
         {
-            bool IsCurrentMonth = IsDateTimeCurrentMonth(DateTime, Calendar);
+            bool IsCurrentMonth = IsDateTimeCurrentMonth(DateTime, Calendar.NavigatedDate);
             bool IsOtherMonth = !IsCurrentMonth;
-            bool IsToday = IsDateTimeToday(DateTime, Calendar);
-            bool IsSelected = IsDateTimeSelected(DateTime, Calendar);
-            bool IsInvalid = IsDateTimeInvalid(DateTime, Calendar);
+            bool IsToday = IsDateTimeToday(DateTime, Calendar.TodayDate);
+            bool IsSelected = IsDateTimeSelected(DateTime, Calendar.SelectedDates);
+            bool IsInvalid = IsDateTimeInvalid(DateTime, Calendar.NavigationLowerBound, Calendar.NavigationUpperBound);
 
             if (IsInvalid)
             {
@@ -195,21 +195,21 @@ namespace XCalendarConsoleSample
                 throw new NotImplementedException();
             }
         }
-        public static bool IsDateTimeCurrentMonth(DateTime DateTime, Calendar Calendar)
+        public static bool IsDateTimeCurrentMonth(DateTime DateTime, DateTime NavigatedDate)
         {
-            return DateTime.Month == Calendar?.NavigatedDate.Month && DateTime.Year == Calendar?.NavigatedDate.Year;
+            return DateTime.Month == NavigatedDate.Month && DateTime.Year == NavigatedDate.Year;
         }
-        public static bool IsDateTimeInvalid(DateTime DateTime, Calendar Calendar)
+        public static bool IsDateTimeInvalid(DateTime DateTime, DateTime LowerBound, DateTime UpperBound)
         {
-            return DateTime.Date < Calendar?.NavigationLowerBound.Date || DateTime.Date > Calendar?.NavigationUpperBound.Date;
+            return DateTime.Date < LowerBound.Date || DateTime.Date > UpperBound.Date;
         }
-        public static bool IsDateTimeToday(DateTime DateTime, Calendar Calendar)
+        public static bool IsDateTimeToday(DateTime DateTime, DateTime TodayDate)
         {
-            return DateTime.Date == Calendar?.TodayDate.Date;
+            return DateTime.Date == TodayDate.Date;
         }
-        public static bool IsDateTimeSelected(DateTime DateTime, Calendar Calendar)
+        public static bool IsDateTimeSelected(DateTime DateTime, IEnumerable<DateTime> SelectedDates)
         {
-            return Calendar?.SelectedDates.Any(x => x.Date == DateTime.Date) == true;
+            return SelectedDates.Any(x => x.Date == DateTime.Date) == true;
         }
     }
 }

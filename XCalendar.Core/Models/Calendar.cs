@@ -14,20 +14,21 @@ using PropertyChanged;
 
 namespace XCalendar.Core.Models
 {
-    public class Calendar : BaseObservableModel
+    public class Calendar<T> : BaseObservableModel where T : ICalendarDay
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
-        private readonly ObservableCollection<ICalendarDay> _Days = new ObservableCollection<ICalendarDay>();
+        private readonly ObservableCollection<T> _Days = new ObservableCollection<T>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
+        private ICalendarDayResolver<T> _DayResolver;
         #endregion
 
         #region Properties
         /// <summary>
         /// The list of displayed days.
         /// </summary>
-        public ReadOnlyObservableCollection<ICalendarDay> Days { get; protected set; }
+        public ReadOnlyObservableCollection<T> Days { get; protected set; }
         /// <summary>
         /// The date the calendar will use to get the dates representing a time unit.
         /// </summary>
@@ -130,8 +131,24 @@ namespace XCalendar.Core.Models
         [OnChangedMethod(nameof(OnRangeSelectionEndChanged))]
         public DateTime? RangeSelectionEnd { get; set; }
         public SelectionType SelectionType { get; set; } = SelectionType.None;
-        [OnChangedMethod(nameof(OnDayResolverChanged))]
-        public ICalendarDayResolver DayResolver { get; set; } = new DefaultCalendarDayResolver();
+        public ICalendarDayResolver<T> DayResolver
+        {
+            get
+            {
+                return _DayResolver;
+            }
+            set
+            {
+                if (_DayResolver != value)
+                {
+                    var OldValue = _DayResolver;
+                    _DayResolver = value;
+
+                    OnDayResolverChanged(OldValue, _DayResolver);
+                    OnPropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Events
@@ -140,11 +157,12 @@ namespace XCalendar.Core.Models
         #endregion
 
         #region Constructors
-        public Calendar()
+        public Calendar(ICalendarDayResolver<T> DayResolver)
         {
+            _DayResolver = DayResolver ?? throw new ArgumentNullException(nameof(DayResolver));
             _StartOfWeekDayNamesOrder.AddRange(StartOfWeek.GetWeekAsFirst());
 
-            Days = new ReadOnlyObservableCollection<ICalendarDay>(_Days);
+            Days = new ReadOnlyObservableCollection<T>(_Days);
             StartOfWeekDayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
             DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
             SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
@@ -628,8 +646,10 @@ namespace XCalendar.Core.Models
                 CommitRangeSelection();
             }
         }
-        private void OnDayResolverChanged(ICalendarDayResolver oldValue, ICalendarDayResolver newValue)
+        private void OnDayResolverChanged(ICalendarDayResolver<T> oldValue, ICalendarDayResolver<T> newValue)
         {
+            if (newValue == null) { throw new ArgumentNullException(nameof(newValue)); }
+
             //Days must be cleared otherwise DayResolver's 'CreateDay' method may not be called due to performance optimisations in UpdateDays.
             _Days.Clear();
             UpdateDays(NavigatedDate);

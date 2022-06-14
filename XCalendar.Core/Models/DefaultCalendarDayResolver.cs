@@ -3,18 +3,18 @@ using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Core.Models
 {
-    public class DefaultCalendarDayResolver : ICalendarDayResolver
+    public class DefaultCalendarDayResolver<T> : ICalendarDayResolver<T> where T : ICalendarDay, new()
     {
         #region Methods
-        public ICalendarDay CreateDay(DateTime? DateTime)
+        public T CreateDay(DateTime? DateTime)
         {
-            CalendarDay Day = new CalendarDay();
+            T Day = new T();
             UpdateDay(Day, DateTime);
             return Day;
         }
-        public void UpdateDay(ICalendarDay Day, DateTime? DateTime)
+        public void UpdateDay(T Day, DateTime? NewDateTime)
         {
-            Day.DateTime = DateTime;
+            Day.DateTime = NewDateTime;
         }
         #endregion
     }
