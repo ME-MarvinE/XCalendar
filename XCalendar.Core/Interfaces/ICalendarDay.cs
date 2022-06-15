@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace XCalendar.Core.Interfaces
 {
-    public interface ICalendarDay
+    public interface ICalendarDay : INotifyPropertyChanged
     {
         DateTime? DateTime { get; set; }
         bool IsSelected { get; set; }

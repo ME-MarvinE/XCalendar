@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Windows.Input;
 using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
@@ -10,10 +11,40 @@ namespace XCalendar.Maui.Views
         #region Properties
 
         #region Bindable Properties
-        public Calendar Calendar
+        public DateTime NavigatedDate
         {
-            get { return (Calendar)GetValue(CalendarProperty); }
-            set { SetValue(CalendarProperty, value); }
+            get { return (DateTime)GetValue(NavigatedDateProperty); }
+            set { SetValue(NavigatedDateProperty, value); }
+        }
+        public IList Days
+        {
+            get { return (IList)GetValue(DaysProperty); }
+            set { SetValue(NavigatedDateProperty, value); }
+        }
+        public IList DaysOfWeek
+        {
+            get { return (IList)GetValue(DaysOfWeekProperty); }
+            set { SetValue(DaysOfWeekProperty, value); }
+        }
+        public ICommand ForwardsArrowCommand
+        {
+            get { return (ICommand)GetValue(ForwardsArrowCommandProperty); }
+            set { SetValue(ForwardsArrowCommandProperty, value); }
+        }
+        public ICommand ForwardsArrowCommandParameter
+        {
+            get { return (ICommand)GetValue(ForwardsArrowCommandParameterProperty); }
+            set { SetValue(ForwardsArrowCommandParameterProperty, value); }
+        }
+        public ICommand BackwardsArrowCommand
+        {
+            get { return (ICommand)GetValue(BackwardsArrowCommandProperty); }
+            set { SetValue(BackwardsArrowCommandProperty, value); }
+        }
+        public ICommand BackwardsArrowCommandParameter
+        {
+            get { return (ICommand)GetValue(BackwardsArrowCommandParameterProperty); }
+            set { SetValue(BackwardsArrowCommandParameterProperty, value); }
         }
         public ControlTemplate DayNamesTemplate
         {
@@ -118,7 +149,13 @@ namespace XCalendar.Maui.Views
         }
 
         #region Bindable Properties Initialisers
-        public static readonly BindableProperty CalendarProperty = BindableProperty.Create(nameof(Calendar), typeof(Calendar), typeof(CalendarView), new Calendar());
+        public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Today);
+        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IList), typeof(CalendarView));
+        public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList), typeof(CalendarView));
+        public static readonly BindableProperty ForwardsArrowCommandProperty = BindableProperty.Create(nameof(ForwardsArrowCommand), typeof(ICommand), typeof(CalendarView));
+        public static readonly BindableProperty ForwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(ForwardsArrowCommandParameter), typeof(object), typeof(CalendarView));
+        public static readonly BindableProperty BackwardsArrowCommandProperty = BindableProperty.Create(nameof(BackwardsArrowCommand), typeof(ICommand), typeof(CalendarView));
+        public static readonly BindableProperty BackwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(BackwardsArrowCommandParameter), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNameTextColorProperty = BindableProperty.Create(nameof(DayNameTextColor), typeof(Color), typeof(CalendarView), Colors.Black);
         public static readonly BindableProperty DayNamesTemplateProperty = BindableProperty.Create(nameof(DayNamesTemplate), typeof(ControlTemplate), typeof(CalendarView));
@@ -155,9 +192,6 @@ namespace XCalendar.Maui.Views
         #region Constructors
         public CalendarView()
         {
-            NavigateCalendarCommand = new Command<int>((Amount) => { Calendar.NavigateCalendar(Amount); });
-            ChangeDateSelectionCommand = new Command<DateTime>((DateTime) => { Calendar.ChangeDateSelection(DateTime); });
-
             InitializeComponent();
         }
         #endregion
