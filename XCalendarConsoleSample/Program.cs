@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Interfaces;
@@ -9,7 +10,7 @@ namespace XCalendarConsoleSample
 {
     public class Program
     {
-        public static Calendar<CalendarDay> Calendar = new Calendar<CalendarDay>(new DefaultCalendarDayResolver<CalendarDay>())
+        public static ICalendar<CalendarDay> Calendar = new Calendar<CalendarDay>(new DefaultCalendarDayResolver<CalendarDay>())
         {
             SelectedDates = new ObservableRangeCollection<DateTime>(),
             NavigatedDate = DateTime.Today,

@@ -14,7 +14,7 @@ using PropertyChanged;
 
 namespace XCalendar.Core.Models
 {
-    public class Calendar<T> : BaseObservableModel where T : ICalendarDay
+    public class Calendar<T> : BaseObservableModel, ICalendar<T> where T : ICalendarDay
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
@@ -317,7 +317,7 @@ namespace XCalendar.Core.Models
         /// <param name="IsConsistent">Whether the return value should be the highest possible value occuring in the year or not.</param>
         /// <param name="StartOfWeek">The start of the week.</param>
         /// <returns></returns>
-        public static int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek)
+        public int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek)
         {
             if (IsConsistent)
             {
@@ -425,7 +425,7 @@ namespace XCalendar.Core.Models
         /// <param name="StartOfWeek">The start of the week.</param>
         /// <returns>The <see cref="DateTime"/> resulting from the navigation.</returns>
         /// <exception cref="NotImplementedException">The <see cref="NavigationTimeUnit"/> is not implemented.</exception>
-        public static DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
+        public DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
         {
             bool LowerThanMinimumDate;
             bool HigherThanMaximumDate;
