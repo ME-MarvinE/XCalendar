@@ -14,14 +14,13 @@ using PropertyChanged;
 
 namespace XCalendar.Core.Models
 {
-    public class Calendar<T> : BaseObservableModel, ICalendar<T> where T : ICalendarDay
+    public class Calendar<T> : BaseObservableModel, ICalendar<T> where T : ICalendarDay, new()
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
         private readonly ObservableCollection<T> _Days = new ObservableCollection<T>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
-        private ICalendarDayResolver<T> _DayResolver;
         #endregion
 
         #region Properties
@@ -131,24 +130,6 @@ namespace XCalendar.Core.Models
         [OnChangedMethod(nameof(OnRangeSelectionEndChanged))]
         public DateTime? RangeSelectionEnd { get; set; }
         public SelectionType SelectionType { get; set; } = SelectionType.None;
-        public ICalendarDayResolver<T> DayResolver
-        {
-            get
-            {
-                return _DayResolver;
-            }
-            set
-            {
-                if (_DayResolver != value)
-                {
-                    var OldValue = _DayResolver;
-                    _DayResolver = value;
-
-                    OnDayResolverChanged(OldValue, _DayResolver);
-                    OnPropertyChanged();
-                }
-            }
-        }
         #endregion
 
         #region Events
@@ -157,9 +138,8 @@ namespace XCalendar.Core.Models
         #endregion
 
         #region Constructors
-        public Calendar(ICalendarDayResolver<T> DayResolver)
+        public Calendar()
         {
-            _DayResolver = DayResolver ?? throw new ArgumentNullException(nameof(DayResolver));
             _StartOfWeekDayNamesOrder.AddRange(StartOfWeek.GetWeekAsFirst());
 
             Days = new ReadOnlyObservableCollection<T>(_Days);
@@ -328,6 +308,30 @@ namespace XCalendar.Core.Models
                 return DateTime.CalendarWeeksInMonth(StartOfWeek);
             }
         }
+        public virtual bool IsDateTimeCurrentMonth(DateTime? DateTime)
+        {
+            return DateTime?.Month == NavigatedDate.Month && DateTime?.Year == NavigatedDate.Year;
+        }
+        public virtual bool IsDateTimeToday(DateTime? DateTime)
+        {
+            return DateTime?.Date == TodayDate.Date;
+        }
+        public virtual bool IsDateTimeSelected(DateTime? DateTime)
+        {
+            return SelectedDates.Any(x => x.Date == DateTime?.Date) == true;
+        }
+        public virtual bool IsDateTimeInvalid(DateTime? DateTime)
+        {
+            return DateTime?.Date < NavigationLowerBound.Date || DateTime?.Date > NavigationUpperBound.Date;
+        }
+        public virtual void UpdateDay(T Day, DateTime? NewDateTime)
+        {
+            Day.DateTime = NewDateTime;
+            Day.IsCurrentMonth = IsDateTimeCurrentMonth(Day.DateTime);
+            Day.IsToday = IsDateTimeToday(Day.DateTime);
+            Day.IsSelected = IsDateTimeSelected(Day.DateTime);
+            Day.IsInvalid = IsDateTimeInvalid(Day.DateTime);
+        }
         /// <summary>
         /// Updates the dates displayed on the calendar.
         /// </summary>
@@ -386,11 +390,13 @@ namespace XCalendar.Core.Models
 
                     if (Days.Count <= DatesUpdated)
                     {
-                        _Days.Add(DayResolver.CreateDay(NewDateTime, this));
+                        T Day = new T();
+                        UpdateDay(Day, NewDateTime);
+                        _Days.Add(Day);
                     }
                     else
                     {
-                        DayResolver.UpdateDay(Days[DatesUpdated], NewDateTime, this);
+                        UpdateDay(Days[DatesUpdated], NewDateTime);
                     }
 
                     DatesUpdated += 1;
@@ -645,14 +651,6 @@ namespace XCalendar.Core.Models
             {
                 CommitRangeSelection();
             }
-        }
-        private void OnDayResolverChanged(ICalendarDayResolver<T> oldValue, ICalendarDayResolver<T> newValue)
-        {
-            if (newValue == null) { throw new ArgumentNullException(nameof(newValue)); }
-
-            //Days must be cleared otherwise DayResolver's 'CreateDay' method may not be called due to performance optimisations in UpdateDays.
-            _Days.Clear();
-            UpdateDays(NavigatedDate);
         }
         private DateTime CoerceNavigatedDate(DateTime value)
         {

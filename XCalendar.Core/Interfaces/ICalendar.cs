@@ -5,7 +5,7 @@ using XCalendar.Core.Models;
 
 namespace XCalendar.Core.Interfaces
 {
-    public interface ICalendar<T> where T : ICalendarDay
+    public interface ICalendar<T> where T : ICalendarDay, new()
     {
         #region Properties
         ReadOnlyObservableCollection<T> Days { get; }
@@ -31,7 +31,6 @@ namespace XCalendar.Core.Interfaces
         DateTime? RangeSelectionStart { get; set; }
         DateTime? RangeSelectionEnd { get; set; }
         SelectionType SelectionType { get; set; }
-        ICalendarDayResolver<T> DayResolver { get; set; }
         #endregion
 
         #region Events
@@ -40,6 +39,7 @@ namespace XCalendar.Core.Interfaces
         #endregion
 
         #region Methods
+        void UpdateDay(T Day, DateTime? NewDateTime);
         void ChangeDateSelection(DateTime DateTime);
         void CommitRangeSelection();
         int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek);
