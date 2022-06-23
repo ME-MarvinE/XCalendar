@@ -19,7 +19,7 @@ namespace XCalendarFormsSample.ViewModels
             new Example()
             {
                 Page = new EventCalendarExamplePage(),
-                Title = "Event Calendar",
+                Title = "Event EventCalendar",
                 Description = "Uses indicators to show events for a certain day.",
                 Tags = new List<Tag>()
                 {

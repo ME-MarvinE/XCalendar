@@ -10,7 +10,7 @@ namespace XCalendarConsoleSample
 {
     public class Program
     {
-        public static ICalendar<CalendarDay> Calendar = new Calendar<CalendarDay>()
+        public static Calendar Calendar = new Calendar()
         {
             SelectedDates = new ObservableRangeCollection<DateTime>(),
             NavigatedDate = DateTime.Today,

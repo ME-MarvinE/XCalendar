@@ -17,7 +17,7 @@ namespace XCalendar.Core.Tests.Models
         [InlineData(34646)]
         public void SettingRowsChangesRowCount(int Rows)
         {
-            var Calendar = new Calendar<CalendarDay>(new DefaultCalendarDayResolver<CalendarDay>())
+            var Calendar = new Calendar()
             {
                 AutoRows = false
             };
@@ -37,7 +37,7 @@ namespace XCalendar.Core.Tests.Models
         {
             Assert.ThrowsAny<Exception>(() =>
             {
-                var Calendar = new Calendar<CalendarDay>(new DefaultCalendarDayResolver<CalendarDay>())
+                var Calendar = new Calendar()
                 {
                     AutoRows = false
                 };

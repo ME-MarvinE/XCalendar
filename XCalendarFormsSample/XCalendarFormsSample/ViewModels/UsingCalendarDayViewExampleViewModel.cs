@@ -1,5 +1,6 @@
 ﻿using System;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.ViewModels
@@ -12,5 +13,7 @@ namespace XCalendarFormsSample.ViewModels
             SelectionAction = SelectionAction.Replace,
             SelectionType = SelectionType.Single
         };
+
+        public CalendarDay OutsideCalendarDay { get; set; } = new CalendarDay();
     }
 }
