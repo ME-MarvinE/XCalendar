@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.Models

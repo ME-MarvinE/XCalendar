@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -23,7 +25,7 @@ namespace XCalendar.Forms.Views
         public IList Days
         {
             get { return (IList)GetValue(DaysProperty); }
-            set { SetValue(NavigatedDateProperty, value); }
+            set { SetValue(DaysProperty, value); }
         }
         public IList DaysOfWeek
         {
@@ -35,9 +37,9 @@ namespace XCalendar.Forms.Views
             get { return (ICommand)GetValue(ForwardsArrowCommandProperty); }
             set { SetValue(ForwardsArrowCommandProperty, value); }
         }
-        public ICommand ForwardsArrowCommandParameter
+        public object ForwardsArrowCommandParameter
         {
-            get { return (ICommand)GetValue(ForwardsArrowCommandParameterProperty); }
+            get { return (object)GetValue(ForwardsArrowCommandParameterProperty); }
             set { SetValue(ForwardsArrowCommandParameterProperty, value); }
         }
         public ICommand BackwardsArrowCommand
@@ -45,9 +47,9 @@ namespace XCalendar.Forms.Views
             get { return (ICommand)GetValue(BackwardsArrowCommandProperty); }
             set { SetValue(BackwardsArrowCommandProperty, value); }
         }
-        public ICommand BackwardsArrowCommandParameter
+        public object BackwardsArrowCommandParameter
         {
-            get { return (ICommand)GetValue(BackwardsArrowCommandParameterProperty); }
+            get { return (object)GetValue(BackwardsArrowCommandParameterProperty); }
             set { SetValue(BackwardsArrowCommandParameterProperty, value); }
         }
         public ControlTemplate DayNamesTemplate
@@ -156,9 +158,9 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Today);
         public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IList), typeof(CalendarView));
         public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList), typeof(CalendarView));
-        public static readonly BindableProperty ForwardsArrowCommandProperty = BindableProperty.Create(nameof(ForwardsArrowCommand), typeof(ICommand), typeof(CalendarView));
+        public static readonly BindableProperty ForwardsArrowCommandProperty = BindableProperty.Create(nameof(ForwardsArrowCommand), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty ForwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(ForwardsArrowCommandParameter), typeof(object), typeof(CalendarView));
-        public static readonly BindableProperty BackwardsArrowCommandProperty = BindableProperty.Create(nameof(BackwardsArrowCommand), typeof(ICommand), typeof(CalendarView));
+        public static readonly BindableProperty BackwardsArrowCommandProperty = BindableProperty.Create(nameof(BackwardsArrowCommand), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty BackwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(BackwardsArrowCommandParameter), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNameTextColorProperty = BindableProperty.Create(nameof(DayNameTextColor), typeof(Color), typeof(CalendarView), Color.Black);
