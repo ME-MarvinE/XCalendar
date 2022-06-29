@@ -156,8 +156,8 @@ namespace XCalendar.Forms.Views
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Today);
-        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<ICalendarDay>), typeof(CalendarView));
-        public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList<DayOfWeek>), typeof(CalendarView));
+        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<ICalendarDay>), typeof(CalendarView), propertyChanged: DaysPropertyChanged);
+        public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList<DayOfWeek>), typeof(CalendarView), propertyChanged: DaysOfWeekPropertyChanged);
         public static readonly BindableProperty ForwardsArrowCommandProperty = BindableProperty.Create(nameof(ForwardsArrowCommand), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty ForwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(ForwardsArrowCommandParameter), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty BackwardsArrowCommandProperty = BindableProperty.Create(nameof(BackwardsArrowCommand), typeof(object), typeof(CalendarView));
@@ -189,6 +189,27 @@ namespace XCalendar.Forms.Views
         {
             InitializeComponent();
         }
+        #endregion
+
+        #region Methods
+
+        #region Bindable Properties Methods
+        private static void DaysPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+            IEnumerable<ICalendarDay> NewDays = (IEnumerable<ICalendarDay>)newValue;
+
+            Control.MainMonthView.ItemsSource = NewDays;
+        }
+        private static void DaysOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarView Control = (CalendarView)bindable;
+            IEnumerable<DayOfWeek> NewDaysOfWeek = (IEnumerable<DayOfWeek>)newValue;
+
+            Control.MainDaysOfWeekView.ItemsSource = NewDaysOfWeek;
+        }
+        #endregion
+
         #endregion
     }
 }
