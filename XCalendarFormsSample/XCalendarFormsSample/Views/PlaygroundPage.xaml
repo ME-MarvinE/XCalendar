@@ -738,6 +738,7 @@
                                                         Style="{StaticResource DefaultDayViewStyle}"
                                                         Margin="2.5"
                                                         Day="{Binding .}"
+                                                        Text="{Binding DateTime, StringFormat='{0:dd}'}"
                                                         HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                                         HorizontalOptions="Center"
                                                         VerticalOptions="Center"

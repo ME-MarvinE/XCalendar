@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Interfaces;
@@ -312,10 +314,6 @@ namespace XCalendar.Maui.Views
 
         #endregion
 
-        #region Commands
-        public ICommand UpdateCalendarDateSelectionCommand { get; private set; }
-        #endregion
-
         #region Constructors
         public CalendarDayView()
         {
@@ -354,12 +352,6 @@ namespace XCalendar.Maui.Views
                 throw new NotImplementedException();
             }
         }
-        //protected override void OnBindingContextChanged()
-        //{
-        //    base.OnBindingContextChanged();
-        //    UpdateProperties();
-        //    EvaluateDayState();
-        //}
 
         #region Bindable Properties Methods
         private static void DayPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -374,13 +366,64 @@ namespace XCalendar.Maui.Views
             if (Control.Day != null)
             {
                 Control.DayState = EvaluateDayState(Control.Day);
+                Control.UpdateView();
             }
         }
         private void Day_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (Day != null)
             {
-                EvaluateDayState(Day);
+                DayState = EvaluateDayState(Day);
+                UpdateView();
+            }
+        }
+        public virtual void UpdateView()
+        {
+            switch (DayState)
+            {
+                case DayState.CurrentMonth:
+                    BackgroundColor = CurrentMonthBackgroundColor;
+                    //BorderColor = CurrentMonthBorderColor;
+                    TextColor = CurrentMonthTextColor;
+                    Command = CurrentMonthCommand;
+                    CommandParameter = CurrentMonthCommandParameter;
+                    break;
+
+                case DayState.OtherMonth:
+                    BackgroundColor = OtherMonthBackgroundColor;
+                    //BorderColor = OtherMonthBorderColor;
+                    TextColor = OtherMonthTextColor;
+                    Command = OtherMonthCommand;
+                    CommandParameter = OtherMonthCommandParameter;
+                    break;
+
+                case DayState.Today:
+                    BackgroundColor = TodayBackgroundColor;
+                    //BorderColor = TodayBorderColor;
+                    TextColor = TodayTextColor;
+                    Command = TodayCommand;
+                    CommandParameter = TodayCommandParameter;
+                    break;
+
+                case DayState.Selected:
+                    BackgroundColor = SelectedBackgroundColor;
+                    //BorderColor = SelectedBorderColor;
+                    TextColor = SelectedTextColor;
+                    Command = SelectedCommand;
+                    CommandParameter = SelectedCommandParameter;
+                    break;
+
+                case DayState.Invalid:
+                    BackgroundColor = InvalidBackgroundColor;
+                    //BorderColor = InvalidBorderColor;
+                    TextColor = InvalidTextColor;
+                    Command = InvalidCommand;
+                    CommandParameter = InvalidCommandParameter;
+
+                    break;
+
+                default:
+                    throw new NotImplementedException($"{nameof(DayState)} '{DayState}' is not implemented.");
             }
         }
         private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -393,52 +436,6 @@ namespace XCalendar.Maui.Views
             Control.IsDayStateToday = NewDayState == DayState.Today;
             Control.IsDayStateSelected = NewDayState == DayState.Selected;
             Control.IsDayStateInvalid = NewDayState == DayState.Invalid;
-
-            switch (Control.DayState)
-            {
-                case DayState.CurrentMonth:
-                    Control.BackgroundColor = Control.CurrentMonthBackgroundColor;
-                    //Control.BorderColor = Control.CurrentMonthBorderColor;
-                    Control.TextColor = Control.CurrentMonthTextColor;
-                    Control.Command = Control.CurrentMonthCommand;
-                    Control.CommandParameter = Control.CurrentMonthCommandParameter;
-                    break;
-
-                case DayState.OtherMonth:
-                    Control.BackgroundColor = Control.OtherMonthBackgroundColor;
-                    //Control.BorderColor = Control.OtherMonthBorderColor;
-                    Control.TextColor = Control.OtherMonthTextColor;
-                    Control.Command = Control.OtherMonthCommand;
-                    Control.CommandParameter = Control.OtherMonthCommandParameter;
-                    break;
-
-                case DayState.Today:
-                    Control.BackgroundColor = Control.TodayBackgroundColor;
-                    //Control.BorderColor = Control.TodayBorderColor;
-                    Control.TextColor = Control.TodayTextColor;
-                    Control.Command = Control.TodayCommand;
-                    Control.CommandParameter = Control.TodayCommandParameter;
-                    break;
-
-                case DayState.Selected:
-                    Control.BackgroundColor = Control.SelectedBackgroundColor;
-                    //Control.BorderColor = Control.SelectedBorderColor;
-                    Control.TextColor = Control.SelectedTextColor;
-                    Control.Command = Control.SelectedCommand;
-                    Control.CommandParameter = Control.SelectedCommandParameter;
-                    break;
-
-                case DayState.Invalid:
-                    Control.BackgroundColor = Control.InvalidBackgroundColor;
-                    //Control.BorderColor = Control.InvalidBorderColor;
-                    Control.TextColor = Control.InvalidTextColor;
-                    Control.Command = Control.InvalidCommand;
-                    Control.CommandParameter = Control.InvalidCommandParameter;
-                    break;
-
-                default:
-                    throw new NotImplementedException($"{nameof(DayState)} '{Control.DayState}' is not implemented.");
-            }
         }
         #endregion
 

@@ -41,7 +41,8 @@
                 NavigationArrowColor="{StaticResource ContentTextColor}"
                 NavigationBackgroundColor="Transparent"
                 NavigationTextColor="{StaticResource ContentTextColor}"
-                Calendar="{Binding Calendar}">
+                Days="{Binding EventCalendar.Days}"
+                DaysOfWeek="{Binding EventCalendar.DayNamesOrder}">
 
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type Models:EventDay}">
@@ -51,9 +52,7 @@
                                 Style="{StaticResource DefaultDayViewStyle}"
                                 Margin="2.5"
                                 HeightRequest="41"
-                                Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
-                                DateTime="{Binding DateTime}"
-                                >
+                                Day="{Binding .}">
 
                                 <!--
                                     Setting ControlTemplate instead of using a StackLayout with views inside because I don't require different parts of the view
@@ -78,16 +77,17 @@
                                                 Grid.Row="0"
                                                 Grid.RowSpan="2"
                                                 VerticalOptions="Center"/>
-                                            
+
                                             <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
-                                            <HorizontalStackLayout 
+                                            <StackLayout
                                                 Grid.Row="1"
                                                 HorizontalOptions="Center"
+                                                Orientation="Horizontal"
                                                 Spacing="2.5"
                                                 BindableLayout.ItemsSource="{Binding Events}">
 
                                                 <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
-                                                <HorizontalStackLayout.IsVisible>
+                                                <StackLayout.IsVisible>
                                                     <MultiBinding Converter="{StaticResource AllTrueConverter}">
                                                         <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
                                                         <Binding Path="IsCurrentMonth" Source="{RelativeSource TemplatedParent}"/>
@@ -96,7 +96,7 @@
                                                             Path="IsInvalid"
                                                             Source="{RelativeSource TemplatedParent}"/>
                                                     </MultiBinding>
-                                                </HorizontalStackLayout.IsVisible>
+                                                </StackLayout.IsVisible>
 
                                                 <BindableLayout.ItemTemplate>
                                                     <DataTemplate x:DataType="{x:Type Models:Event}">
@@ -110,7 +110,7 @@
                                                     </DataTemplate>
                                                 </BindableLayout.ItemTemplate>
 
-                                            </HorizontalStackLayout>
+                                            </StackLayout>
 
                                         </Grid>
                                     </ControlTemplate>
@@ -147,10 +147,10 @@
                             Padding="0"
                             BackgroundColor="{StaticResource ContentBackgroundColor}"
                             CornerRadius="10">
-                            <HorizontalStackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal" Spacing="0">
                                 <BoxView BackgroundColor="{Binding Color}" WidthRequest="20"/>
 
-                                <HorizontalStackLayout Padding="10" Spacing="0">
+                                <StackLayout Padding="10" Spacing="0">
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
@@ -167,8 +167,8 @@
                                         FontSize="14"
                                         Text="{Binding Description}"
                                         TextColor="{StaticResource ContentTextColor}"/>
-                                </HorizontalStackLayout>
-                            </HorizontalStackLayout>
+                                </StackLayout>
+                            </StackLayout>
                         </Frame>
                     </ContentView>
                 </DataTemplate>

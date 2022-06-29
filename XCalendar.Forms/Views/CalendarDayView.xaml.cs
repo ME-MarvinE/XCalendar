@@ -264,12 +264,6 @@ namespace XCalendar.Forms.Views
                 throw new NotImplementedException();
             }
         }
-        //protected override void OnBindingContextChanged()
-        //{
-        //    base.OnBindingContextChanged();
-        //    UpdateProperties();
-        //    EvaluateDayState();
-        //}
 
         #region Bindable Properties Methods
         private static void DayPropertyChanged(BindableObject bindable, object oldValue, object newValue)

@@ -3,6 +3,7 @@ using System.Windows.Input;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Models;
 using XCalendarMauiSample.Helpers;
+using XCalendarMauiSample.ViewModels;
 
 namespace XCalendarMauiSample.ViewModels
 {

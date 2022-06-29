@@ -4,7 +4,7 @@
              xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
              x:Class="XCalendarFormsSample.Views.UsingCalendarDayViewExamplePage"
              xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
-             xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels" xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
+             xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels" xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core" xmlns:System="clr-namespace:System;assembly=netstandard"
              x:DataType="{x:Type ViewModels:UsingCalendarDayViewExampleViewModel}"
              Title="Using CalendarDayView"
              Style="{StaticResource DefaultPageStyle}">
@@ -33,24 +33,6 @@
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
             </xc:CalendarView>
-
-            <CollectionView ItemsSource="{Binding Calendar.Days}" HeightRequest="400">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding Calendar.DayNamesOrder.Count}"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="xcModels:CalendarDay">
-                        <ContentView>
-                            <!-- Inside the CalendarView -->
-                            <xc:CalendarDayView
-                                Style="{StaticResource DefaultDayViewStyle}"
-                                HeightRequest="47"
-                                Margin="2.5"
-                                Day="{Binding .}"/>
-                        </ContentView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
 
             <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
 

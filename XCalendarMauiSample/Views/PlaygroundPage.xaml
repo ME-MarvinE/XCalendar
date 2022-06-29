@@ -543,7 +543,8 @@
 
                     <xc:CalendarView
                         x:Name="FancyCalendarView"
-                        Calendar="{Binding Calendar}"
+                        Days="{Binding Calendar.Days}"
+                        DaysOfWeek="{Binding Calendar.DayNamesOrder}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigationHeightRequest="{Binding NavigationHeightRequest}">
@@ -563,8 +564,7 @@
                                                                     <ContentView>
                                                                         <xc:CalendarDayView
                                                                 Margin="2.5"
-                                                                Calendar="{Binding Calendar, Source={x:Reference FancyCalendarView}}"
-                                                                DateTime="{Binding DateTime}"/>
+                                                                Day="{Binding .}"/>
                                                                     </ContentView>
                                                                 </DataTemplate>
                                                             </Setter.Value>
@@ -615,8 +615,7 @@
                                             <xc:CalendarDayView
                                                 Style="{StaticResource DefaultDayViewStyle}"
                                                 Margin="2.5"
-                                                Calendar="{Binding Calendar, Source={x:Reference FancyCalendarView}}"
-                                                DateTime="{Binding DateTime}"
+                                                Day="{Binding .}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                                 WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
                                         </ContentView>
@@ -824,8 +823,7 @@
                                                     <xc:CalendarDayView
                                                         Style="{StaticResource DefaultDayViewStyle}"
                                                         Margin="2.5"
-                                                        Calendar="{Binding Calendar, Source={x:Reference FancyCalendarView}}"
-                                                        DateTime="{Binding DateTime}"
+                                                        Day="{Binding .}"
                                                         HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                                         HorizontalOptions="Center"
                                                         VerticalOptions="Center"

@@ -95,9 +95,9 @@
         <!--#region DayNames-->
         <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference MainCalendarView}}">
             <CollectionView
+                x:Name="MainDaysOfWeekView"
                 Margin="0,5,0,0"
-                HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}"
-                ItemsSource="{Binding DaysOfWeek, Source={x:Reference MainCalendarView}}">
+                HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference MainCalendarView}}">
 
                 <CollectionView.Style>
                     <Style TargetType="{x:Type CollectionView}">
@@ -138,7 +138,7 @@
 
         <!--#region MonthView-->
         <ContentView ControlTemplate="{Binding MonthViewTemplate, Source={x:Reference MainCalendarView}}">
-            <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}" ItemsSource="{Binding Days, Source={x:Reference MainCalendarView}}">
+            <CollectionView x:Name="MainMonthView" HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference MainCalendarView}}">
                 <CollectionView.Style>
                     <Style TargetType="{x:Type CollectionView}">
                         <Setter Property="ItemTemplate">

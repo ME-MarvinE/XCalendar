@@ -204,7 +204,7 @@ namespace XCalendar.Forms.Views
         private static void DaysOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView Control = (CalendarView)bindable;
-            IEnumerable<DayOfWeek> NewDaysOfWeek = (IEnumerable<DayOfWeek>)newValue;
+            IList<DayOfWeek> NewDaysOfWeek = (IList<DayOfWeek>)newValue;
 
             Control.MainDaysOfWeekView.ItemsSource = NewDaysOfWeek;
         }

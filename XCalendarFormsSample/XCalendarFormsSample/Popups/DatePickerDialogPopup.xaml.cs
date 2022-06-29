@@ -7,7 +7,6 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
-using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.Popups

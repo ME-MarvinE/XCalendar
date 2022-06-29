@@ -7,7 +7,7 @@
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:Models="clr-namespace:XCalendarFormsSample.Models"
-    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels" xmlns:System="clr-namespace:System;assembly=netstandard"
     x:Name="This"
     Title="Event Calendar"
     x:DataType="{x:Type ViewModels:EventCalendarExampleViewModel}"

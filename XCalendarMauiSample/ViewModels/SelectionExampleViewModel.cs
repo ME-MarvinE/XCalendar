@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui.Views;
-using System.Collections.Generic;
 using System.Windows.Input;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Models;
