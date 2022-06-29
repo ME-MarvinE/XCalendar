@@ -341,7 +341,6 @@ namespace XCalendar.Core.Models
         /// <param name="NavigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
         public void UpdateDays(DateTime NavigationDate)
         {
-            _Days.Clear();
             List<DayOfWeek> DayNamesOrderList = DayNamesOrder.ToList();
             int DatesUpdated = 0;
             int RowsRequiredToNavigate = AutoRows ? GetMonthRows(NavigationDate, AutoRowsIsConsistent, StartOfWeek) : Rows;
