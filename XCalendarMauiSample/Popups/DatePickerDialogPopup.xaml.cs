@@ -1,13 +1,9 @@
-﻿using PropertyChanged;
-using System;
+﻿using CommunityToolkit.Maui.Views;
+using PropertyChanged;
 using System.Collections.Specialized;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
-using CommunityToolkit.Maui.Views;
-using XCalendar.Maui;
-using XCalendar.Core.Models;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Models;
 
 namespace XCalendarMauiSample.Popups
 {
@@ -43,7 +39,7 @@ namespace XCalendarMauiSample.Popups
 
             this.InitialDate = InitialDate;
             ResultWhenUserTapsOutsideOfPopup = InitialDate;
-            Calendar.SelectedDates.ReplaceRange(new List<DateTime>() { InitialDate } );
+            Calendar.SelectedDates.Replace(InitialDate);
 
             InitializeComponent();
             ResetNavigatedDate();

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
+﻿using System.Collections.Specialized;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Models;
 using XCalendarMauiSample.Models;
@@ -11,7 +8,7 @@ namespace XCalendarMauiSample.ViewModels
     public class EventCalendarExampleViewModel : BaseViewModel
     {
         #region Properties
-        public Calendar Calendar { get; set; } = new Calendar()
+        public Calendar<EventDay> EventCalendar { get; set; } = new Calendar<EventDay>()
         {
             SelectedDates = new ObservableRangeCollection<DateTime>(),
             SelectionAction = SelectionAction.Modify,
@@ -19,7 +16,6 @@ namespace XCalendarMauiSample.ViewModels
         };
         public static readonly Random Random = new Random();
         public List<Color> Colors { get; } = new List<Color>() { Microsoft.Maui.Graphics.Colors.Red, Microsoft.Maui.Graphics.Colors.Orange, Microsoft.Maui.Graphics.Colors.Yellow, Color.FromArgb("#00A000"), Microsoft.Maui.Graphics.Colors.Blue, Color.FromArgb("#8010E0") };
-        public EventDayResolver EventDayResolver { get; } = new EventDayResolver();
         public ObservableRangeCollection<Event> Events { get; } = new ObservableRangeCollection<Event>()
         {
             new Event() { Title = "Bowling", Description = "Bowling with friends" },
@@ -69,17 +65,18 @@ namespace XCalendarMauiSample.ViewModels
                 Event.Color = Colors[Random.Next(6)];
             }
 
-            EventDayResolver.Events = Events;
-
-            Calendar.DayResolver = EventDayResolver;
-            Calendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
+            EventCalendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
         }
         #endregion
 
         #region Methods
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SelectedEvents.ReplaceRange(Events.Where(x => Calendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
+            SelectedEvents.ReplaceRange(Events.Where(x => EventCalendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
+            foreach (var Day in EventCalendar.Days)
+            {
+                Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime?.Date));
+            }
         }
         #endregion
     }

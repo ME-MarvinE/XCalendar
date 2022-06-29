@@ -7,6 +7,10 @@ namespace XCalendar.Core.Models
     {
         #region Fields
         private DateTime? _DateTime = System.DateTime.Today;
+        private bool _IsSelected;
+        private bool _IsCurrentMonth;
+        private bool _IsToday;
+        private bool _IsInvalid;
         #endregion
 
         #region Properties
@@ -21,6 +25,66 @@ namespace XCalendar.Core.Models
                 if (_DateTime != value)
                 {
                     _DateTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool IsSelected
+        {
+            get
+            {
+                return _IsSelected;
+            }
+            set
+            {
+                if (_IsSelected != value)
+                {
+                    _IsSelected = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool IsCurrentMonth
+        {
+            get
+            {
+                return _IsCurrentMonth;
+            }
+            set
+            {
+                if (_IsCurrentMonth != value)
+                {
+                    _IsCurrentMonth = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool IsToday
+        {
+            get
+            {
+                return _IsToday;
+            }
+            set
+            {
+                if (_IsToday != value)
+                {
+                    _IsToday = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool IsInvalid
+        {
+            get
+            {
+                return _IsInvalid;
+            }
+            set
+            {
+                if (_IsInvalid != value)
+                {
+                    _IsInvalid = value;
                     OnPropertyChanged();
                 }
             }

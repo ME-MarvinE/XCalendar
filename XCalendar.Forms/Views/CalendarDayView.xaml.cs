@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
 
 namespace XCalendar.Forms.Views
@@ -14,35 +16,15 @@ namespace XCalendar.Forms.Views
         #region Properties
 
         #region Bindable Properties
-        public DateTime? DateTime
+        public ICalendarDay Day
         {
-            get { return (DateTime?)GetValue(DateTimeProperty); }
-            set { SetValue(DateTimeProperty, value); }
+            get { return (ICalendarDay)GetValue(DayProperty); }
+            set { SetValue(DayProperty, value); }
         }
         public DayState DayState
         {
             get { return (DayState)GetValue(DayStateProperty); }
             set { SetValue(DayStateProperty, value); }
-        }
-        public bool IsCurrentMonth
-        {
-            get { return (bool)GetValue(IsCurrentMonthProperty); }
-            set { SetValue(IsCurrentMonthProperty, value); }
-        }
-        public bool IsToday
-        {
-            get { return (bool)GetValue(IsTodayProperty); }
-            set { SetValue(IsTodayProperty, value); }
-        }
-        public bool IsSelected
-        {
-            get { return (bool)GetValue(IsSelectedProperty); }
-            set { SetValue(IsSelectedProperty, value); }
-        }
-        public bool IsInvalid
-        {
-            get { return (bool)GetValue(IsInvalidProperty); }
-            set { SetValue(IsInvalidProperty, value); }
         }
         public bool IsDayStateCurrentMonth
         {
@@ -68,11 +50,6 @@ namespace XCalendar.Forms.Views
         {
             get { return (bool)GetValue(IsDayStateInvalidProperty); }
             set { SetValue(IsDayStateInvalidProperty, value); }
-        }
-        public Calendar Calendar
-        {
-            get { return (Calendar)GetValue(CalendarProperty); }
-            set { SetValue(CalendarProperty, value); }
         }
         public Color CurrentMonthTextColor
         {
@@ -212,13 +189,8 @@ namespace XCalendar.Forms.Views
         #endregion
 
         #region Bindable Properties Initialisers
-        public static readonly BindableProperty CalendarProperty = BindableProperty.Create(nameof(Calendar), typeof(Calendar), typeof(CalendarDayView), propertyChanged: CalendarPropertyChanged);
-        public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(CalendarDayView), System.DateTime.Today);
-        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(IsToday), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged);
-        public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView));
-        public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView));
-        public static readonly BindableProperty IsInvalidProperty = BindableProperty.Create(nameof(IsInvalid), typeof(bool), typeof(CalendarDayView));
-        public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(CalendarDayView));
+        public static readonly BindableProperty DayProperty = BindableProperty.Create(nameof(Day), typeof(ICalendarDay), typeof(CalendarDayView), new CalendarDay(), propertyChanged: DayPropertyChanged);
+        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(DayState), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged);
         public static readonly BindableProperty IsDayStateCurrentMonthProperty = BindableProperty.Create(nameof(IsDayStateCurrentMonth), typeof(bool), typeof(CalendarDayView), true);
         public static readonly BindableProperty IsDayStateOtherMonthProperty = BindableProperty.Create(nameof(IsDayStateOtherMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsDayStateTodayProperty = BindableProperty.Create(nameof(IsDayStateToday), typeof(bool), typeof(CalendarDayView));
@@ -255,116 +227,116 @@ namespace XCalendar.Forms.Views
 
         #endregion
 
-        #region Commands
-        public ICommand UpdateCalendarDateSelectionCommand { get; private set; }
-        #endregion
-
         #region Constructors
         public CalendarDayView()
         {
-            UpdateCalendarDateSelectionCommand = new Command<DateTime>((DateTime) => { Calendar?.ChangeDateSelection(DateTime); });
-
-            CurrentMonthCommand = UpdateCalendarDateSelectionCommand;
-            SetBinding(CurrentMonthCommandParameterProperty, new Binding("DateTime", source: this));
-
-            TodayCommand = UpdateCalendarDateSelectionCommand;
-            SetBinding(TodayCommandParameterProperty, new Binding("DateTime", source: this));
-
-            SelectedCommand = UpdateCalendarDateSelectionCommand;
-            SetBinding(SelectedCommandParameterProperty, new Binding("DateTime", source: this));
-
             InitializeComponent();
         }
         #endregion
 
         #region Methods
-        private void Calendar_DaysUpdated(object sender, EventArgs e)
+        public static DayState EvaluateDayState(ICalendarDay Day)
         {
-            UpdateProperties();
-            EvaluateDayState();
-        }
-        public virtual void UpdateProperties()
-        {
-            IsCurrentMonth = DateTime != null && IsDateTimeCurrentMonth(DateTime.Value);
-            IsInvalid = DateTime != null && IsDateTimeInvalid(DateTime.Value);
-            IsSelected = DateTime != null && IsDateTimeSelected(DateTime.Value);
-            IsToday = DateTime != null && IsDateTimeToday(DateTime.Value);
-        }
-        public virtual void EvaluateDayState()
-        {
-            bool IsOtherMonth = !IsCurrentMonth;
+            bool IsOtherMonth = !Day.IsCurrentMonth;
 
-            if (IsInvalid)
+            if (Day.IsInvalid)
             {
-                DayState = DayState.Invalid;
-                BackgroundColor = InvalidBackgroundColor;
-                BorderColor = InvalidBorderColor;
-                TextColor = InvalidTextColor;
-                Command = InvalidCommand;
-                CommandParameter = InvalidCommandParameter;
+                return DayState.Invalid;
             }
-            else if (IsSelected && IsCurrentMonth)
+            else if (Day.IsSelected && Day.IsCurrentMonth)
             {
-                DayState = DayState.Selected;
-                BackgroundColor = SelectedBackgroundColor;
-                BorderColor = SelectedBorderColor;
-                TextColor = SelectedTextColor;
-                Command = SelectedCommand;
-                CommandParameter = SelectedCommandParameter;
+                return DayState.Selected;
             }
-            else if (IsToday && IsCurrentMonth)
+            else if (Day.IsToday && Day.IsCurrentMonth)
             {
-                DayState = DayState.Today;
-                BackgroundColor = TodayBackgroundColor;
-                BorderColor = TodayBorderColor;
-                TextColor = TodayTextColor;
-                Command = TodayCommand;
-                CommandParameter = TodayCommandParameter;
+                return DayState.Today;
             }
             else if (IsOtherMonth)
             {
-                DayState = DayState.OtherMonth;
-                BackgroundColor = OtherMonthBackgroundColor;
-                BorderColor = OtherMonthBorderColor;
-                TextColor = OtherMonthTextColor;
-                Command = OtherMonthCommand;
-                CommandParameter = OtherMonthCommandParameter;
+                return DayState.OtherMonth;
             }
-            else if (IsCurrentMonth)
+            else if (Day.IsCurrentMonth)
             {
-                DayState = DayState.CurrentMonth;
-                BackgroundColor = CurrentMonthBackgroundColor;
-                BorderColor = CurrentMonthBorderColor;
-                TextColor = CurrentMonthTextColor;
-                Command = CurrentMonthCommand;
-                CommandParameter = CurrentMonthCommandParameter;
+                return DayState.CurrentMonth;
             }
             else
             {
                 throw new NotImplementedException();
             }
         }
-        public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
+
+        #region Bindable Properties Methods
+        private static void DayPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            return DateTime.Month == Calendar?.NavigatedDate.Month && DateTime.Year == Calendar?.NavigatedDate.Year;
+            CalendarDayView Control = (CalendarDayView)bindable;
+            ICalendarDay OldDay = (ICalendarDay)oldValue;
+            ICalendarDay NewDay = (ICalendarDay)newValue;
+
+            if (OldDay != null) { OldDay.PropertyChanged -= Control.Day_PropertyChanged; }
+            if (NewDay != null) { NewDay.PropertyChanged += Control.Day_PropertyChanged; }
+
+            if (Control.Day != null)
+            {
+                Control.DayState = EvaluateDayState(Control.Day);
+                Control.UpdateView();
+            }
         }
-        public virtual bool IsDateTimeInvalid(DateTime DateTime)
+        private void Day_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            return DateTime.Date < Calendar?.NavigationLowerBound.Date || DateTime.Date > Calendar?.NavigationUpperBound.Date;
+            if (Day != null)
+            {
+                DayState = EvaluateDayState(Day);
+                UpdateView();
+            }
         }
-        public virtual bool IsDateTimeToday(DateTime DateTime)
+        public virtual void UpdateView()
         {
-            return DateTime.Date == Calendar?.TodayDate.Date;
-        }
-        public virtual bool IsDateTimeSelected(DateTime DateTime)
-        {
-            return Calendar?.SelectedDates.Any(x => x.Date == DateTime.Date) == true;
-        }
-        protected override void OnBindingContextChanged()
-        {
-            base.OnBindingContextChanged();
-            UpdateProperties();
-            EvaluateDayState();
+            switch (DayState)
+            {
+                case DayState.CurrentMonth:
+                    BackgroundColor = CurrentMonthBackgroundColor;
+                    BorderColor = CurrentMonthBorderColor;
+                    TextColor = CurrentMonthTextColor;
+                    Command = CurrentMonthCommand;
+                    CommandParameter = CurrentMonthCommandParameter;
+                    break;
+
+                case DayState.OtherMonth:
+                    BackgroundColor = OtherMonthBackgroundColor;
+                    BorderColor = OtherMonthBorderColor;
+                    TextColor = OtherMonthTextColor;
+                    Command = OtherMonthCommand;
+                    CommandParameter = OtherMonthCommandParameter;
+                    break;
+
+                case DayState.Today:
+                    BackgroundColor = TodayBackgroundColor;
+                    BorderColor = TodayBorderColor;
+                    TextColor = TodayTextColor;
+                    Command = TodayCommand;
+                    CommandParameter = TodayCommandParameter;
+                    break;
+
+                case DayState.Selected:
+                    BackgroundColor = SelectedBackgroundColor;
+                    BorderColor = SelectedBorderColor;
+                    TextColor = SelectedTextColor;
+                    Command = SelectedCommand;
+                    CommandParameter = SelectedCommandParameter;
+                    break;
+
+                case DayState.Invalid:
+                    BackgroundColor = InvalidBackgroundColor;
+                    BorderColor = InvalidBorderColor;
+                    TextColor = InvalidTextColor;
+                    Command = InvalidCommand;
+                    CommandParameter = InvalidCommandParameter;
+
+                    break;
+
+                default:
+                    throw new NotImplementedException($"{nameof(DayState)} '{DayState}' is not implemented.");
+            }
         }
         private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -376,20 +348,6 @@ namespace XCalendar.Forms.Views
             Control.IsDayStateToday = NewDayState == DayState.Today;
             Control.IsDayStateSelected = NewDayState == DayState.Selected;
             Control.IsDayStateInvalid = NewDayState == DayState.Invalid;
-        }
-
-        #region Bindable Properties Methods
-        private static void CalendarPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            CalendarDayView Control = (CalendarDayView)bindable;
-            Calendar OldCalendar = (Calendar)oldValue;
-            Calendar NewCalendar = (Calendar)newValue;
-
-            if (OldCalendar != null) { OldCalendar.DaysUpdated -= Control.Calendar_DaysUpdated; }
-            if (NewCalendar != null) { NewCalendar.DaysUpdated += Control.Calendar_DaysUpdated; }
-
-            Control.UpdateProperties();
-            Control.EvaluateDayState();
         }
         #endregion
 

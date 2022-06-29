@@ -4,15 +4,22 @@
              xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
              x:Class="XCalendarFormsSample.Views.UsingCalendarDayViewExamplePage"
              xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
-             xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+             xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels" xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core" xmlns:System="clr-namespace:System;assembly=netstandard"
              x:DataType="{x:Type ViewModels:UsingCalendarDayViewExampleViewModel}"
              Title="Using CalendarDayView"
              Style="{StaticResource DefaultPageStyle}">
 
     <ScrollView>
         <StackLayout Spacing="0">
-
-            <xc:CalendarView Style="{StaticResource DefaultCalendarViewStyle}" MonthViewHeightRequest="320" x:Name="MainCalendarView" Calendar="{Binding Calendar}">
+            <xc:CalendarView
+                x:Name="MainCalendarView"
+                Style="{StaticResource DefaultCalendarViewStyle}"
+                NavigatedDate="{Binding Calendar.NavigatedDate}"
+                MonthViewHeightRequest="320"
+                Days="{Binding Calendar.Days}"
+                DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                ForwardsArrowCommand="{Binding NavigateForwardsCommand}"
+                BackwardsArrowCommand="{Binding NavigateBackwardsCommand}">
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                         <ContentView>
@@ -21,8 +28,7 @@
                                 Style="{StaticResource DefaultDayViewStyle}"
                                 HeightRequest="47"
                                 Margin="2.5"
-                                Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
-                                DateTime="{Binding DateTime}"/>
+                                Day="{Binding .}"/>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
@@ -38,8 +44,7 @@
                     Style="{StaticResource DefaultDayViewStyle}"
                     HeightRequest="47"
                     Margin="0,5,0,5"
-                    Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
-                    DateTime="{Binding Calendar.NavigatedDate}"/>
+                    Day="{Binding OutsideCalendarDay}"/>
 
                 <DatePicker Format="/MM/yyy" Date="{Binding Calendar.NavigatedDate}"/>
                 

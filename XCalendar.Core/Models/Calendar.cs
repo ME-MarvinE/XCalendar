@@ -14,11 +14,14 @@ using PropertyChanged;
 
 namespace XCalendar.Core.Models
 {
-    public class Calendar : BaseObservableModel
+    public class Calendar : Calendar<CalendarDay>
+    {
+    }
+    public class Calendar<T> : BaseObservableModel, ICalendar<T> where T : ICalendarDay, new()
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
-        private readonly ObservableCollection<ICalendarDay> _Days = new ObservableCollection<ICalendarDay>();
+        private readonly ObservableCollection<T> _Days = new ObservableCollection<T>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
         private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
         #endregion
@@ -27,7 +30,7 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// The list of displayed days.
         /// </summary>
-        public ReadOnlyObservableCollection<ICalendarDay> Days { get; protected set; }
+        public ReadOnlyObservableCollection<T> Days { get; protected set; }
         /// <summary>
         /// The date the calendar will use to get the dates representing a time unit.
         /// </summary>
@@ -130,8 +133,6 @@ namespace XCalendar.Core.Models
         [OnChangedMethod(nameof(OnRangeSelectionEndChanged))]
         public DateTime? RangeSelectionEnd { get; set; }
         public SelectionType SelectionType { get; set; } = SelectionType.None;
-        [OnChangedMethod(nameof(OnDayResolverChanged))]
-        public ICalendarDayResolver DayResolver { get; set; } = new DefaultCalendarDayResolver();
         #endregion
 
         #region Events
@@ -144,7 +145,7 @@ namespace XCalendar.Core.Models
         {
             _StartOfWeekDayNamesOrder.AddRange(StartOfWeek.GetWeekAsFirst());
 
-            Days = new ReadOnlyObservableCollection<ICalendarDay>(_Days);
+            Days = new ReadOnlyObservableCollection<T>(_Days);
             StartOfWeekDayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
             DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
             SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
@@ -299,7 +300,7 @@ namespace XCalendar.Core.Models
         /// <param name="IsConsistent">Whether the return value should be the highest possible value occuring in the year or not.</param>
         /// <param name="StartOfWeek">The start of the week.</param>
         /// <returns></returns>
-        public static int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek)
+        public int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek)
         {
             if (IsConsistent)
             {
@@ -310,12 +311,37 @@ namespace XCalendar.Core.Models
                 return DateTime.CalendarWeeksInMonth(StartOfWeek);
             }
         }
+        public virtual bool IsDateTimeCurrentMonth(DateTime? DateTime)
+        {
+            return DateTime?.Month == NavigatedDate.Month && DateTime?.Year == NavigatedDate.Year;
+        }
+        public virtual bool IsDateTimeToday(DateTime? DateTime)
+        {
+            return DateTime?.Date == TodayDate.Date;
+        }
+        public virtual bool IsDateTimeSelected(DateTime? DateTime)
+        {
+            return SelectedDates.Any(x => x.Date == DateTime?.Date) == true;
+        }
+        public virtual bool IsDateTimeInvalid(DateTime? DateTime)
+        {
+            return DateTime?.Date < NavigationLowerBound.Date || DateTime?.Date > NavigationUpperBound.Date;
+        }
+        public virtual void UpdateDay(T Day, DateTime? NewDateTime)
+        {
+            Day.DateTime = NewDateTime;
+            Day.IsCurrentMonth = IsDateTimeCurrentMonth(Day.DateTime);
+            Day.IsToday = IsDateTimeToday(Day.DateTime);
+            Day.IsSelected = IsDateTimeSelected(Day.DateTime);
+            Day.IsInvalid = IsDateTimeInvalid(Day.DateTime);
+        }
         /// <summary>
         /// Updates the dates displayed on the calendar.
         /// </summary>
         /// <param name="NavigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
         public void UpdateDays(DateTime NavigationDate)
         {
+            _Days.Clear();
             List<DayOfWeek> DayNamesOrderList = DayNamesOrder.ToList();
             int DatesUpdated = 0;
             int RowsRequiredToNavigate = AutoRows ? GetMonthRows(NavigationDate, AutoRowsIsConsistent, StartOfWeek) : Rows;
@@ -368,11 +394,13 @@ namespace XCalendar.Core.Models
 
                     if (Days.Count <= DatesUpdated)
                     {
-                        _Days.Add(DayResolver.CreateDay(NewDateTime));
+                        T Day = new T();
+                        UpdateDay(Day, NewDateTime);
+                        _Days.Add(Day);
                     }
                     else
                     {
-                        DayResolver.UpdateDay(Days[DatesUpdated], NewDateTime);
+                        UpdateDay(Days[DatesUpdated], NewDateTime);
                     }
 
                     DatesUpdated += 1;
@@ -407,7 +435,7 @@ namespace XCalendar.Core.Models
         /// <param name="StartOfWeek">The start of the week.</param>
         /// <returns>The <see cref="DateTime"/> resulting from the navigation.</returns>
         /// <exception cref="NotImplementedException">The <see cref="NavigationTimeUnit"/> is not implemented.</exception>
-        public static DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
+        public DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
         {
             bool LowerThanMinimumDate;
             bool HigherThanMaximumDate;
@@ -627,12 +655,6 @@ namespace XCalendar.Core.Models
             {
                 CommitRangeSelection();
             }
-        }
-        private void OnDayResolverChanged(ICalendarDayResolver oldValue, ICalendarDayResolver newValue)
-        {
-            //Days must be cleared otherwise DayResolver's 'CreateDay' method may not be called due to performance optimisations in UpdateDays.
-            _Days.Clear();
-            UpdateDays(NavigatedDate);
         }
         private DateTime CoerceNavigatedDate(DateTime value)
         {

@@ -7,7 +7,7 @@
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:Models="clr-namespace:XCalendarFormsSample.Models"
-    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels" xmlns:System="clr-namespace:System;assembly=netstandard"
     x:Name="This"
     Title="Event Calendar"
     x:DataType="{x:Type ViewModels:EventCalendarExampleViewModel}"
@@ -41,7 +41,8 @@
                 NavigationArrowColor="{StaticResource ContentTextColor}"
                 NavigationBackgroundColor="Transparent"
                 NavigationTextColor="{StaticResource ContentTextColor}"
-                Calendar="{Binding Calendar}">
+                Days="{Binding EventCalendar.Days}"
+                DaysOfWeek="{Binding EventCalendar.DayNamesOrder}">
 
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type Models:EventDay}">
@@ -51,9 +52,7 @@
                                 Style="{StaticResource DefaultDayViewStyle}"
                                 Margin="2.5"
                                 HeightRequest="41"
-                                Calendar="{Binding Calendar, Source={x:Reference MainCalendarView}}"
-                                DateTime="{Binding DateTime}"
-                                >
+                                Day="{Binding .}">
 
                                 <!--
                                     Setting ControlTemplate instead of using a StackLayout with views inside because I don't require different parts of the view

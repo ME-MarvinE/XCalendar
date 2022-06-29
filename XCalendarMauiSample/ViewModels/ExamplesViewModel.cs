@@ -1,7 +1,6 @@
 ﻿using PropertyChanged;
 using System.Windows.Input;
 using XCalendar.Core.Models;
-using XCalendar.Maui;
 using XCalendar.Maui.Views;
 using XCalendarMauiSample.Models;
 using XCalendarMauiSample.Views;
