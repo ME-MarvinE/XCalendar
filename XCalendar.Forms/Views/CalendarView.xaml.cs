@@ -22,14 +22,14 @@ namespace XCalendar.Forms.Views
             get { return (DateTime)GetValue(NavigatedDateProperty); }
             set { SetValue(NavigatedDateProperty, value); }
         }
-        public IList Days
+        public IEnumerable<ICalendarDay> Days
         {
-            get { return (IList)GetValue(DaysProperty); }
+            get { return (IEnumerable<ICalendarDay>)GetValue(DaysProperty); }
             set { SetValue(DaysProperty, value); }
         }
-        public IList DaysOfWeek
+        public IList<DayOfWeek> DaysOfWeek
         {
-            get { return (IList)GetValue(DaysOfWeekProperty); }
+            get { return (IList<DayOfWeek>)GetValue(DaysOfWeekProperty); }
             set { SetValue(DaysOfWeekProperty, value); }
         }
         public ICommand ForwardsArrowCommand
@@ -156,8 +156,8 @@ namespace XCalendar.Forms.Views
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Today);
-        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IList), typeof(CalendarView));
-        public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList), typeof(CalendarView));
+        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<ICalendarDay>), typeof(CalendarView));
+        public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList<DayOfWeek>), typeof(CalendarView));
         public static readonly BindableProperty ForwardsArrowCommandProperty = BindableProperty.Create(nameof(ForwardsArrowCommand), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty ForwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(ForwardsArrowCommandParameter), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty BackwardsArrowCommandProperty = BindableProperty.Create(nameof(BackwardsArrowCommand), typeof(object), typeof(CalendarView));
