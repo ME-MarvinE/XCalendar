@@ -6,7 +6,8 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
-    xmlns:xc="clr-namespace:XCalendar.Forms.Views" xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="MainCalendarView"
     x:DataType="{x:Type xc:CalendarView}">
 
@@ -18,8 +19,6 @@
             <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
 
             <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
-
-            <xct:MathExpressionConverter x:Key="MathExpressionConverter"/>
 
             <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
                 <Converters:EnumToStringConverter/>
@@ -41,9 +40,6 @@
 
                 <xc:FramedLabel
                     Padding="5"
-                    xct:TouchEffect.Command="{Binding BackwardsArrowCommand, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     FontAttributes="Bold"
@@ -55,7 +51,13 @@
                     TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
                     VerticalOptions="Center"
                     VerticalTextAlignment="End"
-                    WidthRequest="30"/>
+                    WidthRequest="30">
+
+                    <xc:FramedLabel.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
+                    </xc:FramedLabel.GestureRecognizers>
+                    
+                </xc:FramedLabel>
 
                 <Label
                     FontAttributes="Bold"
@@ -67,9 +69,6 @@
 
                 <xc:FramedLabel
                     Padding="5"
-                    xct:TouchEffect.Command="{Binding ForwardsArrowCommand, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"
-                    xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                     CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference MainCalendarView}}"
                     FontAttributes="Bold"
@@ -81,7 +80,13 @@
                     TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
                     VerticalOptions="Center"
                     VerticalTextAlignment="End"
-                    WidthRequest="30"/>
+                    WidthRequest="30">
+
+                    <xc:FramedLabel.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
+                    </xc:FramedLabel.GestureRecognizers>
+                    
+                </xc:FramedLabel>
 
             </StackLayout>
         </ContentView>
