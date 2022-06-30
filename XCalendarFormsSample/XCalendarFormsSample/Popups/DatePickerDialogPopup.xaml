@@ -35,13 +35,17 @@
 
         <Label
             Padding="15,20,15,20"
-            xct:TouchEffect.Command="{Binding ResetNavigatedDateCommand, Source={x:Reference This}}"
-            xct:TouchEffect.NativeAnimation="True"
             BackgroundColor="{StaticResource PrimaryColor}"
             FontAttributes="Bold"
             FontSize="34"
             Text="{Binding SelectedDate, StringFormat='{0:ddd, dd MMM}', Source={x:Reference This}}"
-            TextColor="White"/>
+            TextColor="White">
+
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ResetNavigatedDateCommand, Source={x:Reference This}}"/>
+            </Label.GestureRecognizers>
+            
+        </Label>
 
         <xc:CalendarView
             x:Name="MainCalendarView"
@@ -92,26 +96,34 @@
             Spacing="0">
             <xc:FramedLabel
                 Padding="15,10,15,10"
-                xct:TouchEffect.Command="{Binding ReturnInitialDateCommand, Source={x:Reference This}}"
-                xct:TouchEffect.NativeAnimation="True"
                 BackgroundColor="Transparent"
                 CornerRadius="2.5"
                 FontAttributes="Bold"
                 FontSize="14"
                 HorizontalOptions="EndAndExpand"
                 Text="CANCEL"
-                TextColor="{StaticResource PrimaryColor}"/>
+                TextColor="{StaticResource PrimaryColor}">
+
+                <xc:FramedLabel.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReturnInitialDateCommand, Source={x:Reference This}}"/>
+                </xc:FramedLabel.GestureRecognizers>
+                
+            </xc:FramedLabel>
             <xc:FramedLabel
                 Margin="15,0,0,0"
                 Padding="15,10,15,10"
-                xct:TouchEffect.Command="{Binding ReturnSelectedDateCommand, Source={x:Reference This}}"
-                xct:TouchEffect.NativeAnimation="True"
                 BackgroundColor="Transparent"
                 CornerRadius="2.5"
                 FontAttributes="Bold"
                 FontSize="14"
                 Text="OK"
-                TextColor="{StaticResource PrimaryColor}"/>
+                TextColor="{StaticResource PrimaryColor}">
+
+                <xc:FramedLabel.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReturnSelectedDateCommand, Source={x:Reference This}}"/>
+                </xc:FramedLabel.GestureRecognizers>
+
+            </xc:FramedLabel>
         </StackLayout>
 
     </StackLayout>

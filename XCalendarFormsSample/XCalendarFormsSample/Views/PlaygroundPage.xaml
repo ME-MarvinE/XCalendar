@@ -213,13 +213,17 @@
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowSelectionTypeDialogCommand}"
-                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Calendar.SelectionType}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center"/>
+                                VerticalTextAlignment="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
+                                </Label.GestureRecognizers>
+
+                            </Label>
                         </Grid>
 
                         <Grid>
@@ -231,13 +235,17 @@
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowSelectionActionDialogCommand}"
-                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Calendar.SelectionAction}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center"/>
+                                VerticalTextAlignment="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
                         </Grid>
 
                         <Grid>
@@ -279,13 +287,17 @@
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowNavigationTimeUnitDialogCommand}"
-                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Calendar.NavigationTimeUnit}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center"/>
+                                VerticalTextAlignment="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
                         </Grid>
 
                         <Grid>
@@ -297,14 +309,18 @@
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowNavigationLoopModeDialogCommand}"
-                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Calendar.NavigationLoopMode}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"
-                                WidthRequest="125"/>
+                                WidthRequest="125">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
                         </Grid>
 
                         <Grid>
@@ -316,13 +332,17 @@
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowPageStartModeDialogCommand}"
-                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Calendar.PageStartMode}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center"/>
+                                VerticalTextAlignment="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowPageStartModeDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
                         </Grid>
 
                         <Grid>
@@ -334,13 +354,17 @@
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowStartOfWeekDialogCommand}"
-                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Calendar.StartOfWeek}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center"/>
+                                VerticalTextAlignment="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowStartOfWeekDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
                         </Grid>
 
                         <Grid>
@@ -352,13 +376,17 @@
                                 VerticalTextAlignment="Center"/>
                             <Label
                                 Grid.Column="1"
-                                xct:TouchEffect.Command="{Binding ShowCustomDayNamesOrderDialogCommand}"
-                                xct:TouchEffect.NativeAnimation="True"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
                                 Text="Edit"
                                 TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center"/>
+                                VerticalTextAlignment="Center">
+
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowCustomDayNamesOrderDialogCommand}"/>
+                                </Label.GestureRecognizers>
+                                
+                            </Label>
                         </Grid>
 
                         <Grid>
@@ -572,9 +600,6 @@
 
                                                         <xc:FramedLabel
                                                             Padding="5"
-                                                            xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}"
-                                                            xct:TouchEffect.CommandParameter="{Binding Calendar.BackwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"
-                                                            xct:TouchEffect.NativeAnimation="True"
                                                             BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                             CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
                                                             FontAttributes="Bold"
@@ -584,13 +609,16 @@
                                                             Text="←"
                                                             TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="End"
-                                                            WidthRequest="30"/>
+                                                            WidthRequest="30">
+
+                                                            <xc:FramedLabel.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding Calendar.BackwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
+                                                            </xc:FramedLabel.GestureRecognizers>
+                                                            
+                                                        </xc:FramedLabel>
 
                                                         <xc:FramedLabel
                                                             Padding="5"
-                                                            xct:TouchEffect.Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}"
-                                                            xct:TouchEffect.CommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"
-                                                            xct:TouchEffect.NativeAnimation="True"
                                                             BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
                                                             CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
                                                             FontAttributes="Bold"
@@ -599,7 +627,13 @@
                                                             Text="→"
                                                             TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="End"
-                                                            WidthRequest="30"/>
+                                                            WidthRequest="30">
+
+                                                            <xc:FramedLabel.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
+                                                            </xc:FramedLabel.GestureRecognizers>
+                                                            
+                                                        </xc:FramedLabel>
 
                                                     </StackLayout>
 

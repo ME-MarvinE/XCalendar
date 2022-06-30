@@ -32,7 +32,6 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Null}">
                     <Label
-                        xct:TouchEffect.NativeAnimation="True"
                         FontSize="16"
                         HeightRequest="50"
                         HorizontalTextAlignment="Center"
@@ -60,10 +59,6 @@
         <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
             <Frame
                 Padding="10"
-                xct:TouchEffect.Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"
-                xct:TouchEffect.NormalAnimationDuration="200"
-                xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                xct:TouchEffect.PressedBackgroundColor="#0090F0"
                 BackgroundColor="Transparent"
                 CornerRadius="0"
                 HasShadow="False">
@@ -72,14 +67,15 @@
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+                
             </Frame>
 
             <Frame
                 Padding="10"
-                xct:TouchEffect.Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"
-                xct:TouchEffect.NormalAnimationDuration="200"
-                xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                xct:TouchEffect.PressedBackgroundColor="#0090F0"
                 BackgroundColor="Transparent"
                 CornerRadius="0"
                 HasShadow="False">
@@ -88,14 +84,15 @@
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+                
             </Frame>
 
             <Frame
                 Padding="10"
-                xct:TouchEffect.Command="{Binding DismissDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"
-                xct:TouchEffect.NormalAnimationDuration="200"
-                xct:TouchEffect.NormalBackgroundColor="#0080E0"
-                xct:TouchEffect.PressedBackgroundColor="#0090F0"
                 BackgroundColor="Transparent"
                 CornerRadius="0"
                 HasShadow="False"
@@ -105,6 +102,11 @@
                     Text="Confirm"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DismissDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+                
             </Frame>
         </StackLayout>
     </StackLayout>

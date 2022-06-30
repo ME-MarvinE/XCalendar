@@ -3,7 +3,6 @@
     x:Class="XCalendarFormsSample.Views.ExamplesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:Models="clr-namespace:XCalendarFormsSample.Models"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     Title="Examples"
@@ -24,10 +23,12 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type Models:Example}">
                     <StackLayout Spacing="0">
-                        <StackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0"
-                                     xct:TouchEffect.NativeAnimation="True"
-                                     xct:TouchEffect.Command="{Binding BindingContext.ShowPageCommand, Source={x:Reference MainExamplesPage}}"
-                                     xct:TouchEffect.CommandParameter="{Binding Page}">
+                        <StackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.ShowPageCommand, Source={x:Reference MainExamplesPage}}" CommandParameter="{Binding Page}"/>
+                            </StackLayout.GestureRecognizers>
+
                             <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="{Binding Title}" TextColor="{StaticResource ContentTextColor}"/>
                             <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="{Binding Description}"/>
                         </StackLayout>

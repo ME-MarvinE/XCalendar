@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
              xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
              xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
@@ -45,13 +44,17 @@
                     VerticalTextAlignment="Center"/>
                 <Label
                     Grid.Column="1"
-                    xct:TouchEffect.Command="{Binding ShowSelectionTypeDialogCommand}"
-                    xct:TouchEffect.NativeAnimation="True"
                     FontSize="{StaticResource SmallFontSize}"
                     HorizontalTextAlignment="Center"
                     Text="{Binding Calendar.SelectionType}"
                     TextColor="{StaticResource TappableSettingTextColor}"
-                    VerticalTextAlignment="Center"/>
+                    VerticalTextAlignment="Center">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
+                    </Label.GestureRecognizers>
+                    
+                </Label>
             </Grid>
 
             <Grid>
@@ -63,20 +66,27 @@
                     VerticalTextAlignment="Center"/>
                 <Label
                     Grid.Column="1"
-                    xct:TouchEffect.Command="{Binding ShowSelectionActionDialogCommand}"
-                    xct:TouchEffect.NativeAnimation="True"
                     FontSize="{StaticResource SmallFontSize}"
                     HorizontalTextAlignment="Center"
                     Text="{Binding Calendar.SelectionAction}"
                     TextColor="{StaticResource TappableSettingTextColor}"
-                    VerticalTextAlignment="Center"/>
+                    VerticalTextAlignment="Center">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
+                    </Label.GestureRecognizers>
+                    
+                </Label>
             </Grid>
 
             <BoxView HeightRequest="1" BackgroundColor="{DynamicResource SeparatorColor}"/>
 
-            <Grid ColumnDefinitions="*"
-                    xct:TouchEffect.Command="{Binding ShowCommonFunctionalityDialogCommand}"
-                    xct:TouchEffect.NativeAnimation="True">
+            <Grid ColumnDefinitions="*">
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowCommonFunctionalityDialogCommand}"/>
+                </Grid.GestureRecognizers>
+                
                 <Label
                     Grid.Column="0"
                     FontSize="{StaticResource SmallFontSize}"

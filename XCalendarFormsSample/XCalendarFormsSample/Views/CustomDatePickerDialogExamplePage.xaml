@@ -3,7 +3,6 @@
     x:Class="XCalendarFormsSample.Views.CustomDatePickerDialogExamplePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     Title="Custom DatePicker Dialog"
     x:DataType="{x:Type ViewModels:CustomDatePickerDialogExampleViewModel}"
@@ -27,7 +26,13 @@
 
             <StackLayout Padding="10" BackgroundColor="{DynamicResource SecondaryColor}" Spacing="0">
                 <Label FontSize="19" FontAttributes="Bold" Text="Custom Dialog" TextColor="{DynamicResource ContentTextColor}"/>
-                <Label Margin="0,5,0,0" Padding="0,5,0,5" Text="{Binding SelectedDate, StringFormat='{0: dd MMMM yyyy}'}" FontSize="16" BackgroundColor="{StaticResource ContentBackgroundColor}" TextColor="{StaticResource ContentTextColor}" xct:TouchEffect.Command="{Binding ShowDatePickerDialogCommand}" xct:TouchEffect.CommandParameter="{Binding SelectedDate}" xct:TouchEffect.NativeAnimation="True"/>
+                <Label Margin="0,5,0,0" Padding="0,5,0,5" Text="{Binding SelectedDate, StringFormat='{0: dd MMMM yyyy}'}" FontSize="16" BackgroundColor="{StaticResource ContentBackgroundColor}" TextColor="{StaticResource ContentTextColor}">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowDatePickerDialogCommand}" CommandParameter="{Binding SelectedDate}"/>
+                    </Label.GestureRecognizers>
+                    
+                </Label>
                 <BoxView HeightRequest="1" BackgroundColor="Black"/>
             </StackLayout>
 
