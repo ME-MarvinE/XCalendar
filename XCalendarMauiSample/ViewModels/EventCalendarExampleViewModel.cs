@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Windows.Input;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Models;
 using XCalendarMauiSample.Models;
@@ -56,9 +57,15 @@ namespace XCalendarMauiSample.ViewModels
         public ObservableRangeCollection<Event> SelectedEvents { get; } = new ObservableRangeCollection<Event>();
         #endregion
 
+        #region Commands
+        public ICommand NavigateCalendarCommand { get; set; }
+        #endregion
+
         #region Constructors
         public EventCalendarExampleViewModel()
         {
+            NavigateCalendarCommand = new Command<int>(NavigateCalendar);
+
             foreach (Event Event in Events)
             {
                 Event.DateTime = DateTime.Today.AddDays(Random.Next(-20, 21)).AddSeconds(Random.Next(86400));
@@ -77,6 +84,10 @@ namespace XCalendarMauiSample.ViewModels
             {
                 Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime?.Date));
             }
+        }
+        public void NavigateCalendar(int Amount)
+        {
+            EventCalendar?.NavigateCalendar(Amount);
         }
         #endregion
     }

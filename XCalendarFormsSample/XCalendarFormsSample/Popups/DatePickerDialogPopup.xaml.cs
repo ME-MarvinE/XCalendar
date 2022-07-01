@@ -31,6 +31,7 @@ namespace XCalendarFormsSample.Popups
         public ICommand ReturnSelectedDateCommand { get; set; }
         public ICommand ReturnInitialDateCommand { get; set; }
         public ICommand ResetNavigatedDateCommand { get; set; }
+        public ICommand NavigateCalendarCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -39,6 +40,7 @@ namespace XCalendarFormsSample.Popups
             ReturnSelectedDateCommand = new Command(ReturnSelectedDate);
             ReturnInitialDateCommand = new Command(ReturnInitialDate);
             ResetNavigatedDateCommand = new Command(ResetNavigatedDate);
+            NavigateCalendarCommand = new Command<int>(NavigateCalendar);
 
             Calendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
 
@@ -71,6 +73,10 @@ namespace XCalendarFormsSample.Popups
         protected override DateTime GetLightDismissResult()
         {
             return InitialDate;
+        }
+        public void NavigateCalendar(int Amount)
+        {
+            Calendar?.NavigateCalendar(Amount);
         }
         #endregion
     }

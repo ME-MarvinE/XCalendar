@@ -23,7 +23,7 @@
             <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
                 <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
                     <mct:MultiConverterParameter.Value>
-                        <System:Int32>1</System:Int32>
+                        <x:Int32>1</x:Int32>
                     </mct:MultiConverterParameter.Value>
                 </mct:MultiConverterParameter>
             </x:Array>
@@ -56,7 +56,17 @@
             DaysOfWeek="{Binding Calendar.DayNamesOrder, Source={x:Reference This}}"
             NavigationArrowColor="{StaticResource ContentTextColor}"
             NavigationBackgroundColor="Transparent"
-            NavigationTextColor="{StaticResource ContentTextColor}">
+            NavigationTextColor="{StaticResource ContentTextColor}"
+            ForwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
+            BackwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}">
+
+            <xc:CalendarView.ForwardsArrowCommandParameter>
+                <x:Int32>1</x:Int32>
+            </xc:CalendarView.ForwardsArrowCommandParameter>
+
+            <xc:CalendarView.BackwardsArrowCommandParameter>
+                <x:Int32>-1</x:Int32>
+            </xc:CalendarView.BackwardsArrowCommandParameter>
 
             <xc:CalendarView.DayNameTemplate>
                 <DataTemplate x:DataType="{x:Type System:DayOfWeek}">

@@ -17,30 +17,21 @@ namespace XCalendarMauiSample.ViewModels
         #endregion
 
         #region Commands
-        public ICommand NavigateForwardsCommand { get; set; }
-        public ICommand NavigateBackwardsCommand { get; set; }
+        public ICommand NavigateCalendarCommand { get; set; }
         #endregion
 
         #region Constructors
         public UsingCalendarDayViewExampleViewModel()
         {
-            NavigateForwardsCommand = new Command(NavigateForwards);
-            NavigateBackwardsCommand = new Command(NavigateBackwards);
+            NavigateCalendarCommand = new Command<int>(NavigateCalendar);
         }
         #endregion
 
         #region Methods
-        public void NavigateForwards()
+        public void NavigateCalendar(int Amount)
         {
-            Calendar?.NavigateCalendar(1);
-        }
-        public void NavigateBackwards()
-        {
-            Calendar?.NavigateCalendar(-1);
+            Calendar?.NavigateCalendar(Amount);
         }
         #endregion
-
-
-
     }
 }

@@ -55,6 +55,7 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ShowPageStartModeDialogCommand { get; set; }
         public ICommand ShowStartOfWeekDialogCommand { get; set; }
         public ICommand ShowSelectionTypeDialogCommand { get; set; }
+        public ICommand NavigateCalendarCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -67,6 +68,7 @@ namespace XCalendarFormsSample.ViewModels
             ShowPageStartModeDialogCommand = new Command(ShowPageStartModeDialog);
             ShowStartOfWeekDialogCommand = new Command(ShowStartOfWeekDialog);
             ShowSelectionTypeDialogCommand = new Command(ShowSelectionTypeDialog);
+            NavigateCalendarCommand = new Command<int>(NavigateCalendar);
         }
         #endregion
 
@@ -98,6 +100,10 @@ namespace XCalendarFormsSample.ViewModels
         public async void ShowSelectionTypeDialog()
         {
             Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
+        }
+        public void NavigateCalendar(int Amount)
+        {
+            Calendar?.NavigateCalendar(Amount);
         }
         #endregion
     }

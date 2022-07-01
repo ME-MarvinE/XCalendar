@@ -20,7 +20,15 @@
                 </Style>
             </StackLayout.Resources>
 
-            <xc:CalendarView x:Name="MainCalendarView" Style="{StaticResource DefaultCalendarViewStyle}" Days="{Binding Calendar.Days}" DaysOfWeek="{Binding Calendar.DayNamesOrder}">
+            <xc:CalendarView x:Name="MainCalendarView" Style="{StaticResource DefaultCalendarViewStyle}" Days="{Binding Calendar.Days}" DaysOfWeek="{Binding Calendar.DayNamesOrder}" ForwardsArrowCommand="{Binding NavigateCalendarCommand}" BackwardsArrowCommand="{Binding NavigateCalendarCommand}">
+
+                <xc:CalendarView.ForwardsArrowCommandParameter>
+                    <x:Int32>1</x:Int32>
+                </xc:CalendarView.ForwardsArrowCommandParameter>
+
+                <xc:CalendarView.BackwardsArrowCommandParameter>
+                    <x:Int32>-1</x:Int32>
+                </xc:CalendarView.BackwardsArrowCommandParameter>
                 
                 <!--Not Required, used only for styling.-->
                 <xc:CalendarView.DayTemplate>

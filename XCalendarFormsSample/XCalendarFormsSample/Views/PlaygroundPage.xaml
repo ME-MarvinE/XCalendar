@@ -40,7 +40,7 @@
         <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
             <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
                 <xct:MultiConverterParameter.Value>
-                    <System:Int32>3</System:Int32>
+                    <x:Int32>3</x:Int32>
                 </xct:MultiConverterParameter.Value>
             </xct:MultiConverterParameter>
         </x:Array>
@@ -549,7 +549,17 @@
                         DaysOfWeek="{Binding Calendar.DayNamesOrder}"
                         DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
-                        NavigationHeightRequest="{Binding NavigationHeightRequest}">
+                        NavigationHeightRequest="{Binding NavigationHeightRequest}"
+                        ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                        BackwardsArrowCommand="{Binding NavigateCalendarCommand}">
+
+                        <xc:CalendarView.ForwardsArrowCommandParameter>
+                            <x:Int32>1</x:Int32>
+                        </xc:CalendarView.ForwardsArrowCommandParameter>
+
+                        <xc:CalendarView.BackwardsArrowCommandParameter>
+                            <x:Int32>-1</x:Int32>
+                        </xc:CalendarView.BackwardsArrowCommandParameter>
 
                         <xc:CalendarView.Style>
                             <Style TargetType="{x:Type xc:CalendarView}" BasedOn="{StaticResource DefaultCalendarViewStyle}">

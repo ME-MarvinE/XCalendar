@@ -30,7 +30,7 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ShowSelectionTypeDialogCommand { get; set; }
         public ICommand ShowSelectionActionDialogCommand { get; set; }
         public ICommand ShowCommonFunctionalityDialogCommand { get; set; }
-
+        public ICommand NavigateCalendarCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -39,6 +39,7 @@ namespace XCalendarFormsSample.ViewModels
             ShowSelectionTypeDialogCommand = new Command(ShowSelectionTypeDialog);
             ShowSelectionActionDialogCommand = new Command(ShowSelectionActionDialog);
             ShowCommonFunctionalityDialogCommand = new Command(ShowCommonFunctionalityDialog);
+            NavigateCalendarCommand = new Command<int>(NavigateCalendar);
         }
         #endregion
 
@@ -76,6 +77,10 @@ namespace XCalendarFormsSample.ViewModels
                     Calendar.SelectionAction = SelectionAction.Replace;
                     break;
             }
+        }
+        public void NavigateCalendar(int Amount)
+        {
+            Calendar?.NavigateCalendar(Amount);
         }
         #endregion
     }

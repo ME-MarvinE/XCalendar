@@ -29,7 +29,7 @@
             <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
                 <mct:MultiConverterParameter ConverterType="{x:Type Converters:StringCharLimitConverter}">
                     <mct:MultiConverterParameter.Value>
-                        <System:Int32>3</System:Int32>
+                        <x:Int32>3</x:Int32>
                     </mct:MultiConverterParameter.Value>
                 </mct:MultiConverterParameter>
             </x:Array>
