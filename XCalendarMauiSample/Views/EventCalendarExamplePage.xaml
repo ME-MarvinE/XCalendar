@@ -44,7 +44,8 @@
                 Days="{Binding EventCalendar.Days}"
                 DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                BackwardsArrowCommand="{Binding NavigateCalendarCommand}">
+                BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                NavigatedDate="{Binding EventCalendar.NavigatedDate}">
 
                 <xc:CalendarView.ForwardsArrowCommandParameter>
                     <x:Int32>1</x:Int32>

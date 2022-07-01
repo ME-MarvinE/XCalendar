@@ -22,7 +22,14 @@
                 </Style>
             </VerticalStackLayout.Resources>
 
-            <xc:CalendarView x:Name="MainCalendarView" Style="{StaticResource DefaultCalendarViewStyle}" Days="{Binding Calendar.Days}" DaysOfWeek="{Binding Calendar.DayNamesOrder}" ForwardsArrowCommand="{Binding NavigateCalendarCommand}" BackwardsArrowCommand="{Binding NavigateCalendarCommand}">
+            <xc:CalendarView
+                x:Name="MainCalendarView"
+                Style="{StaticResource DefaultCalendarViewStyle}"
+                Days="{Binding Calendar.Days}"
+                DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                NavigatedDate="{Binding Calendar.NavigatedDate}">
 
                 <xc:CalendarView.ForwardsArrowCommandParameter>
                     <x:Int32>1</x:Int32>

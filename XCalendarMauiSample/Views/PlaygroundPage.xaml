@@ -549,7 +549,8 @@
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigationHeightRequest="{Binding NavigationHeightRequest}"
                         ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                        BackwardsArrowCommand="{Binding NavigateCalendarCommand}">
+                        BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                        NavigatedDate="{Binding Calendar.NavigatedDate}">
 
                         <xc:CalendarView.ForwardsArrowCommandParameter>
                             <x:Int32>1</x:Int32>
