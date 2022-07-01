@@ -54,18 +54,11 @@
                                 Margin="2.5"
                                 HeightRequest="41"
                                 Day="{Binding .}">
-
-                                <!--
-                                    Setting ControlTemplate instead of using a StackLayout with views inside because I don't require different parts of the view
-                                    to have specific user interactions.
-                                -->
-                                <!--
-                                    If I wanted to have a seperate tappable section that calls the same command when selecting a date,
-                                    I would put the view in a layout in the parent ContenView and use CalendarView's 'ChangeDateSelectionCommand'.
-                                -->
+                                
                                 <xc:CalendarDayView.ControlTemplate>
                                     <ControlTemplate>
                                         <!--  Using a Grid to stack views on the z axis  -->
+                                        <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
                                         <Grid RowSpacing="2" BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}">
 
                                             <Grid.RowDefinitions>
@@ -90,12 +83,10 @@
                                                 <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
                                                 <StackLayout.IsVisible>
                                                     <MultiBinding Converter="{StaticResource AllTrueConverter}">
-                                                        <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
-                                                        <Binding Path="IsCurrentMonth" Source="{RelativeSource TemplatedParent}"/>
+                                                        <Binding Path="IsCurrentMonth"/>
                                                         <Binding
                                                             Converter="{StaticResource InvertedBoolConverter}"
-                                                            Path="IsInvalid"
-                                                            Source="{RelativeSource TemplatedParent}"/>
+                                                            Path="IsInvalid"/>
                                                     </MultiBinding>
                                                 </StackLayout.IsVisible>
 
