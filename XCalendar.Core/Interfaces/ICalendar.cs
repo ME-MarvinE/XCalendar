@@ -39,7 +39,7 @@ namespace XCalendar.Core.Interfaces
         #endregion
 
         #region Methods
-        void UpdateDay(T Day, DateTime? NewDateTime);
+        void UpdateDay(T Day, DateTime NewDateTime);
         void ChangeDateSelection(DateTime DateTime);
         void CommitRangeSelection();
         int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek);

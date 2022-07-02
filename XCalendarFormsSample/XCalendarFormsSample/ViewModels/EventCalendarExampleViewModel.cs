@@ -86,7 +86,7 @@ namespace XCalendarFormsSample.ViewModels
             SelectedEvents.ReplaceRange(Events.Where(x => EventCalendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
             foreach (var Day in EventCalendar.Days)
             {
-                Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime?.Date));
+                Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime.Date));
             }
         }
         public void NavigateCalendar(int Amount)

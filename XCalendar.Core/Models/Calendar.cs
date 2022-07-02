@@ -311,23 +311,23 @@ namespace XCalendar.Core.Models
                 return DateTime.CalendarWeeksInMonth(StartOfWeek);
             }
         }
-        public virtual bool IsDateTimeCurrentMonth(DateTime? DateTime)
+        public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
         {
-            return DateTime?.Month == NavigatedDate.Month && DateTime?.Year == NavigatedDate.Year;
+            return DateTime.Month == NavigatedDate.Month && DateTime.Year == NavigatedDate.Year;
         }
-        public virtual bool IsDateTimeToday(DateTime? DateTime)
+        public virtual bool IsDateTimeToday(DateTime DateTime)
         {
-            return DateTime?.Date == TodayDate.Date;
+            return DateTime.Date == TodayDate.Date;
         }
-        public virtual bool IsDateTimeSelected(DateTime? DateTime)
+        public virtual bool IsDateTimeSelected(DateTime DateTime)
         {
-            return SelectedDates.Any(x => x.Date == DateTime?.Date) == true;
+            return SelectedDates.Any(x => x.Date == DateTime.Date) == true;
         }
-        public virtual bool IsDateTimeInvalid(DateTime? DateTime)
+        public virtual bool IsDateTimeInvalid(DateTime DateTime)
         {
-            return DateTime?.Date < NavigationLowerBound.Date || DateTime?.Date > NavigationUpperBound.Date;
+            return DateTime.Date < NavigationLowerBound.Date || DateTime.Date > NavigationUpperBound.Date;
         }
-        public virtual void UpdateDay(T Day, DateTime? NewDateTime)
+        public virtual void UpdateDay(T Day, DateTime NewDateTime)
         {
             Day.DateTime = NewDateTime;
             Day.IsCurrentMonth = IsDateTimeCurrentMonth(Day.DateTime);
@@ -366,7 +366,7 @@ namespace XCalendar.Core.Models
             //Update the dates for each row.
             for (int RowsAdded = 0; DatesUpdated < DaysRequiredToNavigate; RowsAdded++)
             {
-                Dictionary<DayOfWeek, DateTime?> Row = new Dictionary<DayOfWeek, DateTime?>();
+                Dictionary<DayOfWeek, DateTime> Row = new Dictionary<DayOfWeek, DateTime>();
 
                 //Get the updated dates for the row.
                 for (int i = 0; i < DaysOfWeek.Count; i++)
@@ -386,9 +386,9 @@ namespace XCalendar.Core.Models
                 {
 
                     //Handle the case that a week spans into an unrepresentable DateTime. E.g After DateTime.MaxValue.
-                    if (!Row.TryGetValue(DayNamesOrderList[i], out DateTime? NewDateTime))
+                    if (!Row.TryGetValue(DayNamesOrderList[i], out DateTime NewDateTime))
                     {
-                        NewDateTime = null;
+                        NewDateTime = DateTime.MaxValue;
                     }
 
                     if (Days.Count <= DatesUpdated)

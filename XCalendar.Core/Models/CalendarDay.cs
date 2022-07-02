@@ -6,7 +6,7 @@ namespace XCalendar.Core.Models
     public class CalendarDay : BaseObservableModel, ICalendarDay
     {
         #region Fields
-        private DateTime? _DateTime = System.DateTime.Today;
+        private DateTime _DateTime = DateTime.Today;
         private bool _IsSelected;
         private bool _IsCurrentMonth;
         private bool _IsToday;
@@ -14,7 +14,7 @@ namespace XCalendar.Core.Models
         #endregion
 
         #region Properties
-        public DateTime? DateTime
+        public DateTime DateTime
         {
             get
             {

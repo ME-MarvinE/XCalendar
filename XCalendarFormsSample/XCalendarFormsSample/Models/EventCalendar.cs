@@ -11,10 +11,10 @@ namespace XCalendarFormsSample.Models
         #endregion
 
         #region Methods
-        public override void UpdateDay(EventDay Day, DateTime? NewDateTime)
+        public override void UpdateDay(EventDay Day, DateTime NewDateTime)
         {
             base.UpdateDay(Day, NewDateTime);
-            Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == NewDateTime?.Date));
+            Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == NewDateTime.Date));
         }
         #endregion
     }
