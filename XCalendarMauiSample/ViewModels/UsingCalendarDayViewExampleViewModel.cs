@@ -18,12 +18,15 @@ namespace XCalendarMauiSample.ViewModels
 
         #region Commands
         public ICommand NavigateCalendarCommand { get; set; }
+        public ICommand ChangeDateSelectionCommand { get; set; }
         #endregion
 
         #region Constructors
         public UsingCalendarDayViewExampleViewModel()
         {
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
+            ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
+
             Calendar.DaysUpdated += Calendar_DaysUpdated;
             Calendar.UpdateDay(OutsideCalendarDay, OutsideCalendarDay.DateTime);
         }
@@ -33,6 +36,10 @@ namespace XCalendarMauiSample.ViewModels
         public void NavigateCalendar(int Amount)
         {
             Calendar?.NavigateCalendar(Amount);
+        }
+        public void ChangeDateSelection(DateTime DateTime)
+        {
+            Calendar?.ChangeDateSelection(DateTime);
         }
         private void Calendar_DaysUpdated(object sender, EventArgs e)
         {

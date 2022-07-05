@@ -29,6 +29,7 @@ namespace XCalendarMauiSample.ViewModels
         public ICommand ShowSelectionActionDialogCommand { get; set; }
         public ICommand ShowCommonFunctionalityDialogCommand { get; set; }
         public ICommand NavigateCalendarCommand { get; set; }
+        public ICommand ChangeDateSelectionCommand { get; set; }
 
         #endregion
 
@@ -39,6 +40,7 @@ namespace XCalendarMauiSample.ViewModels
             ShowSelectionActionDialogCommand = new Command(ShowSelectionActionDialog);
             ShowCommonFunctionalityDialogCommand = new Command(ShowCommonFunctionalityDialog);
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
+            ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
         }
         #endregion
 
@@ -80,6 +82,10 @@ namespace XCalendarMauiSample.ViewModels
         public void NavigateCalendar(int Amount)
         {
             Calendar?.NavigateCalendar(Amount);
+        }
+        public void ChangeDateSelection(DateTime DateTime)
+        {
+            Calendar?.ChangeDateSelection(DateTime);
         }
         #endregion
     }

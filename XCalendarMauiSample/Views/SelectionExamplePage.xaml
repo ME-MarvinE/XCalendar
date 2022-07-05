@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage 
-        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Class="XCalendarMauiSample.Views.SelectionExamplePage"
-             x:DataType="{x:Type ViewModels:SelectionExampleViewModel}"
-             Title="Selection"
-             Style="{StaticResource DefaultPageStyle}">
+    x:DataType="{x:Type ViewModels:SelectionExampleViewModel}"
+    Title="Selection"
+    Style="{StaticResource DefaultPageStyle}"
+    x:Name="This">
 
     <ScrollView>
         <VerticalStackLayout Spacing="0">
@@ -50,7 +51,13 @@
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsToday="{Binding IsToday}"
                                 IsSelected="{Binding IsSelected}"
-                                IsInvalid="{Binding IsInvalid}"/>
+                                IsInvalid="{Binding IsInvalid}"
+                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                CurrentMonthCommandParameter="{Binding DateTime}"
+                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                TodayCommandParameter="{Binding DateTime}"
+                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                SelectedCommandParameter="{Binding DateTime}"/>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>

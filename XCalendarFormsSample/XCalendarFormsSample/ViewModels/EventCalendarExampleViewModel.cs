@@ -63,12 +63,14 @@ namespace XCalendarFormsSample.ViewModels
 
         #region Commands
         public ICommand NavigateCalendarCommand { get; set; }
+        public ICommand ChangeDateSelectionCommand { get; set; }
         #endregion
 
         #region Constructors
         public EventCalendarExampleViewModel()
         {
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
+            ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
             foreach (Event Event in Events)
             {
@@ -77,21 +79,33 @@ namespace XCalendarFormsSample.ViewModels
             }
 
             EventCalendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
-        }
-        #endregion
-
-        #region Methods
-        private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            SelectedEvents.ReplaceRange(Events.Where(x => EventCalendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
+            EventCalendar.DaysUpdated += EventCalendar_DaysUpdated;
             foreach (var Day in EventCalendar.Days)
             {
                 Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime.Date));
             }
         }
+        #endregion
+
+        #region Methods
+        private void EventCalendar_DaysUpdated(object sender, EventArgs e)
+        {
+            foreach (var Day in EventCalendar.Days)
+            {
+                Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime.Date));
+            }
+        }
+        private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            SelectedEvents.ReplaceRange(Events.Where(x => EventCalendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
+        }
         public void NavigateCalendar(int Amount)
         {
             EventCalendar?.NavigateCalendar(Amount);
+        }
+        public void ChangeDateSelection(DateTime DateTime)
+        {
+            EventCalendar?.ChangeDateSelection(DateTime);
         }
         #endregion
     }

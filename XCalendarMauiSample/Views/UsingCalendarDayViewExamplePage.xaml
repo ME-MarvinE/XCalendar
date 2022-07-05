@@ -8,7 +8,8 @@
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
     x:DataType="{x:Type ViewModels:UsingCalendarDayViewExampleViewModel}"
     Title="Using CalendarDayView"
-    Style="{StaticResource DefaultPageStyle}">
+    Style="{StaticResource DefaultPageStyle}"
+    x:Name="This">
 
     <ScrollView>
         <VerticalStackLayout Spacing="0">
@@ -42,7 +43,13 @@
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsToday="{Binding IsToday}"
                                 IsSelected="{Binding IsSelected}"
-                                IsInvalid="{Binding IsInvalid}"/>
+                                IsInvalid="{Binding IsInvalid}"
+                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                CurrentMonthCommandParameter="{Binding DateTime}"
+                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                TodayCommandParameter="{Binding DateTime}"
+                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                SelectedCommandParameter="{Binding DateTime}"/>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
@@ -62,7 +69,13 @@
                     IsCurrentMonth="{Binding OutsideCalendarDay.IsCurrentMonth}"
                     IsToday="{Binding OutsideCalendarDay.IsToday}"
                     IsSelected="{Binding OutsideCalendarDay.IsSelected}"
-                    IsInvalid="{Binding OutsideCalendarDay.IsInvalid}"/>
+                    IsInvalid="{Binding OutsideCalendarDay.IsInvalid}"
+                    CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                    CurrentMonthCommandParameter="{Binding OutsideCalendarDay.DateTime}"
+                    TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                    TodayCommandParameter="{Binding OutsideCalendarDay.DateTime}"
+                    SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                    SelectedCommandParameter="{Binding OutsideCalendarDay.DateTime}"/>
 
                 <DatePicker Format="/MM/yyy" Date="{Binding Calendar.NavigatedDate}"/>
 

@@ -67,7 +67,13 @@
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsToday="{Binding IsToday}"
                                 IsSelected="{Binding IsSelected}"
-                                IsInvalid="{Binding IsInvalid}">
+                                IsInvalid="{Binding IsInvalid}"
+                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                CurrentMonthCommandParameter="{Binding DateTime}"
+                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                TodayCommandParameter="{Binding DateTime}"
+                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                SelectedCommandParameter="{Binding DateTime}">
                                 
                                 <xc:CalendarDayView.ControlTemplate>
                                     <ControlTemplate>

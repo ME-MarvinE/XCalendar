@@ -56,6 +56,7 @@ namespace XCalendarMauiSample.ViewModels
         public ICommand ShowStartOfWeekDialogCommand { get; set; }
         public ICommand ShowSelectionTypeDialogCommand { get; set; }
         public ICommand NavigateCalendarCommand { get; set; }
+        public ICommand ChangeDateSelectionCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -69,6 +70,7 @@ namespace XCalendarMauiSample.ViewModels
             ShowStartOfWeekDialogCommand = new Command(ShowStartOfWeekDialog);
             ShowSelectionTypeDialogCommand = new Command(ShowSelectionTypeDialog);
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
+            ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
         }
         #endregion
 
@@ -104,6 +106,10 @@ namespace XCalendarMauiSample.ViewModels
         public void NavigateCalendar(int Amount)
         {
             Calendar?.NavigateCalendar(Amount);
+        }
+        public void ChangeDateSelection(DateTime DateTime)
+        {
+            Calendar?.ChangeDateSelection(DateTime);
         }
         #endregion
     }

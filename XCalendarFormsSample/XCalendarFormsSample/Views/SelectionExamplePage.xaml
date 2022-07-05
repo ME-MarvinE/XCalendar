@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
-             xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
-             xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
-             x:Class="XCalendarFormsSample.Views.SelectionExamplePage"
-             x:DataType="{x:Type ViewModels:SelectionExampleViewModel}"
-             Title="Selection"
-             Style="{StaticResource DefaultPageStyle}">
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
+    x:Class="XCalendarFormsSample.Views.SelectionExamplePage"
+    x:DataType="{x:Type ViewModels:SelectionExampleViewModel}"
+    Title="Selection"
+    Style="{StaticResource DefaultPageStyle}"
+    x:Name="This">
 
     <ScrollView>
         <StackLayout Spacing="0">
@@ -48,7 +50,13 @@
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsToday="{Binding IsToday}"
                                 IsSelected="{Binding IsSelected}"
-                                IsInvalid="{Binding IsInvalid}"/>
+                                IsInvalid="{Binding IsInvalid}"
+                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                CurrentMonthCommandParameter="{Binding DateTime}"
+                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                TodayCommandParameter="{Binding DateTime}"
+                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                SelectedCommandParameter="{Binding DateTime}"/>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
