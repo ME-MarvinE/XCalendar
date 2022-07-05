@@ -38,7 +38,11 @@
                                 Style="{StaticResource DefaultDayViewStyle}"
                                 HeightRequest="47"
                                 Margin="2.5"
-                                Day="{Binding .}"/>
+                                DateTime="{Binding DateTime}"
+                                IsCurrentMonth="{Binding IsCurrentMonth}"
+                                IsToday="{Binding IsToday}"
+                                IsSelected="{Binding IsSelected}"
+                                IsInvalid="{Binding IsInvalid}"/>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
@@ -54,7 +58,11 @@
                     Style="{StaticResource DefaultDayViewStyle}"
                     HeightRequest="47"
                     Margin="0,5,0,5"
-                    Day="{Binding OutsideCalendarDay}"/>
+                    DateTime="{Binding OutsideCalendarDay.DateTime}"
+                    IsCurrentMonth="{Binding OutsideCalendarDay.IsCurrentMonth}"
+                    IsToday="{Binding OutsideCalendarDay.IsToday}"
+                    IsSelected="{Binding OutsideCalendarDay.IsSelected}"
+                    IsInvalid="{Binding OutsideCalendarDay.IsInvalid}"/>
 
                 <DatePicker Format="/MM/yyy" Date="{Binding Calendar.NavigatedDate}"/>
 

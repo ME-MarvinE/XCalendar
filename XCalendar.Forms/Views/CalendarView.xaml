@@ -147,7 +147,11 @@
                                     <ContentView>
                                         <xc:CalendarDayView
                                             Margin="2.5"
-                                            Day="{Binding .}"/>
+                                            DateTime="{Binding DateTime}"
+                                            IsCurrentMonth="{Binding IsCurrentMonth}"
+                                            IsToday="{Binding IsToday}"
+                                            IsSelected="{Binding IsSelected}"
+                                            IsInvalid="{Binding IsInvalid}"/>
                                     </ContentView>
                                 </DataTemplate>
                             </Setter.Value>

@@ -63,7 +63,11 @@
                                 Style="{StaticResource DefaultDayViewStyle}"
                                 Margin="2.5"
                                 HeightRequest="41"
-                                Day="{Binding .}">
+                                DateTime="{Binding DateTime}"
+                                IsCurrentMonth="{Binding IsCurrentMonth}"
+                                IsToday="{Binding IsToday}"
+                                IsSelected="{Binding IsSelected}"
+                                IsInvalid="{Binding IsInvalid}">
                                 
                                 <xc:CalendarDayView.ControlTemplate>
                                     <ControlTemplate>

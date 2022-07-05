@@ -574,8 +574,12 @@
                                                                     <!--  Needs to be nested because collectionview doesn't respect margins  -->
                                                                     <ContentView>
                                                                         <xc:CalendarDayView
-                                                                Margin="2.5"
-                                                                Day="{Binding .}"/>
+                                                                            Margin="2.5"
+                                                                            DateTime="{Binding DateTime}"
+                                                                            IsCurrentMonth="{Binding IsCurrentMonth}"
+                                                                            IsToday="{Binding IsToday}"
+                                                                            IsSelected="{Binding IsSelected}"
+                                                                            IsInvalid="{Binding IsInvalid}"/>
                                                                     </ContentView>
                                                                 </DataTemplate>
                                                             </Setter.Value>
@@ -626,7 +630,11 @@
                                             <xc:CalendarDayView
                                                 Style="{StaticResource DefaultDayViewStyle}"
                                                 Margin="2.5"
-                                                Day="{Binding .}"
+                                                DateTime="{Binding DateTime}"
+                                                IsCurrentMonth="{Binding IsCurrentMonth}"
+                                                IsToday="{Binding IsToday}"
+                                                IsSelected="{Binding IsSelected}"
+                                                IsInvalid="{Binding IsInvalid}"
                                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                                 WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
                                         </ContentView>
@@ -834,7 +842,11 @@
                                                     <xc:CalendarDayView
                                                         Style="{StaticResource DefaultDayViewStyle}"
                                                         Margin="2.5"
-                                                        Day="{Binding .}"
+                                                        DateTime="{Binding DateTime}"
+                                                        IsCurrentMonth="{Binding IsCurrentMonth}"
+                                                        IsToday="{Binding IsToday}"
+                                                        IsSelected="{Binding IsSelected}"
+                                                        IsInvalid="{Binding IsInvalid}"
                                                         HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                                         HorizontalOptions="Center"
                                                         VerticalOptions="Center"

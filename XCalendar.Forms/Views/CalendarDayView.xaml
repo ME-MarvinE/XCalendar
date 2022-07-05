@@ -10,7 +10,7 @@
     CornerRadius="100"
     HasShadow="False"
     HeightRequest="45"
-    Text="{Binding Day.DateTime.Day, Source={x:Reference MainCalendarDayView}}"
+    Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"
     WidthRequest="45">
 
     <xc:FramedLabel.GestureRecognizers>

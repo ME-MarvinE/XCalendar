@@ -13,15 +13,40 @@ namespace XCalendar.Maui.Views
         #region Properties
 
         #region Bindable Properties
-        public ICalendarDay Day
+        public DateTime? DateTime
         {
-            get { return (ICalendarDay)GetValue(DayProperty); }
-            set { SetValue(DayProperty, value); }
+            get { return (DateTime?)GetValue(DateTimeProperty); }
+            set { SetValue(DateTimeProperty, value); }
         }
         public DayState DayState
         {
             get { return (DayState)GetValue(DayStateProperty); }
             set { SetValue(DayStateProperty, value); }
+        }
+        public bool IsCurrentMonth
+        {
+            get { return (bool)GetValue(IsCurrentMonthProperty); }
+            set { SetValue(IsCurrentMonthProperty, value); }
+        }
+        public bool IsOtherMonth
+        {
+            get { return (bool)GetValue(IsOtherMonthProperty); }
+            set { SetValue(IsOtherMonthProperty, value); }
+        }
+        public bool IsToday
+        {
+            get { return (bool)GetValue(IsTodayProperty); }
+            set { SetValue(IsTodayProperty, value); }
+        }
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+        public bool IsInvalid
+        {
+            get { return (bool)GetValue(IsInvalidProperty); }
+            set { SetValue(IsInvalidProperty, value); }
         }
         public bool IsDayStateCurrentMonth
         {
@@ -261,38 +286,43 @@ namespace XCalendar.Maui.Views
         #endregion
 
         #region Bindable Properties Initialisers
-        public static readonly BindableProperty DayProperty = BindableProperty.Create(nameof(Day), typeof(ICalendarDay), typeof(CalendarDayView), new CalendarDay(), propertyChanged: DayPropertyChanged);
-        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(DayState), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged);
+        public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(CalendarDayView), System.DateTime.Today, propertyChanged: DateTimePropertyChanged);
+        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(DayState), typeof(DayState), typeof(CalendarDayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged, coerceValue: CoerceDayState);
+        public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(CalendarDayView), true, propertyChanged: IsCurrentMonthPropertyChanged);
+        public static readonly BindableProperty IsOtherMonthProperty = BindableProperty.Create(nameof(IsOtherMonth), typeof(bool), typeof(CalendarDayView), propertyChanged: IsOtherMonthPropertyChanged);
+        public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(CalendarDayView), propertyChanged: IsTodayPropertyChanged);
+        public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(CalendarDayView), propertyChanged: IsSelectedPropertyChanged);
+        public static readonly BindableProperty IsInvalidProperty = BindableProperty.Create(nameof(IsInvalid), typeof(bool), typeof(CalendarDayView), propertyChanged: IsInvalidPropertyChanged);
         public static readonly BindableProperty IsDayStateCurrentMonthProperty = BindableProperty.Create(nameof(IsDayStateCurrentMonth), typeof(bool), typeof(CalendarDayView), true);
         public static readonly BindableProperty IsDayStateOtherMonthProperty = BindableProperty.Create(nameof(IsDayStateOtherMonth), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsDayStateTodayProperty = BindableProperty.Create(nameof(IsDayStateToday), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsDayStateSelectedProperty = BindableProperty.Create(nameof(IsDayStateSelected), typeof(bool), typeof(CalendarDayView));
         public static readonly BindableProperty IsDayStateInvalidProperty = BindableProperty.Create(nameof(IsDayStateInvalid), typeof(bool), typeof(CalendarDayView));
-        public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(CalendarDayView), Colors.Black);
-        public static readonly BindableProperty CurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(CurrentMonthBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty CurrentMonthBorderColorProperty = BindableProperty.Create(nameof(CurrentMonthBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty CurrentMonthCommandProperty = BindableProperty.Create(nameof(CurrentMonthCommand), typeof(ICommand), typeof(CalendarDayView));
-        public static readonly BindableProperty CurrentMonthCommandParameterProperty = BindableProperty.Create(nameof(CurrentMonthCommandParameter), typeof(object), typeof(CalendarDayView));
-        public static readonly BindableProperty TodayTextColorProperty = BindableProperty.Create(nameof(TodayTextColor), typeof(Color), typeof(CalendarDayView), Colors.Black);
-        public static readonly BindableProperty TodayBackgroundColorProperty = BindableProperty.Create(nameof(TodayBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty TodayBorderColorProperty = BindableProperty.Create(nameof(TodayBorderColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFE00000"));
-        public static readonly BindableProperty TodayCommandProperty = BindableProperty.Create(nameof(TodayCommand), typeof(ICommand), typeof(CalendarDayView));
-        public static readonly BindableProperty TodayCommandParameterProperty = BindableProperty.Create(nameof(TodayCommandParameter), typeof(object), typeof(CalendarDayView));
-        public static readonly BindableProperty OtherMonthTextColorProperty = BindableProperty.Create(nameof(OtherMonthTextColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFA0A0A0"));
-        public static readonly BindableProperty OtherMonthBackgroundColorProperty = BindableProperty.Create(nameof(OtherMonthBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty OtherMonthBorderColorProperty = BindableProperty.Create(nameof(OtherMonthBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty OtherMonthCommandProperty = BindableProperty.Create(nameof(OtherMonthCommand), typeof(ICommand), typeof(CalendarDayView));
-        public static readonly BindableProperty OtherMonthCommandParameterProperty = BindableProperty.Create(nameof(OtherMonthCommandParameter), typeof(object), typeof(CalendarDayView));
-        public static readonly BindableProperty InvalidTextColorProperty = BindableProperty.Create(nameof(InvalidTextColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFFFA0A0"));
-        public static readonly BindableProperty InvalidBackgroundColorProperty = BindableProperty.Create(nameof(InvalidBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty InvalidBorderColorProperty = BindableProperty.Create(nameof(InvalidBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty InvalidCommandProperty = BindableProperty.Create(nameof(InvalidCommand), typeof(ICommand), typeof(CalendarDayView));
-        public static readonly BindableProperty InvalidCommandParameterProperty = BindableProperty.Create(nameof(InvalidCommandParameter), typeof(object), typeof(CalendarDayView));
-        public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(CalendarDayView), Colors.White);
-        public static readonly BindableProperty SelectedBackgroundColorProperty = BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFE00000"));
-        public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent);
-        public static readonly BindableProperty SelectedCommandProperty = BindableProperty.Create(nameof(SelectedCommand), typeof(ICommand), typeof(CalendarDayView));
-        public static readonly BindableProperty SelectedCommandParameterProperty = BindableProperty.Create(nameof(SelectedCommandParameter), typeof(object), typeof(CalendarDayView));
+        public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(CalendarDayView), Colors.Black, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty CurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(CurrentMonthBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty CurrentMonthBorderColorProperty = BindableProperty.Create(nameof(CurrentMonthBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty CurrentMonthCommandProperty = BindableProperty.Create(nameof(CurrentMonthCommand), typeof(ICommand), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty CurrentMonthCommandParameterProperty = BindableProperty.Create(nameof(CurrentMonthCommandParameter), typeof(object), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty TodayTextColorProperty = BindableProperty.Create(nameof(TodayTextColor), typeof(Color), typeof(CalendarDayView), Colors.Black, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty TodayBackgroundColorProperty = BindableProperty.Create(nameof(TodayBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty TodayBorderColorProperty = BindableProperty.Create(nameof(TodayBorderColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFE00000"), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty TodayCommandProperty = BindableProperty.Create(nameof(TodayCommand), typeof(ICommand), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty TodayCommandParameterProperty = BindableProperty.Create(nameof(TodayCommandParameter), typeof(object), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty OtherMonthTextColorProperty = BindableProperty.Create(nameof(OtherMonthTextColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFA0A0A0"), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty OtherMonthBackgroundColorProperty = BindableProperty.Create(nameof(OtherMonthBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty OtherMonthBorderColorProperty = BindableProperty.Create(nameof(OtherMonthBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty OtherMonthCommandProperty = BindableProperty.Create(nameof(OtherMonthCommand), typeof(ICommand), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty OtherMonthCommandParameterProperty = BindableProperty.Create(nameof(OtherMonthCommandParameter), typeof(object), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty InvalidTextColorProperty = BindableProperty.Create(nameof(InvalidTextColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFFFA0A0"), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty InvalidBackgroundColorProperty = BindableProperty.Create(nameof(InvalidBackgroundColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty InvalidBorderColorProperty = BindableProperty.Create(nameof(InvalidBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty InvalidCommandProperty = BindableProperty.Create(nameof(InvalidCommand), typeof(ICommand), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty InvalidCommandParameterProperty = BindableProperty.Create(nameof(InvalidCommandParameter), typeof(object), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(CalendarDayView), Colors.White, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty SelectedBackgroundColorProperty = BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(CalendarDayView), Color.FromArgb("#FFE00000"), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor), typeof(Color), typeof(CalendarDayView), Colors.Transparent, propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty SelectedCommandProperty = BindableProperty.Create(nameof(SelectedCommand), typeof(ICommand), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty SelectedCommandParameterProperty = BindableProperty.Create(nameof(SelectedCommandParameter), typeof(object), typeof(CalendarDayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CalendarDayView));
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(CalendarDayView));
         public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(BorderedLabel), Label.CharacterSpacingProperty.DefaultValue);
@@ -317,25 +347,25 @@ namespace XCalendar.Maui.Views
         #region Constructors
         public CalendarDayView()
         {
-            SetBinding(TextProperty, new Binding("Day.DateTime.Day", source: this));
+            SetBinding(TextProperty, new Binding("DateTime.Day", source: this));
             InitializeComponent();
         }
         #endregion
 
         #region Methods
-        public static DayState EvaluateDayState(ICalendarDay Day)
+        public virtual DayState EvaluateDayState()
         {
-            bool IsOtherMonth = !Day.IsCurrentMonth;
+            bool IsOtherMonth = !IsCurrentMonth;
 
-            if (Day.IsInvalid)
+            if (IsInvalid)
             {
                 return DayState.Invalid;
             }
-            else if (Day.IsSelected && Day.IsCurrentMonth)
+            else if (IsSelected && IsCurrentMonth)
             {
                 return DayState.Selected;
             }
-            else if (Day.IsToday && Day.IsCurrentMonth)
+            else if (IsToday && IsCurrentMonth)
             {
                 return DayState.Today;
             }
@@ -343,38 +373,13 @@ namespace XCalendar.Maui.Views
             {
                 return DayState.OtherMonth;
             }
-            else if (Day.IsCurrentMonth)
+            else if (IsCurrentMonth)
             {
                 return DayState.CurrentMonth;
             }
             else
             {
                 throw new NotImplementedException();
-            }
-        }
-
-        #region Bindable Properties Methods
-        private static void DayPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            CalendarDayView Control = (CalendarDayView)bindable;
-            ICalendarDay OldDay = (ICalendarDay)oldValue;
-            ICalendarDay NewDay = (ICalendarDay)newValue;
-
-            if (OldDay != null) { OldDay.PropertyChanged -= Control.Day_PropertyChanged; }
-            if (NewDay != null) { NewDay.PropertyChanged += Control.Day_PropertyChanged; }
-
-            if (Control.Day != null)
-            {
-                Control.DayState = EvaluateDayState(Control.Day);
-                Control.UpdateView();
-            }
-        }
-        private void Day_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (Day != null)
-            {
-                DayState = EvaluateDayState(Day);
-                UpdateView();
             }
         }
         public virtual void UpdateView()
@@ -426,6 +431,50 @@ namespace XCalendar.Maui.Views
                     throw new NotImplementedException($"{nameof(DayState)} '{DayState}' is not implemented.");
             }
         }
+
+        #region Bindable Properties Methods
+        private static void DateTimePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            Control.DayState = Control.EvaluateDayState();
+            Control.UpdateView();
+        }
+        private static void IsCurrentMonthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            Control.DayState = Control.EvaluateDayState();
+            Control.UpdateView();
+        }
+        private static void IsOtherMonthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            Control.DayState = Control.EvaluateDayState();
+            Control.UpdateView();
+        }
+        private static void IsTodayPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            Control.DayState = Control.EvaluateDayState();
+            Control.UpdateView();
+        }
+        private static void IsSelectedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            Control.DayState = Control.EvaluateDayState();
+            Control.UpdateView();
+        }
+        private static void IsInvalidPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            Control.DayState = Control.EvaluateDayState();
+            Control.UpdateView();
+        }
         private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarDayView Control = (CalendarDayView)bindable;
@@ -436,6 +485,18 @@ namespace XCalendar.Maui.Views
             Control.IsDayStateToday = NewDayState == DayState.Today;
             Control.IsDayStateSelected = NewDayState == DayState.Selected;
             Control.IsDayStateInvalid = NewDayState == DayState.Invalid;
+        }
+        private static void StateAppearanceChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            Control.UpdateView();
+        }
+        private static object CoerceDayState(BindableObject bindable, object value)
+        {
+            CalendarDayView Control = (CalendarDayView)bindable;
+
+            return Control.EvaluateDayState();
         }
         #endregion
 

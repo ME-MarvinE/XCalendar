@@ -27,6 +27,8 @@ namespace XCalendarFormsSample.ViewModels
         public UsingCalendarDayViewExampleViewModel()
         {
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
+            Calendar.DaysUpdated += Calendar_DaysUpdated;
+            Calendar.UpdateDay(OutsideCalendarDay, OutsideCalendarDay.DateTime);
         }
         #endregion
 
@@ -34,6 +36,10 @@ namespace XCalendarFormsSample.ViewModels
         public void NavigateCalendar(int Amount)
         {
             Calendar?.NavigateCalendar(Amount);
+        }
+        private void Calendar_DaysUpdated(object sender, EventArgs e)
+        {
+            Calendar.UpdateDay(OutsideCalendarDay, OutsideCalendarDay.DateTime);
         }
         #endregion
     }
