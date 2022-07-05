@@ -665,7 +665,7 @@
                                                             FontAttributes="Bold"
                                                             FontSize="18"
                                                             HorizontalTextAlignment="Center"
-                                                            Text="{Binding Calendar.NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference FancyCalendarView}}"
+                                                            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference FancyCalendarView}}"
                                                             TextColor="{Binding NavigationTextColor, Source={x:Reference FancyCalendarView}}"
                                                             VerticalTextAlignment="Center"/>
 
