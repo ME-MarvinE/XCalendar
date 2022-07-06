@@ -17,16 +17,6 @@ namespace XCalendarConsoleSample
             NavigationLowerBound = DateTime.Today.AddYears(-2),
             NavigationUpperBound = DateTime.Today.AddYears(2),
             StartOfWeek = DayOfWeek.Monday,
-            CustomDayNamesOrder = new ObservableRangeCollection<DayOfWeek>()
-            {
-                DayOfWeek.Monday,
-                DayOfWeek.Tuesday,
-                DayOfWeek.Wednesday,
-                DayOfWeek.Thursday,
-                DayOfWeek.Friday,
-                DayOfWeek.Saturday,
-                DayOfWeek.Sunday
-            },
             SelectionAction = SelectionAction.Modify,
             NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum,
             SelectionType = SelectionType.Single,
@@ -35,7 +25,6 @@ namespace XCalendarConsoleSample
             Rows = 2,
             AutoRows = true,
             AutoRowsIsConsistent = true,
-            UseCustomDayNamesOrder = false,
             TodayDate = DateTime.Today,
             ForwardsNavigationAmount = 1,
             BackwardsNavigationAmount = -1
@@ -112,7 +101,7 @@ namespace XCalendarConsoleSample
                     break;
             }
 
-            Console.Write(Day.DateTime == null ? "   "  : Day.DateTime.Value.ToString("dd"));
+            Console.Write(Day.DateTime.ToString("dd"));
         }
         public static void PerformCalendarAction(ConsoleKey Key)
         {

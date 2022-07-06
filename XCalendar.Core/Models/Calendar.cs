@@ -72,11 +72,6 @@ namespace XCalendar.Core.Models
         [OnChangedMethod(nameof(OnAutoRowsIsConsistentChanged))]
         public bool AutoRowsIsConsistent { get; set; } = true;
         /// <summary>
-        /// Whether to use <see cref="CustomDayNamesOrder"/> for displaying the page or not.
-        /// </summary>
-        [OnChangedMethod(nameof(OnUseCustomDayNamesOrderChanged))]
-        public bool UseCustomDayNamesOrder { get; set; }
-        /// <summary>
         /// The type of selection to use for selecting dates.
         /// </summary>
         public SelectionAction SelectionAction { get; set; } = SelectionAction.Modify;
@@ -90,13 +85,8 @@ namespace XCalendar.Core.Models
         /// </summary>
         [OnChangedMethod(nameof(OnSelectedDatesChanged))]
         public ObservableRangeCollection<DateTime> SelectedDates { get; set; } = new ObservableRangeCollection<DateTime>();
-        /// <summary>
-        /// The order to display the days of the week in when <see cref="UseCustomDayNamesOrder"/> is set to true.
-        /// </summary>
-        /// <remarks>Does not affect logic.</remarks>
-        /// <seealso cref="UseCustomDayNamesOrder"/>
         [OnChangedMethod(nameof(OnCustomDayNamesOrderChanged))]
-        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; set; } = new ObservableRangeCollection<DayOfWeek>(DaysOfWeek);
+        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; set; }
         /// <summary>
         /// The number of rows to display.
         /// </summary>
@@ -572,7 +562,7 @@ namespace XCalendar.Core.Models
                 _StartOfWeekDayNamesOrder.ReplaceRange(CorrectStartOfWeekDayNamesOrder);
             }
             //If the dates haven't been updated and invalidated, do so.
-            if (!UpdateStartOfWeekDayNamesOrder || UseCustomDayNamesOrder)
+            if (!UpdateStartOfWeekDayNamesOrder || CustomDayNamesOrder != null)
             {
                 UpdateDays(NavigatedDate);
             }
@@ -607,7 +597,11 @@ namespace XCalendar.Core.Models
         }
         private void OnCustomDayNamesOrderChanged(ObservableRangeCollection<DayOfWeek> oldValue, ObservableRangeCollection<DayOfWeek> newValue)
         {
-            if (UseCustomDayNamesOrder)
+            if (newValue == null)
+            {
+                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
+            }
+            else
             {
                 DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(newValue);
             }
@@ -619,12 +613,6 @@ namespace XCalendar.Core.Models
         private void OnAutoRowsIsConsistentChanged(bool oldValue, bool newValue)
         {
             Rows = CoerceRows(Rows);
-        }
-        private void OnUseCustomDayNamesOrderChanged(bool oldValue, bool newValue)
-        {
-            ObservableRangeCollection<DayOfWeek> CorrectDayNamesOrder = newValue ? CustomDayNamesOrder : _StartOfWeekDayNamesOrder;
-
-            DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(CorrectDayNamesOrder);
         }
         private void OnDayNamesOrderChanged(ReadOnlyObservableCollection<DayOfWeek> oldValue, ReadOnlyObservableCollection<DayOfWeek> newValue)
         {

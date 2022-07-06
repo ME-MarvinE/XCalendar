@@ -394,19 +394,6 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="Use&#10;CustomDayNamesOrder"
-                                VerticalTextAlignment="Center"/>
-                            <Switch
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                IsToggled="{Binding Calendar.UseCustomDayNamesOrder}"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
                                 Text="Rows"
                                 VerticalTextAlignment="Center"/>
                             <Editor

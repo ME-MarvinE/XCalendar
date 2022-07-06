@@ -16,7 +16,6 @@ namespace XCalendar.Core.Interfaces
         DayOfWeek StartOfWeek { get; set; }
         bool AutoRows { get; set; }
         bool AutoRowsIsConsistent { get; set; }
-        bool UseCustomDayNamesOrder { get; set; }
         SelectionAction SelectionAction { get; set; }
         NavigationLoopMode NavigationLoopMode { get; set; }
         ObservableRangeCollection<DateTime> SelectedDates { get; set; }

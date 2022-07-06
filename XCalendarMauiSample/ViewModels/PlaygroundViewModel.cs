@@ -17,16 +17,6 @@ namespace XCalendarMauiSample.ViewModels
             NavigationLowerBound = DateTime.Today.AddYears(-2),
             NavigationUpperBound = DateTime.Today.AddYears(2),
             StartOfWeek = DayOfWeek.Monday,
-            CustomDayNamesOrder = new ObservableRangeCollection<DayOfWeek>()
-            {
-                DayOfWeek.Monday,
-                DayOfWeek.Tuesday,
-                DayOfWeek.Wednesday,
-                DayOfWeek.Thursday,
-                DayOfWeek.Friday,
-                DayOfWeek.Saturday,
-                DayOfWeek.Sunday
-            },
             SelectionAction = SelectionAction.Modify,
             NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum,
             SelectionType = SelectionType.Single,
@@ -35,7 +25,6 @@ namespace XCalendarMauiSample.ViewModels
             Rows = 2,
             AutoRows = true,
             AutoRowsIsConsistent = true,
-            UseCustomDayNamesOrder = false,
             TodayDate = DateTime.Today,
             ForwardsNavigationAmount = 1,
             BackwardsNavigationAmount = -1
@@ -77,7 +66,23 @@ namespace XCalendarMauiSample.ViewModels
         #region Methods
         public async void ShowCustomDayNamesOrderDialog()
         {
-            Calendar.CustomDayNamesOrder.ReplaceRange(await PopupHelper.ShowCustomDayNamesOrderDialog(Calendar.CustomDayNamesOrder));
+            IEnumerable<DayOfWeek> NewCustomDayNamesOrder = await PopupHelper.ShowCustomDayNamesOrderDialog(Calendar.CustomDayNamesOrder ?? new ObservableRangeCollection<DayOfWeek>());
+
+            if (NewCustomDayNamesOrder.Any())
+            {
+                if (Calendar.CustomDayNamesOrder == null)
+                {
+                    Calendar.CustomDayNamesOrder = new ObservableRangeCollection<DayOfWeek>(NewCustomDayNamesOrder);
+                }
+                else
+                {
+                    Calendar.CustomDayNamesOrder.ReplaceRange(NewCustomDayNamesOrder);
+                }
+            }
+            else
+            {
+                Calendar.CustomDayNamesOrder = null;
+            }
         }
         public async void ShowSelectionActionDialog()
         {
