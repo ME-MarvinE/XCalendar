@@ -36,6 +36,7 @@ namespace XCalendar.Core.Interfaces
         #region Events
         event EventHandler<DateSelectionChangedEventArgs> DateSelectionChanged;
         event EventHandler DaysUpdated;
+        event EventHandler DaysUpdating;
         #endregion
 
         #region Methods

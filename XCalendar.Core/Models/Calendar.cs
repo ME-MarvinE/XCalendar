@@ -1,16 +1,13 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
-using System.Windows.Input;
-using XCalendar.Core;
+using XCalendar.Core.Enums;
 using XCalendar.Core.Extensions;
 using XCalendar.Core.Interfaces;
-using XCalendar.Core.Models;
-using XCalendar.Core.Enums;
-using PropertyChanged;
 
 namespace XCalendar.Core.Models
 {
@@ -138,6 +135,7 @@ namespace XCalendar.Core.Models
         #region Events
         public event EventHandler<DateSelectionChangedEventArgs> DateSelectionChanged;
         public event EventHandler DaysUpdated;
+        public event EventHandler DaysUpdating;
         #endregion
 
         #region Constructors
@@ -162,12 +160,13 @@ namespace XCalendar.Core.Models
         {
             DateSelectionChanged?.Invoke(this, new DateSelectionChangedEventArgs(OldSelection, NewSelection));
         }
-        /// <summary>
-        /// Called when the <see cref="CalendarView"/> needs to notify <see cref="CalendarDayView"/>s to reevaluate their properties due to a change.
-        /// </summary>
         protected virtual void OnDaysUpdated()
         {
             DaysUpdated?.Invoke(this, new EventArgs());
+        }
+        protected virtual void OnDaysUpdating()
+        {
+            DaysUpdating?.Invoke(this, new EventArgs());
         }
         /// <summary>
         /// Performs selection of a <see cref="DateTime"/> depending on the current <see cref="SelectionAction"/> and <see cref="SelectionType"/>.
@@ -341,6 +340,8 @@ namespace XCalendar.Core.Models
         /// <param name="NavigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
         public void UpdateDays(DateTime NavigationDate)
         {
+            OnDaysUpdating();
+
             List<DayOfWeek> DayNamesOrderList = DayNamesOrder.ToList();
             int DatesUpdated = 0;
             int RowsRequiredToNavigate = AutoRows ? GetMonthRows(NavigationDate, AutoRowsIsConsistent, StartOfWeek) : Rows;
