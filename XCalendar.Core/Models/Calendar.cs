@@ -1,10 +1,11 @@
-﻿using PropertyChanged;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Extensions;
 using XCalendar.Core.Interfaces;
@@ -14,54 +15,185 @@ namespace XCalendar.Core.Models
     public class Calendar : Calendar<CalendarDay>
     {
     }
-    public class Calendar<T> : BaseObservableModel, ICalendar<T> where T : ICalendarDay, new()
+    public class Calendar<T> : ICalendar<T> where T : ICalendarDay, new()
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
-        private readonly ObservableCollection<T> _Days = new ObservableCollection<T>();
+        private ObservableCollection<T> _Days = new ObservableCollection<T>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
-        private readonly ObservableRangeCollection<DayOfWeek> _StartOfWeekDayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
+
+        private DateTime _NavigatedDate = DateTime.Today;
+        private DateTime _TodayDate = DateTime.Today;
+        private DateTime _NavigationLowerBound = DateTime.MinValue;
+        private DateTime _NavigationUpperBound = DateTime.MaxValue;
+        private DayOfWeek _StartOfWeek = CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek;
+        private bool _AutoRows = true;
+        private bool _AutoRowsIsConsistent = true;
+        private SelectionAction _SelectionAction = SelectionAction.Modify;
+        private NavigationLoopMode _NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum;
+        private ObservableRangeCollection<DateTime> _SelectedDates = new ObservableRangeCollection<DateTime>();
+        private ObservableRangeCollection<DayOfWeek> _CustomDayNamesOrder;
+        private int _Rows = 6;
+        private NavigationTimeUnit _NavigationTimeUnit = NavigationTimeUnit.Month;
+        private PageStartMode _PageStartMode = PageStartMode.FirstDayOfMonth;
+        private ReadOnlyObservableCollection<DayOfWeek> _DayNamesOrder;
+        private int _ForwardsNavigationAmount = 1;
+        private int _BackwardsNavigationAmount = 1;
+        private DateTime? _RangeSelectionStart;
+        private DateTime? _RangeSelectionEnd;
+        private SelectionType _SelectionType = SelectionType.None;
         #endregion
 
         #region Properties
         /// <summary>
         /// The list of displayed days.
         /// </summary>
-        public ReadOnlyObservableCollection<T> Days { get; protected set; }
+        public ObservableCollection<T> Days
+        {
+            get
+            {
+                return _Days;
+            }
+            protected set
+            {
+                if (_Days != value)
+                {
+                    _Days = value;
+
+                    OnPropertyChanged(nameof(Days));
+                }
+            }
+        }
         /// <summary>
         /// The date the calendar will use to get the dates representing a time unit.
         /// </summary>
-        [OnChangedMethod(nameof(OnNavigatedDateChanged))]
-        public DateTime NavigatedDate { get; set; } = DateTime.Today;
+        public DateTime NavigatedDate
+        {
+            get
+            {
+                return _NavigatedDate;
+            }
+            set
+            {
+                if (_NavigatedDate != value)
+                {
+                    var OldValue = _NavigatedDate;
+                    _NavigatedDate = value;
+
+                    OnNavigatedDateChanged(OldValue, _NavigatedDate);
+                    OnPropertyChanged(nameof(NavigatedDate));
+                }
+            }
+        }
         /// <summary>
         /// The date that the calendar should consider as 'Today'.
         /// </summary>
-        [OnChangedMethod(nameof(OnTodayDateChanged))]
-        public DateTime TodayDate { get; set; } = DateTime.Today;
+        public DateTime TodayDate
+        {
+            get
+            {
+                return _TodayDate;
+            }
+            set
+            {
+                if (_TodayDate != value)
+                {
+                    var OldValue = _TodayDate;
+                    _TodayDate = value;
+
+                    OnTodayDateChanged(OldValue, _TodayDate);
+                    OnPropertyChanged(nameof(TodayDate));
+                }
+            }
+        }
         /// <summary>
         /// The lower bound of the day range.
         /// </summary>
         /// <seealso cref="NavigationLoopMode"/>
-        [OnChangedMethod(nameof(OnNavigationLowerBoundChanged))]
-        public DateTime NavigationLowerBound { get; set; } = DateTime.MinValue;
+        public DateTime NavigationLowerBound
+        {
+            get
+            {
+                return _NavigationLowerBound;
+            }
+            set
+            {
+                if (_NavigationLowerBound != value)
+                {
+                    var OldValue = _NavigationLowerBound;
+                    _NavigationLowerBound = value;
+
+                    OnNavigationLowerBoundChanged(OldValue, _NavigationLowerBound);
+                    OnPropertyChanged(nameof(NavigationLowerBound));
+                }
+            }
+        }
         /// <summary>
         /// The upper bound of the day range.
         /// </summary>
         /// <seealso cref="NavigationLoopMode"/>
-        [OnChangedMethod(nameof(OnNavigationUpperBoundChanged))]
-        public DateTime NavigationUpperBound { get; set; } = DateTime.MaxValue;
+        public DateTime NavigationUpperBound
+        {
+            get
+            {
+                return _NavigationUpperBound;
+            }
+            set
+            {
+                if (_NavigationUpperBound != value)
+                {
+                    var OldValue = _NavigationUpperBound;
+                    _NavigationUpperBound = value;
+
+                    OnNavigationUpperBoundChanged(OldValue, _NavigationUpperBound);
+                    OnPropertyChanged(nameof(NavigationUpperBound));
+                }
+            }
+        }
         /// <summary>
         /// The day of week that should be considered as the start of the week.
         /// </summary>
         /// <seealso cref="CustomDayNamesOrder"/>
-        [OnChangedMethod(nameof(OnStartOfWeekChanged))]
-        public DayOfWeek StartOfWeek { get; set; } = CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek;
+        public DayOfWeek StartOfWeek
+        {
+            get
+            {
+                return _StartOfWeek;
+            }
+            set
+            {
+                if (_StartOfWeek != value)
+                {
+                    var OldValue = _StartOfWeek;
+                    _StartOfWeek = value;
+
+                    OnStartOfWeekChanged(OldValue, _StartOfWeek);
+                    OnPropertyChanged(nameof(StartOfWeek));
+                }
+            }
+        }
         /// <summary>
         /// Whether to automatically add as many rows as needed to represent the time unit or not.
         /// </summary>
         /// <seealso cref="AutoRowsIsConsistent"/>
-        [OnChangedMethod(nameof(OnAutoRowsChanged))]
-        public bool AutoRows { get; set; } = true;
+        public bool AutoRows
+        {
+            get
+            {
+                return _AutoRows;
+            }
+            set
+            {
+                if (_AutoRows != value)
+                {
+                    var OldValue = _AutoRows;
+                    _AutoRows = value;
+
+                    OnAutoRowsChanged(OldValue, _AutoRows);
+                    OnPropertyChanged(nameof(AutoRows));
+                }
+            }
+        }
         /// <summary>
         /// Whether to make sure the amount of rows stays the same across the time unit.
         /// </summary>
@@ -69,34 +201,143 @@ namespace XCalendar.Core.Models
         /// If this property is true, the calendar will display 6 rows regardless of whether a month needs less or not (April, November etc).
         /// Otherwise it will display as needed: (5 for April and November, 6 for May and October etc).</example>
         /// <seealso cref="AutoRows"/>
-        [OnChangedMethod(nameof(OnAutoRowsIsConsistentChanged))]
-        public bool AutoRowsIsConsistent { get; set; } = true;
+        public bool AutoRowsIsConsistent
+        {
+            get
+            {
+                return _AutoRowsIsConsistent;
+            }
+            set
+            {
+                if (_AutoRowsIsConsistent != value)
+                {
+                    var OldValue = _AutoRowsIsConsistent;
+                    _AutoRowsIsConsistent = value;
+
+                    OnAutoRowsIsConsistentChanged(OldValue, _AutoRowsIsConsistent);
+                    OnPropertyChanged(nameof(AutoRowsIsConsistent));
+                }
+            }
+        }
         /// <summary>
         /// The type of selection to use for selecting dates.
         /// </summary>
-        public SelectionAction SelectionAction { get; set; } = SelectionAction.Modify;
+        public SelectionAction SelectionAction
+        {
+            get
+            {
+                return _SelectionAction;
+            }
+            set
+            {
+                if (_SelectionAction != value)
+                {
+                    _SelectionAction = value;
+
+                    OnPropertyChanged(nameof(SelectionAction));
+                }
+            }
+        }
         /// <summary>
         /// How the calendar handles navigation past the <see cref="DateTime.MinValue"/>, <see cref="DateTime.MaxValue"/>, <see cref="NavigationLowerBound"/>, and <see cref="NavigationUpperBound"/>.
         /// </summary>
         /// <seealso cref="NavigateCalendar(int)"/>
-        public NavigationLoopMode NavigationLoopMode { get; set; } = NavigationLoopMode.LoopMinimumAndMaximum;
+        public NavigationLoopMode NavigationLoopMode
+        {
+            get
+            {
+                return _NavigationLoopMode;
+            }
+            set
+            {
+                if (_NavigationLoopMode != value)
+                {
+                    _NavigationLoopMode = value;
+
+                    OnPropertyChanged(nameof(NavigationLoopMode));
+                }
+            }
+        }
         /// <summary>
         /// The dates that are currently selected.
         /// </summary>
-        [OnChangedMethod(nameof(OnSelectedDatesChanged))]
-        public ObservableRangeCollection<DateTime> SelectedDates { get; set; } = new ObservableRangeCollection<DateTime>();
-        [OnChangedMethod(nameof(OnCustomDayNamesOrderChanged))]
-        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; set; }
+        public ObservableRangeCollection<DateTime> SelectedDates
+        {
+            get
+            {
+                return _SelectedDates;
+            }
+            set
+            {
+                if (_SelectedDates != value)
+                {
+                    var OldValue = _SelectedDates;
+                    _SelectedDates = value;
+
+                    OnSelectedDatesChanged(OldValue, _SelectedDates);
+                    OnPropertyChanged(nameof(SelectedDates));
+                }
+            }
+        }
+        public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder
+        {
+            get
+            {
+                return _CustomDayNamesOrder;
+            }
+            set
+            {
+                if (_CustomDayNamesOrder != value)
+                {
+                    var OldValue = _CustomDayNamesOrder;
+                    _CustomDayNamesOrder = value;
+
+                    OnCustomDayNamesOrderChanged(OldValue, _CustomDayNamesOrder);
+                    OnPropertyChanged(nameof(CustomDayNamesOrder));
+                }
+            }
+        }
         /// <summary>
         /// The number of rows to display.
         /// </summary>
         /// <seealso cref="AutoRows"/>
-        [OnChangedMethod(nameof(OnRowsChanged))]
-        public int Rows { get; set; } = 6;
+        public int Rows
+        {
+            get
+            {
+                return _Rows;
+            }
+            set
+            {
+                if (_Rows != value)
+                {
+                    var OldValue = _Rows;
+                    _Rows = value;
+
+                    OnRowsChanged(OldValue, _Rows);
+                    OnPropertyChanged(nameof(Rows));
+                }
+            }
+        }
         /// <summary>
         /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(int)"/>.
         /// </summary>
-        public NavigationTimeUnit NavigationTimeUnit { get; set; } = NavigationTimeUnit.Month;
+        public NavigationTimeUnit NavigationTimeUnit
+        {
+            get
+            {
+                return _NavigationTimeUnit;
+            }
+            set
+            {
+                if (_NavigationTimeUnit != value)
+                {
+                    _NavigationTimeUnit = value;
+
+                    OnPropertyChanged(nameof(NavigationTimeUnit));
+                }
+            }
+        }
         /// <summary>
         /// The way in which to extract a date from the <see cref="NavigatedDate"/> to use as the first date of the first row.
         /// </summary>
@@ -104,25 +345,133 @@ namespace XCalendar.Core.Models
         /// <see cref="PageStartMode.FirstDayOfWeek"/> will extract 11th July 2022.
         /// <see cref="PageStartMode.FirstDayOfMonth"/> will extract 27th June 2022 (First day in the week of 1st July 2022).
         /// <see cref="PageStartMode.FirstDayOfYear"/> will extract 27th December 2021 (First day in the week of 1st January 2022).</example>
-        [OnChangedMethod(nameof(OnPageStartModeChanged))]
-        public PageStartMode PageStartMode { get; set; } = PageStartMode.FirstDayOfMonth;
+        public PageStartMode PageStartMode
+        {
+            get
+            {
+                return _PageStartMode;
+            }
+            set
+            {
+                if (_PageStartMode != value)
+                {
+                    var OldValue = _PageStartMode;
+                    _PageStartMode = value;
+
+                    OnPageStartModeChanged(OldValue, _PageStartMode);
+                    OnPropertyChanged(nameof(PageStartMode));
+                }
+            }
+        }
         /// <summary>
         /// The order to display the days of the week in.
         /// </summary>
-        [OnChangedMethod(nameof(OnDayNamesOrderChanged))]
-        public ReadOnlyObservableCollection<DayOfWeek> DayNamesOrder { get; protected set; }
-        [OnChangedMethod(nameof(OnStartOfWeekDayNamesOrderChanged))]
-        public ReadOnlyObservableCollection<DayOfWeek> StartOfWeekDayNamesOrder { get; protected set; }
-        public int ForwardsNavigationAmount { get; set; } = 1;
-        public int BackwardsNavigationAmount { get; set; } = -1;
-        [OnChangedMethod(nameof(OnRangeSelectionStartChanged))]
-        public DateTime? RangeSelectionStart { get; set; }
-        [OnChangedMethod(nameof(OnRangeSelectionEndChanged))]
-        public DateTime? RangeSelectionEnd { get; set; }
-        public SelectionType SelectionType { get; set; } = SelectionType.None;
+        public ReadOnlyObservableCollection<DayOfWeek> DayNamesOrder
+        {
+            get
+            {
+                return _DayNamesOrder;
+            }
+            protected set
+            {
+                if (_DayNamesOrder != value)
+                {
+                    var OldValue = _DayNamesOrder;
+                    _DayNamesOrder = value;
+
+                    OnDayNamesOrderChanged(OldValue, _DayNamesOrder);
+                    OnPropertyChanged(nameof(DayNamesOrder));
+                }
+            }
+        }
+        public int ForwardsNavigationAmount
+        {
+            get
+            {
+                return _ForwardsNavigationAmount;
+            }
+            set
+            {
+                if (_ForwardsNavigationAmount != value)
+                {
+                    _ForwardsNavigationAmount = value;
+
+                    OnPropertyChanged(nameof(ForwardsNavigationAmount));
+                }
+            }
+        }
+        public int BackwardsNavigationAmount
+        {
+            get
+            {
+                return _BackwardsNavigationAmount;
+            }
+            set
+            {
+                if (_BackwardsNavigationAmount != value)
+                {
+                    _BackwardsNavigationAmount = value;
+
+                    OnPropertyChanged(nameof(BackwardsNavigationAmount));
+                }
+            }
+        }
+        public DateTime? RangeSelectionStart
+        {
+            get
+            {
+                return _RangeSelectionStart;
+            }
+            set
+            {
+                if (_RangeSelectionStart != value)
+                {
+                    var OldValue = _RangeSelectionStart;
+                    _RangeSelectionStart = value;
+
+                    OnRangeSelectionStartChanged(OldValue, _RangeSelectionStart);
+                    OnPropertyChanged(nameof(RangeSelectionStart));
+                }
+            }
+        }
+        public DateTime? RangeSelectionEnd
+        {
+            get
+            {
+                return _RangeSelectionEnd;
+            }
+            set
+            {
+                if (_RangeSelectionEnd != value)
+                {
+                    var OldValue = _RangeSelectionEnd;
+                    _RangeSelectionEnd = value;
+
+                    OnRangeSelectionEndChanged(OldValue, _RangeSelectionEnd);
+                    OnPropertyChanged(nameof(RangeSelectionEnd));
+                }
+            }
+        }
+        public SelectionType SelectionType
+        {
+            get
+            {
+                return _SelectionType;
+            }
+            set
+            {
+                if (_SelectionType != value)
+                {
+                    _SelectionType = value;
+
+                    OnPropertyChanged(nameof(SelectionType));
+                }
+            }
+        }
         #endregion
 
         #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<DateSelectionChangedEventArgs> DateSelectionChanged;
         public event EventHandler DaysUpdated;
         public event EventHandler DaysUpdating;
@@ -131,11 +480,7 @@ namespace XCalendar.Core.Models
         #region Constructors
         public Calendar()
         {
-            _StartOfWeekDayNamesOrder.AddRange(StartOfWeek.GetWeekAsFirst());
-
-            Days = new ReadOnlyObservableCollection<T>(_Days);
-            StartOfWeekDayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
-            DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
+            DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(new ObservableRangeCollection<DayOfWeek>(StartOfWeek.GetWeekAsFirst()));
             SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
 
             UpdateDays(NavigatedDate);
@@ -539,13 +884,13 @@ namespace XCalendar.Core.Models
 
             int CoercedRows = CoerceRows(Rows);
 
-            if (Rows == CoercedRows)
+            if (Rows != CoercedRows)
             {
-                UpdateDays(NavigatedDate);
+                Rows = CoercedRows;
             }
             else
             {
-                Rows = CoercedRows;
+                UpdateDays(NavigatedDate);
             }
         }
         private void OnTodayDateChanged(DateTime oldValue, DateTime newValue)
@@ -554,15 +899,11 @@ namespace XCalendar.Core.Models
         }
         private void OnStartOfWeekChanged(DayOfWeek oldValue, DayOfWeek newValue)
         {
-            List<DayOfWeek> CorrectStartOfWeekDayNamesOrder = newValue.GetWeekAsFirst();
-            bool UpdateStartOfWeekDayNamesOrder = !_StartOfWeekDayNamesOrder.SequenceEqual(CorrectStartOfWeekDayNamesOrder);
-
-            if (UpdateStartOfWeekDayNamesOrder)
+            if (CustomDayNamesOrder == null)
             {
-                _StartOfWeekDayNamesOrder.ReplaceRange(CorrectStartOfWeekDayNamesOrder);
+                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(new ObservableCollection<DayOfWeek>(StartOfWeek.GetWeekAsFirst()));
             }
-            //If the dates haven't been updated and invalidated, do so.
-            if (!UpdateStartOfWeekDayNamesOrder || CustomDayNamesOrder != null)
+            else
             {
                 UpdateDays(NavigatedDate);
             }
@@ -591,15 +932,11 @@ namespace XCalendar.Core.Models
                 OnDateSelectionChanged(_PreviousSelectedDates, newValue);
             }
         }
-        private void OnStartOfWeekDayNamesOrderChanged(ReadOnlyObservableCollection<DayOfWeek> oldValue, ReadOnlyObservableCollection<DayOfWeek> newValue)
-        {
-            if (newValue == null || newValue.Count == 0) { throw new ArgumentException(nameof(newValue)); }
-        }
         private void OnCustomDayNamesOrderChanged(ObservableRangeCollection<DayOfWeek> oldValue, ObservableRangeCollection<DayOfWeek> newValue)
         {
             if (newValue == null)
             {
-                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(_StartOfWeekDayNamesOrder);
+                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(new ObservableCollection<DayOfWeek>(StartOfWeek.GetWeekAsFirst()));
             }
             else
             {
@@ -679,6 +1016,10 @@ namespace XCalendar.Core.Models
         private int CoerceRows(int value)
         {
             return AutoRows ? GetMonthRows(NavigatedDate, AutoRowsIsConsistent, StartOfWeek) : value;
+        }
+        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
         #endregion
     }

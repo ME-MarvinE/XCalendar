@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Core.Models
 {
-    public class CalendarDay : BaseObservableModel, ICalendarDay
+    public class CalendarDay : ICalendarDay
     {
         #region Fields
         private DateTime _DateTime = DateTime.Today;
@@ -88,6 +90,17 @@ namespace XCalendar.Core.Models
                     OnPropertyChanged();
                 }
             }
+        }
+        #endregion
+
+        #region Events
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region Methods
+        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
         #endregion
     }

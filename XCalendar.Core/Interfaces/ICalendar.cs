@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Models;
 
 namespace XCalendar.Core.Interfaces
 {
-    public interface ICalendar<T> where T : ICalendarDay, new()
+    public interface ICalendar<T> : INotifyPropertyChanged where T : ICalendarDay, new()
     {
         #region Properties
-        ReadOnlyObservableCollection<T> Days { get; }
+        ObservableCollection<T> Days { get; }
         DateTime NavigatedDate { get; set; }
         DateTime TodayDate { get; set; }
         DateTime NavigationLowerBound { get; set; }
@@ -24,7 +25,6 @@ namespace XCalendar.Core.Interfaces
         NavigationTimeUnit NavigationTimeUnit { get; set; }
         PageStartMode PageStartMode { get; set; }
         ReadOnlyObservableCollection<DayOfWeek> DayNamesOrder { get; }
-        ReadOnlyObservableCollection<DayOfWeek> StartOfWeekDayNamesOrder { get; }
         int ForwardsNavigationAmount { get; set; }
         int BackwardsNavigationAmount { get; set; }
         DateTime? RangeSelectionStart { get; set; }
