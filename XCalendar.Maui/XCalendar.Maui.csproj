@@ -16,7 +16,7 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Authors>MarvinE</Authors>
-		<Version>3.1.0-pre1</Version>
+		<Version>4.0.0-pre1</Version>
 		<Description>A plugin for .NET MAUI providing a completely customisable calendar control with complex functionality.</Description>
 		<PackageIcon>XCalendar Nuget Icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>

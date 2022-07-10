@@ -18,7 +18,6 @@ namespace XCalendar.Core.Models
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
         private ObservableCollection<T> _Days = new ObservableCollection<T>();
         private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
-
         private DateTime _NavigatedDate = DateTime.Today;
         private DateTime _TodayDate = DateTime.Today;
         private DateTime _NavigationLowerBound = DateTime.MinValue;
