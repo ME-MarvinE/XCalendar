@@ -10,7 +10,7 @@ namespace XCalendarMauiSample.ViewModels
     public class PlaygroundViewModel : BaseViewModel
     {
         #region Properties
-        public Calendar Calendar { get; set; } = new Calendar()
+        public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
         {
             SelectedDates = new ObservableRangeCollection<DateTime>(),
             NavigatedDate = DateTime.Today,

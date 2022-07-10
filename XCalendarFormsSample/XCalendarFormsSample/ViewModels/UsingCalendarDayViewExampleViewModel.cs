@@ -10,7 +10,7 @@ namespace XCalendarFormsSample.ViewModels
     public class UsingCalendarDayViewExampleViewModel : BaseViewModel
     {
         #region Properties
-        public Calendar Calendar { get; set; } = new Calendar()
+        public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
         {
             SelectedDates = new ObservableRangeCollection<DateTime>() { DateTime.Now },
             SelectionAction = SelectionAction.Replace,

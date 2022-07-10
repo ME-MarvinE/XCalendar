@@ -18,7 +18,7 @@ namespace XCalendarFormsSample.Popups
         #region Properties
         public DateTime InitialDate { get; }
         public DateTime SelectedDate { get; set; }
-        public Calendar Calendar { get; } = new Calendar()
+        public Calendar<CalendarDay> Calendar { get; } = new Calendar<CalendarDay>()
         {
             NavigatedDate = DateTime.Today,
             SelectedDates = new ObservableRangeCollection<DateTime>() { DateTime.Today },

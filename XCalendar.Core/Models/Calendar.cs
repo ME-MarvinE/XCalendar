@@ -12,9 +12,6 @@ using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Core.Models
 {
-    public class Calendar : Calendar<CalendarDay>
-    {
-    }
     public class Calendar<T> : ICalendar<T> where T : ICalendarDay, new()
     {
         #region Fields

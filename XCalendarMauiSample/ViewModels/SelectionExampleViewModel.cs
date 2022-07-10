@@ -17,7 +17,7 @@ namespace XCalendarMauiSample.ViewModels
             "Multiple",
             "Range"
         };
-        public Calendar Calendar { get; set; } = new Calendar()
+        public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
         {
             SelectionType = SelectionType.Single,
             SelectionAction = SelectionAction.Replace
