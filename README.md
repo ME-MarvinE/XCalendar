@@ -1,6 +1,5 @@
 # XCalendar
-
-A plugin for Xamarin Forms and .NET MAUI providing a completely customisable calendar control with complex functionality.  
+A plugin for .NET providing a Calendar class that can be used to represent a Calendar UI. Also available for Xamarin Forms and .NET MAUI.
 
 * **[Getting Started](https://github.com/ME-MarvinE/XCalendar/wiki/Getting-Started)**
 * **[Sample App](https://github.com/ME-MarvinE/XCalendar/wiki/Sample-App)**
