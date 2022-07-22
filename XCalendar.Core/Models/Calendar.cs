@@ -34,7 +34,7 @@ namespace XCalendar.Core.Models
         private PageStartMode _PageStartMode = PageStartMode.FirstDayOfMonth;
         private ReadOnlyObservableCollection<DayOfWeek> _DayNamesOrder;
         private int _ForwardsNavigationAmount = 1;
-        private int _BackwardsNavigationAmount = 1;
+        private int _BackwardsNavigationAmount = -1;
         private DateTime? _RangeSelectionStart;
         private DateTime? _RangeSelectionEnd;
         private SelectionType _SelectionType = SelectionType.None;
