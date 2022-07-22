@@ -217,11 +217,11 @@
                                 Text="{Binding Calendar.SelectionType}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
-                                
+
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
                                 </Label.GestureRecognizers>
-                                
+
                             </Label>
                         </Grid>
 
@@ -239,11 +239,11 @@
                                 Text="{Binding Calendar.SelectionAction}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
-                                
+
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
                                 </Label.GestureRecognizers>
-                                
+
                             </Label>
                         </Grid>
 
@@ -291,11 +291,11 @@
                                 Text="{Binding Calendar.NavigationTimeUnit}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
-                                
+
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
                                 </Label.GestureRecognizers>
-                                
+
                             </Label>
                         </Grid>
 
@@ -314,11 +314,11 @@
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center"
                                 WidthRequest="125">
-                                
+
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
                                 </Label.GestureRecognizers>
-                                
+
                             </Label>
                         </Grid>
 
@@ -336,11 +336,11 @@
                                 Text="{Binding Calendar.PageStartMode}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
-                                
+
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShowPageStartModeDialogCommand}"/>
                                 </Label.GestureRecognizers>
-                                
+
                             </Label>
                         </Grid>
 
@@ -358,11 +358,11 @@
                                 Text="{Binding Calendar.StartOfWeek}"
                                 TextColor="{StaticResource TappableSettingTextColor}"
                                 VerticalTextAlignment="Center">
-                                
+
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShowStartOfWeekDialogCommand}"/>
                                 </Label.GestureRecognizers>
-                                
+
                             </Label>
                         </Grid>
 
@@ -536,16 +536,10 @@
                         MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                         NavigationHeightRequest="{Binding NavigationHeightRequest}"
                         ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                        ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
                         BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                        BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
                         NavigatedDate="{Binding Calendar.NavigatedDate}">
-
-                        <xc:CalendarView.ForwardsArrowCommandParameter>
-                            <x:Int32>1</x:Int32>
-                        </xc:CalendarView.ForwardsArrowCommandParameter>
-
-                        <xc:CalendarView.BackwardsArrowCommandParameter>
-                            <x:Int32>-1</x:Int32>
-                        </xc:CalendarView.BackwardsArrowCommandParameter>
 
                         <xc:CalendarView.MonthViewTemplate>
                             <OnPlatform x:TypeArguments="ControlTemplate">
@@ -602,6 +596,11 @@
 
                         <xc:CalendarView.Style>
                             <Style TargetType="{x:Type xc:CalendarView}" BasedOn="{StaticResource DefaultCalendarViewStyle}">
+
+                                <Setter Property="ForwardsArrowCommand" Value="{Binding NavigateCalendarCommand}"/>
+                                <Setter Property="ForwardsArrowCommandParameter" Value="{Binding Calendar.ForwardsNavigationAmount}"/>
+                                <Setter Property="BackwardsArrowCommand" Value="{Binding NavigateCalendarCommand}"/>
+                                <Setter Property="BackwardsArrowCommandParameter" Value="{Binding Calendar.BackwardsNavigationAmount}"/>
 
                                 <Setter Property="NavigationTemplate">
                                     <ControlTemplate>
@@ -669,7 +668,7 @@
                                                             WidthRequest="30">
 
                                                             <xc:BorderedLabel.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding Calendar.BackwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
+                                                                <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference FancyCalendarView}}"/>
                                                             </xc:BorderedLabel.GestureRecognizers>
 
                                                             <xc:BorderedLabel.StrokeShape>
@@ -694,7 +693,7 @@
                                                             </xc:BorderedLabel.StrokeShape>
 
                                                             <xc:BorderedLabel.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding NavigateCalendarCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference FancyCalendarView}}"/>
+                                                                <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference FancyCalendarView}}"/>
                                                             </xc:BorderedLabel.GestureRecognizers>
 
                                                         </xc:BorderedLabel>
