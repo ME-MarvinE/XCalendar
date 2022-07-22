@@ -58,16 +58,10 @@
             NavigationBackgroundColor="Transparent"
             NavigationTextColor="{StaticResource ContentTextColor}"
             ForwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
+            ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference This}}"
             BackwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
+            BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount, Source={x:Reference This}}"
             NavigatedDate="{Binding Calendar.NavigatedDate, Source={x:Reference This}}">
-
-            <xc:CalendarView.ForwardsArrowCommandParameter>
-                <x:Int32>1</x:Int32>
-            </xc:CalendarView.ForwardsArrowCommandParameter>
-
-            <xc:CalendarView.BackwardsArrowCommandParameter>
-                <x:Int32>-1</x:Int32>
-            </xc:CalendarView.BackwardsArrowCommandParameter>
 
             <xc:CalendarView.DayNameTemplate>
                 <DataTemplate x:DataType="{x:Type System:DayOfWeek}">

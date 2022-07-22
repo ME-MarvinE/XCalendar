@@ -45,16 +45,10 @@
                 Days="{Binding EventCalendar.Days}"
                 DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                ForwardsArrowCommandParameter="{Binding EventCalendar.ForwardsNavigationAmount}"
                 BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                BackwardsArrowCommandParameter="{Binding EventCalendar.BackwardsNavigationAmount}"
                 NavigatedDate="{Binding EventCalendar.NavigatedDate}">
-
-                <xc:CalendarView.ForwardsArrowCommandParameter>
-                    <x:Int32>1</x:Int32>
-                </xc:CalendarView.ForwardsArrowCommandParameter>
-
-                <xc:CalendarView.BackwardsArrowCommandParameter>
-                    <x:Int32>-1</x:Int32>
-                </xc:CalendarView.BackwardsArrowCommandParameter>
 
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type Models:EventDay}">
