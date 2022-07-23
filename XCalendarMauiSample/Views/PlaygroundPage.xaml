@@ -75,6 +75,12 @@
                             </Style>
                         </VerticalStackLayout.Resources>
 
+                        <Label
+                            Text="Calendar Properties"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            BackgroundColor="{StaticResource OutlineColor}"/>
+
                         <Grid>
                             <Label
                                 Grid.Column="0"
@@ -429,12 +435,18 @@
                                 IsToggled="{Binding Calendar.AutoRowsIsConsistent}"/>
                         </Grid>
 
+                        <Label
+                            Text="CalendarView Properties"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            BackgroundColor="{StaticResource OutlineColor}"/>
+
                         <Grid>
                             <Label
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="NavigationHeight"
+                                Text="NavigationHeightRequest"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
@@ -449,7 +461,7 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="DayNamesHeight"
+                                Text="DayNamesHeightRequest"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
@@ -464,7 +476,7 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="MonthViewHeight"
+                                Text="MonthViewHeightRequest"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
@@ -474,12 +486,18 @@
                                 VerticalOptions="End"/>
                         </Grid>
 
+                        <Label
+                            Text="CalendarDayView Properties"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            BackgroundColor="{StaticResource OutlineColor}"/>
+
                         <Grid>
                             <Label
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="DayHeight"
+                                Text="HeightRequest"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
@@ -494,7 +512,7 @@
                                 Grid.Column="0"
                                 FontSize="{StaticResource SmallFontSize}"
                                 HorizontalTextAlignment="Center"
-                                Text="DayWidth"
+                                Text="WidthRequest"
                                 VerticalTextAlignment="Center"/>
                             <Editor
                                 Grid.Column="1"
