@@ -86,6 +86,10 @@ namespace XCalendarFormsSample.Helpers
         {
             return (SelectionType)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionType, SelectionTypes));
         }
+        public static async Task<Color> ShowColorDialog(Color Color)
+        {
+            return await Shell.Current.ShowPopupAsync(new ColorDialogPopup(Color));
+        }
         #endregion
     }
 }

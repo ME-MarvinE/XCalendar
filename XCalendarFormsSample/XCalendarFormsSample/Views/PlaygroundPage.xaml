@@ -3,12 +3,12 @@
     x:Class="XCalendarFormsSample.Views.PlaygroundPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
-    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
-    xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
-    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+    xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
+    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     Title="Playground"
     x:DataType="{x:Type ViewModels:PlaygroundViewModel}"
@@ -47,800 +47,1111 @@
     </ContentPage.Resources>
 
     <StackLayout Spacing="0">
+
         <Label
-            Padding="5"
+            Padding="15"
+            BackgroundColor="{StaticResource ContentBackgroundColor}"
             FontSize="14"
-            BackgroundColor="{StaticResource PrimaryColor}"
             HorizontalTextAlignment="Center"
-            Text="Swipe Page To View Calendar"
-            TextColor="{StaticResource PrimaryTextColor}"
-            VerticalTextAlignment="Center"/>
+            Text="View Calendar"
+            TextColor="{StaticResource TappableSettingTextColor}"
+            VerticalTextAlignment="Center">
 
-        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
-            <Grid
-                ColumnDefinitions="*,1,*"
-                ColumnSpacing="0"
-                RowSpacing="0">
+            <Label.Style>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Text" Value="View Calendar"/>
 
-                <ScrollView
-                    Grid.Column="0"
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding CalendarIsVisible}"
+                            TargetType="{x:Type Label}"
+                            Value="True">
+                            <Setter Property="Text" Value="View Property Editor"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+
+                </Style>
+            </Label.Style>
+
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ChangeCalendarVisibilityCommand}" CommandParameter="{Binding CalendarIsVisible, Converter={StaticResource InvertedBoolConverter}}"/>
+            </Label.GestureRecognizers>
+
+        </Label>
+
+        <BoxView BackgroundColor="{DynamicResource OutlineColor}" HeightRequest="1"/>
+
+        <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+            <StackLayout Spacing="0">
+
+                <StackLayout
                     BackgroundColor="{StaticResource ContentBackgroundColor}"
-                    Orientation="Vertical"
-                    VerticalScrollBarVisibility="Always">
-                    <StackLayout Spacing="0">
+                    IsVisible="{Binding CalendarIsVisible, Converter={StaticResource InvertedBoolConverter}}"
+                    Spacing="0">
 
-                        <StackLayout.Resources>
-                            <Style CanCascade="True" TargetType="{x:Type Grid}">
-                                <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
-                                <Setter Property="HeightRequest" Value="50"/>
-                            </Style>
-                        </StackLayout.Resources>
+                    <StackLayout.Resources>
+                        <Style CanCascade="True" TargetType="{x:Type Grid}">
+                            <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
+                            <Setter Property="HeightRequest" Value="50"/>
+                        </Style>
+                    </StackLayout.Resources>
 
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="NavigatedDate"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                AutoSize="TextChanges"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalOptions="Center"
-                                Text="{Binding Calendar.NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                                VerticalOptions="End"/>
-                            <DatePicker
-                                Grid.Column="1"
-                                Date="{Binding Calendar.NavigatedDate}"
-                                FontSize="{StaticResource SmallFontSize}"
-                                Format="ddd, MMM d yyy"
-                                HorizontalOptions="Center"
-                                MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
-                                TextColor="Transparent"/>
-                        </Grid>
+                    <Label
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        HorizontalTextAlignment="Center"
+                        Text="Calendar Properties"
+                        TextColor="{StaticResource PrimaryTextColor}"
+                        VerticalTextAlignment="Center"/>
 
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="TodayDate"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                AutoSize="TextChanges"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalOptions="Center"
-                                Text="{Binding Calendar.TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                                VerticalOptions="End"/>
-                            <DatePicker
-                                Grid.Column="1"
-                                Date="{Binding Calendar.TodayDate}"
-                                FontSize="{StaticResource SmallFontSize}"
-                                Format="ddd, MMM d yyy"
-                                HorizontalOptions="Center"
-                                MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
-                                TextColor="Transparent"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="NavigationLowerBound"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                AutoSize="TextChanges"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalOptions="Center"
-                                Text="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
-                                VerticalOptions="End"/>
-                            <DatePicker
-                                Grid.Column="1"
-                                Date="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
-                                FontSize="{StaticResource SmallFontSize}"
-                                Format="ddd, MMM d yyy"
-                                HorizontalOptions="Center"
-                                MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
-                                TextColor="Transparent"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="NavigationUpperBound"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                AutoSize="TextChanges"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalOptions="Center"
-                                Text="{Binding Calendar.NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
-                                VerticalOptions="End"/>
-                            <DatePicker
-                                Grid.Column="1"
-                                Date="{Binding Calendar.NavigationUpperBound}"
-                                FontSize="{StaticResource SmallFontSize}"
-                                Format="ddd, MMM d yyy"
-                                HorizontalOptions="Center"
-                                MaximumDate="{x:Static System:DateTime.MaxValue}"
-                                MinimumDate="{x:Static System:DateTime.MinValue}"
-                                TextColor="Transparent"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="SelectedDates"
-                                VerticalTextAlignment="Center"/>
-                            <CollectionView
-                                Grid.Column="1"
-                                BackgroundColor="{StaticResource PageBackgroundColor}"
-                                HeightRequest="50"
-                                ItemSizingStrategy="MeasureFirstItem"
-                                ItemsSource="{Binding Calendar.SelectedDates}"
-                                WidthRequest="100">
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="{x:Type System:DateTime}">
-                                        <Label
-                                            FontSize="{StaticResource SmallFontSize}"
-                                            HorizontalTextAlignment="Center"
-                                            Text="{Binding ., StringFormat='{0:ddd, MMM d yyy}'}"/>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="SelectionType"
-                                VerticalTextAlignment="Center"/>
-                            <Label
-                                Grid.Column="1"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding Calendar.SelectionType}"
-                                TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center">
-
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
-                                </Label.GestureRecognizers>
-
-                            </Label>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="SelectionAction"
-                                VerticalTextAlignment="Center"/>
-                            <Label
-                                Grid.Column="1"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding Calendar.SelectionAction}"
-                                TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center">
-
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
-                                </Label.GestureRecognizers>
-
-                            </Label>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="Forwards&#10;NavigationAmount"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding Calendar.ForwardsNavigationAmount}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="Backwards&#10;NavigationAmount"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding Calendar.BackwardsNavigationAmount}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="NavigationTimeUnit"
-                                VerticalTextAlignment="Center"/>
-                            <Label
-                                Grid.Column="1"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding Calendar.NavigationTimeUnit}"
-                                TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center">
-
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
-                                </Label.GestureRecognizers>
-
-                            </Label>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="NavigationLoopMode"
-                                VerticalTextAlignment="Center"/>
-                            <Label
-                                Grid.Column="1"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding Calendar.NavigationLoopMode}"
-                                TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center"
-                                WidthRequest="125">
-
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
-                                </Label.GestureRecognizers>
-
-                            </Label>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="PageStartMode"
-                                VerticalTextAlignment="Center"/>
-                            <Label
-                                Grid.Column="1"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding Calendar.PageStartMode}"
-                                TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center">
-
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShowPageStartModeDialogCommand}"/>
-                                </Label.GestureRecognizers>
-
-                            </Label>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="StartOfWeek"
-                                VerticalTextAlignment="Center"/>
-                            <Label
-                                Grid.Column="1"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding Calendar.StartOfWeek}"
-                                TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center">
-
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShowStartOfWeekDialogCommand}"/>
-                                </Label.GestureRecognizers>
-
-                            </Label>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="CustomDayNamesOrder"
-                                VerticalTextAlignment="Center"/>
-                            <Label
-                                Grid.Column="1"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="Edit"
-                                TextColor="{StaticResource TappableSettingTextColor}"
-                                VerticalTextAlignment="Center">
-
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShowCustomDayNamesOrderDialogCommand}"/>
-                                </Label.GestureRecognizers>
-
-                            </Label>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="Rows"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding Calendar.Rows}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="AutoRows"
-                                VerticalTextAlignment="Center"/>
-                            <Switch
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                IsToggled="{Binding Calendar.AutoRows}"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="AutoRowsIsConsistent"
-                                VerticalTextAlignment="Center"/>
-                            <Switch
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                IsToggled="{Binding Calendar.AutoRowsIsConsistent}"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="NavigationHeight"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding NavigationHeightRequest}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="DayNamesHeight"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding DayNamesHeightRequest}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="MonthViewHeight"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding MonthViewHeightRequest}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="DayHeight"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding DayHeightRequest}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                        <Grid>
-                            <Label
-                                Grid.Column="0"
-                                FontSize="{StaticResource SmallFontSize}"
-                                HorizontalTextAlignment="Center"
-                                Text="DayWidth"
-                                VerticalTextAlignment="Center"/>
-                            <Editor
-                                Grid.Column="1"
-                                HorizontalOptions="Center"
-                                Keyboard="Numeric"
-                                Text="{Binding DayWidthRequest}"
-                                VerticalOptions="End"/>
-                        </Grid>
-
-                    </StackLayout>
-                </ScrollView>
-
-                <BoxView Grid.Column="1" BackgroundColor="{DynamicResource OutlineColor}"/>
-
-                <StackLayout Grid.Column="2" Spacing="0">
-
-                    <StackLayout
-                        BackgroundColor="{StaticResource ContentBackgroundColor}"
-                        HeightRequest="55"
-                        Orientation="Horizontal">
+                    <Grid>
                         <Label
-                            FontSize="16"
-                            HorizontalOptions="EndAndExpand"
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="Default Implementation"
+                            Text="NavigatedDate"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            AutoSize="TextChanges"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalOptions="Center"
+                            Text="{Binding Calendar.NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                            VerticalOptions="End"/>
+                        <DatePicker
+                            Grid.Column="1"
+                            Date="{Binding Calendar.NavigatedDate}"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Format="ddd, MMM d yyy"
+                            HorizontalOptions="Center"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            TextColor="Transparent"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="TodayDate"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            AutoSize="TextChanges"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalOptions="Center"
+                            Text="{Binding Calendar.TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
+                            VerticalOptions="End"/>
+                        <DatePicker
+                            Grid.Column="1"
+                            Date="{Binding Calendar.TodayDate}"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Format="ddd, MMM d yyy"
+                            HorizontalOptions="Center"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            TextColor="Transparent"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationLowerBound"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            AutoSize="TextChanges"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalOptions="Center"
+                            Text="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                            VerticalOptions="End"/>
+                        <DatePicker
+                            Grid.Column="1"
+                            Date="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Format="ddd, MMM d yyy"
+                            HorizontalOptions="Center"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            TextColor="Transparent"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationUpperBound"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            AutoSize="TextChanges"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalOptions="Center"
+                            Text="{Binding Calendar.NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                            VerticalOptions="End"/>
+                        <DatePicker
+                            Grid.Column="1"
+                            Date="{Binding Calendar.NavigationUpperBound}"
+                            FontSize="{StaticResource SmallFontSize}"
+                            Format="ddd, MMM d yyy"
+                            HorizontalOptions="Center"
+                            MaximumDate="{x:Static System:DateTime.MaxValue}"
+                            MinimumDate="{x:Static System:DateTime.MinValue}"
+                            TextColor="Transparent"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="SelectedDates"
+                            VerticalTextAlignment="Center"/>
+                        <CollectionView
+                            Grid.Column="1"
+                            BackgroundColor="{StaticResource PageBackgroundColor}"
+                            HeightRequest="50"
+                            ItemSizingStrategy="MeasureFirstItem"
+                            ItemsSource="{Binding Calendar.SelectedDates}"
+                            WidthRequest="100">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="{x:Type System:DateTime}">
+                                    <Label
+                                        FontSize="{StaticResource SmallFontSize}"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding ., StringFormat='{0:ddd, MMM d yyy}'}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="SelectionType"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Calendar.SelectionType}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="SelectionAction"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Calendar.SelectionAction}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="Forwards&#10;NavigationAmount"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding Calendar.ForwardsNavigationAmount}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="Backwards&#10;NavigationAmount"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding Calendar.BackwardsNavigationAmount}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationTimeUnit"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Calendar.NavigationTimeUnit}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationTimeUnitDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationLoopMode"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Calendar.NavigationLoopMode}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center"
+                            WidthRequest="125">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationLoopModeDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="PageStartMode"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Calendar.PageStartMode}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowPageStartModeDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="StartOfWeek"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Calendar.StartOfWeek}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowStartOfWeekDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="CustomDayNamesOrder"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="Edit"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowCustomDayNamesOrderDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="Rows"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding Calendar.Rows}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="AutoRows"
                             VerticalTextAlignment="Center"/>
                         <Switch
-                            x:Name="SwitchDefaultImplementation"
-                            HorizontalOptions="StartAndExpand"
-                            IsToggled="True"/>
-                    </StackLayout>
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            IsToggled="{Binding Calendar.AutoRows}"/>
+                    </Grid>
 
-                    <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="AutoRowsIsConsistent"
+                            VerticalTextAlignment="Center"/>
+                        <Switch
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            IsToggled="{Binding Calendar.AutoRowsIsConsistent}"/>
+                    </Grid>
 
-                    <xc:CalendarView
-                        x:Name="FancyCalendarView"
-                        Days="{Binding Calendar.Days}"
-                        DaysOfWeek="{Binding Calendar.DayNamesOrder}"
-                        DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                        MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
-                        NavigationHeightRequest="{Binding NavigationHeightRequest}"
-                        ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                        ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
-                        BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                        BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
-                        NavigatedDate="{Binding Calendar.NavigatedDate}">
+                    <Label
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        HorizontalTextAlignment="Center"
+                        Text="CalendarView Properties"
+                        TextColor="{StaticResource PrimaryTextColor}"
+                        VerticalTextAlignment="Center"/>
 
-                        <xc:CalendarView.Style>
-                            <Style TargetType="{x:Type xc:CalendarView}" BasedOn="{StaticResource DefaultCalendarViewStyle}">
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationHeightRequest"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding NavigationHeightRequest}"
+                            VerticalOptions="End"/>
+                    </Grid>
 
-                                <Setter Property="NavigationTemplate">
-                                    <ControlTemplate>
-                                        <ContentPresenter/>
-                                    </ControlTemplate>
-                                </Setter>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="DayNamesHeightRequest"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding DayNamesHeightRequest}"
+                            VerticalOptions="End"/>
+                    </Grid>
 
-                                <Setter Property="DayNameTemplate" Value="{x:Null}"/>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="MonthViewHeightRequest"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding MonthViewHeightRequest}"
+                            VerticalOptions="End"/>
+                    </Grid>
 
-                                <Setter Property="DayTemplate">
-                                    <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                                        <ContentView>
-                                            <xc:CalendarDayView
-                                                Style="{StaticResource DefaultDayViewStyle}"
-                                                Margin="2.5"
-                                                DateTime="{Binding DateTime}"
-                                                IsCurrentMonth="{Binding IsCurrentMonth}"
-                                                IsToday="{Binding IsToday}"
-                                                IsSelected="{Binding IsSelected}"
-                                                IsInvalid="{Binding IsInvalid}"
-                                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                CurrentMonthCommandParameter="{Binding DateTime}"
-                                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                TodayCommandParameter="{Binding DateTime}"
-                                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                SelectedCommandParameter="{Binding DateTime}"
-                                                HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
-                                        </ContentView>
-                                    </DataTemplate>
-                                </Setter>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="BackgroundColor"
+                            VerticalTextAlignment="Center"/>
 
-                                <Style.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding IsToggled, Source={x:Reference SwitchDefaultImplementation}}"
-                                        TargetType="{x:Type xc:CalendarView}"
-                                        Value="False">
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding CalendarBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
 
-                                        <Setter Property="NavigationTemplate">
-                                            <ControlTemplate>
-                                                <StackLayout Spacing="0">
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
 
-                                                    <StackLayout
-                                                        Padding="0,5,5,5"
-                                                        BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                        Orientation="Horizontal">
-                                                        <Label
-                                                            Margin="15,0,0,0"
-                                                            FontAttributes="Bold"
-                                                            FontSize="18"
-                                                            HorizontalTextAlignment="Center"
-                                                            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference FancyCalendarView}}"
-                                                            TextColor="{Binding NavigationTextColor, Source={x:Reference FancyCalendarView}}"
-                                                            VerticalTextAlignment="Center"/>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowCalendarBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
 
-                                                        <xc:FramedLabel
-                                                            Padding="5"
-                                                            BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
-                                                            FontAttributes="Bold"
-                                                            FontSize="30"
-                                                            HeightRequest="30"
-                                                            HorizontalOptions="EndAndExpand"
-                                                            Text="←"
-                                                            TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
-                                                            VerticalTextAlignment="End"
-                                                            WidthRequest="30">
+                        </Frame>
+                    </Grid>
 
-                                                            <xc:FramedLabel.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference FancyCalendarView}}"/>
-                                                            </xc:FramedLabel.GestureRecognizers>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationBackgroundColor"
+                            VerticalTextAlignment="Center"/>
 
-                                                        </xc:FramedLabel>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
 
-                                                        <xc:FramedLabel
-                                                            Padding="5"
-                                                            BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                            CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"
-                                                            FontAttributes="Bold"
-                                                            FontSize="30"
-                                                            HeightRequest="30"
-                                                            Text="→"
-                                                            TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
-                                                            VerticalTextAlignment="End"
-                                                            WidthRequest="30">
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
 
-                                                            <xc:FramedLabel.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference FancyCalendarView}}"/>
-                                                            </xc:FramedLabel.GestureRecognizers>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
 
-                                                        </xc:FramedLabel>
+                        </Frame>
+                    </Grid>
 
-                                                    </StackLayout>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationTextColor"
+                            VerticalTextAlignment="Center"/>
 
-                                                    <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationTextColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
 
-                                                    <Label
-                                                        Margin="0,0,0,5"
-                                                        FontSize="18"
-                                                        HorizontalTextAlignment="Center">
-                                                        <Label.Style>
-                                                            <Style TargetType="{x:Type Label}">
-                                                                <Setter Property="TextColor" Value="Black"/>
-                                                                <Setter Property="FontAttributes" Value="Bold"/>
-                                                                <Setter Property="Text" Value="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}!'}"/>
-                                                                <Style.Triggers>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                        TargetType="{x:Type Label}"
-                                                                        Value="{x:Static System:DayOfWeek.Monday}">
-                                                                        <Setter Property="TextColor" Value="Gray"/>
-                                                                        <Setter Property="FontAttributes" Value="Italic"/>
-                                                                        <Setter Property="Text" Value="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}. I hate {0}s.'}"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                        TargetType="{x:Type Label}"
-                                                                        Value="{x:Static System:DayOfWeek.Tuesday}">
-                                                                        <Setter Property="TextColor" Value="Red"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                        TargetType="{x:Type Label}"
-                                                                        Value="{x:Static System:DayOfWeek.Wednesday}">
-                                                                        <Setter Property="TextColor" Value="Orange"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                        TargetType="{x:Type Label}"
-                                                                        Value="{x:Static System:DayOfWeek.Thursday}">
-                                                                        <Setter Property="TextColor" Value="Yellow"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                        TargetType="{x:Type Label}"
-                                                                        Value="{x:Static System:DayOfWeek.Friday}">
-                                                                        <Setter Property="TextColor" Value="Green"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                        TargetType="{x:Type Label}"
-                                                                        Value="{x:Static System:DayOfWeek.Saturday}">
-                                                                        <Setter Property="TextColor" Value="Blue"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                        TargetType="{x:Type Label}"
-                                                                        Value="{x:Static System:DayOfWeek.Sunday}">
-                                                                        <Setter Property="TextColor" Value="#A000A0"/>
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Label.Style>
-                                                    </Label>
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
 
-                                                </StackLayout>
-                                            </ControlTemplate>
-                                        </Setter>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationTextColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
 
-                                        <Setter Property="DayNameTemplate">
-                                            <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
-                                                <Label
-                                                    FontSize="15"
-                                                    HorizontalTextAlignment="Center"
-                                                    Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
-                                                    TextColor="{Binding DayNameTextColor, Source={x:Reference FancyCalendarView}}">
+                        </Frame>
+                    </Grid>
 
-                                                    <Label.Style>
-                                                        <Style TargetType="{x:Type Label}">
-                                                            <Setter Property="FontAttributes" Value="Bold"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding .}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Monday}">
-                                                                    <Setter Property="TextColor" Value="Gray"/>
-                                                                    <Setter Property="FontAttributes" Value="Italic"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding .}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Tuesday}">
-                                                                    <Setter Property="TextColor" Value="Red"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding .}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Wednesday}">
-                                                                    <Setter Property="TextColor" Value="Orange"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding .}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Thursday}">
-                                                                    <Setter Property="TextColor" Value="Yellow"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding .}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Friday}">
-                                                                    <Setter Property="TextColor" Value="Green"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding .}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Saturday}">
-                                                                    <Setter Property="TextColor" Value="Blue"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding .}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Sunday}">
-                                                                    <Setter Property="TextColor" Value="#A000A0"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Label.Style>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationArrowBackgroundColor"
+                            VerticalTextAlignment="Center"/>
 
-                                                </Label>
-                                            </DataTemplate>
-                                        </Setter>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationArrowBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
 
-                                        <Setter Property="DayTemplate">
-                                            <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                                                <ContentView>
-                                                    <xc:CalendarDayView
-                                                        Style="{StaticResource DefaultDayViewStyle}"
-                                                        Margin="2.5"
-                                                        DateTime="{Binding DateTime}"
-                                                        IsCurrentMonth="{Binding IsCurrentMonth}"
-                                                        IsToday="{Binding IsToday}"
-                                                        IsSelected="{Binding IsSelected}"
-                                                        IsInvalid="{Binding IsInvalid}"
-                                                        CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                        CurrentMonthCommandParameter="{Binding DateTime}"
-                                                        TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                        TodayCommandParameter="{Binding DateTime}"
-                                                        SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                        SelectedCommandParameter="{Binding DateTime}"
-                                                        Text="{Binding DateTime, StringFormat='{0:dd}'}"
-                                                        HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                        HorizontalOptions="Center"
-                                                        VerticalOptions="Center"
-                                                        WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
 
-                                                        <xc:CalendarDayView.ControlTemplate>
-                                                            <ControlTemplate>
-                                                                <Grid>
-                                                                    <ContentPresenter Margin="0,0,0,5"/>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationArrowBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
 
-                                                                    <Frame
-                                                                        Margin="0,0,0,7.5"
-                                                                        Padding="0"
-                                                                        CornerRadius="100"
-                                                                        HasShadow="False"
-                                                                        HeightRequest="6"
-                                                                        HorizontalOptions="Center"
-                                                                        VerticalOptions="End"
-                                                                        WidthRequest="20">
-                                                                        <Frame.Style>
-                                                                            <Style TargetType="{x:Type Frame}">
-                                                                                <Setter Property="BackgroundColor" Value="Red"/>
-                                                                                <Style.Triggers>
-                                                                                    <MultiTrigger TargetType="{x:Type Frame}">
-                                                                                        <MultiTrigger.Conditions>
-                                                                                            <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                            <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                            <BindingCondition Binding="{Binding IsInvalid, Source={RelativeSource TemplatedParent}}" Value="False"/>
-                                                                                        </MultiTrigger.Conditions>
-                                                                                        <Setter Property="BackgroundColor" Value="#00A900"/>
-                                                                                    </MultiTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </Frame.Style>
-                                                                    </Frame>
-                                                                </Grid>
-                                                            </ControlTemplate>
-                                                        </xc:CalendarDayView.ControlTemplate>
+                        </Frame>
+                    </Grid>
 
-                                                    </xc:CalendarDayView>
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationArrowColor"
+                            VerticalTextAlignment="Center"/>
 
-                                                </ContentView>
-                                            </DataTemplate>
-                                        </Setter>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationArrowColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
 
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </xc:CalendarView.Style>
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
 
-                    </xc:CalendarView>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationArrowColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Label
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        HorizontalTextAlignment="Center"
+                        Text="CalendarDayView Properties"
+                        TextColor="{StaticResource PrimaryTextColor}"
+                        VerticalTextAlignment="Center"/>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="WidthRequest"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding DayWidthRequest}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="HeightRequest"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding DayHeightRequest}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="CurrentMonthBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayCurrentMonthBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayCurrentMonthBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="CurrentMonthTextColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayCurrentMonthTextColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayCurrentMonthTextColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="CurrentMonthBorderColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayCurrentMonthBorderColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayCurrentMonthBorderColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="OtherMonthBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayOtherMonthBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayOtherMonthBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="OtherMonthTextColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayOtherMonthTextColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayOtherMonthTextColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="OtherMonthBorderColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayOtherMonthBorderColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayOtherMonthBorderColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="TodayBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayTodayBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayTodayBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="TodayTextColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayTodayTextColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayTodayTextColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="TodayBorderColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayTodayBorderColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayTodayBorderColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="SelectedBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DaySelectedBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDaySelectedBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="SelectedTextColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DaySelectedTextColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDaySelectedTextColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="SelectedBorderColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DaySelectedBorderColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDaySelectedBorderColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="InvalidBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayInvalidBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayInvalidBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="InvalidTextColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayInvalidTextColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayInvalidTextColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="InvalidBorderColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding DayInvalidBorderColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayInvalidBorderColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
 
                 </StackLayout>
 
-            </Grid>
+                <xc:CalendarView
+                    x:Name="FancyCalendarView"
+                    BackgroundColor="{Binding CalendarBackgroundColor}"
+                    BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                    BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
+                    DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
+                    Days="{Binding Calendar.Days}"
+                    DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                    ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                    ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
+                    IsVisible="{Binding CalendarIsVisible}"
+                    MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
+                    NavigatedDate="{Binding Calendar.NavigatedDate}"
+                    NavigationArrowBackgroundColor="{Binding NavigationArrowBackgroundColor}"
+                    NavigationArrowColor="{Binding NavigationArrowColor}"
+                    NavigationBackgroundColor="{Binding NavigationBackgroundColor}"
+                    NavigationHeightRequest="{Binding NavigationHeightRequest}"
+                    NavigationTextColor="{Binding NavigationTextColor}"
+                    Style="{StaticResource DefaultCalendarViewStyle}">
+
+                    <xc:CalendarView.DayTemplate>
+                        <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                            <ContentView>
+                                <xc:CalendarDayView
+                                    Margin="2.5"
+                                    CurrentMonthBackgroundColor="{Binding BindingContext.DayCurrentMonthBackgroundColor, Source={x:Reference This}}"
+                                    CurrentMonthBorderColor="{Binding BindingContext.DayCurrentMonthBorderColor, Source={x:Reference This}}"
+                                    CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                    CurrentMonthCommandParameter="{Binding DateTime}"
+                                    CurrentMonthTextColor="{Binding BindingContext.DayCurrentMonthTextColor, Source={x:Reference This}}"
+                                    DateTime="{Binding DateTime}"
+                                    HasShadow="False"
+                                    HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
+                                    InvalidBackgroundColor="{Binding BindingContext.DayInvalidBackgroundColor, Source={x:Reference This}}"
+                                    InvalidBorderColor="{Binding BindingContext.DayInvalidBorderColor, Source={x:Reference This}}"
+                                    InvalidTextColor="{Binding BindingContext.DayInvalidTextColor, Source={x:Reference This}}"
+                                    IsCurrentMonth="{Binding IsCurrentMonth}"
+                                    IsInvalid="{Binding IsInvalid}"
+                                    IsSelected="{Binding IsSelected}"
+                                    IsToday="{Binding IsToday}"
+                                    OtherMonthBackgroundColor="{Binding BindingContext.DayOtherMonthBackgroundColor, Source={x:Reference This}}"
+                                    OtherMonthBorderColor="{Binding BindingContext.DayOtherMonthBorderColor, Source={x:Reference This}}"
+                                    OtherMonthTextColor="{Binding BindingContext.DayOtherMonthTextColor, Source={x:Reference This}}"
+                                    SelectedBackgroundColor="{Binding BindingContext.DaySelectedBackgroundColor, Source={x:Reference This}}"
+                                    SelectedBorderColor="{Binding BindingContext.DaySelectedBorderColor, Source={x:Reference This}}"
+                                    SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                    SelectedCommandParameter="{Binding DateTime}"
+                                    SelectedTextColor="{Binding BindingContext.DaySelectedTextColor, Source={x:Reference This}}"
+                                    Style="{StaticResource DefaultDayViewStyle}"
+                                    TodayBackgroundColor="{Binding BindingContext.DayTodayBackgroundColor, Source={x:Reference This}}"
+                                    TodayBorderColor="{Binding BindingContext.DayTodayBorderColor, Source={x:Reference This}}"
+                                    TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                    TodayCommandParameter="{Binding DateTime}"
+                                    TodayTextColor="{Binding BindingContext.DayTodayTextColor, Source={x:Reference This}}"
+                                    WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
+                            </ContentView>
+                        </DataTemplate>
+                    </xc:CalendarView.DayTemplate>
+
+                </xc:CalendarView>
+
+            </StackLayout>
         </ScrollView>
+
     </StackLayout>
 
 </ContentPage>

@@ -40,14 +40,22 @@
             RowDefinitions="*,1, Auto"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
+
             <CollectionView
                 Grid.Row="0"
                 Grid.Column="0"
                 BackgroundColor="{StaticResource ContentBackgroundColor}"
-                EmptyView="Empty"
                 ItemSizingStrategy="MeasureFirstItem"
                 ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}"
                 VerticalScrollBarVisibility="Always">
+
+                <CollectionView.EmptyView>
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Text="Empty"
+                        TextColor="{StaticResource PageTextColor}"
+                        VerticalTextAlignment="Center"/>
+                </CollectionView.EmptyView>
 
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
@@ -112,7 +120,7 @@
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding AddItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    
+
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
@@ -133,7 +141,7 @@
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding RemoveItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    
+
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
@@ -155,13 +163,21 @@
                 Grid.RowSpan="3"
                 Grid.Column="1"
                 BackgroundColor="{StaticResource PageBackgroundColor}"
-                EmptyView="Empty"
                 ItemSizingStrategy="MeasureFirstItem"
                 ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}"
                 VerticalScrollBarVisibility="Always">
+
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Text="Empty"
+                        TextColor="{StaticResource PageTextColor}"
+                        VerticalTextAlignment="Center"/>
+                </CollectionView.EmptyView>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
@@ -183,58 +199,47 @@
         </Grid>
 
         <HorizontalStackLayout BackgroundColor="#0080E0">
-            <Frame
-                Padding="10"
-                BackgroundColor="#0080E0"
-                CornerRadius="0"
-                HasShadow="False">
+            <Border Padding="10" BackgroundColor="#0080E0">
 
-                <Frame.GestureRecognizers>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Frame.GestureRecognizers>
-                
+                </Border.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Frame>
+            </Border>
 
-            <Frame
-                Padding="10"
-                BackgroundColor="#0080E0"
-                CornerRadius="0"
-                HasShadow="False">
+            <Border Padding="10" BackgroundColor="#0080E0">
 
-                <Frame.GestureRecognizers>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Frame.GestureRecognizers>
-                
+                </Border.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Frame>
+            </Border>
 
-            <Frame
+            <Border
                 Padding="10"
                 BackgroundColor="#0080E0"
-                CornerRadius="0"
-                HasShadow="False"
                 HorizontalOptions="EndAndExpand">
 
-
-                <Frame.GestureRecognizers>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Frame.GestureRecognizers>
-                
+                </Border.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Confirm"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Frame>
+            </Border>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 
