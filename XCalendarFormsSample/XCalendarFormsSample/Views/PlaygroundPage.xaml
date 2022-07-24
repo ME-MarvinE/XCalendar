@@ -469,6 +469,141 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
+                            Text="BackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding CalendarBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowCalendarBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationTextColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationTextColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationTextColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationArrowBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationArrowBackgroundColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationArrowBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="NavigationArrowColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationArrowColor}"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationArrowColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
                             Text="NavigationHeightRequest"
                             VerticalTextAlignment="Center"/>
                         <Editor
@@ -521,32 +656,6 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="NavigationBackgroundColor"
-                            VerticalTextAlignment="Center"/>
-
-                        <Frame
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{Binding NavigationBackgroundColor}"
-                            CornerRadius="10"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-
-                            <BoxView HeightRequest="40" WidthRequest="40"/>
-
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowNavigationBackgroundColorDialogCommand}"/>
-                            </Frame.GestureRecognizers>
-
-                        </Frame>
-
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
                             Text="WidthRequest"
                             VerticalTextAlignment="Center"/>
                         <Editor
@@ -576,6 +685,7 @@
 
                 <xc:CalendarView
                     x:Name="FancyCalendarView"
+                    BackgroundColor="{Binding CalendarBackgroundColor}"
                     BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
                     BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
                     DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
@@ -586,8 +696,11 @@
                     IsVisible="{Binding CalendarIsVisible}"
                     MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                     NavigatedDate="{Binding Calendar.NavigatedDate}"
+                    NavigationArrowBackgroundColor="{Binding NavigationArrowBackgroundColor}"
+                    NavigationArrowColor="{Binding NavigationArrowColor}"
                     NavigationBackgroundColor="{Binding NavigationBackgroundColor}"
                     NavigationHeightRequest="{Binding NavigationHeightRequest}"
+                    NavigationTextColor="{Binding NavigationTextColor}"
                     Style="{StaticResource DefaultCalendarViewStyle}">
 
                     <xc:CalendarView.DayTemplate>

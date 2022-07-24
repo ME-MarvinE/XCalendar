@@ -37,7 +37,11 @@ namespace XCalendarFormsSample.ViewModels
         public double NavigationHeightRequest { get; set; } = 40;
         public double DayHeightRequest { get; set; } = 45;
         public double DayWidthRequest { get; set; } = 45;
+        public Color CalendarBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
         public Color NavigationBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
+        public Color NavigationTextColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
+        public Color NavigationArrowColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
+        public Color NavigationArrowBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
         #endregion
 
         #region Commands
@@ -48,7 +52,11 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ShowPageStartModeDialogCommand { get; set; }
         public ICommand ShowStartOfWeekDialogCommand { get; set; }
         public ICommand ShowSelectionTypeDialogCommand { get; set; }
+        public ICommand ShowCalendarBackgroundColorDialogCommand { get; set; }
         public ICommand ShowNavigationBackgroundColorDialogCommand { get; set; }
+        public ICommand ShowNavigationTextColorDialogCommand { get; set; }
+        public ICommand ShowNavigationArrowColorDialogCommand { get; set; }
+        public ICommand ShowNavigationArrowBackgroundColorDialogCommand { get; set; }
         public ICommand NavigateCalendarCommand { get; set; }
         public ICommand ChangeDateSelectionCommand { get; set; }
         public ICommand ChangeCalendarVisibilityCommand { get; set; }
@@ -64,7 +72,11 @@ namespace XCalendarFormsSample.ViewModels
             ShowPageStartModeDialogCommand = new Command(ShowPageStartModeDialog);
             ShowStartOfWeekDialogCommand = new Command(ShowStartOfWeekDialog);
             ShowSelectionTypeDialogCommand = new Command(ShowSelectionTypeDialog);
+            ShowCalendarBackgroundColorDialogCommand = new Command(ShowCalendarBackgroundColorDialog);
             ShowNavigationBackgroundColorDialogCommand = new Command(ShowNavigationBackgroundColorDialog);
+            ShowNavigationTextColorDialogCommand = new Command(ShowNavigationTextColorDialog);
+            ShowNavigationArrowColorDialogCommand = new Command(ShowNavigationArrowColorDialog);
+            ShowNavigationArrowBackgroundColorDialogCommand = new Command(ShowNavigationArrowBackgroundColorDialog);
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
@@ -128,9 +140,25 @@ namespace XCalendarFormsSample.ViewModels
         {
             Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
         }
+        public async void ShowCalendarBackgroundColorDialog()
+        {
+            CalendarBackgroundColor = await PopupHelper.ShowColorDialog(CalendarBackgroundColor);
+        }
         public async void ShowNavigationBackgroundColorDialog()
         {
             NavigationBackgroundColor = await PopupHelper.ShowColorDialog(NavigationBackgroundColor);
+        }
+        public async void ShowNavigationTextColorDialog()
+        {
+            NavigationTextColor = await PopupHelper.ShowColorDialog(NavigationTextColor);
+        }
+        public async void ShowNavigationArrowColorDialog()
+        {
+            NavigationArrowColor = await PopupHelper.ShowColorDialog(NavigationArrowColor);
+        }
+        public async void ShowNavigationArrowBackgroundColorDialog()
+        {
+            NavigationArrowBackgroundColor = await PopupHelper.ShowColorDialog(NavigationArrowBackgroundColor);
         }
         #endregion
     }
