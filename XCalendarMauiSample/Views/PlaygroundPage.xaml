@@ -466,6 +466,51 @@
                         Grid.Column="0"
                         FontSize="{StaticResource SmallFontSize}"
                         HorizontalTextAlignment="Center"
+                        Text="NavigationHeightRequest"
+                        VerticalTextAlignment="Center"/>
+                    <Editor
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Keyboard="Numeric"
+                        Text="{Binding NavigationHeightRequest}"
+                        VerticalOptions="End"/>
+                </Grid>
+
+                <Grid>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="DayNamesHeightRequest"
+                        VerticalTextAlignment="Center"/>
+                    <Editor
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Keyboard="Numeric"
+                        Text="{Binding DayNamesHeightRequest}"
+                        VerticalOptions="End"/>
+                </Grid>
+
+                <Grid>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="MonthViewHeightRequest"
+                        VerticalTextAlignment="Center"/>
+                    <Editor
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Keyboard="Numeric"
+                        Text="{Binding MonthViewHeightRequest}"
+                        VerticalOptions="End"/>
+                </Grid>
+
+                <Grid>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
                         Text="BackgroundColor"
                         VerticalTextAlignment="Center"/>
 
@@ -611,57 +656,42 @@
                     </Border>
                 </Grid>
 
-                <Grid>
-                    <Label
-                        Grid.Column="0"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalTextAlignment="Center"
-                        Text="NavigationHeightRequest"
-                        VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Keyboard="Numeric"
-                        Text="{Binding NavigationHeightRequest}"
-                        VerticalOptions="End"/>
-                </Grid>
-
-                <Grid>
-                    <Label
-                        Grid.Column="0"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalTextAlignment="Center"
-                        Text="DayNamesHeightRequest"
-                        VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Keyboard="Numeric"
-                        Text="{Binding DayNamesHeightRequest}"
-                        VerticalOptions="End"/>
-                </Grid>
-
-                <Grid>
-                    <Label
-                        Grid.Column="0"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalTextAlignment="Center"
-                        Text="MonthViewHeightRequest"
-                        VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Keyboard="Numeric"
-                        Text="{Binding MonthViewHeightRequest}"
-                        VerticalOptions="End"/>
-                </Grid>
-
                 <Label
                     BackgroundColor="{StaticResource PrimaryColor}"
                     HorizontalTextAlignment="Center"
                     Text="CalendarDayView Properties"
                     TextColor="{StaticResource PrimaryTextColor}"
                     VerticalTextAlignment="Center"/>
+
+                <Grid>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="WidthRequest"
+                        VerticalTextAlignment="Center"/>
+                    <Editor
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Keyboard="Numeric"
+                        Text="{Binding DayWidthRequest}"
+                        VerticalOptions="End"/>
+                </Grid>
+
+                <Grid>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="HeightRequest"
+                        VerticalTextAlignment="Center"/>
+                    <Editor
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Keyboard="Numeric"
+                        Text="{Binding DayHeightRequest}"
+                        VerticalOptions="End"/>
+                </Grid>
 
                 <Grid>
                     <Label
@@ -1111,36 +1141,6 @@
                         </Border.GestureRecognizers>
 
                     </Border>
-                </Grid>
-
-                <Grid>
-                    <Label
-                        Grid.Column="0"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalTextAlignment="Center"
-                        Text="WidthRequest"
-                        VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Keyboard="Numeric"
-                        Text="{Binding DayWidthRequest}"
-                        VerticalOptions="End"/>
-                </Grid>
-
-                <Grid>
-                    <Label
-                        Grid.Column="0"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalTextAlignment="Center"
-                        Text="HeightRequest"
-                        VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Keyboard="Numeric"
-                        Text="{Binding DayHeightRequest}"
-                        VerticalOptions="End"/>
                 </Grid>
 
             </VerticalStackLayout>
