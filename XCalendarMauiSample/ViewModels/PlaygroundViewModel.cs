@@ -34,6 +34,7 @@ namespace XCalendarMauiSample.ViewModels
         public double MonthViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
         public double NavigationHeightRequest { get; set; } = 40;
+        public bool CalendarIsVisible { get; set; } = true;
         #endregion
 
         #region Commands
@@ -46,6 +47,7 @@ namespace XCalendarMauiSample.ViewModels
         public ICommand ShowSelectionTypeDialogCommand { get; set; }
         public ICommand NavigateCalendarCommand { get; set; }
         public ICommand ChangeDateSelectionCommand { get; set; }
+        public ICommand ChangeCalendarVisibilityCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -60,10 +62,23 @@ namespace XCalendarMauiSample.ViewModels
             ShowSelectionTypeDialogCommand = new Command(ShowSelectionTypeDialog);
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
+            ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
         }
         #endregion
 
         #region Methods
+        public void NavigateCalendar(int Amount)
+        {
+            Calendar?.NavigateCalendar(Amount);
+        }
+        public void ChangeDateSelection(DateTime DateTime)
+        {
+            Calendar?.ChangeDateSelection(DateTime);
+        }
+        public void ChangeCalendarVisibility(bool IsVisible)
+        {
+            CalendarIsVisible = IsVisible;
+        }
         public async void ShowCustomDayNamesOrderDialog()
         {
             IEnumerable<DayOfWeek> NewCustomDayNamesOrder = await PopupHelper.ShowCustomDayNamesOrderDialog(Calendar.CustomDayNamesOrder ?? new ObservableRangeCollection<DayOfWeek>());
@@ -107,14 +122,6 @@ namespace XCalendarMauiSample.ViewModels
         public async void ShowSelectionTypeDialog()
         {
             Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
-        }
-        public void NavigateCalendar(int Amount)
-        {
-            Calendar?.NavigateCalendar(Amount);
-        }
-        public void ChangeDateSelection(DateTime DateTime)
-        {
-            Calendar?.ChangeDateSelection(DateTime);
         }
         #endregion
     }
