@@ -42,6 +42,21 @@ namespace XCalendarFormsSample.ViewModels
         public Color NavigationTextColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
         public Color NavigationArrowColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
         public Color NavigationArrowBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
+        public Color DayCurrentMonthBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DayCurrentMonthTextColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundTextColor"];
+        public Color DayCurrentMonthBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DayOtherMonthBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DayOtherMonthTextColor { get; set; } = Color.Gray;
+        public Color DayOtherMonthBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DayTodayBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DayTodayTextColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundTextColor"];
+        public Color DayTodayBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
+        public Color DaySelectedBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
+        public Color DaySelectedTextColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
+        public Color DaySelectedBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DayInvalidBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DayInvalidTextColor { get; set; } = (Color)Application.Current.Resources["CalendarTertiaryColor"];
+        public Color DayInvalidBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
         #endregion
 
         #region Commands
@@ -57,6 +72,21 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ShowNavigationTextColorDialogCommand { get; set; }
         public ICommand ShowNavigationArrowColorDialogCommand { get; set; }
         public ICommand ShowNavigationArrowBackgroundColorDialogCommand { get; set; }
+        public ICommand ShowDayCurrentMonthBackgroundColorDialogCommand { get; set; }
+        public ICommand ShowDayCurrentMonthTextColorDialogCommand { get; set; }
+        public ICommand ShowDayCurrentMonthBorderColorDialogCommand { get; set; }
+        public ICommand ShowDayOtherMonthBackgroundColorDialogCommand { get; set; }
+        public ICommand ShowDayOtherMonthTextColorDialogCommand { get; set; }
+        public ICommand ShowDayOtherMonthBorderColorDialogCommand { get; set; }
+        public ICommand ShowDayTodayBackgroundColorDialogCommand { get; set; }
+        public ICommand ShowDayTodayTextColorDialogCommand { get; set; }
+        public ICommand ShowDayTodayBorderColorDialogCommand { get; set; }
+        public ICommand ShowDaySelectedBackgroundColorDialogCommand { get; set; }
+        public ICommand ShowDaySelectedTextColorDialogCommand { get; set; }
+        public ICommand ShowDaySelectedBorderColorDialogCommand { get; set; }
+        public ICommand ShowDayInvalidBackgroundColorDialogCommand { get; set; }
+        public ICommand ShowDayInvalidTextColorDialogCommand { get; set; }
+        public ICommand ShowDayInvalidBorderColorDialogCommand { get; set; }
         public ICommand NavigateCalendarCommand { get; set; }
         public ICommand ChangeDateSelectionCommand { get; set; }
         public ICommand ChangeCalendarVisibilityCommand { get; set; }
@@ -77,6 +107,21 @@ namespace XCalendarFormsSample.ViewModels
             ShowNavigationTextColorDialogCommand = new Command(ShowNavigationTextColorDialog);
             ShowNavigationArrowColorDialogCommand = new Command(ShowNavigationArrowColorDialog);
             ShowNavigationArrowBackgroundColorDialogCommand = new Command(ShowNavigationArrowBackgroundColorDialog);
+            ShowDayCurrentMonthBackgroundColorDialogCommand = new Command(ShowDayCurrentMonthBackgroundColorDialog);
+            ShowDayCurrentMonthTextColorDialogCommand = new Command(ShowDayCurrentMonthTextColorDialog);
+            ShowDayCurrentMonthBorderColorDialogCommand = new Command(ShowDayCurrentMonthBorderColorDialog);
+            ShowDayOtherMonthBackgroundColorDialogCommand = new Command(ShowDayOtherMonthBackgroundColorDialog);
+            ShowDayOtherMonthTextColorDialogCommand = new Command(ShowDayOtherMonthTextColorDialog);
+            ShowDayOtherMonthBorderColorDialogCommand = new Command(ShowDayOtherMonthBorderColorDialog);
+            ShowDayTodayBackgroundColorDialogCommand = new Command(ShowDayTodayBackgroundColorDialog);
+            ShowDayTodayTextColorDialogCommand = new Command(ShowDayTodayTextColorDialog);
+            ShowDayTodayBorderColorDialogCommand = new Command(ShowDayTodayBorderColorDialog);
+            ShowDaySelectedBackgroundColorDialogCommand = new Command(ShowDaySelectedBackgroundColorDialog);
+            ShowDaySelectedTextColorDialogCommand = new Command(ShowDaySelectedTextColorDialog);
+            ShowDaySelectedBorderColorDialogCommand = new Command(ShowDaySelectedBorderColorDialog);
+            ShowDayInvalidBackgroundColorDialogCommand = new Command(ShowDayInvalidBackgroundColorDialog);
+            ShowDayInvalidTextColorDialogCommand = new Command(ShowDayInvalidTextColorDialog);
+            ShowDayInvalidBorderColorDialogCommand = new Command(ShowDayInvalidBorderColorDialog);
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
@@ -159,6 +204,66 @@ namespace XCalendarFormsSample.ViewModels
         public async void ShowNavigationArrowBackgroundColorDialog()
         {
             NavigationArrowBackgroundColor = await PopupHelper.ShowColorDialog(NavigationArrowBackgroundColor);
+        }
+        public async void ShowDayCurrentMonthBackgroundColorDialog()
+        {
+            DayCurrentMonthBackgroundColor = await PopupHelper.ShowColorDialog(DayCurrentMonthBackgroundColor);
+        }
+        public async void ShowDayCurrentMonthTextColorDialog()
+        {
+            DayCurrentMonthTextColor = await PopupHelper.ShowColorDialog(DayCurrentMonthTextColor);
+        }
+        public async void ShowDayCurrentMonthBorderColorDialog()
+        {
+            DayCurrentMonthBorderColor = await PopupHelper.ShowColorDialog(DayCurrentMonthBorderColor);
+        }
+        public async void ShowDayOtherMonthBackgroundColorDialog()
+        {
+            DayOtherMonthBackgroundColor = await PopupHelper.ShowColorDialog(DayOtherMonthBackgroundColor);
+        }
+        public async void ShowDayOtherMonthTextColorDialog()
+        {
+            DayOtherMonthTextColor = await PopupHelper.ShowColorDialog(DayOtherMonthTextColor);
+        }
+        public async void ShowDayOtherMonthBorderColorDialog()
+        {
+            DayOtherMonthBorderColor = await PopupHelper.ShowColorDialog(DayOtherMonthBorderColor);
+        }
+        public async void ShowDayTodayBackgroundColorDialog()
+        {
+            DayTodayBackgroundColor = await PopupHelper.ShowColorDialog(DayTodayBackgroundColor);
+        }
+        public async void ShowDayTodayTextColorDialog()
+        {
+            DayTodayTextColor = await PopupHelper.ShowColorDialog(DayTodayTextColor);
+        }
+        public async void ShowDayTodayBorderColorDialog()
+        {
+            DayTodayBorderColor = await PopupHelper.ShowColorDialog(DayTodayBorderColor);
+        }
+        public async void ShowDaySelectedBackgroundColorDialog()
+        {
+            DaySelectedBackgroundColor = await PopupHelper.ShowColorDialog(DaySelectedBackgroundColor);
+        }
+        public async void ShowDaySelectedTextColorDialog()
+        {
+            DaySelectedTextColor = await PopupHelper.ShowColorDialog(DaySelectedTextColor);
+        }
+        public async void ShowDaySelectedBorderColorDialog()
+        {
+            DaySelectedBorderColor = await PopupHelper.ShowColorDialog(DaySelectedBorderColor);
+        }
+        public async void ShowDayInvalidBackgroundColorDialog()
+        {
+            DayInvalidBackgroundColor = await PopupHelper.ShowColorDialog(DayInvalidBackgroundColor);
+        }
+        public async void ShowDayInvalidTextColorDialog()
+        {
+            DayInvalidTextColor = await PopupHelper.ShowColorDialog(DayInvalidTextColor);
+        }
+        public async void ShowDayInvalidBorderColorDialog()
+        {
+            DayInvalidBorderColor = await PopupHelper.ShowColorDialog(DayInvalidBorderColor);
         }
         #endregion
     }
