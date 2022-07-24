@@ -40,6 +40,7 @@
             RowDefinitions="*,1, Auto"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
+
             <CollectionView
                 Grid.Row="0"
                 Grid.Column="0"
@@ -112,7 +113,7 @@
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding AddItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    
+
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
@@ -133,7 +134,7 @@
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding RemoveItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    
+
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
@@ -183,58 +184,51 @@
         </Grid>
 
         <HorizontalStackLayout BackgroundColor="#0080E0">
-            <Frame
+            <Border
                 Padding="10"
-                BackgroundColor="#0080E0"
-                CornerRadius="0"
-                HasShadow="False">
+                BackgroundColor="#0080E0">
 
-                <Frame.GestureRecognizers>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Frame.GestureRecognizers>
-                
+                </Border.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Frame>
+            </Border>
 
-            <Frame
+            <Border
                 Padding="10"
-                BackgroundColor="#0080E0"
-                CornerRadius="0"
-                HasShadow="False">
+                BackgroundColor="#0080E0">
 
-                <Frame.GestureRecognizers>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Frame.GestureRecognizers>
-                
+                </Border.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Frame>
+            </Border>
 
-            <Frame
+            <Border
                 Padding="10"
                 BackgroundColor="#0080E0"
-                CornerRadius="0"
-                HasShadow="False"
                 HorizontalOptions="EndAndExpand">
 
-
-                <Frame.GestureRecognizers>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Frame.GestureRecognizers>
-                
+                </Border.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Confirm"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Frame>
+            </Border>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 
