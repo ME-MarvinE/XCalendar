@@ -1,12 +1,13 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XCalendarMauiSample.App"
-             xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
-    
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application
+    x:Class="XCalendarMauiSample.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
+
     <Application.Resources>
         <!--<ResourceDictionary Source="Resources/Styles.xaml" />-->
-        
+
         <Color x:Key="PrimaryColor">#2060FF</Color>
         <Color x:Key="TertiaryColor">#A0A0FF</Color>
         <!--<Color x:Key="PrimaryColor">#E00000</Color>
@@ -39,14 +40,14 @@
         <x:Boolean x:Key="TrueValue">True</x:Boolean>
         <x:Boolean x:Key="FalseValue">False</x:Boolean>
 
-        <Style TargetType="{x:Type xc:CalendarView}" x:Key="DefaultCalendarViewStyle">
+        <Style x:Key="DefaultCalendarViewStyle" TargetType="{x:Type xc:CalendarView}">
             <Setter Property="NavigationBackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
             <Setter Property="NavigationArrowColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
             <Setter Property="NavigationTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
             <Setter Property="BackgroundColor" Value="{StaticResource CalendarBackgroundColor}"/>
         </Style>
 
-        <Style TargetType="{x:Type xc:CalendarDayView}" x:Key="DefaultDayViewStyle">
+        <Style x:Key="DefaultDayViewStyle" TargetType="{x:Type xc:CalendarDayView}">
             <Setter Property="CurrentMonthTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
             <Setter Property="TodayTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
             <Setter Property="TodayBorderColor" Value="{StaticResource CalendarPrimaryColor}"/>
@@ -55,7 +56,7 @@
             <Setter Property="SelectedTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
         </Style>
 
-        <Style TargetType="{x:Type ContentPage}" x:Key="DefaultPageStyle">
+        <Style x:Key="DefaultPageStyle" TargetType="{x:Type ContentPage}">
             <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}"/>
             <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryColor}"/>
         </Style>

@@ -545,393 +545,99 @@
 
             </VerticalStackLayout>
 
-            <VerticalStackLayout IsVisible="{Binding CalendarIsVisible}" Spacing="0">
+            <xc:CalendarView
+                x:Name="FancyCalendarView"
+                BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
+                DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
+                Days="{Binding Calendar.Days}"
+                DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
+                IsVisible="{Binding CalendarIsVisible}"
+                MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
+                NavigatedDate="{Binding Calendar.NavigatedDate}"
+                NavigationHeightRequest="{Binding NavigationHeightRequest}"
+                Style="{StaticResource DefaultCalendarViewStyle}">
 
-                <HorizontalStackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" HeightRequest="55">
-                    <Label
-                        FontSize="16"
-                        HorizontalOptions="EndAndExpand"
-                        HorizontalTextAlignment="Center"
-                        Text="Default Implementation"
-                        VerticalTextAlignment="Center"/>
-                    <Switch
-                        x:Name="SwitchDefaultImplementation"
-                        HorizontalOptions="StartAndExpand"
-                        IsToggled="True"/>
-                </HorizontalStackLayout>
+                <xc:CalendarView.DayTemplate>
+                    <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                        <ContentView>
+                            <xc:CalendarDayView
+                                Margin="2.5"
+                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                CurrentMonthCommandParameter="{Binding DateTime}"
+                                DateTime="{Binding DateTime}"
+                                HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
+                                IsCurrentMonth="{Binding IsCurrentMonth}"
+                                IsInvalid="{Binding IsInvalid}"
+                                IsSelected="{Binding IsSelected}"
+                                IsToday="{Binding IsToday}"
+                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                SelectedCommandParameter="{Binding DateTime}"
+                                Style="{StaticResource DefaultDayViewStyle}"
+                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                TodayCommandParameter="{Binding DateTime}"
+                                WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
+                        </ContentView>
+                    </DataTemplate>
+                </xc:CalendarView.DayTemplate>
 
-                <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
-
-                <xc:CalendarView
-                    x:Name="FancyCalendarView"
-                    BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                    BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
-                    DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                    Days="{Binding Calendar.Days}"
-                    DaysOfWeek="{Binding Calendar.DayNamesOrder}"
-                    ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                    ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
-                    MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
-                    NavigatedDate="{Binding Calendar.NavigatedDate}"
-                    NavigationHeightRequest="{Binding NavigationHeightRequest}">
-
-                    <xc:CalendarView.MonthViewTemplate>
-                        <OnPlatform x:TypeArguments="ControlTemplate">
-                            <On Platform="WinUI">
-                                <On.Value>
-                                    <ControlTemplate>
-                                        <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference FancyCalendarView}}" ItemsSource="{Binding Calendar.Days, Source={x:Reference FancyCalendarView}}">
-                                            <CollectionView.Style>
-                                                <Style TargetType="{x:Type CollectionView}">
-                                                    <Setter Property="ItemTemplate">
-                                                        <Setter.Value>
-                                                            <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
-                                                                <!--  Needs to be nested because collectionview doesn't respect margins  -->
-                                                                <ContentView>
-                                                                    <xc:CalendarDayView
-                                                                        Margin="2.5"
-                                                                        DateTime="{Binding DateTime}"
-                                                                        IsCurrentMonth="{Binding IsCurrentMonth}"
-                                                                        IsInvalid="{Binding IsInvalid}"
-                                                                        IsSelected="{Binding IsSelected}"
-                                                                        IsToday="{Binding IsToday}"/>
-                                                                </ContentView>
-                                                            </DataTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-
-                                                    <Style.Triggers>
-                                                        <DataTrigger TargetType="{x:Type CollectionView}" Value="{StaticResource TrueValue}">
-                                                            <DataTrigger.Binding>
-                                                                <Binding
-                                                                    ConverterParameter="{x:Null}"
-                                                                    Path="DayTemplate"
-                                                                    Source="{x:Reference FancyCalendarView}">
-                                                                    <Binding.Converter>
-                                                                        <mct:IsNotEqualConverter/>
-                                                                    </Binding.Converter>
-                                                                </Binding>
-                                                            </DataTrigger.Binding>
-                                                            <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference FancyCalendarView}}"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </CollectionView.Style>
-
-                                            <CollectionView.ItemsLayout>
-                                                <LinearItemsLayout Orientation="Vertical"/>
-                                            </CollectionView.ItemsLayout>
-
-                                        </CollectionView>
-                                    </ControlTemplate>
-                                </On.Value>
-                            </On>
-                        </OnPlatform>
-                    </xc:CalendarView.MonthViewTemplate>
-
-                    <xc:CalendarView.Style>
-                        <Style BasedOn="{StaticResource DefaultCalendarViewStyle}" TargetType="{x:Type xc:CalendarView}">
-
-                            <Setter Property="ForwardsArrowCommand" Value="{Binding NavigateCalendarCommand}"/>
-                            <Setter Property="ForwardsArrowCommandParameter" Value="{Binding Calendar.ForwardsNavigationAmount}"/>
-                            <Setter Property="BackwardsArrowCommand" Value="{Binding NavigateCalendarCommand}"/>
-                            <Setter Property="BackwardsArrowCommandParameter" Value="{Binding Calendar.BackwardsNavigationAmount}"/>
-
-                            <Setter Property="NavigationTemplate">
+                <xc:CalendarView.MonthViewTemplate>
+                    <OnPlatform x:TypeArguments="ControlTemplate">
+                        <On Platform="WinUI">
+                            <On.Value>
                                 <ControlTemplate>
-                                    <ContentPresenter/>
+                                    <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference FancyCalendarView}}" ItemsSource="{Binding Calendar.Days, Source={x:Reference FancyCalendarView}}">
+                                        <CollectionView.Style>
+                                            <Style TargetType="{x:Type CollectionView}">
+                                                <Setter Property="ItemTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
+                                                            <!--  Needs to be nested because collectionview doesn't respect margins  -->
+                                                            <ContentView>
+                                                                <xc:CalendarDayView
+                                                                    Margin="2.5"
+                                                                    DateTime="{Binding DateTime}"
+                                                                    IsCurrentMonth="{Binding IsCurrentMonth}"
+                                                                    IsInvalid="{Binding IsInvalid}"
+                                                                    IsSelected="{Binding IsSelected}"
+                                                                    IsToday="{Binding IsToday}"/>
+                                                            </ContentView>
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="{x:Type CollectionView}" Value="{StaticResource TrueValue}">
+                                                        <DataTrigger.Binding>
+                                                            <Binding
+                                                                ConverterParameter="{x:Null}"
+                                                                Path="DayTemplate"
+                                                                Source="{x:Reference FancyCalendarView}">
+                                                                <Binding.Converter>
+                                                                    <mct:IsNotEqualConverter/>
+                                                                </Binding.Converter>
+                                                            </Binding>
+                                                        </DataTrigger.Binding>
+                                                        <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference FancyCalendarView}}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </CollectionView.Style>
+
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Vertical"/>
+                                        </CollectionView.ItemsLayout>
+
+                                    </CollectionView>
                                 </ControlTemplate>
-                            </Setter>
+                            </On.Value>
+                        </On>
+                    </OnPlatform>
+                </xc:CalendarView.MonthViewTemplate>
 
-                            <Setter Property="DayNameTemplate" Value="{x:Null}"/>
-
-                            <Setter Property="DayTemplate">
-                                <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                                    <ContentView>
-                                        <xc:CalendarDayView
-                                            Margin="2.5"
-                                            CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                            CurrentMonthCommandParameter="{Binding DateTime}"
-                                            DateTime="{Binding DateTime}"
-                                            HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                            IsCurrentMonth="{Binding IsCurrentMonth}"
-                                            IsInvalid="{Binding IsInvalid}"
-                                            IsSelected="{Binding IsSelected}"
-                                            IsToday="{Binding IsToday}"
-                                            SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                            SelectedCommandParameter="{Binding DateTime}"
-                                            Style="{StaticResource DefaultDayViewStyle}"
-                                            TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                            TodayCommandParameter="{Binding DateTime}"
-                                            WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}"/>
-                                    </ContentView>
-                                </DataTemplate>
-                            </Setter>
-
-                            <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsToggled, Source={x:Reference SwitchDefaultImplementation}}"
-                                    TargetType="{x:Type xc:CalendarView}"
-                                    Value="False">
-
-                                    <Setter Property="NavigationTemplate">
-                                        <ControlTemplate>
-                                            <VerticalStackLayout Spacing="0">
-
-                                                <HorizontalStackLayout Padding="0,5,5,5" BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference FancyCalendarView}}">
-                                                    <Label
-                                                        Margin="15,0,0,0"
-                                                        FontAttributes="Bold"
-                                                        FontSize="18"
-                                                        HorizontalTextAlignment="Center"
-                                                        Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference FancyCalendarView}}"
-                                                        TextColor="{Binding NavigationTextColor, Source={x:Reference FancyCalendarView}}"
-                                                        VerticalTextAlignment="Center"/>
-
-                                                    <xc:BorderedLabel
-                                                        Padding="5"
-                                                        BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                        FontAttributes="Bold"
-                                                        FontSize="30"
-                                                        HeightRequest="30"
-                                                        HorizontalOptions="EndAndExpand"
-                                                        Text="←"
-                                                        TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
-                                                        VerticalTextAlignment="End"
-                                                        WidthRequest="30">
-
-                                                        <xc:BorderedLabel.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference FancyCalendarView}}"/>
-                                                        </xc:BorderedLabel.GestureRecognizers>
-
-                                                        <xc:BorderedLabel.StrokeShape>
-                                                            <RoundRectangle CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"/>
-                                                        </xc:BorderedLabel.StrokeShape>
-
-                                                    </xc:BorderedLabel>
-
-                                                    <xc:BorderedLabel
-                                                        Padding="5"
-                                                        BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference FancyCalendarView}}"
-                                                        FontAttributes="Bold"
-                                                        FontSize="30"
-                                                        HeightRequest="30"
-                                                        Text="→"
-                                                        TextColor="{Binding NavigationArrowColor, Source={x:Reference FancyCalendarView}}"
-                                                        VerticalTextAlignment="End"
-                                                        WidthRequest="30">
-
-                                                        <xc:BorderedLabel.StrokeShape>
-                                                            <RoundRectangle CornerRadius="{Binding NavigationArrowCornerRadius, Source={x:Reference FancyCalendarView}}"/>
-                                                        </xc:BorderedLabel.StrokeShape>
-
-                                                        <xc:BorderedLabel.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference FancyCalendarView}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference FancyCalendarView}}"/>
-                                                        </xc:BorderedLabel.GestureRecognizers>
-
-                                                    </xc:BorderedLabel>
-
-                                                </HorizontalStackLayout>
-
-                                                <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
-
-                                                <Label
-                                                    Margin="0,0,0,5"
-                                                    FontSize="18"
-                                                    HorizontalTextAlignment="Center">
-                                                    <Label.Style>
-                                                        <Style TargetType="{x:Type Label}">
-                                                            <Setter Property="TextColor" Value="Black"/>
-                                                            <Setter Property="FontAttributes" Value="Bold"/>
-                                                            <Setter Property="Text" Value="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}!'}"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Monday}">
-                                                                    <Setter Property="TextColor" Value="Gray"/>
-                                                                    <Setter Property="FontAttributes" Value="Italic"/>
-                                                                    <Setter Property="Text" Value="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}, StringFormat='Today is a {0}. I hate {0}s.'}"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Tuesday}">
-                                                                    <Setter Property="TextColor" Value="Red"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Wednesday}">
-                                                                    <Setter Property="TextColor" Value="Orange"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Thursday}">
-                                                                    <Setter Property="TextColor" Value="Yellow"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Friday}">
-                                                                    <Setter Property="TextColor" Value="Green"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Saturday}">
-                                                                    <Setter Property="TextColor" Value="Blue"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Calendar.TodayDate.DayOfWeek, Source={x:Reference FancyCalendarView}}"
-                                                                    TargetType="{x:Type Label}"
-                                                                    Value="{x:Static System:DayOfWeek.Sunday}">
-                                                                    <Setter Property="TextColor" Value="#A000A0"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Label.Style>
-                                                </Label>
-
-                                            </VerticalStackLayout>
-                                        </ControlTemplate>
-                                    </Setter>
-
-                                    <Setter Property="DayNameTemplate">
-                                        <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
-                                            <Label
-                                                FontSize="15"
-                                                HorizontalTextAlignment="Center"
-                                                Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
-                                                TextColor="{Binding DayNameTextColor, Source={x:Reference FancyCalendarView}}">
-
-                                                <Label.Style>
-                                                    <Style TargetType="{x:Type Label}">
-                                                        <Setter Property="FontAttributes" Value="Bold"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger
-                                                                Binding="{Binding .}"
-                                                                TargetType="{x:Type Label}"
-                                                                Value="{x:Static System:DayOfWeek.Monday}">
-                                                                <Setter Property="TextColor" Value="Gray"/>
-                                                                <Setter Property="FontAttributes" Value="Italic"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding .}"
-                                                                TargetType="{x:Type Label}"
-                                                                Value="{x:Static System:DayOfWeek.Tuesday}">
-                                                                <Setter Property="TextColor" Value="Red"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding .}"
-                                                                TargetType="{x:Type Label}"
-                                                                Value="{x:Static System:DayOfWeek.Wednesday}">
-                                                                <Setter Property="TextColor" Value="Orange"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding .}"
-                                                                TargetType="{x:Type Label}"
-                                                                Value="{x:Static System:DayOfWeek.Thursday}">
-                                                                <Setter Property="TextColor" Value="Yellow"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding .}"
-                                                                TargetType="{x:Type Label}"
-                                                                Value="{x:Static System:DayOfWeek.Friday}">
-                                                                <Setter Property="TextColor" Value="Green"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding .}"
-                                                                TargetType="{x:Type Label}"
-                                                                Value="{x:Static System:DayOfWeek.Saturday}">
-                                                                <Setter Property="TextColor" Value="Blue"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger
-                                                                Binding="{Binding .}"
-                                                                TargetType="{x:Type Label}"
-                                                                Value="{x:Static System:DayOfWeek.Sunday}">
-                                                                <Setter Property="TextColor" Value="#A000A0"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Label.Style>
-
-                                            </Label>
-                                        </DataTemplate>
-                                    </Setter>
-
-                                    <Setter Property="DayTemplate">
-                                        <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                                            <ContentView>
-                                                <xc:CalendarDayView
-                                                    Margin="2.5"
-                                                    CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                    CurrentMonthCommandParameter="{Binding DateTime}"
-                                                    DateTime="{Binding DateTime}"
-                                                    HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                                                    HorizontalOptions="Center"
-                                                    IsCurrentMonth="{Binding IsCurrentMonth}"
-                                                    IsInvalid="{Binding IsInvalid}"
-                                                    IsSelected="{Binding IsSelected}"
-                                                    IsToday="{Binding IsToday}"
-                                                    SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                    SelectedCommandParameter="{Binding DateTime}"
-                                                    Style="{StaticResource DefaultDayViewStyle}"
-                                                    Text="{Binding DateTime, StringFormat='{0:dd}'}"
-                                                    TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                                    TodayCommandParameter="{Binding DateTime}"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
-
-                                                    <xc:CalendarDayView.ControlTemplate>
-                                                        <ControlTemplate>
-                                                            <Grid>
-                                                                <ContentPresenter Margin="0,0,0,5"/>
-
-                                                                <Frame
-                                                                    Margin="0,0,0,7.5"
-                                                                    Padding="0"
-                                                                    CornerRadius="100"
-                                                                    HasShadow="False"
-                                                                    HeightRequest="6"
-                                                                    HorizontalOptions="Center"
-                                                                    VerticalOptions="End"
-                                                                    WidthRequest="20">
-                                                                    <Frame.Style>
-                                                                        <Style TargetType="{x:Type Frame}">
-                                                                            <Setter Property="BackgroundColor" Value="Red"/>
-                                                                            <Style.Triggers>
-                                                                                <MultiTrigger TargetType="{x:Type Frame}">
-                                                                                    <MultiTrigger.Conditions>
-                                                                                        <BindingCondition Binding="{Binding IsSelected, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                        <BindingCondition Binding="{Binding IsCurrentMonth, Source={RelativeSource TemplatedParent}}" Value="True"/>
-                                                                                        <BindingCondition Binding="{Binding IsInvalid, Source={RelativeSource TemplatedParent}}" Value="False"/>
-                                                                                    </MultiTrigger.Conditions>
-                                                                                    <Setter Property="BackgroundColor" Value="#00A900"/>
-                                                                                </MultiTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Frame.Style>
-                                                                </Frame>
-                                                            </Grid>
-                                                        </ControlTemplate>
-                                                    </xc:CalendarDayView.ControlTemplate>
-
-                                                </xc:CalendarDayView>
-
-                                            </ContentView>
-                                        </DataTemplate>
-                                    </Setter>
-
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </xc:CalendarView.Style>
-
-                </xc:CalendarView>
-
-            </VerticalStackLayout>
+            </xc:CalendarView>
 
         </VerticalStackLayout>
     </ScrollView>
