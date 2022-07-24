@@ -47,7 +47,7 @@
     </ContentPage.Resources>
 
     <StackLayout Spacing="0">
-        
+
         <Label
             Padding="15"
             BackgroundColor="{StaticResource ContentBackgroundColor}"
@@ -521,6 +521,32 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
+                            Text="NavigationBackgroundColor"
+                            VerticalTextAlignment="Center"/>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{Binding NavigationBackgroundColor}"
+                            CornerRadius="10"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowNavigationBackgroundColorDialogCommand}"/>
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
                             Text="WidthRequest"
                             VerticalTextAlignment="Center"/>
                         <Editor
@@ -560,6 +586,7 @@
                     IsVisible="{Binding CalendarIsVisible}"
                     MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                     NavigatedDate="{Binding Calendar.NavigatedDate}"
+                    NavigationBackgroundColor="{Binding NavigationBackgroundColor}"
                     NavigationHeightRequest="{Binding NavigationHeightRequest}"
                     Style="{StaticResource DefaultCalendarViewStyle}">
 

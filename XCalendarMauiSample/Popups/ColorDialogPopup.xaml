@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup
+    x:Class="XCalendarMauiSample.Popups.ColorDialogPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:CustomControls="clr-namespace:XCalendarMauiSample.CustomControls"
+    xmlns:Popups="clr-namespace:XCalendarMauiSample.Popups"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="MainColorDialogPopup"
+    x:DataType="{x:Type Popups:ColorDialogPopup}"
+    Size="300, 285">
+
+    <VerticalStackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+
+        <CustomControls:ColorEditor x:Name="ColorEditor" SelectedColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"/>
+
+        <VerticalStackLayout
+            Margin="0,10,0,0"
+            Spacing="0"
+            VerticalOptions="StartAndExpand">
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalTextAlignment="Center"
+                Text="Select A Colour"
+                TextColor="{StaticResource ContentTextColor}"/>
+
+            <VerticalStackLayout Margin="10,10,10,0" Spacing="20">
+                <Slider
+                    MaximumTrackColor="Red"
+                    MinimumTrackColor="Red"
+                    ThumbColor="#E0E0E0"
+                    Value="{Binding SelectedColorRed, Source={x:Reference ColorEditor}}"/>
+                <Slider
+                    MaximumTrackColor="#00A000"
+                    MinimumTrackColor="#00A000"
+                    ThumbColor="#E0E0E0"
+                    Value="{Binding SelectedColorGreen, Source={x:Reference ColorEditor}}"/>
+                <Slider
+                    MaximumTrackColor="Blue"
+                    MinimumTrackColor="Blue"
+                    ThumbColor="#E0E0E0"
+                    Value="{Binding SelectedColorBlue, Source={x:Reference ColorEditor}}"/>
+            </VerticalStackLayout>
+
+            <Frame
+                Margin="20,20,20,0"
+                BackgroundColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"
+                CornerRadius="10"
+                HasShadow="False"/>
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout BackgroundColor="#0080E0">
+            <Frame
+                Padding="10"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False">
+                <Label
+                    FontSize="18"
+                    Text="Cancel"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+
+            </Frame>
+
+            <Frame
+                Padding="10"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False">
+                <Label
+                    FontSize="18"
+                    Text="Reset"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainColorDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+
+            </Frame>
+
+            <Frame
+                Padding="10"
+                BackgroundColor="Transparent"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="EndAndExpand">
+                <Label
+                    FontSize="18"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DismissDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
+                </Frame.GestureRecognizers>
+
+            </Frame>
+
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+
+</mct:Popup>

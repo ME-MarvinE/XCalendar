@@ -518,14 +518,28 @@
                         Grid.Column="0"
                         FontSize="{StaticResource SmallFontSize}"
                         HorizontalTextAlignment="Center"
-                        Text="HeightRequest"
+                        Text="NavigationBackgroundColor"
                         VerticalTextAlignment="Center"/>
-                    <Editor
+
+                    <Border
                         Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{Binding NavigationBackgroundColor}"
                         HorizontalOptions="Center"
-                        Keyboard="Numeric"
-                        Text="{Binding DayHeightRequest}"
-                        VerticalOptions="End"/>
+                        VerticalOptions="Center">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+
+                        <BoxView HeightRequest="40" WidthRequest="40"/>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowNavigationBackgroundColorDialogCommand}"/>
+                        </Border.GestureRecognizers>
+
+                    </Border>
+
                 </Grid>
 
                 <Grid>
@@ -543,6 +557,21 @@
                         VerticalOptions="End"/>
                 </Grid>
 
+                <Grid>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="HeightRequest"
+                        VerticalTextAlignment="Center"/>
+                    <Editor
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Keyboard="Numeric"
+                        Text="{Binding DayHeightRequest}"
+                        VerticalOptions="End"/>
+                </Grid>
+
             </VerticalStackLayout>
 
             <xc:CalendarView
@@ -557,6 +586,7 @@
                 IsVisible="{Binding CalendarIsVisible}"
                 MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
+                NavigationBackgroundColor="{Binding NavigationBackgroundColor}"
                 NavigationHeightRequest="{Binding NavigationHeightRequest}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 

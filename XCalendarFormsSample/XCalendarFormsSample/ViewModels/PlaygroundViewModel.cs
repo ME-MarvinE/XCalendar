@@ -31,12 +31,13 @@ namespace XCalendarFormsSample.ViewModels
             ForwardsNavigationAmount = 1,
             BackwardsNavigationAmount = -1
         };
-        public double DayHeightRequest { get; set; } = 45;
-        public double DayWidthRequest { get; set; } = 45;
+        public bool CalendarIsVisible { get; set; } = true;
         public double MonthViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
         public double NavigationHeightRequest { get; set; } = 40;
-        public bool CalendarIsVisible { get; set; } = true;
+        public double DayHeightRequest { get; set; } = 45;
+        public double DayWidthRequest { get; set; } = 45;
+        public Color NavigationBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
         #endregion
 
         #region Commands
@@ -47,6 +48,7 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ShowPageStartModeDialogCommand { get; set; }
         public ICommand ShowStartOfWeekDialogCommand { get; set; }
         public ICommand ShowSelectionTypeDialogCommand { get; set; }
+        public ICommand ShowNavigationBackgroundColorDialogCommand { get; set; }
         public ICommand NavigateCalendarCommand { get; set; }
         public ICommand ChangeDateSelectionCommand { get; set; }
         public ICommand ChangeCalendarVisibilityCommand { get; set; }
@@ -62,6 +64,7 @@ namespace XCalendarFormsSample.ViewModels
             ShowPageStartModeDialogCommand = new Command(ShowPageStartModeDialog);
             ShowStartOfWeekDialogCommand = new Command(ShowStartOfWeekDialog);
             ShowSelectionTypeDialogCommand = new Command(ShowSelectionTypeDialog);
+            ShowNavigationBackgroundColorDialogCommand = new Command(ShowNavigationBackgroundColorDialog);
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
@@ -124,6 +127,10 @@ namespace XCalendarFormsSample.ViewModels
         public async void ShowSelectionTypeDialog()
         {
             Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
+        }
+        public async void ShowNavigationBackgroundColorDialog()
+        {
+            NavigationBackgroundColor = await PopupHelper.ShowColorDialog(NavigationBackgroundColor);
         }
         #endregion
     }
