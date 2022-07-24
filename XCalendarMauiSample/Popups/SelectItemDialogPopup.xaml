@@ -19,12 +19,20 @@
 
         <CollectionView
             BackgroundColor="{StaticResource ContentBackgroundColor}"
-            EmptyView="Empty"
             ItemSizingStrategy="MeasureFirstItem"
             ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectionMode="Single"
             VerticalScrollBarVisibility="Always">
+
+            <CollectionView.EmptyView>
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Text="Empty"
+                    TextColor="{StaticResource PageTextColor}"
+                    VerticalTextAlignment="Center"/>
+            </CollectionView.EmptyView>
+
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
@@ -66,7 +74,7 @@
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
                 </Frame.GestureRecognizers>
-                
+
                 <Label
                     FontSize="18"
                     Text="Cancel"
@@ -83,7 +91,7 @@
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
                 </Frame.GestureRecognizers>
-                
+
                 <Label
                     FontSize="18"
                     Text="Reset"
@@ -101,7 +109,7 @@
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
                 </Frame.GestureRecognizers>
-                
+
                 <Label
                     FontSize="18"
                     Text="Confirm"

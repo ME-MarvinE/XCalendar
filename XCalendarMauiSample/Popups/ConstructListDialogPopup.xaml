@@ -45,10 +45,17 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 BackgroundColor="{StaticResource ContentBackgroundColor}"
-                EmptyView="Empty"
                 ItemSizingStrategy="MeasureFirstItem"
                 ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}"
                 VerticalScrollBarVisibility="Always">
+
+                <CollectionView.EmptyView>
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Text="Empty"
+                        TextColor="{StaticResource PageTextColor}"
+                        VerticalTextAlignment="Center"/>
+                </CollectionView.EmptyView>
 
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
@@ -156,13 +163,21 @@
                 Grid.RowSpan="3"
                 Grid.Column="1"
                 BackgroundColor="{StaticResource PageBackgroundColor}"
-                EmptyView="Empty"
                 ItemSizingStrategy="MeasureFirstItem"
                 ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}"
                 VerticalScrollBarVisibility="Always">
+
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Text="Empty"
+                        TextColor="{StaticResource PageTextColor}"
+                        VerticalTextAlignment="Center"/>
+                </CollectionView.EmptyView>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
@@ -184,9 +199,7 @@
         </Grid>
 
         <HorizontalStackLayout BackgroundColor="#0080E0">
-            <Border
-                Padding="10"
-                BackgroundColor="#0080E0">
+            <Border Padding="10" BackgroundColor="#0080E0">
 
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
@@ -199,9 +212,7 @@
                     VerticalTextAlignment="Center"/>
             </Border>
 
-            <Border
-                Padding="10"
-                BackgroundColor="#0080E0">
+            <Border Padding="10" BackgroundColor="#0080E0">
 
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>

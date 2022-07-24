@@ -18,7 +18,7 @@
         <CollectionView ItemsSource="{Binding DisplayedExamples}">
 
             <CollectionView.EmptyView>
-                <Label Text="No Search Results" FontSize="24" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <Label Text="No Search Results" TextColor="{StaticResource PageTextColor}" FontSize="24" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
