@@ -19,7 +19,6 @@
 
         <CollectionView
             BackgroundColor="{StaticResource ContentBackgroundColor}"
-            ItemSizingStrategy="MeasureFirstItem"
             ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectionMode="Single"
