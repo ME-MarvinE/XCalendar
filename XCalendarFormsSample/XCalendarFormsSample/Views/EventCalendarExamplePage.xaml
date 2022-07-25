@@ -151,12 +151,11 @@
                     <ContentView Padding="5">
                         <Frame
                             Padding="0"
-                            BackgroundColor="{StaticResource ContentBackgroundColor}"
                             CornerRadius="10">
                             <StackLayout Orientation="Horizontal" Spacing="0">
                                 <BoxView BackgroundColor="{Binding Color}" WidthRequest="20"/>
 
-                                <StackLayout Padding="10" Spacing="0">
+                                <StackLayout Padding="10" Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"

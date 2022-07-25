@@ -65,45 +65,39 @@
         </CollectionView>
 
         <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
-            <Frame
+            <ContentView
                 Padding="10"
-                BackgroundColor="Transparent"
-                CornerRadius="0"
-                HasShadow="False">
+                BackgroundColor="Transparent">
                 <Label
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
 
-                <Frame.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
-                </Frame.GestureRecognizers>
+                </ContentView.GestureRecognizers>
                 
-            </Frame>
+            </ContentView>
 
-            <Frame
+            <ContentView
                 Padding="10"
-                BackgroundColor="Transparent"
-                CornerRadius="0"
-                HasShadow="False">
+                BackgroundColor="Transparent">
                 <Label
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
 
-                <Frame.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
-                </Frame.GestureRecognizers>
+                </ContentView.GestureRecognizers>
                 
-            </Frame>
+            </ContentView>
 
-            <Frame
+            <ContentView
                 Padding="10"
                 BackgroundColor="Transparent"
-                CornerRadius="0"
-                HasShadow="False"
                 HorizontalOptions="EndAndExpand">
                 <Label
                     FontSize="18"
@@ -111,11 +105,11 @@
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
 
-                <Frame.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DismissDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
-                </Frame.GestureRecognizers>
-                
-            </Frame>
+                </ContentView.GestureRecognizers>
+
+            </ContentView>
         </StackLayout>
     </StackLayout>
 

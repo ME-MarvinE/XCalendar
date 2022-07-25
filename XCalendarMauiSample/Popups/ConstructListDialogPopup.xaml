@@ -69,14 +69,17 @@
                         Spacing="10"
                         VerticalOptions="End">
 
-                        <Frame
+                        <Border
                             Padding="10"
-                            BackgroundColor="#E00000"
-                            CornerRadius="15">
+                            BackgroundColor="#E00000">
 
-                            <Frame.GestureRecognizers>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+
+                            <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ClearReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                            </Frame.GestureRecognizers>
+                            </Border.GestureRecognizers>
 
                             <Label
                                 FontSize="16"
@@ -84,7 +87,7 @@
                                 Text="Clear"
                                 TextColor="White"
                                 VerticalTextAlignment="Center"/>
-                        </Frame>
+                        </Border>
                     </VerticalStackLayout>
                 </CollectionView.Header>
 
@@ -109,17 +112,20 @@
                                 Margin="0,0,0,5"
                                 HorizontalOptions="Center"
                                 Spacing="20">
-                                <Frame
+                                <Border
                                     Padding="0"
                                     BackgroundColor="#00B0C0"
-                                    CornerRadius="100"
                                     HeightRequest="30"
                                     VerticalOptions="Center"
                                     WidthRequest="30">
 
-                                    <Frame.GestureRecognizers>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="100"/>
+                                    </Border.StrokeShape>
+
+                                    <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding AddItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
+                                    </Border.GestureRecognizers>
 
                                     <Label
                                         FontAttributes="Bold"
@@ -128,19 +134,22 @@
                                         Text="+"
                                         TextColor="White"
                                         VerticalTextAlignment="Center"/>
-                                </Frame>
+                                </Border>
 
-                                <Frame
+                                <Border
                                     Padding="0"
                                     BackgroundColor="#E00000"
-                                    CornerRadius="100"
                                     HeightRequest="30"
                                     VerticalOptions="Center"
                                     WidthRequest="30">
 
-                                    <Frame.GestureRecognizers>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="100"/>
+                                    </Border.StrokeShape>
+
+                                    <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding RemoveItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
+                                    </Border.GestureRecognizers>
 
                                     <Label
                                         FontAttributes="Bold"
@@ -149,7 +158,7 @@
                                         Text="-"
                                         TextColor="White"
                                         VerticalTextAlignment="Center"/>
-                                </Frame>
+                                </Border>
                             </HorizontalStackLayout>
 
                         </VerticalStackLayout>
@@ -199,47 +208,47 @@
         </Grid>
 
         <HorizontalStackLayout BackgroundColor="#0080E0">
-            <Border Padding="10" BackgroundColor="#0080E0">
+            <ContentView Padding="10" BackgroundColor="#0080E0">
 
-                <Border.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Border.GestureRecognizers>
+                </ContentView.GestureRecognizers>
 
                 <Label
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Border>
+            </ContentView>
 
-            <Border Padding="10" BackgroundColor="#0080E0">
+            <ContentView Padding="10" BackgroundColor="#0080E0">
 
-                <Border.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Border.GestureRecognizers>
+                </ContentView.GestureRecognizers>
 
                 <Label
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Border>
+            </ContentView>
 
-            <Border
+            <ContentView
                 Padding="10"
                 BackgroundColor="#0080E0"
                 HorizontalOptions="EndAndExpand">
 
-                <Border.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                </Border.GestureRecognizers>
+                </ContentView.GestureRecognizers>
 
                 <Label
                     FontSize="18"
                     Text="Confirm"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-            </Border>
+            </ContentView>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 

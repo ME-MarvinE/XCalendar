@@ -44,54 +44,51 @@
                     ThumbColor="#E0E0E0"
                     Value="{Binding SelectedColorB, Source={x:Reference ColorEditor}}"/>
             </StackLayout>
-
             <Frame
                 Margin="20,20,20,0"
+                Padding="0"
+                HeightRequest="40"
                 BackgroundColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"
                 CornerRadius="10"
-                HasShadow="False"/>
+                HasShadow="False"
+                BorderColor="Black"/>
+            
         </StackLayout>
 
         <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
-            <Frame
+            <ContentView
                 Padding="10"
-                BackgroundColor="Transparent"
-                CornerRadius="0"
-                HasShadow="False">
+                BackgroundColor="Transparent">
                 <Label
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
 
-                <Frame.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
-                </Frame.GestureRecognizers>
+                </ContentView.GestureRecognizers>
 
-            </Frame>
+            </ContentView>
 
-            <Frame
+            <ContentView
                 Padding="10"
-                BackgroundColor="Transparent"
-                CornerRadius="0"
-                HasShadow="False">
+                BackgroundColor="Transparent">
                 <Label
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
 
-                <Frame.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainColorDialogPopup}}"/>
-                </Frame.GestureRecognizers>
+                </ContentView.GestureRecognizers>
 
-            </Frame>
+            </ContentView>
 
-            <Frame
+            <ContentView
                 Padding="10"
                 BackgroundColor="Transparent"
-                CornerRadius="0"
-                HasShadow="False"
                 HorizontalOptions="EndAndExpand">
                 <Label
                     FontSize="18"
@@ -99,11 +96,11 @@
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
 
-                <Frame.GestureRecognizers>
+                <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DismissDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
-                </Frame.GestureRecognizers>
+                </ContentView.GestureRecognizers>
 
-            </Frame>
+            </ContentView>
         </StackLayout>
 
     </StackLayout>

@@ -27,11 +27,14 @@
         RowDefinitions="Auto,*"
         RowSpacing="0">
 
-        <Frame
+        <Border
             Margin="10"
             Padding="10"
-            BackgroundColor="{StaticResource ContentBackgroundColor}"
-            CornerRadius="15">
+            BackgroundColor="{StaticResource ContentBackgroundColor}">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15"/>
+            </Border.StrokeShape>
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
@@ -67,7 +70,7 @@
                                 TodayCommandParameter="{Binding DateTime}"
                                 SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                 SelectedCommandParameter="{Binding DateTime}">
-                                
+
                                 <xc:CalendarDayView.ControlTemplate>
                                     <ControlTemplate>
                                         <!--  Using a Grid to stack views on the z axis  -->
@@ -127,7 +130,7 @@
 
             </xc:CalendarView>
 
-        </Frame>
+        </Border>
 
         <CollectionView Grid.Row="1" ItemsSource="{Binding SelectedEvents}">
 
@@ -147,14 +150,17 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type Models:Event}">
                     <ContentView Padding="5">
-                        <Frame
-                            Padding="0"
-                            BackgroundColor="{StaticResource ContentBackgroundColor}"
-                            CornerRadius="10">
+                        <Border
+                            Padding="0">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            
                             <StackLayout Orientation="Horizontal" Spacing="0">
                                 <BoxView BackgroundColor="{Binding Color}" WidthRequest="20"/>
 
-                                <StackLayout Padding="10" Spacing="0">
+                                <StackLayout Padding="10" Spacing="0" BackgroundColor="{StaticResource ContentBackgroundColor}">
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
@@ -173,7 +179,7 @@
                                         TextColor="{StaticResource ContentTextColor}"/>
                                 </StackLayout>
                             </StackLayout>
-                        </Frame>
+                        </Border>
                     </ContentView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
