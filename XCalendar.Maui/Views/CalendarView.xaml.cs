@@ -74,11 +74,6 @@ namespace XCalendar.Maui.Views
             get { return (double)GetValue(DayNameHorizontalSpacingProperty); }
             set { SetValue(DayNameHorizontalSpacingProperty, value); }
         }
-        public Color DayNameTextColor
-        {
-            get { return (Color)GetValue(DayNameTextColorProperty); }
-            set { SetValue(DayNameTextColorProperty, value); }
-        }
         /// <summary>
         /// The template used to display the <see cref="Days"/>.
         /// </summary>
@@ -154,7 +149,6 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty BackwardsArrowCommandProperty = BindableProperty.Create(nameof(BackwardsArrowCommand), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty BackwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(BackwardsArrowCommandParameter), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(CalendarView));
-        public static readonly BindableProperty DayNameTextColorProperty = BindableProperty.Create(nameof(DayNameTextColor), typeof(Color), typeof(CalendarView), Colors.Black);
         public static readonly BindableProperty DayNamesTemplateProperty = BindableProperty.Create(nameof(DayNamesTemplate), typeof(ControlTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNamesHeightRequestProperty = BindableProperty.Create(nameof(DayNamesHeightRequest), typeof(double), typeof(CalendarView), 25d);
         public static readonly BindableProperty DayNameTemplateProperty = BindableProperty.Create(nameof(DayNameTemplate), typeof(DataTemplate), typeof(CalendarView));

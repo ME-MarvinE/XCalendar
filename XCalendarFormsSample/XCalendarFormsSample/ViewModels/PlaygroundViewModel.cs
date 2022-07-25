@@ -53,7 +53,7 @@ namespace XCalendarFormsSample.ViewModels
         public Color DayTodayBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
         public Color DaySelectedBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
         public Color DaySelectedTextColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
-        public Color DaySelectedBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
+        public Color DaySelectedBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
         public Color DayInvalidBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
         public Color DayInvalidTextColor { get; set; } = (Color)Application.Current.Resources["CalendarTertiaryColor"];
         public Color DayInvalidBorderColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];

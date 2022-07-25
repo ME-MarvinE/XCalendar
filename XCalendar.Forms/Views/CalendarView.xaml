@@ -107,7 +107,7 @@
                                         FontSize="15"
                                         HorizontalTextAlignment="Center"
                                         Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
-                                        TextColor="{Binding DayNameTextColor, Source={x:Reference MainCalendarView}}"/>
+                                        TextColor="Black"/>
                                 </DataTemplate>
                             </Setter.Value>
                         </Setter>

@@ -38,7 +38,6 @@
                 x:Name="MainCalendarView"
                 Style="{StaticResource DefaultCalendarViewStyle}"
                 Grid.Row="0"
-                DayNameTextColor="{StaticResource ContentTextColor}"
                 NavigationArrowColor="{StaticResource ContentTextColor}"
                 NavigationBackgroundColor="Transparent"
                 NavigationTextColor="{StaticResource ContentTextColor}"
