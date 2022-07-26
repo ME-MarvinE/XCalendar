@@ -120,7 +120,7 @@
                                     WidthRequest="30">
 
                                     <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="100"/>
+                                        <Ellipse/>
                                     </Border.StrokeShape>
 
                                     <Border.GestureRecognizers>
@@ -144,7 +144,7 @@
                                     WidthRequest="30">
 
                                     <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="100"/>
+                                        <Ellipse/>
                                     </Border.StrokeShape>
 
                                     <Border.GestureRecognizers>
