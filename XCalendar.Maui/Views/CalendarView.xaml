@@ -42,24 +42,30 @@
                 BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference MainCalendarView}}"
                 HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}">
 
-                <xc:BorderedLabel
+                <Border
                     Padding="5"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
-                    FontAttributes="Bold"
-                    FontSize="30"
                     HeightRequest="30"
                     HorizontalOptions="CenterAndExpand"
-                    Text="←"
-                    TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
                     VerticalOptions="Center"
-                    VerticalTextAlignment="End"
                     WidthRequest="30">
 
-                    <xc:BorderedLabel.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
-                    </xc:BorderedLabel.GestureRecognizers>
+                    <Label
+                        Text="←"
+                        TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                        VerticalTextAlignment="End"
+                        FontAttributes="Bold"
+                        FontSize="30"/>
 
-                </xc:BorderedLabel>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="100"/>
+                    </Border.StrokeShape>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
+                    </Border.GestureRecognizers>
+
+                </Border>
 
                 <Label
                     FontAttributes="Bold"
@@ -69,24 +75,30 @@
                     TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
                     VerticalTextAlignment="Center"/>
 
-                <xc:BorderedLabel
+                <Border
                     Padding="5"
                     BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
-                    FontAttributes="Bold"
-                    FontSize="30"
                     HeightRequest="30"
                     HorizontalOptions="CenterAndExpand"
-                    Text="→"
-                    TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
                     VerticalOptions="Center"
-                    VerticalTextAlignment="End"
                     WidthRequest="30">
 
-                    <xc:BorderedLabel.GestureRecognizers>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="100"/>
+                    </Border.StrokeShape>
+
+                    <Label
+                        Text="→"
+                        TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
+                        VerticalTextAlignment="End"
+                        FontAttributes="Bold"
+                        FontSize="30"/>
+
+                    <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
-                    </xc:BorderedLabel.GestureRecognizers>
+                    </Border.GestureRecognizers>
                     
-                </xc:BorderedLabel>
+                </Border>
 
             </HorizontalStackLayout>
         </ContentView>

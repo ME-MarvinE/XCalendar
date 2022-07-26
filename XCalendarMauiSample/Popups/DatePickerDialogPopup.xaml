@@ -107,42 +107,50 @@
         <HorizontalStackLayout
             Margin="0,0,15,10"
             Spacing="0">
-            <xc:BorderedLabel
+            <Border
                 Padding="15,10,15,10"
                 BackgroundColor="Transparent"
-                FontAttributes="Bold"
-                FontSize="14"
-                HorizontalOptions="EndAndExpand"
-                Text="CANCEL"
-                TextColor="{StaticResource PrimaryColor}">
+                HorizontalOptions="EndAndExpand">
 
-                <xc:BorderedLabel.StrokeShape>
+                <Border.StrokeShape>
                     <RoundRectangle CornerRadius="2.5"/>
-                </xc:BorderedLabel.StrokeShape>
+                </Border.StrokeShape>
 
-                <xc:BorderedLabel.GestureRecognizers>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    Text="CANCEL"
+                    TextColor="{StaticResource PrimaryColor}"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"/>
+
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReturnInitialDateCommand, Source={x:Reference This}}"/>
-                </xc:BorderedLabel.GestureRecognizers>
+                </Border.GestureRecognizers>
                 
-            </xc:BorderedLabel>
-            <xc:BorderedLabel
+            </Border>
+            <Border
                 Margin="15,0,0,0"
                 Padding="15,10,15,10"
-                BackgroundColor="Transparent"
-                FontAttributes="Bold"
-                FontSize="14"
-                Text="OK"
-                TextColor="{StaticResource PrimaryColor}">
+                BackgroundColor="Transparent">
 
-                <xc:BorderedLabel.StrokeShape>
+                <Border.StrokeShape>
                     <RoundRectangle CornerRadius="2.5"/>
-                </xc:BorderedLabel.StrokeShape>
+                </Border.StrokeShape>
 
-                <xc:BorderedLabel.GestureRecognizers>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    Text="OK"
+                    TextColor="{StaticResource PrimaryColor}"
+                    HorizontalTextAlignment="Center" 
+                    VerticalTextAlignment="Center"/>
+
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReturnSelectedDateCommand, Source={x:Reference This}}"/>
-                </xc:BorderedLabel.GestureRecognizers>
+                </Border.GestureRecognizers>
                 
-            </xc:BorderedLabel>
+            </Border>
         </HorizontalStackLayout>
 
     </VerticalStackLayout>

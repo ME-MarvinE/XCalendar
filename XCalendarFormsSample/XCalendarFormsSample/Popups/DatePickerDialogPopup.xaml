@@ -109,36 +109,44 @@
             Margin="0,0,15,10"
             Orientation="Horizontal"
             Spacing="0">
-            <xc:FramedLabel
+            <Frame
                 Padding="15,10,15,10"
                 BackgroundColor="Transparent"
                 CornerRadius="2.5"
-                FontAttributes="Bold"
-                FontSize="14"
-                HorizontalOptions="EndAndExpand"
-                Text="CANCEL"
-                TextColor="{StaticResource PrimaryColor}">
+                HorizontalOptions="EndAndExpand">
 
-                <xc:FramedLabel.GestureRecognizers>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    Text="CANCEL"
+                    TextColor="{StaticResource PrimaryColor}"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReturnInitialDateCommand, Source={x:Reference This}}"/>
-                </xc:FramedLabel.GestureRecognizers>
-                
-            </xc:FramedLabel>
-            <xc:FramedLabel
+                </Frame.GestureRecognizers>
+
+            </Frame>
+            <Frame
                 Margin="15,0,0,0"
                 Padding="15,10,15,10"
                 BackgroundColor="Transparent"
-                CornerRadius="2.5"
-                FontAttributes="Bold"
-                FontSize="14"
-                Text="OK"
-                TextColor="{StaticResource PrimaryColor}">
+                CornerRadius="2.5">
 
-                <xc:FramedLabel.GestureRecognizers>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    Text="OK"
+                    TextColor="{StaticResource PrimaryColor}"
+                    HorizontalTextAlignment="Center" 
+                    VerticalTextAlignment="Center"/>
+
+                <Frame.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ReturnSelectedDateCommand, Source={x:Reference This}}"/>
-                </xc:FramedLabel.GestureRecognizers>
+                </Frame.GestureRecognizers>
 
-            </xc:FramedLabel>
+            </Frame>
         </StackLayout>
 
     </StackLayout>
