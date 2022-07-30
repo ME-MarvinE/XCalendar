@@ -37,13 +37,13 @@
 
         <!--#region Navigation-->
         <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
-            <HorizontalStackLayout
-                Padding="0,5,0,5"
+            <Grid HorizontalOptions="FillAndExpand"
+                                  
+                Padding="5"
                 BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference MainCalendarView}}"
                 HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}">
 
-
-                <Frame HasShadow="False" BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
+                 <Frame HorizontalOptions="Start" HasShadow="False" BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                    Padding="0" CornerRadius="30">
                     <Label
                         Text="←"
@@ -61,13 +61,14 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="18"
+                    HorizontalOptions="CenterAndExpand"
                     HorizontalTextAlignment="Center"
                     Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
                     TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
                     VerticalTextAlignment="Center"/>
 
 
-                <Frame HasShadow="False"  BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
+                <Frame HasShadow="False" HorizontalOptions="End"  BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
                    Padding="0" CornerRadius="30">
                     <Label
                          Text="→"
@@ -79,7 +80,7 @@
                         <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
                     </Frame.GestureRecognizers>
                 </Frame>
-            </HorizontalStackLayout>
+            </Grid>
         </ContentView>
         <!--#endregion-->
 
