@@ -7,7 +7,7 @@
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     x:Name="This"
-    Title="Using DayTemplate"
+    Title="Customising A Day"
     x:DataType="{x:Type ViewModels:CustomisingADayExampleViewModel}"
     Style="{StaticResource DefaultPageStyle}">
 
