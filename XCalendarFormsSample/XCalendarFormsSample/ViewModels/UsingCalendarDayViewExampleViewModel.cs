@@ -12,7 +12,6 @@ namespace XCalendarFormsSample.ViewModels
         #region Properties
         public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
         {
-            SelectedDates = new ObservableRangeCollection<DateTime>() { DateTime.Now },
             SelectionAction = SelectionAction.Replace,
             SelectionType = SelectionType.Single
         };

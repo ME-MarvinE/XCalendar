@@ -36,6 +36,12 @@
     <Compile Update="Views\PlaygroundPage.xaml.cs">
       <DependentUpon>PlaygroundPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\CustomisingADayExamplePage.xaml.cs">
+      <DependentUpon>CustomisingADayExamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CustomisingADayExamplePage.xaml.cs">
+      <DependentUpon>CustomisingADayExamplePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

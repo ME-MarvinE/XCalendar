@@ -47,7 +47,21 @@ namespace XCalendarFormsSample.ViewModels
                 Description = $"How to use the {nameof(CalendarDayView)} control.",
                 Tags = new List<Tag>()
                 {
-                    new Tag() { Title = "DayTemplate" }
+                    new Tag() { Title = "DayTemplate" },
+                    new Tag() { Title = "Customise" },
+                    new Tag() { Title = "Customisation" }
+                }
+            },
+            new Example()
+            {
+                Page = new CustomisingADayExamplePage(),
+                Title = $"Customising A Day",
+                Description = $"How to customise the appearance of a day in {nameof(CalendarView)}.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "DayTemplate" },
+                    new Tag() { Title = "Customise" },
+                    new Tag() { Title = "Customisation" }
                 }
             }
         };
@@ -65,7 +79,7 @@ namespace XCalendarFormsSample.ViewModels
         public ExamplesViewModel()
         {
             SearchExamplesCommand = new Command(SearchExamples);
-            ShowPageCommand = new Command<Page>(async(Page Page) => await ShowPage(Page));
+            ShowPageCommand = new Command<Page>(async (Page Page) => await ShowPage(Page));
             SearchExamples();
         }
         #endregion

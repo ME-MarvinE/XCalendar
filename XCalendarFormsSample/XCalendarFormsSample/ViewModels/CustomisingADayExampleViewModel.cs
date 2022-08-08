@@ -1,10 +1,13 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
+using Xamarin.Forms;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
 
-namespace XCalendarMauiSample.ViewModels
+namespace XCalendarFormsSample.ViewModels
 {
-    public class UsingCalendarDayViewExampleViewModel : BaseViewModel
+    public class CustomisingADayExampleViewModel : BaseViewModel
     {
         #region Properties
         public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
@@ -12,7 +15,6 @@ namespace XCalendarMauiSample.ViewModels
             SelectionAction = SelectionAction.Replace,
             SelectionType = SelectionType.Single
         };
-        public CalendarDay OutsideCalendarDay { get; set; } = new CalendarDay();
         #endregion
 
         #region Commands
@@ -21,13 +23,10 @@ namespace XCalendarMauiSample.ViewModels
         #endregion
 
         #region Constructors
-        public UsingCalendarDayViewExampleViewModel()
+        public CustomisingADayExampleViewModel()
         {
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
-
-            Calendar.DaysUpdated += Calendar_DaysUpdated;
-            Calendar.UpdateDay(OutsideCalendarDay, OutsideCalendarDay.DateTime);
         }
         #endregion
 
@@ -39,10 +38,6 @@ namespace XCalendarMauiSample.ViewModels
         public void ChangeDateSelection(DateTime DateTime)
         {
             Calendar?.ChangeDateSelection(DateTime);
-        }
-        private void Calendar_DaysUpdated(object sender, EventArgs e)
-        {
-            Calendar.UpdateDay(OutsideCalendarDay, OutsideCalendarDay.DateTime);
         }
         #endregion
     }

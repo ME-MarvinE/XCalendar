@@ -97,6 +97,9 @@
 	  <Compile Update="Views\UsingCalendarDayViewExamplePage.xaml.cs">
 	    <DependentUpon>Views\UsingCalendarDayViewExamplePage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\CustomisingADayExamplePage.xaml.cs">
+	    <DependentUpon>Views\CustomisingADayExamplePage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -126,6 +129,10 @@
 		</MauiXaml>
 		<MauiXaml Update="Views\UsingCalendarDayViewExamplePage.xaml">
 			<SubType>Designer</SubType>
+		  <Generator></Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\CustomisingADayExamplePage.xaml">
+		  <SubType>Designer</SubType>
 		  <Generator></Generator>
 		</MauiXaml>
 	</ItemGroup>
