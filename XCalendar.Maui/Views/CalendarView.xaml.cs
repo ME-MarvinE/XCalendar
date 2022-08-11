@@ -98,26 +98,6 @@ namespace XCalendar.Maui.Views
             get { return (ControlTemplate)GetValue(NavigationTemplateProperty); }
             set { SetValue(NavigationTemplateProperty, value); }
         }
-        public Color NavigationTextColor
-        {
-            get { return (Color)GetValue(NavigationTextColorProperty); }
-            set { SetValue(NavigationTextColorProperty, value); }
-        }
-        public Color NavigationArrowColor
-        {
-            get { return (Color)GetValue(NavigationArrowColorProperty); }
-            set { SetValue(NavigationArrowColorProperty, value); }
-        }
-        public Color NavigationArrowBackgroundColor
-        {
-            get { return (Color)GetValue(NavigationArrowBackgroundColorProperty); }
-            set { SetValue(NavigationArrowBackgroundColorProperty, value); }
-        }
-        public float NavigationArrowCornerRadius
-        {
-            get { return (float)GetValue(NavigationArrowCornerRadiusProperty); }
-            set { SetValue(NavigationArrowCornerRadiusProperty, value); }
-        }
         /// <summary>
         /// The template used to display a <see cref="ICalendarDay"/>
         /// </summary>
@@ -125,19 +105,6 @@ namespace XCalendar.Maui.Views
         {
             get { return (DataTemplate)GetValue(DayTemplateProperty); }
             set { SetValue(DayTemplateProperty, value); }
-        }
-        /// <summary>
-        /// The height of the view used to display the navigated date and navigation controls.
-        /// </summary>
-        public double NavigationHeightRequest
-        {
-            get { return (double)GetValue(NavigationHeightRequestProperty); }
-            set { SetValue(NavigationHeightRequestProperty, value); }
-        }
-        public Color NavigationBackgroundColor
-        {
-            get { return (Color)GetValue(NavigationBackgroundColorProperty); }
-            set { SetValue(NavigationBackgroundColorProperty, value); }
         }
 
         #region Bindable Properties Initialisers
@@ -157,12 +124,6 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty MonthViewTemplateProperty = BindableProperty.Create(nameof(MonthViewTemplate), typeof(ControlTemplate), typeof(CalendarView));
         public static readonly BindableProperty MonthViewHeightRequestProperty = BindableProperty.Create(nameof(MonthViewHeightRequest), typeof(double), typeof(CalendarView), 300d);
         public static readonly BindableProperty NavigationTemplateProperty = BindableProperty.Create(nameof(NavigationTemplate), typeof(ControlTemplate), typeof(CalendarView));
-        public static readonly BindableProperty NavigationHeightRequestProperty = BindableProperty.Create(nameof(NavigationHeightRequest), typeof(double), typeof(CalendarView), 40d);
-        public static readonly BindableProperty NavigationBackgroundColorProperty = BindableProperty.Create(nameof(NavigationBackgroundColor), typeof(Color), typeof(CalendarView), Color.FromArgb("#FFE00000"));
-        public static readonly BindableProperty NavigationTextColorProperty = BindableProperty.Create(nameof(NavigationTextColor), typeof(Color), typeof(CalendarView), Colors.White);
-        public static readonly BindableProperty NavigationArrowColorProperty = BindableProperty.Create(nameof(NavigationArrowColor), typeof(Color), typeof(CalendarView), Colors.White);
-        public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView), Colors.Transparent);
-        public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 100f);
         #endregion
 
         #endregion

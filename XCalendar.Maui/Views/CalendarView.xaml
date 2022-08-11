@@ -35,74 +35,13 @@
             </x:Array>
         </VerticalStackLayout.Resources>
 
-        <!--#region Navigation-->
-        <ContentView ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}">
-            <HorizontalStackLayout
-                Padding="0,5,0,5"
-                BackgroundColor="{Binding NavigationBackgroundColor, Source={x:Reference MainCalendarView}}"
-                HeightRequest="{Binding NavigationHeightRequest, Source={x:Reference MainCalendarView}}">
-
-                <Border
-                    Padding="5"
-                    BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
-                    HeightRequest="30"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-
-                    <Label
-                        Text="←"
-                        TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
-                        VerticalTextAlignment="End"
-                        FontAttributes="Bold"
-                        FontSize="30"/>
-
-                    <Border.StrokeShape>
-                        <Ellipse/>
-                    </Border.StrokeShape>
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
-                    </Border.GestureRecognizers>
-
-                </Border>
-
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="18"
-                    HorizontalTextAlignment="Center"
-                    Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"
-                    TextColor="{Binding NavigationTextColor, Source={x:Reference MainCalendarView}}"
-                    VerticalTextAlignment="Center"/>
-
-                <Border
-                    Padding="5"
-                    BackgroundColor="{Binding NavigationArrowBackgroundColor, Source={x:Reference MainCalendarView}}"
-                    HeightRequest="30"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="Center"
-                    WidthRequest="30">
-
-                    <Border.StrokeShape>
-                        <Ellipse/>
-                    </Border.StrokeShape>
-
-                    <Label
-                        Text="→"
-                        TextColor="{Binding NavigationArrowColor, Source={x:Reference MainCalendarView}}"
-                        VerticalTextAlignment="End"
-                        FontAttributes="Bold"
-                        FontSize="30"/>
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference MainCalendarView}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"/>
-                    </Border.GestureRecognizers>
-                    
-                </Border>
-
-            </HorizontalStackLayout>
-        </ContentView>
-        <!--#endregion-->
+        <xc:NavigationView
+            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:Reference MainCalendarView}}"
+            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"
+            ControlTemplate="{Binding NavigationTemplate, Source={x:Reference MainCalendarView}}"
+            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:Reference MainCalendarView}}"
+            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference MainCalendarView}}"
+            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference MainCalendarView}}"/>
 
         <!--#region DayNames-->
         <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference MainCalendarView}}">
