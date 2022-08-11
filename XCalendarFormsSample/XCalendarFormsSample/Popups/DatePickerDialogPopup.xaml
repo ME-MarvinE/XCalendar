@@ -3,16 +3,16 @@
     x:Class="XCalendarFormsSample.Popups.DatePickerDialogPopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Popups="clr-namespace:XCalendarFormsSample.Popups"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
     xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    xmlns:Popups="clr-namespace:XCalendarFormsSample.Popups"
     x:Name="This"
+    x:DataType="{x:Type Popups:DatePickerDialogPopup}"
     x:TypeArguments="System:DateTime"
-    Size="320, 475"
-    x:DataType="{x:Type Popups:DatePickerDialogPopup}">
+    Size="320, 475">
 
     <StackLayout BackgroundColor="White" Spacing="0">
 
@@ -44,25 +44,37 @@
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ResetNavigatedDateCommand, Source={x:Reference This}}"/>
             </Label.GestureRecognizers>
-            
+
         </Label>
 
         <xc:CalendarView
             x:Name="MainCalendarView"
-            VerticalOptions="FillAndExpand"
             Margin="0,5,0,0"
             Padding="20,0,20,0"
-            MonthViewHeightRequest="246"
-            Days="{Binding Calendar.Days, Source={x:Reference This}}"
-            DaysOfWeek="{Binding Calendar.DayNamesOrder, Source={x:Reference This}}"
-            NavigationArrowColor="{StaticResource ContentTextColor}"
-            NavigationBackgroundColor="Transparent"
-            NavigationTextColor="{StaticResource ContentTextColor}"
-            ForwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
-            ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference This}}"
             BackwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
             BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount, Source={x:Reference This}}"
-            NavigatedDate="{Binding Calendar.NavigatedDate, Source={x:Reference This}}">
+            Days="{Binding Calendar.Days, Source={x:Reference This}}"
+            DaysOfWeek="{Binding Calendar.DayNamesOrder, Source={x:Reference This}}"
+            ForwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
+            ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference This}}"
+            MonthViewHeightRequest="246"
+            NavigatedDate="{Binding Calendar.NavigatedDate, Source={x:Reference This}}"
+            VerticalOptions="FillAndExpand">
+
+            <xc:CalendarView.NavigationTemplate>
+                <ControlTemplate>
+                    <xc:NavigationView
+                        ArrowColor="{StaticResource ContentTextColor}"
+                        BackgroundColor="Transparent"
+                        BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                        BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                        ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                        ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                        Style="{StaticResource DefaultNavigationViewStyle}"
+                        Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
+                        TextColor="{StaticResource ContentTextColor}"/>
+                </ControlTemplate>
+            </xc:CalendarView.NavigationTemplate>
 
             <xc:CalendarView.DayNameTemplate>
                 <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
@@ -78,27 +90,27 @@
             <xc:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                     <xc:CalendarDayView
-                        DateTime="{Binding DateTime}"
-                        IsCurrentMonth="{Binding IsCurrentMonth}"
-                        IsToday="{Binding IsToday}"
-                        IsSelected="{Binding IsSelected}"
-                        IsInvalid="{Binding IsInvalid}"
+                        CurrentMonthBackgroundColor="Transparent"
                         CurrentMonthCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
                         CurrentMonthCommandParameter="{Binding DateTime}"
-                        TodayCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
-                        TodayCommandParameter="{Binding DateTime}"
-                        SelectedCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
-                        SelectedCommandParameter="{Binding DateTime}"
-                        CurrentMonthBackgroundColor="Transparent"
                         CurrentMonthTextColor="Black"
+                        DateTime="{Binding DateTime}"
                         FontSize="12"
                         HeightRequest="41"
-                        OtherMonthTextColor="Transparent"
                         InvalidBackgroundColor="Transparent"
+                        IsCurrentMonth="{Binding IsCurrentMonth}"
+                        IsInvalid="{Binding IsInvalid}"
+                        IsSelected="{Binding IsSelected}"
+                        IsToday="{Binding IsToday}"
+                        OtherMonthTextColor="Transparent"
                         SelectedBackgroundColor="{StaticResource PrimaryColor}"
+                        SelectedCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
+                        SelectedCommandParameter="{Binding DateTime}"
                         SelectedTextColor="White"
                         TodayBackgroundColor="Transparent"
                         TodayBorderColor="Transparent"
+                        TodayCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
+                        TodayCommandParameter="{Binding DateTime}"
                         TodayTextColor="{StaticResource PrimaryColor}"/>
                 </DataTemplate>
             </xc:CalendarView.DayTemplate>
@@ -118,9 +130,9 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="14"
+                    HorizontalTextAlignment="Center"
                     Text="CANCEL"
                     TextColor="{StaticResource PrimaryColor}"
-                    HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"/>
 
                 <Frame.GestureRecognizers>
@@ -137,9 +149,9 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="14"
+                    HorizontalTextAlignment="Center"
                     Text="OK"
                     TextColor="{StaticResource PrimaryColor}"
-                    HorizontalTextAlignment="Center" 
                     VerticalTextAlignment="Center"/>
 
                 <Frame.GestureRecognizers>
