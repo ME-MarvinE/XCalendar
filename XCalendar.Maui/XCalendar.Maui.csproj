@@ -56,6 +56,9 @@
 	  <MauiXaml Update="CalendarView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\MonthView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\NavigationView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

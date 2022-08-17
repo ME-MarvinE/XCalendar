@@ -150,7 +150,7 @@ namespace XCalendar.Forms.Views
             CalendarView Control = (CalendarView)bindable;
             IEnumerable<ICalendarDay> NewDays = (IEnumerable<ICalendarDay>)newValue;
 
-            Control.MainMonthView.ItemsSource = NewDays;
+            Control.MainMonthView.Days = NewDays;
         }
         private static void DaysOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
