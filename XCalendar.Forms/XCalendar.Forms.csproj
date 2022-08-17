@@ -33,9 +33,18 @@
   <ItemGroup>
     <ProjectReference Include="..\XCalendar.Core\XCalendar.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\DayView.xaml.cs">
+      <DependentUpon>DayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DaysView.xaml.cs">
+      <DependentUpon>DaysView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 	
   <ItemGroup>
-    <EmbeddedResource Update="Views\CalendarDayView.xaml">
+    <EmbeddedResource Update="Views\DayView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\CalendarView.xaml">
@@ -43,6 +52,12 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Views\FramedLabel.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\DaysView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NavigationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 

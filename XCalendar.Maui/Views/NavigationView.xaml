@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="XCalendar.Maui.Views.NavigationView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Views="clr-namespace:XCalendar.Maui.Views"
+    x:Name="This"
+    x:DataType="{x:Type Views:NavigationView}">
+
+    <HorizontalStackLayout Padding="0,5,0,5">
+
+        <Border
+            Padding="5"
+            BackgroundColor="{Binding ArrowBackgroundColor, Source={x:Reference This}}"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="Center"
+            WidthRequest="30">
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="30"
+                Text="←"
+                TextColor="{Binding ArrowColor, Source={x:Reference This}}"
+                VerticalTextAlignment="End"/>
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="{Binding ArrowCornerRadius, Source={x:Reference This}}"/>
+            </Border.StrokeShape>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference This}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference This}}"/>
+            </Border.GestureRecognizers>
+
+        </Border>
+
+        <Label
+            CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference This}}"
+            FontAttributes="{Binding FontAttributes, Source={x:Reference This}}"
+            FontFamily="{Binding FontFamily, Source={x:Reference This}}"
+            FontSize="{Binding FontSize, Source={x:Reference This}}"
+            FormattedText="{Binding FormattedText, Source={x:Reference This}}"
+            HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference This}}"
+            LineBreakMode="{Binding LineBreakMode, Source={x:Reference This}}"
+            LineHeight="{Binding LineHeight, Source={x:Reference This}}"
+            MaxLines="{Binding MaxLines, Source={x:Reference This}}"
+            Text="{Binding Text, Source={x:Reference This}}"
+            TextColor="{Binding TextColor, Source={x:Reference This}}"
+            TextDecorations="{Binding TextDecorations, Source={x:Reference This}}"
+            TextTransform="{Binding TextTransform, Source={x:Reference This}}"
+            TextType="{Binding TextType, Source={x:Reference This}}"
+            VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference This}}"/>
+
+        <Border
+            Padding="5"
+            BackgroundColor="{Binding ArrowBackgroundColor, Source={x:Reference This}}"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="Center"
+            WidthRequest="30">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="{Binding ArrowCornerRadius, Source={x:Reference This}}"/>
+            </Border.StrokeShape>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="30"
+                Text="→"
+                TextColor="{Binding ArrowColor, Source={x:Reference This}}"
+                VerticalTextAlignment="End"/>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference This}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference This}}"/>
+            </Border.GestureRecognizers>
+
+        </Border>
+
+    </HorizontalStackLayout>
+
+</ContentView>

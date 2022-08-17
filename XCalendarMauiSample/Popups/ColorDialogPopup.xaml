@@ -46,9 +46,9 @@
             <Border
                 Margin="20,20,20,0"
                 Padding="10,20,10,20"
+                BackgroundColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"
                 Stroke="Black"
-                StrokeThickness="1"
-                BackgroundColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}">
+                StrokeThickness="1">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10"/>
@@ -59,8 +59,7 @@
         </VerticalStackLayout>
 
         <HorizontalStackLayout BackgroundColor="#0080E0">
-            <ContentView
-                Padding="10">
+            <ContentView Padding="10">
 
                 <Label
                     FontSize="18"
@@ -74,8 +73,7 @@
 
             </ContentView>
 
-            <ContentView
-                Padding="10">
+            <ContentView Padding="10">
 
                 <Label
                     FontSize="18"
@@ -89,9 +87,7 @@
 
             </ContentView>
 
-            <ContentView
-                Padding="10"
-                HorizontalOptions="EndAndExpand">
+            <ContentView Padding="10" HorizontalOptions="EndAndExpand">
 
                 <Label
                     FontSize="18"

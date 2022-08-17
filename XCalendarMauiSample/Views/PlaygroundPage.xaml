@@ -496,13 +496,13 @@
                         Grid.Column="0"
                         FontSize="{StaticResource SmallFontSize}"
                         HorizontalTextAlignment="Center"
-                        Text="MonthViewHeightRequest"
+                        Text="DaysViewHeightRequest"
                         VerticalTextAlignment="Center"/>
                     <Editor
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         Keyboard="Numeric"
-                        Text="{Binding MonthViewHeightRequest}"
+                        Text="{Binding DaysViewHeightRequest}"
                         VerticalOptions="End"/>
                 </Grid>
 
@@ -659,7 +659,7 @@
                 <Label
                     BackgroundColor="{StaticResource PrimaryColor}"
                     HorizontalTextAlignment="Center"
-                    Text="CalendarDayView Properties"
+                    Text="DayView Properties"
                     TextColor="{StaticResource PrimaryTextColor}"
                     VerticalTextAlignment="Center"/>
 
@@ -1156,19 +1156,32 @@
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
                 IsVisible="{Binding CalendarIsVisible}"
-                MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
+                DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
-                NavigationArrowBackgroundColor="{Binding NavigationArrowBackgroundColor}"
-                NavigationArrowColor="{Binding NavigationArrowColor}"
-                NavigationBackgroundColor="{Binding NavigationBackgroundColor}"
-                NavigationHeightRequest="{Binding NavigationHeightRequest}"
-                NavigationTextColor="{Binding NavigationTextColor}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
+
+                <xc:CalendarView.NavigationTemplate>
+                    <ControlTemplate>
+                        <xc:NavigationView
+                            ArrowBackgroundColor="{Binding NavigationArrowBackgroundColor}"
+                            ArrowColor="{Binding NavigationArrowColor}"
+                            BackgroundColor="{Binding NavigationBackgroundColor}"
+                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            HeightRequest="{Binding NavigationHeightRequest}"
+                            Style="{StaticResource DefaultNavigationViewStyle}"
+                            Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
+                            TextColor="{Binding NavigationTextColor}"/>
+                    </ControlTemplate>
+                </xc:CalendarView.NavigationTemplate>
 
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                         <ContentView>
-                            <xc:CalendarDayView
+                            <xc:DayView
                                 Margin="2.5"
                                 CurrentMonthBackgroundColor="{Binding BindingContext.DayCurrentMonthBackgroundColor, Source={x:Reference This}}"
                                 CurrentMonthBorderColor="{Binding BindingContext.DayCurrentMonthBorderColor, Source={x:Reference This}}"
@@ -1203,12 +1216,12 @@
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
 
-                <xc:CalendarView.MonthViewTemplate>
+                <xc:CalendarView.DaysViewTemplate>
                     <OnPlatform x:TypeArguments="ControlTemplate">
                         <On Platform="WinUI">
                             <On.Value>
                                 <ControlTemplate>
-                                    <CollectionView HeightRequest="{Binding MonthViewHeightRequest, Source={x:Reference FancyCalendarView}}" ItemsSource="{Binding Calendar.Days, Source={x:Reference FancyCalendarView}}">
+                                    <CollectionView HeightRequest="{Binding DaysViewHeightRequest, Source={x:Reference FancyCalendarView}}" ItemsSource="{Binding Calendar.Days, Source={x:Reference FancyCalendarView}}">
                                         <CollectionView.Style>
                                             <Style TargetType="{x:Type CollectionView}">
                                                 <Setter Property="ItemTemplate">
@@ -1216,7 +1229,7 @@
                                                         <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                                                             <!--  Needs to be nested because collectionview doesn't respect margins  -->
                                                             <ContentView>
-                                                                <xc:CalendarDayView
+                                                                <xc:DayView
                                                                     Margin="2.5"
                                                                     DateTime="{Binding DateTime}"
                                                                     IsCurrentMonth="{Binding IsCurrentMonth}"
@@ -1255,7 +1268,7 @@
                             </On.Value>
                         </On>
                     </OnPlatform>
-                </xc:CalendarView.MonthViewTemplate>
+                </xc:CalendarView.DaysViewTemplate>
 
             </xc:CalendarView>
 

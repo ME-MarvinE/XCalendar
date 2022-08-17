@@ -5,12 +5,12 @@ using XCalendarFormsSample.ViewModels;
 namespace XCalendarFormsSample.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UsingCalendarDayViewExamplePage : ContentPage
+    public partial class UsingDayViewExamplePage : ContentPage
     {
-        public UsingCalendarDayViewExamplePage()
+        public UsingDayViewExamplePage()
         {
             InitializeComponent();
-            BindingContext = new UsingCalendarDayViewExampleViewModel();
+            BindingContext = new UsingDayViewExampleViewModel();
         }
     }
 }

@@ -7,7 +7,7 @@ using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.ViewModels
 {
-    public class UsingCalendarDayViewExampleViewModel : BaseViewModel
+    public class UsingDayViewExampleViewModel : BaseViewModel
     {
         #region Properties
         public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
@@ -24,7 +24,7 @@ namespace XCalendarFormsSample.ViewModels
         #endregion
 
         #region Constructors
-        public UsingCalendarDayViewExampleViewModel()
+        public UsingDayViewExampleViewModel()
         {
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);

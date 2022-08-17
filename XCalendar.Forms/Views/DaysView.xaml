@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="XCalendar.Forms.Views.DaysView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="MainDaysView"
+    x:DataType="{x:Type xc:DaysView}">
+
+    <CollectionView x:Name="MainCollectionView">
+
+        <CollectionView.Resources>
+            <System:Boolean x:Key="TrueValue">True</System:Boolean>
+
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
+        </CollectionView.Resources>
+
+        <CollectionView.Style>
+            <Style TargetType="{x:Type CollectionView}">
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
+                            <!--  Needs to be nested because collectionview doesn't respect margins  -->
+                            <ContentView>
+                                <xc:DayView
+                                    Margin="2.5"
+                                    DateTime="{Binding DateTime}"
+                                    IsCurrentMonth="{Binding IsCurrentMonth}"
+                                    IsInvalid="{Binding IsInvalid}"
+                                    IsSelected="{Binding IsSelected}"
+                                    IsToday="{Binding IsToday}"/>
+                            </ContentView>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding DayTemplate, Source={x:Reference MainDaysView}, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                        TargetType="{x:Type CollectionView}"
+                        Value="{StaticResource TrueValue}">
+                        <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference MainDaysView}}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </CollectionView.Style>
+
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical" Span="{Binding DaysOfWeek.Count, Source={x:Reference MainDaysView}}"/>
+        </CollectionView.ItemsLayout>
+
+    </CollectionView>
+
+</ContentView>

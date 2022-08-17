@@ -40,13 +40,17 @@
         <x:Boolean x:Key="FalseValue">False</x:Boolean>
 
         <Style x:Key="DefaultCalendarViewStyle" TargetType="{x:Type xc:CalendarView}">
-            <Setter Property="NavigationBackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
-            <Setter Property="NavigationArrowColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
-            <Setter Property="NavigationTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
             <Setter Property="BackgroundColor" Value="{StaticResource CalendarBackgroundColor}"/>
         </Style>
 
-        <Style x:Key="DefaultDayViewStyle" TargetType="{x:Type xc:CalendarDayView}">
+        <Style x:Key="DefaultNavigationViewStyle" TargetType="{x:Type xc:NavigationView}">
+            <Setter Property="BackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="ArrowColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+            <Setter Property="TextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+            <Setter Property="HeightRequest" Value="50"/>
+        </Style>
+
+        <Style x:Key="DefaultDayViewStyle" TargetType="{x:Type xc:DayView}">
             <Setter Property="CurrentMonthTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
             <Setter Property="TodayTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
             <Setter Property="TodayBorderColor" Value="{StaticResource CalendarPrimaryColor}"/>

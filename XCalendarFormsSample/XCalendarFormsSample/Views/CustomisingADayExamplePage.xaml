@@ -20,14 +20,26 @@
             DaysOfWeek="{Binding Calendar.DayNamesOrder}"
             ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
             ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
-            MonthViewHeightRequest="320"
+            DaysViewHeightRequest="320"
             NavigatedDate="{Binding Calendar.NavigatedDate}"
             Style="{StaticResource DefaultCalendarViewStyle}">
+
+            <xc:CalendarView.NavigationTemplate>
+                <ControlTemplate>
+                    <xc:NavigationView
+                        BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
+                        BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                        ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
+                        ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                        Style="{StaticResource DefaultNavigationViewStyle}"
+                        Text="{Binding Text, Source={RelativeSource TemplatedParent}}"/>
+                </ControlTemplate>
+            </xc:CalendarView.NavigationTemplate>
 
             <xc:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                     <ContentView>
-                        <xc:CalendarDayView
+                        <xc:DayView
                             Margin="2.5"
                             CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                             CurrentMonthCommandParameter="{Binding DateTime}"

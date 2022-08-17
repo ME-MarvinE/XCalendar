@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <xc:FramedLabel
-    x:Class="XCalendar.Forms.Views.CalendarDayView"
+    x:Class="XCalendar.Forms.Views.DayView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
-    x:Name="MainCalendarDayView"
+    x:Name="MainDayView"
     Padding="0"
-    x:DataType="{x:Type xc:CalendarDayView}"
+    x:DataType="{x:Type xc:DayView}"
     CornerRadius="100"
     HasShadow="False"
     HeightRequest="45"
-    Text="{Binding DateTime.Day, Source={x:Reference MainCalendarDayView}}"
+    Text="{Binding DateTime.Day, Source={x:Reference MainDayView}}"
     WidthRequest="45">
 
     <xc:FramedLabel.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainCalendarDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainCalendarDayView}}"/>
+        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainDayView}}"/>
     </xc:FramedLabel.GestureRecognizers>
 
 </xc:FramedLabel>

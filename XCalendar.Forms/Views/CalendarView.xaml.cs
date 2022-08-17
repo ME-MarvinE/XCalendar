@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XCalendar.Core.Extensions;
 using XCalendar.Core.Interfaces;
-using XCalendar.Core.Models;
 
 namespace XCalendar.Forms.Views
 {
@@ -86,18 +82,18 @@ namespace XCalendar.Forms.Views
         /// <summary>
         /// The template used to display the <see cref="Days"/>.
         /// </summary>
-        public ControlTemplate MonthViewTemplate
+        public ControlTemplate DaysViewTemplate
         {
-            get { return (ControlTemplate)GetValue(MonthViewTemplateProperty); }
-            set { SetValue(MonthViewTemplateProperty, value); }
+            get { return (ControlTemplate)GetValue(DaysViewTemplateProperty); }
+            set { SetValue(DaysViewTemplateProperty, value); }
         }
         /// <summary>
         /// The height of the view used to display the <see cref="Days"/>
         /// </summary>
-        public double MonthViewHeightRequest
+        public double DaysViewHeightRequest
         {
-            get { return (double)GetValue(MonthViewHeightRequestProperty); }
-            set { SetValue(MonthViewHeightRequestProperty, value); }
+            get { return (double)GetValue(DaysViewHeightRequestProperty); }
+            set { SetValue(DaysViewHeightRequestProperty, value); }
         }
         /// <summary>
         /// The template used to display the view for navigating the calendar.
@@ -107,26 +103,6 @@ namespace XCalendar.Forms.Views
             get { return (ControlTemplate)GetValue(NavigationTemplateProperty); }
             set { SetValue(NavigationTemplateProperty, value); }
         }
-        public Color NavigationTextColor
-        {
-            get { return (Color)GetValue(NavigationTextColorProperty); }
-            set { SetValue(NavigationTextColorProperty, value); }
-        }
-        public Color NavigationArrowColor
-        {
-            get { return (Color)GetValue(NavigationArrowColorProperty); }
-            set { SetValue(NavigationArrowColorProperty, value); }
-        }
-        public Color NavigationArrowBackgroundColor
-        {
-            get { return (Color)GetValue(NavigationArrowBackgroundColorProperty); }
-            set { SetValue(NavigationArrowBackgroundColorProperty, value); }
-        }
-        public float NavigationArrowCornerRadius
-        {
-            get { return (float)GetValue(NavigationArrowCornerRadiusProperty); }
-            set { SetValue(NavigationArrowCornerRadiusProperty, value); }
-        }
         /// <summary>
         /// The template used to display a <see cref="ICalendarDay"/>
         /// </summary>
@@ -134,19 +110,6 @@ namespace XCalendar.Forms.Views
         {
             get { return (DataTemplate)GetValue(DayTemplateProperty); }
             set { SetValue(DayTemplateProperty, value); }
-        }
-        /// <summary>
-        /// The height of the view used to display the navigated date and navigation controls.
-        /// </summary>
-        public double NavigationHeightRequest
-        {
-            get { return (double)GetValue(NavigationHeightRequestProperty); }
-            set { SetValue(NavigationHeightRequestProperty, value); }
-        }
-        public Color NavigationBackgroundColor
-        {
-            get { return (Color)GetValue(NavigationBackgroundColorProperty); }
-            set { SetValue(NavigationBackgroundColorProperty, value); }
         }
 
         #region Bindable Properties Initialisers
@@ -163,15 +126,9 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty DayNameTemplateProperty = BindableProperty.Create(nameof(DayNameTemplate), typeof(DataTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNameVerticalSpacingProperty = BindableProperty.Create(nameof(DayNameVerticalSpacing), typeof(double), typeof(CalendarView));
         public static readonly BindableProperty DayNameHorizontalSpacingProperty = BindableProperty.Create(nameof(DayNameHorizontalSpacing), typeof(double), typeof(CalendarView));
-        public static readonly BindableProperty MonthViewTemplateProperty = BindableProperty.Create(nameof(MonthViewTemplate), typeof(ControlTemplate), typeof(CalendarView));
-        public static readonly BindableProperty MonthViewHeightRequestProperty = BindableProperty.Create(nameof(MonthViewHeightRequest), typeof(double), typeof(CalendarView), 300d);
+        public static readonly BindableProperty DaysViewTemplateProperty = BindableProperty.Create(nameof(DaysViewTemplate), typeof(ControlTemplate), typeof(CalendarView));
+        public static readonly BindableProperty DaysViewHeightRequestProperty = BindableProperty.Create(nameof(DaysViewHeightRequest), typeof(double), typeof(CalendarView), 300d);
         public static readonly BindableProperty NavigationTemplateProperty = BindableProperty.Create(nameof(NavigationTemplate), typeof(ControlTemplate), typeof(CalendarView));
-        public static readonly BindableProperty NavigationHeightRequestProperty = BindableProperty.Create(nameof(NavigationHeightRequest), typeof(double), typeof(CalendarView), 40d);
-        public static readonly BindableProperty NavigationBackgroundColorProperty = BindableProperty.Create(nameof(NavigationBackgroundColor), typeof(Color), typeof(CalendarView), Color.FromHex("#E00000"));
-        public static readonly BindableProperty NavigationTextColorProperty = BindableProperty.Create(nameof(NavigationTextColor), typeof(Color), typeof(CalendarView), Color.White);
-        public static readonly BindableProperty NavigationArrowColorProperty = BindableProperty.Create(nameof(NavigationArrowColor), typeof(Color), typeof(CalendarView), Color.White);
-        public static readonly BindableProperty NavigationArrowBackgroundColorProperty = BindableProperty.Create(nameof(NavigationArrowBackgroundColor), typeof(Color), typeof(CalendarView), Color.Transparent);
-        public static readonly BindableProperty NavigationArrowCornerRadiusProperty = BindableProperty.Create(nameof(NavigationArrowCornerRadius), typeof(float), typeof(CalendarView), 100f);
         #endregion
 
         #endregion
@@ -193,7 +150,7 @@ namespace XCalendar.Forms.Views
             CalendarView Control = (CalendarView)bindable;
             IEnumerable<ICalendarDay> NewDays = (IEnumerable<ICalendarDay>)newValue;
 
-            Control.MainMonthView.ItemsSource = NewDays;
+            Control.MainDaysView.Days = NewDays;
         }
         private static void DaysOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
