@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentView
-    x:Class="XCalendar.Maui.Views.MonthView"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    x:Class="XCalendar.Forms.Views.DaysView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Converters="clr-namespace:XCalendar.Maui.Converters"
+    xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:xc="clr-namespace:XCalendar.Maui.Views"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
-    x:Name="MainMonthView"
-    x:DataType="{x:Type xc:MonthView}">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="MainDaysView"
+    x:DataType="{x:Type xc:DaysView}">
 
     <CollectionView x:Name="MainCollectionView">
 
         <CollectionView.Resources>
             <System:Boolean x:Key="TrueValue">True</System:Boolean>
 
-            <mct:IsNotEqualConverter x:Key="IsNotEqualConverter"/>
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
         </CollectionView.Resources>
 
         <CollectionView.Style>
@@ -40,17 +40,17 @@
 
                 <Style.Triggers>
                     <DataTrigger
-                        Binding="{Binding DayTemplate, Source={x:Reference MainMonthView}, Converter={StaticResource IsNotEqualConverter}, ConverterParameter={x:Null}}"
+                        Binding="{Binding DayTemplate, Source={x:Reference MainDaysView}, Converter={StaticResource IsNotNullOrEmptyConverter}}"
                         TargetType="{x:Type CollectionView}"
                         Value="{StaticResource TrueValue}">
-                        <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference MainMonthView}}"/>
+                        <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference MainDaysView}}"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </CollectionView.Style>
 
         <CollectionView.ItemsLayout>
-            <GridItemsLayout Orientation="Vertical" Span="{Binding DaysOfWeek.Count, Source={x:Reference MainMonthView}}"/>
+            <GridItemsLayout Orientation="Vertical" Span="{Binding DaysOfWeek.Count, Source={x:Reference MainDaysView}}"/>
         </CollectionView.ItemsLayout>
 
     </CollectionView>

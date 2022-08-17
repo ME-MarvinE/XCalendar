@@ -47,6 +47,9 @@
 	  <Compile Update="Views\BorderedLabel.xaml.cs">
 	    <DependentUpon>BorderedLabel.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\DaysView.xaml.cs">
+	    <DependentUpon>DaysView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -56,7 +59,7 @@
 	  <MauiXaml Update="CalendarView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\MonthView.xaml">
+	  <MauiXaml Update="Views\DaysView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\NavigationView.xaml">

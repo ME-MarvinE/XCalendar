@@ -64,7 +64,7 @@
 
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type Models:EventDay}">
-                        <!--  ContentView so that the margin is respected by the MonthView  -->
+                        <!--  ContentView so that the margin is respected by the DaysView  -->
                         <ContentView>
                             <xc:CalendarDayView
                                 Margin="2.5"

@@ -2,7 +2,7 @@ using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Maui.Views
 {
-    public partial class MonthView : ContentView
+    public partial class DaysView : ContentView
     {
         #region Properties
 
@@ -32,10 +32,10 @@ namespace XCalendar.Maui.Views
         }
 
         #region Bindable Properties Initialisers
-        public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(MonthView), DateTime.Today);
-        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<ICalendarDay>), typeof(MonthView), propertyChanged: DaysPropertyChanged);
-        public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList<DayOfWeek>), typeof(MonthView));
-        public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(MonthView));
+        public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(DaysView), DateTime.Today);
+        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<ICalendarDay>), typeof(DaysView), propertyChanged: DaysPropertyChanged);
+        public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList<DayOfWeek>), typeof(DaysView));
+        public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(DaysView));
         #endregion
 
         #endregion
@@ -43,7 +43,7 @@ namespace XCalendar.Maui.Views
         #endregion
 
         #region Constructors
-        public MonthView()
+        public DaysView()
         {
             InitializeComponent();
         }
@@ -54,7 +54,7 @@ namespace XCalendar.Maui.Views
         #region Bindable Properties Methods
         private static void DaysPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            MonthView Control = (MonthView)bindable;
+            DaysView Control = (DaysView)bindable;
             IEnumerable<ICalendarDay> NewDays = (IEnumerable<ICalendarDay>)newValue;
 
             Control.MainCollectionView.ItemsSource = NewDays;

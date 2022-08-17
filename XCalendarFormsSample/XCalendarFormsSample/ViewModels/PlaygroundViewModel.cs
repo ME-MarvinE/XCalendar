@@ -32,7 +32,7 @@ namespace XCalendarFormsSample.ViewModels
             BackwardsNavigationAmount = -1
         };
         public bool CalendarIsVisible { get; set; } = true;
-        public double MonthViewHeightRequest { get; set; } = 300;
+        public double DaysViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
         public double NavigationHeightRequest { get; set; } = 50;
         public double DayHeightRequest { get; set; } = 45;

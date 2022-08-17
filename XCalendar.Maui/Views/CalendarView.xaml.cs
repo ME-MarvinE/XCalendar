@@ -77,18 +77,18 @@ namespace XCalendar.Maui.Views
         /// <summary>
         /// The template used to display the <see cref="Days"/>.
         /// </summary>
-        public ControlTemplate MonthViewTemplate
+        public ControlTemplate DaysViewTemplate
         {
-            get { return (ControlTemplate)GetValue(MonthViewTemplateProperty); }
-            set { SetValue(MonthViewTemplateProperty, value); }
+            get { return (ControlTemplate)GetValue(DaysViewTemplateProperty); }
+            set { SetValue(DaysViewTemplateProperty, value); }
         }
         /// <summary>
         /// The height of the view used to display the <see cref="Days"/>
         /// </summary>
-        public double MonthViewHeightRequest
+        public double DaysViewHeightRequest
         {
-            get { return (double)GetValue(MonthViewHeightRequestProperty); }
-            set { SetValue(MonthViewHeightRequestProperty, value); }
+            get { return (double)GetValue(DaysViewHeightRequestProperty); }
+            set { SetValue(DaysViewHeightRequestProperty, value); }
         }
         /// <summary>
         /// The template used to display the view for navigating the calendar.
@@ -121,8 +121,8 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty DayNameTemplateProperty = BindableProperty.Create(nameof(DayNameTemplate), typeof(DataTemplate), typeof(CalendarView));
         public static readonly BindableProperty DayNameVerticalSpacingProperty = BindableProperty.Create(nameof(DayNameVerticalSpacing), typeof(double), typeof(CalendarView));
         public static readonly BindableProperty DayNameHorizontalSpacingProperty = BindableProperty.Create(nameof(DayNameHorizontalSpacing), typeof(double), typeof(CalendarView));
-        public static readonly BindableProperty MonthViewTemplateProperty = BindableProperty.Create(nameof(MonthViewTemplate), typeof(ControlTemplate), typeof(CalendarView));
-        public static readonly BindableProperty MonthViewHeightRequestProperty = BindableProperty.Create(nameof(MonthViewHeightRequest), typeof(double), typeof(CalendarView), 300d);
+        public static readonly BindableProperty DaysViewTemplateProperty = BindableProperty.Create(nameof(DaysViewTemplate), typeof(ControlTemplate), typeof(CalendarView));
+        public static readonly BindableProperty DaysViewHeightRequestProperty = BindableProperty.Create(nameof(DaysViewHeightRequest), typeof(double), typeof(CalendarView), 300d);
         public static readonly BindableProperty NavigationTemplateProperty = BindableProperty.Create(nameof(NavigationTemplate), typeof(ControlTemplate), typeof(CalendarView));
         #endregion
 
@@ -145,7 +145,7 @@ namespace XCalendar.Maui.Views
             CalendarView Control = (CalendarView)bindable;
             IEnumerable<ICalendarDay> NewDays = (IEnumerable<ICalendarDay>)newValue;
 
-            Control.MainMonthView.Days = NewDays;
+            Control.MainDaysView.Days = NewDays;
         }
         private static void DaysOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {

@@ -20,7 +20,7 @@
             DaysOfWeek="{Binding Calendar.DayNamesOrder}"
             ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
             ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
-            MonthViewHeightRequest="320"
+            DaysViewHeightRequest="320"
             NavigatedDate="{Binding Calendar.NavigatedDate}"
             Style="{StaticResource DefaultCalendarViewStyle}">
 

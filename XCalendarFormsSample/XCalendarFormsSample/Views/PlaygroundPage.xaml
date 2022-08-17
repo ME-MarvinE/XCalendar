@@ -499,13 +499,13 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="MonthViewHeightRequest"
+                            Text="DaysViewHeightRequest"
                             VerticalTextAlignment="Center"/>
                         <Editor
                             Grid.Column="1"
                             HorizontalOptions="Center"
                             Keyboard="Numeric"
-                            Text="{Binding MonthViewHeightRequest}"
+                            Text="{Binding DaysViewHeightRequest}"
                             VerticalOptions="End"/>
                     </Grid>
 
@@ -1099,7 +1099,7 @@
                     ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                     ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
                     IsVisible="{Binding CalendarIsVisible}"
-                    MonthViewHeightRequest="{Binding MonthViewHeightRequest}"
+                    DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                     NavigatedDate="{Binding Calendar.NavigatedDate}"
                     Style="{StaticResource DefaultCalendarViewStyle}">
 
