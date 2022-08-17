@@ -38,9 +38,9 @@ namespace XCalendarMauiSample.ViewModels
             },
             new Example()
             {
-                Page = new UsingCalendarDayViewExamplePage(),
-                Title = $"Using {nameof(CalendarDayView)}",
-                Description = $"How to use the {nameof(CalendarDayView)} control.",
+                Page = new UsingDayViewExamplePage(),
+                Title = $"Using {nameof(DayView)}",
+                Description = $"How to use the {nameof(DayView)} control.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "DayTemplate" },

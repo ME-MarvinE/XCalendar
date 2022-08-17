@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="XCalendarFormsSample.Views.UsingCalendarDayViewExamplePage"
+    x:Class="XCalendarFormsSample.Views.UsingDayViewExamplePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     x:Name="This"
-    Title="Using CalendarDayView"
-    x:DataType="{x:Type ViewModels:UsingCalendarDayViewExampleViewModel}"
+    Title="Using DayView"
+    x:DataType="{x:Type ViewModels:UsingDayViewExampleViewModel}"
     Style="{StaticResource DefaultPageStyle}">
 
     <ScrollView>
@@ -41,7 +41,7 @@
                     <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                         <ContentView>
                             <!--  Inside the CalendarView  -->
-                            <xc:CalendarDayView
+                            <xc:DayView
                                 Margin="2.5"
                                 CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                 CurrentMonthCommandParameter="{Binding DateTime}"
@@ -71,7 +71,7 @@
             <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
 
                 <!--  Outside the CalendarView  -->
-                <xc:CalendarDayView
+                <xc:DayView
                     Margin="0,5,0,5"
                     CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                     CurrentMonthCommandParameter="{Binding OutsideCalendarDay.DateTime}"

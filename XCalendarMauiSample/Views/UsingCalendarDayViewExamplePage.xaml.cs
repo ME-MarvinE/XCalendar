@@ -2,12 +2,12 @@
 
 namespace XCalendarMauiSample.Views
 {
-    public partial class UsingCalendarDayViewExamplePage : ContentPage
+    public partial class UsingDayViewExamplePage : ContentPage
     {
-        public UsingCalendarDayViewExamplePage()
+        public UsingDayViewExamplePage()
         {
             InitializeComponent();
-            BindingContext = new UsingCalendarDayViewExampleViewModel();
+            BindingContext = new UsingDayViewExampleViewModel();
         }
     }
 }

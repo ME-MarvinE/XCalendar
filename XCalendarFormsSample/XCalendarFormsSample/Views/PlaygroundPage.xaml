@@ -647,7 +647,7 @@
                     <Label
                         BackgroundColor="{StaticResource PrimaryColor}"
                         HorizontalTextAlignment="Center"
-                        Text="CalendarDayView Properties"
+                        Text="DayView Properties"
                         TextColor="{StaticResource PrimaryTextColor}"
                         VerticalTextAlignment="Center"/>
 
@@ -1124,7 +1124,7 @@
                     <xc:CalendarView.DayTemplate>
                         <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                             <ContentView>
-                                <xc:CalendarDayView
+                                <xc:DayView
                                     Margin="2.5"
                                     CurrentMonthBackgroundColor="{Binding BindingContext.DayCurrentMonthBackgroundColor, Source={x:Reference This}}"
                                     CurrentMonthBorderColor="{Binding BindingContext.DayCurrentMonthBorderColor, Source={x:Reference This}}"

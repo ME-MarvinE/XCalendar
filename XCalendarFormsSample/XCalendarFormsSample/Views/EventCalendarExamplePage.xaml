@@ -66,7 +66,7 @@
                     <DataTemplate x:DataType="{x:Type Models:EventDay}">
                         <!--  ContentView so that the margin is respected by the DaysView  -->
                         <ContentView>
-                            <xc:CalendarDayView
+                            <xc:DayView
                                 Margin="2.5"
                                 CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                 CurrentMonthCommandParameter="{Binding DateTime}"
@@ -82,7 +82,7 @@
                                 TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                 TodayCommandParameter="{Binding DateTime}">
 
-                                <xc:CalendarDayView.ControlTemplate>
+                                <xc:DayView.ControlTemplate>
                                     <ControlTemplate>
                                         <!--  Using a Grid to stack views on the z axis  -->
                                         <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
@@ -131,9 +131,9 @@
 
                                         </Grid>
                                     </ControlTemplate>
-                                </xc:CalendarDayView.ControlTemplate>
+                                </xc:DayView.ControlTemplate>
 
-                            </xc:CalendarDayView>
+                            </xc:DayView>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>

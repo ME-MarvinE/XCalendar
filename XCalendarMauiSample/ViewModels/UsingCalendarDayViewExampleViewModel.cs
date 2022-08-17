@@ -4,7 +4,7 @@ using XCalendar.Core.Models;
 
 namespace XCalendarMauiSample.ViewModels
 {
-    public class UsingCalendarDayViewExampleViewModel : BaseViewModel
+    public class UsingDayViewExampleViewModel : BaseViewModel
     {
         #region Properties
         public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
@@ -21,7 +21,7 @@ namespace XCalendarMauiSample.ViewModels
         #endregion
 
         #region Constructors
-        public UsingCalendarDayViewExampleViewModel()
+        public UsingDayViewExampleViewModel()
         {
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);

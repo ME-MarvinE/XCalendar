@@ -50,7 +50,7 @@
             <Setter Property="HeightRequest" Value="50"/>
         </Style>
 
-        <Style x:Key="DefaultDayViewStyle" TargetType="{x:Type xc:CalendarDayView}">
+        <Style x:Key="DefaultDayViewStyle" TargetType="{x:Type xc:DayView}">
             <Setter Property="CurrentMonthTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
             <Setter Property="TodayTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
             <Setter Property="TodayBorderColor" Value="{StaticResource CalendarPrimaryColor}"/>
