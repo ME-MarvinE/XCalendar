@@ -86,7 +86,6 @@
             x:Name="MainDaysView"
             ControlTemplate="{Binding DaysViewTemplate, Source={x:Reference MainCalendarView}}"
             DayTemplate="{Binding DayTemplate, Source={x:Reference MainCalendarView}}"
-            Days="{Binding Days, Source={x:Reference MainCalendarView}}"
             DaysOfWeek="{Binding DaysOfWeek, Source={x:Reference MainCalendarView}}"
             HeightRequest="{Binding DaysViewHeightRequest, Source={x:Reference MainCalendarView}}"
             NavigatedDate="{Binding NavigatedDate, Source={x:Reference MainCalendarView}}"/>

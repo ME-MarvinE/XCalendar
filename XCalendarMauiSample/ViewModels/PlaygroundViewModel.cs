@@ -10,7 +10,6 @@ namespace XCalendarMauiSample.ViewModels
         #region Properties
         public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
         {
-            SelectedDates = new ObservableRangeCollection<DateTime>(),
             NavigatedDate = DateTime.Today,
             NavigationLowerBound = DateTime.Today.AddYears(-2),
             NavigationUpperBound = DateTime.Today.AddYears(2),

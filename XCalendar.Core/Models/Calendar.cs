@@ -32,7 +32,7 @@ namespace XCalendar.Core.Models
         private int _Rows = 6;
         private NavigationTimeUnit _NavigationTimeUnit = NavigationTimeUnit.Month;
         private PageStartMode _PageStartMode = PageStartMode.FirstDayOfMonth;
-        private ReadOnlyObservableCollection<DayOfWeek> _DayNamesOrder;
+        private ObservableRangeCollection<DayOfWeek> _DayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
         private int _ForwardsNavigationAmount = 1;
         private int _BackwardsNavigationAmount = -1;
         private DateTime? _RangeSelectionStart;
@@ -362,13 +362,13 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// The order to display the days of the week in.
         /// </summary>
-        public ReadOnlyObservableCollection<DayOfWeek> DayNamesOrder
+        public ObservableRangeCollection<DayOfWeek> DayNamesOrder
         {
             get
             {
                 return _DayNamesOrder;
             }
-            protected set
+            set
             {
                 if (_DayNamesOrder != value)
                 {
@@ -476,9 +476,29 @@ namespace XCalendar.Core.Models
         #region Constructors
         public Calendar()
         {
-            DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(new ObservableRangeCollection<DayOfWeek>(StartOfWeek.GetWeekAsFirst()));
-            SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
+            if (CustomDayNamesOrder == null)
+            {
+                DayNamesOrder.ReplaceRange(StartOfWeek.GetWeekAsFirst());
+            }
+            else
+            {
+                DayNamesOrder.ReplaceRange(CustomDayNamesOrder);
+            }
 
+            if (DayNamesOrder != null)
+            {
+                DayNamesOrder.CollectionChanged += DayNamesOrder_CollectionChanged;
+            }
+            if (CustomDayNamesOrder != null)
+            {
+                CustomDayNamesOrder.CollectionChanged += CustomDayNamesOrder_CollectionChanged;
+            }
+            if (SelectedDates != null)
+            {
+                SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
+            }
+
+            //Not needed because days are updated in previous lines of code.
             UpdateDays(NavigatedDate);
         }
         #endregion
@@ -859,6 +879,13 @@ namespace XCalendar.Core.Models
         {
             UpdateDays(NavigatedDate);
         }
+        private void CustomDayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!DayNamesOrder.SequenceEqual(CustomDayNamesOrder))
+            {
+                DayNamesOrder.ReplaceRange(CustomDayNamesOrder);
+            }
+        }
         private void OnRowsChanged(int oldValue, int newValue)
         {
             int CoercedRows = CoerceRows(Rows);
@@ -897,7 +924,7 @@ namespace XCalendar.Core.Models
         {
             if (CustomDayNamesOrder == null)
             {
-                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(new ObservableCollection<DayOfWeek>(StartOfWeek.GetWeekAsFirst()));
+                DayNamesOrder.ReplaceRange(StartOfWeek.GetWeekAsFirst());
             }
             else
             {
@@ -930,13 +957,16 @@ namespace XCalendar.Core.Models
         }
         private void OnCustomDayNamesOrderChanged(ObservableRangeCollection<DayOfWeek> oldValue, ObservableRangeCollection<DayOfWeek> newValue)
         {
+            if (oldValue != null) { oldValue.CollectionChanged -= CustomDayNamesOrder_CollectionChanged; }
+            if (newValue != null) { newValue.CollectionChanged += CustomDayNamesOrder_CollectionChanged; }
+
             if (newValue == null)
             {
-                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(new ObservableCollection<DayOfWeek>(StartOfWeek.GetWeekAsFirst()));
+                DayNamesOrder.ReplaceRange(StartOfWeek.GetWeekAsFirst());
             }
-            else
+            else if (!DayNamesOrder.SequenceEqual(newValue))
             {
-                DayNamesOrder = new ReadOnlyObservableCollection<DayOfWeek>(newValue);
+                DayNamesOrder.ReplaceRange(newValue);
             }
         }
         private void OnAutoRowsChanged(bool oldValue, bool newValue)
@@ -947,14 +977,19 @@ namespace XCalendar.Core.Models
         {
             Rows = CoerceRows(Rows);
         }
-        private void OnDayNamesOrderChanged(ReadOnlyObservableCollection<DayOfWeek> oldValue, ReadOnlyObservableCollection<DayOfWeek> newValue)
+        private void OnDayNamesOrderChanged(ObservableRangeCollection<DayOfWeek> oldValue, ObservableRangeCollection<DayOfWeek> newValue)
         {
-            if (newValue == null || newValue.Count == 0) { throw new ArgumentException(nameof(newValue)); }
+            if (newValue == null) { throw new ArgumentNullException(nameof(newValue)); }
+            if (newValue.Count == 0) { throw new ArgumentException(nameof(newValue)); }
 
-            if (oldValue != null) { ((INotifyCollectionChanged)oldValue).CollectionChanged -= DayNamesOrder_CollectionChanged; }
-            if (newValue != null) { ((INotifyCollectionChanged)newValue).CollectionChanged += DayNamesOrder_CollectionChanged; }
+            if (oldValue != null) { oldValue.CollectionChanged -= DayNamesOrder_CollectionChanged; }
+            if (newValue != null) { newValue.CollectionChanged += DayNamesOrder_CollectionChanged; }
 
-            if (oldValue == null || !oldValue.SequenceEqual(newValue))
+            if (CustomDayNamesOrder != null && !CustomDayNamesOrder.SequenceEqual(newValue))
+            {
+                newValue.ReplaceRange(CustomDayNamesOrder);
+            }
+            else if (oldValue == null || !oldValue.SequenceEqual(newValue))
             {
                 UpdateDays(NavigatedDate);
             }
