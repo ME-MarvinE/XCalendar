@@ -4,31 +4,31 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views"
-    x:Name="MainDayView"
+    x:Name="DayView_Unique"
     Padding="0"
     x:DataType="{x:Type xc:DayView}"
     HeightRequest="45"
     WidthRequest="45">
 
     <ContentView.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainDayView}}"/>
+        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference DayView_Unique}}" CommandParameter="{Binding CommandParameter, Source={x:Reference DayView_Unique}}"/>
     </ContentView.GestureRecognizers>
 
     <Label
-        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainDayView}}"
-        FontAttributes="{Binding FontAttributes, Source={x:Reference MainDayView}}"
-        FontFamily="{Binding FontFamily, Source={x:Reference MainDayView}}"
-        FontSize="{Binding FontSize, Source={x:Reference MainDayView}}"
-        FormattedText="{Binding FormattedText, Source={x:Reference MainDayView}}"
-        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainDayView}}"
-        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainDayView}}"
-        LineHeight="{Binding LineHeight, Source={x:Reference MainDayView}}"
-        MaxLines="{Binding MaxLines, Source={x:Reference MainDayView}}"
-        Text="{Binding Text, Source={x:Reference MainDayView}}"
-        TextColor="{Binding TextColor, Source={x:Reference MainDayView}}"
-        TextDecorations="{Binding TextDecorations, Source={x:Reference MainDayView}}"
-        TextTransform="{Binding TextTransform, Source={x:Reference MainDayView}}"
-        TextType="{Binding TextType, Source={x:Reference MainDayView}}"
-        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainDayView}}"/>
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference DayView_Unique}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference DayView_Unique}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference DayView_Unique}}"
+        FontSize="{Binding FontSize, Source={x:Reference DayView_Unique}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference DayView_Unique}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference DayView_Unique}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference DayView_Unique}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference DayView_Unique}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference DayView_Unique}}"
+        Text="{Binding Text, Source={x:Reference DayView_Unique}}"
+        TextColor="{Binding TextColor, Source={x:Reference DayView_Unique}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference DayView_Unique}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference DayView_Unique}}"
+        TextType="{Binding TextType, Source={x:Reference DayView_Unique}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference DayView_Unique}}"/>
 
 </ContentView>

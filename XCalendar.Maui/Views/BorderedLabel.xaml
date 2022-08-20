@@ -4,23 +4,23 @@
        xmlns:xc="clr-namespace:XCalendar.Maui.Views"
        x:Class="XCalendar.Maui.Views.BorderedLabel"
        x:DataType="{x:Type xc:BorderedLabel}"
-       x:Name="MainBorderedLabel">
+       x:Name="BorderedLabel_Unique">
 
     <Label
-        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainBorderedLabel}}"
-        FontAttributes="{Binding FontAttributes, Source={x:Reference MainBorderedLabel}}"
-        FontFamily="{Binding FontFamily, Source={x:Reference MainBorderedLabel}}"
-        FontSize="{Binding FontSize, Source={x:Reference MainBorderedLabel}}"
-        FormattedText="{Binding FormattedText, Source={x:Reference MainBorderedLabel}}"
-        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainBorderedLabel}}"
-        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainBorderedLabel}}"
-        LineHeight="{Binding LineHeight, Source={x:Reference MainBorderedLabel}}"
-        MaxLines="{Binding MaxLines, Source={x:Reference MainBorderedLabel}}"
-        Text="{Binding Text, Source={x:Reference MainBorderedLabel}}"
-        TextColor="{Binding TextColor, Source={x:Reference MainBorderedLabel}}"
-        TextDecorations="{Binding TextDecorations, Source={x:Reference MainBorderedLabel}}"
-        TextTransform="{Binding TextTransform, Source={x:Reference MainBorderedLabel}}"
-        TextType="{Binding TextType, Source={x:Reference MainBorderedLabel}}"
-        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainBorderedLabel}}"/>
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference BorderedLabel_Unique}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference BorderedLabel_Unique}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference BorderedLabel_Unique}}"
+        FontSize="{Binding FontSize, Source={x:Reference BorderedLabel_Unique}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference BorderedLabel_Unique}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference BorderedLabel_Unique}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference BorderedLabel_Unique}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference BorderedLabel_Unique}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference BorderedLabel_Unique}}"
+        Text="{Binding Text, Source={x:Reference BorderedLabel_Unique}}"
+        TextColor="{Binding TextColor, Source={x:Reference BorderedLabel_Unique}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference BorderedLabel_Unique}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference BorderedLabel_Unique}}"
+        TextType="{Binding TextType, Source={x:Reference BorderedLabel_Unique}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference BorderedLabel_Unique}}"/>
 
 </Border>

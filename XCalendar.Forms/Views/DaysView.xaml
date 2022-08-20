@@ -8,7 +8,7 @@
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    x:Name="MainDaysView"
+    x:Name="DaysView_Unique"
     x:DataType="{x:Type xc:DaysView}">
 
     <CollectionView x:Name="MainCollectionView">
@@ -40,17 +40,17 @@
 
                 <Style.Triggers>
                     <DataTrigger
-                        Binding="{Binding DayTemplate, Source={x:Reference MainDaysView}, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                        Binding="{Binding DayTemplate, Source={x:Reference DaysView_Unique}, Converter={StaticResource IsNotNullOrEmptyConverter}}"
                         TargetType="{x:Type CollectionView}"
                         Value="{StaticResource TrueValue}">
-                        <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference MainDaysView}}"/>
+                        <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference DaysView_Unique}}"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </CollectionView.Style>
 
         <CollectionView.ItemsLayout>
-            <GridItemsLayout Orientation="Vertical" Span="{Binding DaysOfWeek.Count, Source={x:Reference MainDaysView}}"/>
+            <GridItemsLayout Orientation="Vertical" Span="{Binding DaysOfWeek.Count, Source={x:Reference DaysView_Unique}}"/>
         </CollectionView.ItemsLayout>
 
     </CollectionView>

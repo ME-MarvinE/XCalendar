@@ -4,17 +4,17 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
-    x:Name="MainDayView"
+    x:Name="DayView_Unique"
     Padding="0"
     x:DataType="{x:Type xc:DayView}"
     CornerRadius="100"
     HasShadow="False"
     HeightRequest="45"
-    Text="{Binding DateTime.Day, Source={x:Reference MainDayView}}"
+    Text="{Binding DateTime.Day, Source={x:Reference DayView_Unique}}"
     WidthRequest="45">
 
     <xc:FramedLabel.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference MainDayView}}" CommandParameter="{Binding CommandParameter, Source={x:Reference MainDayView}}"/>
+        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference DayView_Unique}}" CommandParameter="{Binding CommandParameter, Source={x:Reference DayView_Unique}}"/>
     </xc:FramedLabel.GestureRecognizers>
 
 </xc:FramedLabel>

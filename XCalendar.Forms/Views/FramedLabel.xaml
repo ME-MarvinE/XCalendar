@@ -4,24 +4,24 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
-    x:Name="MainFramedLabel"
+    x:Name="FramedLabel_Unique"
     x:DataType="{x:Type xc:FramedLabel}">
 
     <Label
-        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference MainFramedLabel}}"
-        FontAttributes="{Binding FontAttributes, Source={x:Reference MainFramedLabel}}"
-        FontFamily="{Binding FontFamily, Source={x:Reference MainFramedLabel}}"
-        FontSize="{Binding FontSize, Source={x:Reference MainFramedLabel}}"
-        FormattedText="{Binding FormattedText, Source={x:Reference MainFramedLabel}}"
-        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference MainFramedLabel}}"
-        LineBreakMode="{Binding LineBreakMode, Source={x:Reference MainFramedLabel}}"
-        LineHeight="{Binding LineHeight, Source={x:Reference MainFramedLabel}}"
-        MaxLines="{Binding MaxLines, Source={x:Reference MainFramedLabel}}"
-        Text="{Binding Text, Source={x:Reference MainFramedLabel}}"
-        TextColor="{Binding TextColor, Source={x:Reference MainFramedLabel}}"
-        TextDecorations="{Binding TextDecorations, Source={x:Reference MainFramedLabel}}"
-        TextTransform="{Binding TextTransform, Source={x:Reference MainFramedLabel}}"
-        TextType="{Binding TextType, Source={x:Reference MainFramedLabel}}"
-        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference MainFramedLabel}}"/>
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference FramedLabel_Unique}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference FramedLabel_Unique}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference FramedLabel_Unique}}"
+        FontSize="{Binding FontSize, Source={x:Reference FramedLabel_Unique}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference FramedLabel_Unique}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference FramedLabel_Unique}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference FramedLabel_Unique}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference FramedLabel_Unique}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference FramedLabel_Unique}}"
+        Text="{Binding Text, Source={x:Reference FramedLabel_Unique}}"
+        TextColor="{Binding TextColor, Source={x:Reference FramedLabel_Unique}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference FramedLabel_Unique}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference FramedLabel_Unique}}"
+        TextType="{Binding TextType, Source={x:Reference FramedLabel_Unique}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference FramedLabel_Unique}}"/>
 
 </Frame>
