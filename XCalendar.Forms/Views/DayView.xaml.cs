@@ -253,11 +253,6 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty SelectedCommandParameterProperty = BindableProperty.Create(nameof(SelectedCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(DayView));
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(DayView));
-
-        private static object thief(BindableObject bindable, object value)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
         #endregion
