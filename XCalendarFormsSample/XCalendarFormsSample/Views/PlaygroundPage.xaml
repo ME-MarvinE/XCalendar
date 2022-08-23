@@ -740,33 +740,6 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="CurrentMonthBorderColor"
-                            VerticalTextAlignment="Center"/>
-
-                        <Frame
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{Binding DayCurrentMonthBorderColor}"
-                            BorderColor="Black"
-                            CornerRadius="10"
-                            HasShadow="False"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-
-                            <BoxView HeightRequest="40" WidthRequest="40"/>
-
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowDayCurrentMonthBorderColorDialogCommand}"/>
-                            </Frame.GestureRecognizers>
-
-                        </Frame>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
                             Text="OtherMonthBackgroundColor"
                             VerticalTextAlignment="Center"/>
 
@@ -811,33 +784,6 @@
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ShowDayOtherMonthTextColorDialogCommand}"/>
-                            </Frame.GestureRecognizers>
-
-                        </Frame>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="OtherMonthBorderColor"
-                            VerticalTextAlignment="Center"/>
-
-                        <Frame
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{Binding DayOtherMonthBorderColor}"
-                            BorderColor="Black"
-                            CornerRadius="10"
-                            HasShadow="False"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-
-                            <BoxView HeightRequest="40" WidthRequest="40"/>
-
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowDayOtherMonthBorderColorDialogCommand}"/>
                             </Frame.GestureRecognizers>
 
                         </Frame>
@@ -902,33 +848,6 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="TodayBorderColor"
-                            VerticalTextAlignment="Center"/>
-
-                        <Frame
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{Binding DayTodayBorderColor}"
-                            BorderColor="Black"
-                            CornerRadius="10"
-                            HasShadow="False"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-
-                            <BoxView HeightRequest="40" WidthRequest="40"/>
-
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowDayTodayBorderColorDialogCommand}"/>
-                            </Frame.GestureRecognizers>
-
-                        </Frame>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
                             Text="SelectedBackgroundColor"
                             VerticalTextAlignment="Center"/>
 
@@ -973,33 +892,6 @@
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ShowDaySelectedTextColorDialogCommand}"/>
-                            </Frame.GestureRecognizers>
-
-                        </Frame>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="SelectedBorderColor"
-                            VerticalTextAlignment="Center"/>
-
-                        <Frame
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{Binding DaySelectedBorderColor}"
-                            BorderColor="Black"
-                            CornerRadius="10"
-                            HasShadow="False"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-
-                            <BoxView HeightRequest="40" WidthRequest="40"/>
-
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowDaySelectedBorderColorDialogCommand}"/>
                             </Frame.GestureRecognizers>
 
                         </Frame>
@@ -1059,33 +951,6 @@
                         </Frame>
                     </Grid>
 
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
-                            Text="InvalidBorderColor"
-                            VerticalTextAlignment="Center"/>
-
-                        <Frame
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{Binding DayInvalidBorderColor}"
-                            BorderColor="Black"
-                            CornerRadius="10"
-                            HasShadow="False"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-
-                            <BoxView HeightRequest="40" WidthRequest="40"/>
-
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowDayInvalidBorderColorDialogCommand}"/>
-                            </Frame.GestureRecognizers>
-
-                        </Frame>
-                    </Grid>
-
                 </StackLayout>
 
                 <xc:CalendarView
@@ -1096,10 +961,10 @@
                     DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                     Days="{Binding Calendar.Days}"
                     DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                    DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                     ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                     ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
                     IsVisible="{Binding CalendarIsVisible}"
-                    DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                     NavigatedDate="{Binding Calendar.NavigatedDate}"
                     Style="{StaticResource DefaultCalendarViewStyle}">
 
@@ -1127,31 +992,25 @@
                                 <xc:DayView
                                     Margin="2.5"
                                     CurrentMonthBackgroundColor="{Binding BindingContext.DayCurrentMonthBackgroundColor, Source={x:Reference This}}"
-                                    CurrentMonthBorderColor="{Binding BindingContext.DayCurrentMonthBorderColor, Source={x:Reference This}}"
                                     CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                     CurrentMonthCommandParameter="{Binding DateTime}"
                                     CurrentMonthTextColor="{Binding BindingContext.DayCurrentMonthTextColor, Source={x:Reference This}}"
                                     DateTime="{Binding DateTime}"
-                                    HasShadow="False"
                                     HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                     InvalidBackgroundColor="{Binding BindingContext.DayInvalidBackgroundColor, Source={x:Reference This}}"
-                                    InvalidBorderColor="{Binding BindingContext.DayInvalidBorderColor, Source={x:Reference This}}"
                                     InvalidTextColor="{Binding BindingContext.DayInvalidTextColor, Source={x:Reference This}}"
                                     IsCurrentMonth="{Binding IsCurrentMonth}"
                                     IsInvalid="{Binding IsInvalid}"
                                     IsSelected="{Binding IsSelected}"
                                     IsToday="{Binding IsToday}"
                                     OtherMonthBackgroundColor="{Binding BindingContext.DayOtherMonthBackgroundColor, Source={x:Reference This}}"
-                                    OtherMonthBorderColor="{Binding BindingContext.DayOtherMonthBorderColor, Source={x:Reference This}}"
                                     OtherMonthTextColor="{Binding BindingContext.DayOtherMonthTextColor, Source={x:Reference This}}"
                                     SelectedBackgroundColor="{Binding BindingContext.DaySelectedBackgroundColor, Source={x:Reference This}}"
-                                    SelectedBorderColor="{Binding BindingContext.DaySelectedBorderColor, Source={x:Reference This}}"
                                     SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                     SelectedCommandParameter="{Binding DateTime}"
                                     SelectedTextColor="{Binding BindingContext.DaySelectedTextColor, Source={x:Reference This}}"
                                     Style="{StaticResource DefaultDayViewStyle}"
                                     TodayBackgroundColor="{Binding BindingContext.DayTodayBackgroundColor, Source={x:Reference This}}"
-                                    TodayBorderColor="{Binding BindingContext.DayTodayBorderColor, Source={x:Reference This}}"
                                     TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                     TodayCommandParameter="{Binding DateTime}"
                                     TodayTextColor="{Binding BindingContext.DayTodayTextColor, Source={x:Reference This}}"

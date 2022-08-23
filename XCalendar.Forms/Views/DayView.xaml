@@ -1,20 +1,33 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<xc:FramedLabel
+<ContentView
     x:Class="XCalendar.Forms.Views.DayView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     x:Name="DayView_Unique"
-    Padding="0"
     x:DataType="{x:Type xc:DayView}"
-    CornerRadius="100"
-    HasShadow="False"
     HeightRequest="45"
-    Text="{Binding DateTime.Day, Source={x:Reference DayView_Unique}}"
     WidthRequest="45">
 
-    <xc:FramedLabel.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference DayView_Unique}}" CommandParameter="{Binding CommandParameter, Source={x:Reference DayView_Unique}}"/>
-    </xc:FramedLabel.GestureRecognizers>
+    <Label
+        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference DayView_Unique}}"
+        FontAttributes="{Binding FontAttributes, Source={x:Reference DayView_Unique}}"
+        FontFamily="{Binding FontFamily, Source={x:Reference DayView_Unique}}"
+        FontSize="{Binding FontSize, Source={x:Reference DayView_Unique}}"
+        FormattedText="{Binding FormattedText, Source={x:Reference DayView_Unique}}"
+        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference DayView_Unique}}"
+        LineBreakMode="{Binding LineBreakMode, Source={x:Reference DayView_Unique}}"
+        LineHeight="{Binding LineHeight, Source={x:Reference DayView_Unique}}"
+        MaxLines="{Binding MaxLines, Source={x:Reference DayView_Unique}}"
+        Text="{Binding Text, Source={x:Reference DayView_Unique}}"
+        TextColor="{Binding TextColor, Source={x:Reference DayView_Unique}}"
+        TextDecorations="{Binding TextDecorations, Source={x:Reference DayView_Unique}}"
+        TextTransform="{Binding TextTransform, Source={x:Reference DayView_Unique}}"
+        TextType="{Binding TextType, Source={x:Reference DayView_Unique}}"
+        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference DayView_Unique}}"/>
 
-</xc:FramedLabel>
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference DayView_Unique}}" CommandParameter="{Binding CommandParameter, Source={x:Reference DayView_Unique}}"/>
+    </ContentView.GestureRecognizers>
+
+</ContentView>

@@ -1,17 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
-using XCalendar.Core.Interfaces;
-using XCalendar.Core.Models;
 
 namespace XCalendar.Forms.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DayView : FramedLabel
+    public partial class DayView : ContentView
     {
         #region Properties
 
@@ -86,11 +83,6 @@ namespace XCalendar.Forms.Views
             get { return (Color)GetValue(CurrentMonthBackgroundColorProperty); }
             set { SetValue(CurrentMonthBackgroundColorProperty, value); }
         }
-        public Color CurrentMonthBorderColor
-        {
-            get { return (Color)GetValue(CurrentMonthBorderColorProperty); }
-            set { SetValue(CurrentMonthBorderColorProperty, value); }
-        }
         public ICommand CurrentMonthCommand
         {
             get { return (ICommand)GetValue(CurrentMonthCommandProperty); }
@@ -110,11 +102,6 @@ namespace XCalendar.Forms.Views
         {
             get { return (Color)GetValue(TodayBackgroundColorProperty); }
             set { SetValue(TodayBackgroundColorProperty, value); }
-        }
-        public Color TodayBorderColor
-        {
-            get { return (Color)GetValue(TodayBorderColorProperty); }
-            set { SetValue(TodayBorderColorProperty, value); }
         }
         public ICommand TodayCommand
         {
@@ -136,11 +123,6 @@ namespace XCalendar.Forms.Views
             get { return (Color)GetValue(OtherMonthBackgroundColorProperty); }
             set { SetValue(OtherMonthBackgroundColorProperty, value); }
         }
-        public Color OtherMonthBorderColor
-        {
-            get { return (Color)GetValue(OtherMonthBorderColorProperty); }
-            set { SetValue(OtherMonthBorderColorProperty, value); }
-        }
         public ICommand OtherMonthCommand
         {
             get { return (ICommand)GetValue(OtherMonthCommandProperty); }
@@ -160,11 +142,6 @@ namespace XCalendar.Forms.Views
         {
             get { return (Color)GetValue(InvalidBackgroundColorProperty); }
             set { SetValue(InvalidBackgroundColorProperty, value); }
-        }
-        public Color InvalidBorderColor
-        {
-            get { return (Color)GetValue(InvalidBorderColorProperty); }
-            set { SetValue(InvalidBorderColorProperty, value); }
         }
         public ICommand InvalidCommand
         {
@@ -186,11 +163,6 @@ namespace XCalendar.Forms.Views
             get { return (Color)GetValue(SelectedBackgroundColorProperty); }
             set { SetValue(SelectedBackgroundColorProperty, value); }
         }
-        public Color SelectedBorderColor
-        {
-            get { return (Color)GetValue(SelectedBorderColorProperty); }
-            set { SetValue(SelectedBorderColorProperty, value); }
-        }
         public ICommand SelectedCommand
         {
             get { return (ICommand)GetValue(SelectedCommandProperty); }
@@ -211,48 +183,134 @@ namespace XCalendar.Forms.Views
             get { return (object)GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
+        public TextTransform TextTransform
+        {
+            get { return (TextTransform)GetValue(TextTransformProperty); }
+            set { SetValue(TextTransformProperty, value); }
+        }
+        public FormattedString FormattedText
+        {
+            get { return (FormattedString)GetValue(FormattedTextProperty); }
+            set { SetValue(FormattedTextProperty, value); }
+        }
+        public TextAlignment HorizontalTextAlignment
+        {
+            get { return (TextAlignment)GetValue(HorizontalTextAlignmentProperty); }
+            set { SetValue(HorizontalTextAlignmentProperty, value); }
+        }
+        public LineBreakMode LineBreakMode
+        {
+            get { return (LineBreakMode)GetValue(LineBreakModeProperty); }
+            set { SetValue(LineBreakModeProperty, value); }
+        }
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+        public Color TextColor
+        {
+            get { return (Color)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
+        }
+        public double CharacterSpacing
+        {
+            get { return (double)GetValue(CharacterSpacingProperty); }
+            set { SetValue(CharacterSpacingProperty, value); }
+        }
+        public TextAlignment VerticalTextAlignment
+        {
+            get { return (TextAlignment)GetValue(VerticalTextAlignmentProperty); }
+            set { SetValue(VerticalTextAlignmentProperty, value); }
+        }
+        public FontAttributes FontAttributes
+        {
+            get { return (FontAttributes)GetValue(FontAttributesProperty); }
+            set { SetValue(FontAttributesProperty, value); }
+        }
+        public TextDecorations TextDecorations
+        {
+            get { return (TextDecorations)GetValue(TextDecorationsProperty); }
+            set { SetValue(TextDecorationsProperty, value); }
+        }
+        public string FontFamily
+        {
+            get { return (string)GetValue(FontFamilyProperty); }
+            set { SetValue(FontFamilyProperty, value); }
+        }
+        [Xamarin.Forms.TypeConverter(typeof(FontSizeConverter))]
+        public double FontSize
+        {
+            get { return (double)GetValue(FontSizeProperty); }
+            set { SetValue(FontSizeProperty, value); }
+        }
+        public double LineHeight
+        {
+            get { return (double)GetValue(LineHeightProperty); }
+            set { SetValue(LineHeightProperty, value); }
+        }
+        public int MaxLines
+        {
+            get { return (int)GetValue(MaxLinesProperty); }
+            set { SetValue(MaxLinesProperty, value); }
+        }
+        public TextType TextType
+        {
+            get { return (TextType)GetValue(TextTypeProperty); }
+            set { SetValue(TextTypeProperty, value); }
+        }
         #endregion
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(DayView), System.DateTime.Today, propertyChanged: DateTimePropertyChanged);
-        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(DayState), typeof(DayState), typeof(DayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged, coerceValue: CoerceDayState);
+        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(DayState), typeof(DayState), typeof(DayView), propertyChanged: DayStatePropertyChanged, coerceValue: CoerceDayState);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(DayView), true, propertyChanged: IsCurrentMonthPropertyChanged);
         public static readonly BindableProperty IsOtherMonthProperty = BindableProperty.Create(nameof(IsOtherMonth), typeof(bool), typeof(DayView), propertyChanged: IsOtherMonthPropertyChanged);
         public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(DayView), propertyChanged: IsTodayPropertyChanged);
         public static readonly BindableProperty IsSelectedProperty = BindableProperty.Create(nameof(IsSelected), typeof(bool), typeof(DayView), propertyChanged: IsSelectedPropertyChanged);
         public static readonly BindableProperty IsInvalidProperty = BindableProperty.Create(nameof(IsInvalid), typeof(bool), typeof(DayView), propertyChanged: IsInvalidPropertyChanged);
-        public static readonly BindableProperty IsDayStateCurrentMonthProperty = BindableProperty.Create(nameof(IsDayStateCurrentMonth), typeof(bool), typeof(DayView), true);
+        public static readonly BindableProperty IsDayStateCurrentMonthProperty = BindableProperty.Create(nameof(IsDayStateCurrentMonth), typeof(bool), typeof(DayView));
         public static readonly BindableProperty IsDayStateOtherMonthProperty = BindableProperty.Create(nameof(IsDayStateOtherMonth), typeof(bool), typeof(DayView));
         public static readonly BindableProperty IsDayStateTodayProperty = BindableProperty.Create(nameof(IsDayStateToday), typeof(bool), typeof(DayView));
         public static readonly BindableProperty IsDayStateSelectedProperty = BindableProperty.Create(nameof(IsDayStateSelected), typeof(bool), typeof(DayView));
         public static readonly BindableProperty IsDayStateInvalidProperty = BindableProperty.Create(nameof(IsDayStateInvalid), typeof(bool), typeof(DayView));
         public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(DayView), Color.Black, propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty CurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(CurrentMonthBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty CurrentMonthBorderColorProperty = BindableProperty.Create(nameof(CurrentMonthBorderColor), typeof(Color), typeof(DayView), BorderColorProperty.DefaultValue, propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty CurrentMonthCommandProperty = BindableProperty.Create(nameof(CurrentMonthCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty CurrentMonthCommandParameterProperty = BindableProperty.Create(nameof(CurrentMonthCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty TodayTextColorProperty = BindableProperty.Create(nameof(TodayTextColor), typeof(Color), typeof(DayView), Color.Black, propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty TodayBackgroundColorProperty = BindableProperty.Create(nameof(TodayBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty TodayBorderColorProperty = BindableProperty.Create(nameof(TodayBorderColor), typeof(Color), typeof(DayView), Color.FromHex("#E00000"), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty TodayCommandProperty = BindableProperty.Create(nameof(TodayCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty TodayCommandParameterProperty = BindableProperty.Create(nameof(TodayCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty OtherMonthTextColorProperty = BindableProperty.Create(nameof(OtherMonthTextColor), typeof(Color), typeof(DayView), Color.FromHex("#A0A0A0"), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty OtherMonthBackgroundColorProperty = BindableProperty.Create(nameof(OtherMonthBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty OtherMonthBorderColorProperty = BindableProperty.Create(nameof(OtherMonthBorderColor), typeof(Color), typeof(DayView), BorderColorProperty.DefaultValue, propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty OtherMonthCommandProperty = BindableProperty.Create(nameof(OtherMonthCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty OtherMonthCommandParameterProperty = BindableProperty.Create(nameof(OtherMonthCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty InvalidTextColorProperty = BindableProperty.Create(nameof(InvalidTextColor), typeof(Color), typeof(DayView), Color.FromHex("#FFA0A0"), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty InvalidBackgroundColorProperty = BindableProperty.Create(nameof(InvalidBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty InvalidBorderColorProperty = BindableProperty.Create(nameof(InvalidBorderColor), typeof(Color), typeof(DayView), BorderColorProperty.DefaultValue, propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty InvalidCommandProperty = BindableProperty.Create(nameof(InvalidCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty InvalidCommandParameterProperty = BindableProperty.Create(nameof(InvalidCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(DayView), Color.White, propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty SelectedBackgroundColorProperty = BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(DayView), Color.FromHex("#E00000"), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty SelectedBorderColorProperty = BindableProperty.Create(nameof(SelectedBorderColor), typeof(Color), typeof(DayView), BorderColorProperty.DefaultValue, propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty SelectedCommandProperty = BindableProperty.Create(nameof(SelectedCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty SelectedCommandParameterProperty = BindableProperty.Create(nameof(SelectedCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(DayView));
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(DayView));
+        public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(DayView), Label.CharacterSpacingProperty.DefaultValue);
+        public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(DayView), Label.FontAttributesProperty.DefaultValue);
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(DayView), Label.FontFamilyProperty.DefaultValue);
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(DayView), Label.FontSizeProperty.DefaultValue);
+        public static readonly BindableProperty FormattedTextProperty = BindableProperty.Create(nameof(FormattedText), typeof(FormattedString), typeof(DayView), Label.FormattedTextProperty.DefaultValue);
+        public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(nameof(HorizontalTextAlignment), typeof(TextAlignment), typeof(DayView), TextAlignment.Center);
+        public static readonly BindableProperty LineBreakModeProperty = BindableProperty.Create(nameof(LineBreakMode), typeof(LineBreakMode), typeof(DayView), Label.LineBreakModeProperty.DefaultValue);
+        public static readonly BindableProperty LineHeightProperty = BindableProperty.Create(nameof(LineHeight), typeof(double), typeof(DayView), Label.LineHeightProperty.DefaultValue);
+        public static readonly BindableProperty MaxLinesProperty = BindableProperty.Create(nameof(MaxLines), typeof(int), typeof(DayView), Label.MaxLinesProperty.DefaultValue);
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(DayView), Label.TextProperty.DefaultValue);
+        public static readonly BindableProperty TextDecorationsProperty = BindableProperty.Create(nameof(TextDecorations), typeof(TextDecorations), typeof(DayView), Label.TextDecorationsProperty.DefaultValue);
+        public static readonly BindableProperty TextTransformProperty = BindableProperty.Create(nameof(TextTransform), typeof(TextTransform), typeof(DayView), Label.TextTransformProperty.DefaultValue);
+        public static readonly BindableProperty TextTypeProperty = BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(DayView), Label.TextTypeProperty.DefaultValue);
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(DayView), Label.TextColorProperty.DefaultValue);
+        public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(DayView), TextAlignment.Center);
         #endregion
 
         #endregion
@@ -260,6 +318,9 @@ namespace XCalendar.Forms.Views
         #region Constructors
         public DayView()
         {
+            SetBinding(TextProperty, new Binding(path: "DateTime.Day", source: this));
+            DayState = DayState.CurrentMonth;
+
             InitializeComponent();
         }
         #endregion
@@ -300,7 +361,6 @@ namespace XCalendar.Forms.Views
             {
                 case DayState.CurrentMonth:
                     BackgroundColor = CurrentMonthBackgroundColor;
-                    BorderColor = CurrentMonthBorderColor;
                     TextColor = CurrentMonthTextColor;
                     Command = CurrentMonthCommand;
                     CommandParameter = CurrentMonthCommandParameter;
@@ -308,7 +368,6 @@ namespace XCalendar.Forms.Views
 
                 case DayState.OtherMonth:
                     BackgroundColor = OtherMonthBackgroundColor;
-                    BorderColor = OtherMonthBorderColor;
                     TextColor = OtherMonthTextColor;
                     Command = OtherMonthCommand;
                     CommandParameter = OtherMonthCommandParameter;
@@ -316,7 +375,6 @@ namespace XCalendar.Forms.Views
 
                 case DayState.Today:
                     BackgroundColor = TodayBackgroundColor;
-                    BorderColor = TodayBorderColor;
                     TextColor = TodayTextColor;
                     Command = TodayCommand;
                     CommandParameter = TodayCommandParameter;
@@ -324,7 +382,6 @@ namespace XCalendar.Forms.Views
 
                 case DayState.Selected:
                     BackgroundColor = SelectedBackgroundColor;
-                    BorderColor = SelectedBorderColor;
                     TextColor = SelectedTextColor;
                     Command = SelectedCommand;
                     CommandParameter = SelectedCommandParameter;
@@ -332,7 +389,6 @@ namespace XCalendar.Forms.Views
 
                 case DayState.Invalid:
                     BackgroundColor = InvalidBackgroundColor;
-                    BorderColor = InvalidBorderColor;
                     TextColor = InvalidTextColor;
                     Command = InvalidCommand;
                     CommandParameter = InvalidCommandParameter;

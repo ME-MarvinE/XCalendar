@@ -107,7 +107,6 @@
                         SelectedCommandParameter="{Binding DateTime}"
                         SelectedTextColor="White"
                         TodayBackgroundColor="Transparent"
-                        TodayBorderColor="Transparent"
                         TodayCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
                         TodayCommandParameter="{Binding DateTime}"
                         TodayTextColor="{StaticResource PrimaryColor}"/>
