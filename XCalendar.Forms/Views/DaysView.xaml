@@ -26,13 +26,18 @@
                         <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                             <!--  Needs to be nested because collectionview doesn't respect margins  -->
                             <ContentView>
-                                <xc:DayView
+                                <Frame
                                     Margin="2.5"
-                                    DateTime="{Binding DateTime}"
-                                    IsCurrentMonth="{Binding IsCurrentMonth}"
-                                    IsInvalid="{Binding IsInvalid}"
-                                    IsSelected="{Binding IsSelected}"
-                                    IsToday="{Binding IsToday}"/>
+                                    Padding="0"
+                                    CornerRadius="100"
+                                    HasShadow="False">
+                                    <xc:DayView
+                                        DateTime="{Binding DateTime}"
+                                        IsCurrentMonth="{Binding IsCurrentMonth}"
+                                        IsInvalid="{Binding IsInvalid}"
+                                        IsSelected="{Binding IsSelected}"
+                                        IsToday="{Binding IsToday}"/>
+                                </Frame>
                             </ContentView>
                         </DataTemplate>
                     </Setter.Value>
