@@ -1153,10 +1153,10 @@
                 DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                 Days="{Binding Calendar.Days}"
                 DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
                 IsVisible="{Binding CalendarIsVisible}"
-                DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 
