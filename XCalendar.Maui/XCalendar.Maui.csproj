@@ -44,9 +44,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\BorderedLabel.xaml.cs">
-	    <DependentUpon>BorderedLabel.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\DayView.xaml.cs">
 	    <DependentUpon>DayView.xaml</DependentUpon>
 	  </Compile>

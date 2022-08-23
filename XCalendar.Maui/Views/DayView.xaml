@@ -5,14 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views"
     x:Name="DayView_Unique"
-    Padding="0"
     x:DataType="{x:Type xc:DayView}"
     HeightRequest="45"
     WidthRequest="45">
-
-    <ContentView.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference DayView_Unique}}" CommandParameter="{Binding CommandParameter, Source={x:Reference DayView_Unique}}"/>
-    </ContentView.GestureRecognizers>
 
     <Label
         CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference DayView_Unique}}"
@@ -30,5 +25,9 @@
         TextTransform="{Binding TextTransform, Source={x:Reference DayView_Unique}}"
         TextType="{Binding TextType, Source={x:Reference DayView_Unique}}"
         VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference DayView_Unique}}"/>
+
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding Command, Source={x:Reference DayView_Unique}}" CommandParameter="{Binding CommandParameter, Source={x:Reference DayView_Unique}}"/>
+    </ContentView.GestureRecognizers>
 
 </ContentView>
