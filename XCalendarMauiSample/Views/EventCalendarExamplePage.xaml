@@ -68,73 +68,79 @@
                     <DataTemplate x:DataType="{x:Type Models:EventDay}">
                         <!--  ContentView so that the margin is respected by the DaysView  -->
                         <ContentView>
-                            <xc:DayView
-                                Margin="2.5"
-                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                CurrentMonthCommandParameter="{Binding DateTime}"
-                                DateTime="{Binding DateTime}"
-                                HeightRequest="41"
-                                IsCurrentMonth="{Binding IsCurrentMonth}"
-                                IsInvalid="{Binding IsInvalid}"
-                                IsSelected="{Binding IsSelected}"
-                                IsToday="{Binding IsToday}"
-                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                SelectedCommandParameter="{Binding DateTime}"
-                                Style="{StaticResource DefaultDayViewStyle}"
-                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                TodayCommandParameter="{Binding DateTime}">
+                            <Border Margin="2.5" BackgroundColor="Transparent">
+                                
+                                <Border.StrokeShape>
+                                    <Ellipse/>
+                                </Border.StrokeShape>
+                                
+                                <xc:DayView
+                                    CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                    CurrentMonthCommandParameter="{Binding DateTime}"
+                                    DateTime="{Binding DateTime}"
+                                    HeightRequest="41"
+                                    IsCurrentMonth="{Binding IsCurrentMonth}"
+                                    IsInvalid="{Binding IsInvalid}"
+                                    IsSelected="{Binding IsSelected}"
+                                    IsToday="{Binding IsToday}"
+                                    SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                    SelectedCommandParameter="{Binding DateTime}"
+                                    Style="{StaticResource DefaultDayViewStyle}"
+                                    TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                    TodayCommandParameter="{Binding DateTime}">
 
-                                <xc:DayView.ControlTemplate>
-                                    <ControlTemplate>
-                                        <!--  Using a Grid to stack views on the z axis  -->
-                                        <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
-                                        <Grid BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}" RowSpacing="2">
+                                    <xc:DayView.ControlTemplate>
+                                        <ControlTemplate>
+                                            <!--  Using a Grid to stack views on the z axis  -->
+                                            <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
+                                            <Grid BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}" RowSpacing="2">
 
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="1.5*"/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="1.5*"/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
 
-                                            <!--  ContentPresenter displays the default content for the control  -->
-                                            <ContentPresenter
-                                                Grid.Row="0"
-                                                Grid.RowSpan="2"
-                                                VerticalOptions="Center"/>
+                                                <!--  ContentPresenter displays the default content for the control  -->
+                                                <ContentPresenter
+                                                    Grid.Row="0"
+                                                    Grid.RowSpan="2"
+                                                    VerticalOptions="Center"/>
 
-                                            <StackLayout
-                                                Grid.Row="1"
-                                                BindableLayout.ItemsSource="{Binding Events}"
-                                                HorizontalOptions="Center"
-                                                Orientation="Horizontal"
-                                                Spacing="2.5">
+                                                <StackLayout
+                                                    Grid.Row="1"
+                                                    BindableLayout.ItemsSource="{Binding Events}"
+                                                    HorizontalOptions="Center"
+                                                    Orientation="Horizontal"
+                                                    Spacing="2.5">
 
-                                                <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
-                                                <StackLayout.IsVisible>
-                                                    <MultiBinding Converter="{StaticResource AllTrueConverter}">
-                                                        <Binding Path="IsCurrentMonth"/>
-                                                        <Binding Converter="{StaticResource InvertedBoolConverter}" Path="IsInvalid"/>
-                                                    </MultiBinding>
-                                                </StackLayout.IsVisible>
+                                                    <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
+                                                    <StackLayout.IsVisible>
+                                                        <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                                                            <Binding Path="IsCurrentMonth"/>
+                                                            <Binding Converter="{StaticResource InvertedBoolConverter}" Path="IsInvalid"/>
+                                                        </MultiBinding>
+                                                    </StackLayout.IsVisible>
 
-                                                <BindableLayout.ItemTemplate>
-                                                    <DataTemplate x:DataType="{x:Type Models:Event}">
-                                                        <BoxView
-                                                            CornerRadius="100"
-                                                            HeightRequest="7"
-                                                            HorizontalOptions="CenterAndExpand"
-                                                            VerticalOptions="Center"
-                                                            WidthRequest="7"
-                                                            Color="{Binding Color}"/>
-                                                    </DataTemplate>
-                                                </BindableLayout.ItemTemplate>
+                                                    <BindableLayout.ItemTemplate>
+                                                        <DataTemplate x:DataType="{x:Type Models:Event}">
+                                                            <BoxView
+                                                                CornerRadius="100"
+                                                                HeightRequest="7"
+                                                                HorizontalOptions="CenterAndExpand"
+                                                                VerticalOptions="Center"
+                                                                WidthRequest="7"
+                                                                Color="{Binding Color}"/>
+                                                        </DataTemplate>
+                                                    </BindableLayout.ItemTemplate>
 
-                                            </StackLayout>
+                                                </StackLayout>
 
-                                        </Grid>
-                                    </ControlTemplate>
-                                </xc:DayView.ControlTemplate>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </xc:DayView.ControlTemplate>
 
-                            </xc:DayView>
+                                </xc:DayView>
+                            </Border>
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
