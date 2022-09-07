@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>4.0.0</Version>
+    <Version>4.1.0</Version>
     <Authors>MarvinE</Authors>
-    <Description>A package providing a Calendar API and useful DateTime extensions.</Description>
+    <Description>A plugin providing a Calendar API and DateTime extensions.</Description>
     <PackageIcon>XCalendar Nuget Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
     <PackageReadmeFile></PackageReadmeFile>
