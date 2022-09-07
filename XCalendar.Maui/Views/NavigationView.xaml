@@ -7,21 +7,22 @@
     x:Name="NavigationView_Unique"
     x:DataType="{x:Type Views:NavigationView}">
 
-    <HorizontalStackLayout Padding="0,5,0,5">
+    <Grid ColumnDefinitions="*,Auto,*">
 
         <Border
-            Padding="5"
+            Grid.Column="0"
+            Margin="0,5,0,5"
             BackgroundColor="{Binding ArrowBackgroundColor, Source={x:Reference NavigationView_Unique}}"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="Center"
-            WidthRequest="30">
+            StrokeThickness="0"
+            WidthRequest="40">
 
             <Label
                 FontAttributes="Bold"
                 FontSize="30"
+                HorizontalTextAlignment="Center"
                 Text="←"
                 TextColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
-                VerticalTextAlignment="End"/>
+                VerticalTextAlignment="Center"/>
 
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="{Binding ArrowCornerRadius, Source={x:Reference NavigationView_Unique}}"/>
@@ -34,6 +35,7 @@
         </Border>
 
         <Label
+            Grid.Column="1"
             CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference NavigationView_Unique}}"
             FontAttributes="{Binding FontAttributes, Source={x:Reference NavigationView_Unique}}"
             FontFamily="{Binding FontFamily, Source={x:Reference NavigationView_Unique}}"
@@ -51,11 +53,11 @@
             VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference NavigationView_Unique}}"/>
 
         <Border
-            Padding="5"
+            Grid.Column="2"
+            Margin="0,5,0,5"
             BackgroundColor="{Binding ArrowBackgroundColor, Source={x:Reference NavigationView_Unique}}"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="Center"
-            WidthRequest="30">
+            StrokeThickness="0"
+            WidthRequest="40">
 
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="{Binding ArrowCornerRadius, Source={x:Reference NavigationView_Unique}}"/>
@@ -64,9 +66,10 @@
             <Label
                 FontAttributes="Bold"
                 FontSize="30"
+                HorizontalTextAlignment="Center"
                 Text="→"
                 TextColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
-                VerticalTextAlignment="End"/>
+                VerticalTextAlignment="Center"/>
 
             <Border.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference NavigationView_Unique}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference NavigationView_Unique}}"/>
@@ -74,6 +77,6 @@
 
         </Border>
 
-    </HorizontalStackLayout>
+    </Grid>
 
 </ContentView>

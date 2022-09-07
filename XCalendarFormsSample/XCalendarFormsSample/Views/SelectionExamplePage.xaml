@@ -15,7 +15,10 @@
         <StackLayout Spacing="0">
 
             <StackLayout.Resources>
-                <Style CanCascade="True" TargetType="{x:Type Grid}">
+                <Style
+                    x:Key="PropertyEditorContainer"
+                    CanCascade="True"
+                    TargetType="{x:Type Grid}">
                     <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
                     <Setter Property="HeightRequest" Value="50"/>
                     <Setter Property="BackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
@@ -76,7 +79,7 @@
 
             <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
 
-            <Grid>
+            <Grid Style="{StaticResource PropertyEditorContainer}">
                 <Label
                     Grid.Column="0"
                     FontSize="{StaticResource SmallFontSize}"
@@ -98,7 +101,7 @@
                 </Label>
             </Grid>
 
-            <Grid>
+            <Grid Style="{StaticResource PropertyEditorContainer}">
                 <Label
                     Grid.Column="0"
                     FontSize="{StaticResource SmallFontSize}"
@@ -122,7 +125,7 @@
 
             <BoxView BackgroundColor="{DynamicResource SeparatorColor}" HeightRequest="1"/>
 
-            <Grid ColumnDefinitions="*">
+            <Grid ColumnDefinitions="*" Style="{StaticResource PropertyEditorContainer}">
 
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowCommonFunctionalityDialogCommand}"/>

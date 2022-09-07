@@ -16,7 +16,10 @@
         <VerticalStackLayout Spacing="0">
 
             <VerticalStackLayout.Resources>
-                <Style CanCascade="True" TargetType="{x:Type Grid}">
+                <Style
+                    x:Key="PropertyEditorContainer"
+                    CanCascade="True"
+                    TargetType="{x:Type Grid}">
                     <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
                     <Setter Property="HeightRequest" Value="50"/>
                     <Setter Property="BackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
@@ -37,9 +40,9 @@
                 <xc:CalendarView.NavigationTemplate>
                     <ControlTemplate>
                         <xc:NavigationView
-                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
                             BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
-                            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
                             ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             Style="{StaticResource DefaultNavigationViewStyle}"
                             Text="{Binding Text, Source={RelativeSource TemplatedParent}}"/>
@@ -51,11 +54,11 @@
                     <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
                         <ContentView>
                             <Border Margin="2.5" BackgroundColor="Transparent">
-                                
+
                                 <Border.StrokeShape>
                                     <Ellipse/>
                                 </Border.StrokeShape>
-                                
+
                                 <xc:DayView
                                     CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                                     CurrentMonthCommandParameter="{Binding DateTime}"
@@ -78,7 +81,7 @@
 
             <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
 
-            <Grid>
+            <Grid Style="{StaticResource PropertyEditorContainer}">
                 <Label
                     Grid.Column="0"
                     FontSize="{StaticResource SmallFontSize}"
@@ -100,7 +103,7 @@
                 </Label>
             </Grid>
 
-            <Grid>
+            <Grid Style="{StaticResource PropertyEditorContainer}">
                 <Label
                     Grid.Column="0"
                     FontSize="{StaticResource SmallFontSize}"
@@ -124,7 +127,7 @@
 
             <BoxView BackgroundColor="{DynamicResource SeparatorColor}" HeightRequest="1"/>
 
-            <Grid ColumnDefinitions="*">
+            <Grid ColumnDefinitions="*" Style="{StaticResource PropertyEditorContainer}">
 
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShowCommonFunctionalityDialogCommand}"/>
