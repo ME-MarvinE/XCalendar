@@ -42,6 +42,9 @@
     <Compile Update="Views\CustomisingADayExamplePage.xaml.cs">
       <DependentUpon>CustomisingADayExamplePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\UsingDayViewExamplePage.xaml.cs">
+      <DependentUpon>UsingDayViewExamplePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -69,7 +72,7 @@
     <EmbeddedResource Update="Views\SelectionExamplePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\UsingCalendarDayViewExamplePage.xaml">
+    <EmbeddedResource Update="Views\UsingDayViewExamplePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
