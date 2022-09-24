@@ -107,22 +107,14 @@
                         HorizontalTextAlignment="Center"
                         Text="NavigatedDate"
                         VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        AutoSize="TextChanges"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalOptions="Center"
-                        Text="{Binding Calendar.NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                        VerticalOptions="End"/>
                     <DatePicker
                         Grid.Column="1"
                         Date="{Binding Calendar.NavigatedDate}"
                         FontSize="{StaticResource SmallFontSize}"
-                        Format="ddd, MMM d yyy"
                         HorizontalOptions="Center"
                         MaximumDate="{x:Static System:DateTime.MaxValue}"
                         MinimumDate="{x:Static System:DateTime.MinValue}"
-                        TextColor="Transparent"/>
+                        TextColor="{StaticResource ContentTextColor}"/>
                 </Grid>
 
                 <Grid>
@@ -132,22 +124,14 @@
                         HorizontalTextAlignment="Center"
                         Text="TodayDate"
                         VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        AutoSize="TextChanges"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalOptions="Center"
-                        Text="{Binding Calendar.TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                        VerticalOptions="End"/>
                     <DatePicker
                         Grid.Column="1"
                         Date="{Binding Calendar.TodayDate}"
                         FontSize="{StaticResource SmallFontSize}"
-                        Format="ddd, MMM d yyy"
                         HorizontalOptions="Center"
                         MaximumDate="{x:Static System:DateTime.MaxValue}"
                         MinimumDate="{x:Static System:DateTime.MinValue}"
-                        TextColor="Transparent"/>
+                        TextColor="{StaticResource ContentTextColor}"/>
                 </Grid>
 
                 <Grid>
@@ -157,22 +141,14 @@
                         HorizontalTextAlignment="Center"
                         Text="NavigationLowerBound"
                         VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        AutoSize="TextChanges"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalOptions="Center"
-                        Text="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
-                        VerticalOptions="End"/>
                     <DatePicker
                         Grid.Column="1"
-                        Date="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                        Date="{Binding Calendar.NavigationLowerBound}"
                         FontSize="{StaticResource SmallFontSize}"
-                        Format="ddd, MMM d yyy"
                         HorizontalOptions="Center"
                         MaximumDate="{x:Static System:DateTime.MaxValue}"
                         MinimumDate="{x:Static System:DateTime.MinValue}"
-                        TextColor="Transparent"/>
+                        TextColor="{StaticResource ContentTextColor}"/>
                 </Grid>
 
                 <Grid>
@@ -182,22 +158,14 @@
                         HorizontalTextAlignment="Center"
                         Text="NavigationUpperBound"
                         VerticalTextAlignment="Center"/>
-                    <Editor
-                        Grid.Column="1"
-                        AutoSize="TextChanges"
-                        FontSize="{StaticResource SmallFontSize}"
-                        HorizontalOptions="Center"
-                        Text="{Binding Calendar.NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
-                        VerticalOptions="End"/>
                     <DatePicker
                         Grid.Column="1"
                         Date="{Binding Calendar.NavigationUpperBound}"
                         FontSize="{StaticResource SmallFontSize}"
-                        Format="ddd, MMM d yyy"
                         HorizontalOptions="Center"
                         MaximumDate="{x:Static System:DateTime.MaxValue}"
                         MinimumDate="{x:Static System:DateTime.MinValue}"
-                        TextColor="Transparent"/>
+                        TextColor="{StaticResource ContentTextColor}"/>
                 </Grid>
 
                 <Grid>
@@ -1032,11 +1000,11 @@
                     <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                         <ContentView>
                             <Border Margin="2.5" BackgroundColor="Transparent">
-                                
+
                                 <Border.StrokeShape>
                                     <Ellipse/>
                                 </Border.StrokeShape>
-                                
+
                                 <xc:DayView
                                     CurrentMonthBackgroundColor="{Binding BindingContext.DayCurrentMonthBackgroundColor, Source={x:Reference This}}"
                                     CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
@@ -1066,60 +1034,6 @@
                         </ContentView>
                     </DataTemplate>
                 </xc:CalendarView.DayTemplate>
-
-                <xc:CalendarView.DaysViewTemplate>
-                    <OnPlatform x:TypeArguments="ControlTemplate">
-                        <On Platform="WinUI">
-                            <On.Value>
-                                <ControlTemplate>
-                                    <CollectionView HeightRequest="{Binding DaysViewHeightRequest, Source={x:Reference FancyCalendarView}}" ItemsSource="{Binding Calendar.Days, Source={x:Reference FancyCalendarView}}">
-                                        <CollectionView.Style>
-                                            <Style TargetType="{x:Type CollectionView}">
-                                                <Setter Property="ItemTemplate">
-                                                    <Setter.Value>
-                                                        <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
-                                                            <!--  Needs to be nested because collectionview doesn't respect margins  -->
-                                                            <ContentView>
-                                                                <xc:DayView
-                                                                    Margin="2.5"
-                                                                    DateTime="{Binding DateTime}"
-                                                                    IsCurrentMonth="{Binding IsCurrentMonth}"
-                                                                    IsInvalid="{Binding IsInvalid}"
-                                                                    IsSelected="{Binding IsSelected}"
-                                                                    IsToday="{Binding IsToday}"/>
-                                                            </ContentView>
-                                                        </DataTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-
-                                                <Style.Triggers>
-                                                    <DataTrigger TargetType="{x:Type CollectionView}" Value="{StaticResource TrueValue}">
-                                                        <DataTrigger.Binding>
-                                                            <Binding
-                                                                ConverterParameter="{x:Null}"
-                                                                Path="DayTemplate"
-                                                                Source="{x:Reference FancyCalendarView}">
-                                                                <Binding.Converter>
-                                                                    <mct:IsNotEqualConverter/>
-                                                                </Binding.Converter>
-                                                            </Binding>
-                                                        </DataTrigger.Binding>
-                                                        <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference FancyCalendarView}}"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </CollectionView.Style>
-
-                                        <CollectionView.ItemsLayout>
-                                            <LinearItemsLayout Orientation="Vertical"/>
-                                        </CollectionView.ItemsLayout>
-
-                                    </CollectionView>
-                                </ControlTemplate>
-                            </On.Value>
-                        </On>
-                    </OnPlatform>
-                </xc:CalendarView.DaysViewTemplate>
 
             </xc:CalendarView>
 

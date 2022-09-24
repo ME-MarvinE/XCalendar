@@ -110,22 +110,14 @@
                             HorizontalTextAlignment="Center"
                             Text="NavigatedDate"
                             VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            AutoSize="TextChanges"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalOptions="Center"
-                            Text="{Binding Calendar.NavigatedDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                            VerticalOptions="End"/>
                         <DatePicker
                             Grid.Column="1"
                             Date="{Binding Calendar.NavigatedDate}"
                             FontSize="{StaticResource SmallFontSize}"
-                            Format="ddd, MMM d yyy"
                             HorizontalOptions="Center"
                             MaximumDate="{x:Static System:DateTime.MaxValue}"
                             MinimumDate="{x:Static System:DateTime.MinValue}"
-                            TextColor="Transparent"/>
+                            TextColor="{StaticResource ContentTextColor}"/>
                     </Grid>
 
                     <Grid>
@@ -135,22 +127,14 @@
                             HorizontalTextAlignment="Center"
                             Text="TodayDate"
                             VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            AutoSize="TextChanges"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalOptions="Center"
-                            Text="{Binding Calendar.TodayDate, StringFormat='{0:ddd, MMM d yyy}'}"
-                            VerticalOptions="End"/>
                         <DatePicker
                             Grid.Column="1"
                             Date="{Binding Calendar.TodayDate}"
                             FontSize="{StaticResource SmallFontSize}"
-                            Format="ddd, MMM d yyy"
                             HorizontalOptions="Center"
                             MaximumDate="{x:Static System:DateTime.MaxValue}"
                             MinimumDate="{x:Static System:DateTime.MinValue}"
-                            TextColor="Transparent"/>
+                            TextColor="{StaticResource ContentTextColor}"/>
                     </Grid>
 
                     <Grid>
@@ -160,22 +144,14 @@
                             HorizontalTextAlignment="Center"
                             Text="NavigationLowerBound"
                             VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            AutoSize="TextChanges"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalOptions="Center"
-                            Text="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
-                            VerticalOptions="End"/>
                         <DatePicker
                             Grid.Column="1"
-                            Date="{Binding Calendar.NavigationLowerBound, StringFormat='{0:ddd, MMM d yyy}'}"
+                            Date="{Binding Calendar.NavigationLowerBound}"
                             FontSize="{StaticResource SmallFontSize}"
-                            Format="ddd, MMM d yyy"
                             HorizontalOptions="Center"
                             MaximumDate="{x:Static System:DateTime.MaxValue}"
                             MinimumDate="{x:Static System:DateTime.MinValue}"
-                            TextColor="Transparent"/>
+                            TextColor="{StaticResource ContentTextColor}"/>
                     </Grid>
 
                     <Grid>
@@ -185,22 +161,14 @@
                             HorizontalTextAlignment="Center"
                             Text="NavigationUpperBound"
                             VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            AutoSize="TextChanges"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalOptions="Center"
-                            Text="{Binding Calendar.NavigationUpperBound, StringFormat='{0:ddd, MMM d yyy}'}"
-                            VerticalOptions="End"/>
                         <DatePicker
                             Grid.Column="1"
                             Date="{Binding Calendar.NavigationUpperBound}"
                             FontSize="{StaticResource SmallFontSize}"
-                            Format="ddd, MMM d yyy"
                             HorizontalOptions="Center"
                             MaximumDate="{x:Static System:DateTime.MaxValue}"
                             MinimumDate="{x:Static System:DateTime.MinValue}"
-                            TextColor="Transparent"/>
+                            TextColor="{StaticResource ContentTextColor}"/>
                     </Grid>
 
                     <Grid>
