@@ -92,7 +92,7 @@
                     TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                     TodayCommandParameter="{Binding OutsideCalendarDay.DateTime}"/>
 
-                <DatePicker Date="{Binding Calendar.NavigatedDate}" Format="/MM/yyy"/>
+                <DatePicker Date="{Binding Calendar.NavigatedDate}" Format="/MM/yyy" TextColor="{StaticResource PageTextColor}"/>
 
             </StackLayout>
 
