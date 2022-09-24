@@ -30,7 +30,7 @@ namespace XCalendarFormsSample.ViewModels
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
             Calendar.DaysUpdated += Calendar_DaysUpdated;
-            Calendar.UpdateDay(OutsideCalendarDay, OutsideCalendarDay.DateTime);
+            Calendar.UpdateDay(OutsideCalendarDay, Calendar.NavigatedDate);
         }
         #endregion
 
@@ -45,7 +45,7 @@ namespace XCalendarFormsSample.ViewModels
         }
         private void Calendar_DaysUpdated(object sender, EventArgs e)
         {
-            Calendar.UpdateDay(OutsideCalendarDay, OutsideCalendarDay.DateTime);
+            Calendar.UpdateDay(OutsideCalendarDay, Calendar.NavigatedDate);
         }
         #endregion
     }

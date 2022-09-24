@@ -19,7 +19,7 @@
                 BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
                 Days="{Binding Calendar.Days}"
                 DaysOfWeek="{Binding Calendar.DayNamesOrder}"
-                DaysViewHeightRequest="320"
+                DaysViewHeightRequest="330"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
@@ -69,19 +69,26 @@
             <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
 
             <Label
+                Margin="0,10,0,0"
                 FontSize="{StaticResource MediumFontSize}"
                 HorizontalTextAlignment="Center"
                 Text="Navigated Date"
                 TextColor="{StaticResource PageTextColor}"/>
-            <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
 
-                <!--  Outside the CalendarView  -->
+            <!--  Outside the CalendarView  -->
+            <Frame
+                Margin="0,5,0,5"
+                Padding="0"
+                BackgroundColor="Transparent"
+                CornerRadius="100"
+                HasShadow="False"
+                HeightRequest="47"
+                HorizontalOptions="Center"
+                WidthRequest="47">
                 <xc:DayView
-                    Margin="0,5,0,5"
                     CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                     CurrentMonthCommandParameter="{Binding OutsideCalendarDay.DateTime}"
                     DateTime="{Binding OutsideCalendarDay.DateTime}"
-                    HeightRequest="47"
                     IsCurrentMonth="{Binding OutsideCalendarDay.IsCurrentMonth}"
                     IsInvalid="{Binding OutsideCalendarDay.IsInvalid}"
                     IsSelected="{Binding OutsideCalendarDay.IsSelected}"
@@ -91,10 +98,7 @@
                     Style="{StaticResource DefaultDayViewStyle}"
                     TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
                     TodayCommandParameter="{Binding OutsideCalendarDay.DateTime}"/>
-
-                <DatePicker Date="{Binding Calendar.NavigatedDate}" Format="/MM/yyy" TextColor="{StaticResource PageTextColor}"/>
-
-            </StackLayout>
+            </Frame>
 
         </StackLayout>
     </ScrollView>
