@@ -24,22 +24,19 @@
                 <Setter Property="ItemTemplate">
                     <Setter.Value>
                         <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
-                            <!--  Needs to be nested because collectionview doesn't respect margins  -->
-                            <ContentView>
-                                <Border Margin="2.5" BackgroundColor="Transparent">
+                            <Border Margin="2.5" BackgroundColor="Transparent">
 
-                                    <Border.StrokeShape>
-                                        <Ellipse/>
-                                    </Border.StrokeShape>
+                                <Border.StrokeShape>
+                                    <Ellipse/>
+                                </Border.StrokeShape>
 
-                                    <xc:DayView
+                                <xc:DayView
                                         DateTime="{Binding DateTime}"
                                         IsCurrentMonth="{Binding IsCurrentMonth}"
                                         IsInvalid="{Binding IsInvalid}"
                                         IsSelected="{Binding IsSelected}"
                                         IsToday="{Binding IsToday}"/>
-                                </Border>
-                            </ContentView>
+                            </Border>
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
