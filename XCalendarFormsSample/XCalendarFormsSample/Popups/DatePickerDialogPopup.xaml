@@ -14,9 +14,9 @@
     x:TypeArguments="System:DateTime"
     Size="320, 475">
 
-    <StackLayout BackgroundColor="White" Spacing="0">
+    <Grid BackgroundColor="White">
 
-        <StackLayout.Resources>
+        <Grid.Resources>
             <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
                 <xcConverters:EnumToStringConverter/>
                 <xcConverters:StringCharLimitConverter/>
@@ -31,9 +31,16 @@
             <!--<Color x:Key="PrimaryPickerColor">#F04080</Color>-->
             <!--<Color x:Key="PrimaryPickerColor">#4080F0</Color>-->
             <!--<Color x:Key="PrimaryPickerColor">#8040F0</Color>-->
-        </StackLayout.Resources>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
         <Label
+            Grid.Row="0"
             Padding="15,20,15,20"
             BackgroundColor="{StaticResource PrimaryColor}"
             FontAttributes="Bold"
@@ -48,6 +55,7 @@
         </Label>
 
         <xc:CalendarView
+            Grid.Row="1"
             x:Name="MainCalendarView"
             Margin="0,5,0,0"
             Padding="20,0,20,0"
@@ -58,8 +66,7 @@
             DaysViewHeightRequest="246"
             ForwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
             ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference This}}"
-            NavigatedDate="{Binding Calendar.NavigatedDate, Source={x:Reference This}}"
-            VerticalOptions="FillAndExpand">
+            NavigatedDate="{Binding Calendar.NavigatedDate, Source={x:Reference This}}">
 
             <xc:CalendarView.NavigationTemplate>
                 <ControlTemplate>
@@ -122,7 +129,9 @@
         </xc:CalendarView>
 
         <StackLayout
+            Grid.Row="2"
             Margin="0,0,15,10"
+            HorizontalOptions="End"
             Orientation="Horizontal"
             Spacing="0">
             <Frame
@@ -165,5 +174,5 @@
             </Frame>
         </StackLayout>
 
-    </StackLayout>
+    </Grid>
 </xct:Popup>
