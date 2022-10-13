@@ -11,9 +11,19 @@
     x:DataType="{x:Type Popups:ConstructListDialogPopup}"
     Size="325, 450">
 
-    <VerticalStackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+    <Grid BackgroundColor="{StaticResource PageBackgroundColor}">
 
-        <VerticalStackLayout.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
                 <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
@@ -32,183 +42,175 @@
 
             <System:Boolean x:Key="TrueValue">True</System:Boolean>
             <System:Boolean x:Key="FalseValue">False</System:Boolean>
-        </VerticalStackLayout.Resources>
+        </Grid.Resources>
+
+        <CollectionView
+            Grid.Row="0"
+            Grid.Column="0"
+            BackgroundColor="{StaticResource ContentBackgroundColor}"
+            ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}"
+            VerticalScrollBarVisibility="Always">
+
+            <CollectionView.EmptyView>
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Text="Empty"
+                    TextColor="{StaticResource PageTextColor}"
+                    VerticalTextAlignment="Center"/>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="1"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.Header>
+                <Border
+                    Margin="10"
+                    Padding="10"
+                    BackgroundColor="#E00000">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ClearReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
+                    </Border.GestureRecognizers>
+
+                    <Label
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="Clear"
+                        TextColor="White"
+                        VerticalTextAlignment="Center"/>
+                </Border>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Null}">
+                    <Grid RowSpacing="5">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <BoxView Grid.Row="0" BackgroundColor="{StaticResource SeparatorColor}"/>
+
+                        <Label
+                            Grid.Row="1"
+                            Margin="0,5,0,0"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding .}"
+                            VerticalTextAlignment="Center"/>
+
+                        <HorizontalStackLayout
+                            Grid.Row="2"
+                            Margin="0,0,0,5"
+                            HorizontalOptions="Center"
+                            Spacing="20">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#00B0C0"
+                                HeightRequest="30"
+                                VerticalOptions="Center"
+                                WidthRequest="30">
+
+                                <Border.StrokeShape>
+                                    <Ellipse/>
+                                </Border.StrokeShape>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AddItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Center"
+                                    Text="+"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center"/>
+                            </Border>
+
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#E00000"
+                                HeightRequest="30"
+                                VerticalOptions="Center"
+                                WidthRequest="30">
+
+                                <Border.StrokeShape>
+                                    <Ellipse/>
+                                </Border.StrokeShape>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding RemoveItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Center"
+                                    Text="-"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center"/>
+                            </Border>
+                        </HorizontalStackLayout>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <CollectionView
+            Grid.Row="0"
+            Grid.Column="1"
+            ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}"
+            VerticalScrollBarVisibility="Always">
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="1"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Text="Empty"
+                    TextColor="{StaticResource PageTextColor}"
+                    VerticalTextAlignment="Center"/>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Null}">
+                    <Label
+                        FontSize="16"
+                        HeightRequest="40"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding .}"
+                        VerticalTextAlignment="Center"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Grid
-            ColumnDefinitions="*, *"
-            ColumnSpacing="0"
-            RowDefinitions="*,1, Auto"
-            RowSpacing="0"
-            VerticalOptions="FillAndExpand">
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
 
-            <CollectionView
-                Grid.Row="0"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ContentView
                 Grid.Column="0"
-                BackgroundColor="{StaticResource ContentBackgroundColor}"
-                ItemSizingStrategy="MeasureFirstItem"
-                ItemsSource="{Binding AvailableItems, Source={x:Reference MainConstructListDialogPopup}}"
-                VerticalScrollBarVisibility="Always">
-
-                <CollectionView.EmptyView>
-                    <Label
-                        HorizontalTextAlignment="Center"
-                        Text="Empty"
-                        TextColor="{StaticResource PageTextColor}"
-                        VerticalTextAlignment="Center"/>
-                </CollectionView.EmptyView>
-
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.Header>
-                    <VerticalStackLayout
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Padding="10"
-                        Spacing="10"
-                        VerticalOptions="End">
-
-                        <Border
-                            Padding="10"
-                            BackgroundColor="#E00000">
-
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="15"/>
-                            </Border.StrokeShape>
-
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ClearReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
-                            </Border.GestureRecognizers>
-
-                            <Label
-                                FontSize="16"
-                                HorizontalTextAlignment="Center"
-                                Text="Clear"
-                                TextColor="White"
-                                VerticalTextAlignment="Center"/>
-                        </Border>
-                    </VerticalStackLayout>
-                </CollectionView.Header>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Null}">
-                        <VerticalStackLayout Spacing="5">
-
-                            <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
-
-                            <ScrollView
-                                Margin="0,5,0,0"
-                                HorizontalScrollBarVisibility="Never"
-                                Orientation="Horizontal">
-                                <Label
-                                    FontSize="16"
-                                    HorizontalTextAlignment="Center"
-                                    Text="{Binding .}"
-                                    VerticalTextAlignment="Center"/>
-                            </ScrollView>
-
-                            <HorizontalStackLayout
-                                Margin="0,0,0,5"
-                                HorizontalOptions="Center"
-                                Spacing="20">
-                                <Border
-                                    Padding="0"
-                                    BackgroundColor="#00B0C0"
-                                    HeightRequest="30"
-                                    VerticalOptions="Center"
-                                    WidthRequest="30">
-
-                                    <Border.StrokeShape>
-                                        <Ellipse/>
-                                    </Border.StrokeShape>
-
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding AddItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
-                                    </Border.GestureRecognizers>
-
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="20"
-                                        HorizontalTextAlignment="Center"
-                                        Text="+"
-                                        TextColor="White"
-                                        VerticalTextAlignment="Center"/>
-                                </Border>
-
-                                <Border
-                                    Padding="0"
-                                    BackgroundColor="#E00000"
-                                    HeightRequest="30"
-                                    VerticalOptions="Center"
-                                    WidthRequest="30">
-
-                                    <Border.StrokeShape>
-                                        <Ellipse/>
-                                    </Border.StrokeShape>
-
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding RemoveItemCommand, Source={x:Reference MainConstructListDialogPopup}}" CommandParameter="{Binding .}"/>
-                                    </Border.GestureRecognizers>
-
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="20"
-                                        HorizontalTextAlignment="Center"
-                                        Text="-"
-                                        TextColor="White"
-                                        VerticalTextAlignment="Center"/>
-                                </Border>
-                            </HorizontalStackLayout>
-
-                        </VerticalStackLayout>
-
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <CollectionView
-                Grid.Row="0"
-                Grid.RowSpan="3"
-                Grid.Column="1"
-                BackgroundColor="{StaticResource PageBackgroundColor}"
-                ItemSizingStrategy="MeasureFirstItem"
-                ItemsSource="{Binding ReturnValueItems, Source={x:Reference MainConstructListDialogPopup}}"
-                VerticalScrollBarVisibility="Always">
-
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.EmptyView>
-                    <Label
-                        HorizontalTextAlignment="Center"
-                        Text="Empty"
-                        TextColor="{StaticResource PageTextColor}"
-                        VerticalTextAlignment="Center"/>
-                </CollectionView.EmptyView>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Null}">
-                        <ScrollView
-                            Grid.Column="0"
-                            HorizontalScrollBarVisibility="Never"
-                            Orientation="Horizontal">
-                            <Label
-                                FontSize="16"
-                                HeightRequest="40"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding .}"
-                                VerticalTextAlignment="Center"/>
-                        </ScrollView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-        </Grid>
-
-        <HorizontalStackLayout BackgroundColor="#0080E0">
-            <ContentView Padding="10" BackgroundColor="#0080E0">
+                Padding="10"
+                BackgroundColor="#0080E0">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
@@ -221,7 +223,10 @@
                     VerticalTextAlignment="Center"/>
             </ContentView>
 
-            <ContentView Padding="10" BackgroundColor="#0080E0">
+            <ContentView
+                Grid.Column="1"
+                Padding="10"
+                BackgroundColor="#0080E0">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueItemsCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
@@ -235,9 +240,10 @@
             </ContentView>
 
             <ContentView
+                Grid.Column="2"
                 Padding="10"
                 BackgroundColor="#0080E0"
-                HorizontalOptions="EndAndExpand">
+                HorizontalOptions="Fill">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseDialogCommand, Source={x:Reference MainConstructListDialogPopup}}"/>
@@ -245,11 +251,13 @@
 
                 <Label
                     FontSize="18"
+                    HorizontalTextAlignment="End"
                     Text="Confirm"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
             </ContentView>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+        </Grid>
+
+    </Grid>
 
 </mct:Popup>
