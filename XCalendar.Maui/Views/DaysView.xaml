@@ -31,11 +31,11 @@
                                 </Border.StrokeShape>
 
                                 <xc:DayView
-                                        DateTime="{Binding DateTime}"
-                                        IsCurrentMonth="{Binding IsCurrentMonth}"
-                                        IsInvalid="{Binding IsInvalid}"
-                                        IsSelected="{Binding IsSelected}"
-                                        IsToday="{Binding IsToday}"/>
+                                    DateTime="{Binding DateTime}"
+                                    IsCurrentMonth="{Binding IsCurrentMonth}"
+                                    IsInvalid="{Binding IsInvalid}"
+                                    IsSelected="{Binding IsSelected}"
+                                    IsToday="{Binding IsToday}"/>
                             </Border>
                         </DataTemplate>
                     </Setter.Value>

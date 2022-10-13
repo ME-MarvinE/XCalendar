@@ -59,7 +59,8 @@
                                         FontSize="15"
                                         HorizontalTextAlignment="Center"
                                         Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
-                                        TextColor="Black"/>
+                                        TextColor="Black"
+                                        VerticalTextAlignment="Center"/>
                                 </DataTemplate>
                             </Setter.Value>
                         </Setter>
