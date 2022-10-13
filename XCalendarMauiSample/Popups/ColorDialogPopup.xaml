@@ -10,11 +10,18 @@
     x:DataType="{x:Type Popups:ColorDialogPopup}"
     Size="300, 285">
 
-    <VerticalStackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+    <Grid BackgroundColor="{StaticResource ContentBackgroundColor}">
 
-        <CustomControls:ColorEditor x:Name="ColorEditor" SelectedColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <CustomControls:ColorEditor Grid.Row="0" x:Name="ColorEditor" SelectedColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"/>
 
         <VerticalStackLayout
+            Grid.Row="1"
             Margin="0,10,0,0"
             Spacing="0"
             VerticalOptions="StartAndExpand">
@@ -58,51 +65,65 @@
 
         </VerticalStackLayout>
 
-        <HorizontalStackLayout BackgroundColor="#0080E0">
-            <ContentView Padding="10">
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ContentView
+                Grid.Column="0"
+                Padding="10"
+                BackgroundColor="#0080E0">
+
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
+                </ContentView.GestureRecognizers>
 
                 <Label
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
-                </ContentView.GestureRecognizers>
-
             </ContentView>
 
-            <ContentView Padding="10">
+            <ContentView
+                Grid.Column="1"
+                Padding="10"
+                BackgroundColor="#0080E0">
+
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainColorDialogPopup}}"/>
+                </ContentView.GestureRecognizers>
 
                 <Label
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainColorDialogPopup}}"/>
-                </ContentView.GestureRecognizers>
-
             </ContentView>
 
-            <ContentView Padding="10" HorizontalOptions="EndAndExpand">
-
-                <Label
-                    FontSize="18"
-                    Text="Confirm"
-                    TextColor="White"
-                    VerticalTextAlignment="Center"/>
+            <ContentView
+                Grid.Column="2"
+                Padding="10"
+                BackgroundColor="#0080E0"
+                HorizontalOptions="Fill">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DismissDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
                 </ContentView.GestureRecognizers>
 
+                <Label
+                    FontSize="18"
+                    HorizontalTextAlignment="End"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
             </ContentView>
+        </Grid>
 
-        </HorizontalStackLayout>
-
-    </VerticalStackLayout>
+    </Grid>
 
 </mct:Popup>
