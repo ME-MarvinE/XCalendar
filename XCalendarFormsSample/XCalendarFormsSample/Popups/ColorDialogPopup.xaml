@@ -11,11 +11,21 @@
     x:TypeArguments="Color"
     Size="300, 285">
 
-    <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+    <Grid BackgroundColor="{StaticResource ContentBackgroundColor}">
 
-        <CustomControls:ColorEditor x:Name="ColorEditor" SelectedColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <CustomControls:ColorEditor
+            x:Name="ColorEditor"
+            Grid.Row="0"
+            SelectedColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"/>
 
         <StackLayout
+            Grid.Row="1"
             Margin="0,10,0,0"
             Spacing="0"
             VerticalOptions="StartAndExpand">
@@ -47,62 +57,73 @@
             <Frame
                 Margin="20,20,20,0"
                 Padding="0"
-                HeightRequest="40"
                 BackgroundColor="{Binding SelectedColor, Source={x:Reference MainColorDialogPopup}}"
+                BorderColor="Black"
                 CornerRadius="10"
                 HasShadow="False"
-                BorderColor="Black"/>
-            
+                HeightRequest="40"/>
+
         </StackLayout>
 
-        <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
             <ContentView
+                Grid.Column="0"
                 Padding="10"
-                BackgroundColor="Transparent">
-                <Label
-                    FontSize="18"
-                    Text="Cancel"
-                    TextColor="White"
-                    VerticalTextAlignment="Center"/>
+                BackgroundColor="#0080E0">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
                 </ContentView.GestureRecognizers>
 
+                <Label
+                    FontSize="18"
+                    Text="Cancel"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
             </ContentView>
 
             <ContentView
+                Grid.Column="1"
                 Padding="10"
-                BackgroundColor="Transparent">
-                <Label
-                    FontSize="18"
-                    Text="Reset"
-                    TextColor="White"
-                    VerticalTextAlignment="Center"/>
+                BackgroundColor="#0080E0">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainColorDialogPopup}}"/>
                 </ContentView.GestureRecognizers>
 
+                <Label
+                    FontSize="18"
+                    Text="Reset"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
             </ContentView>
 
             <ContentView
+                Grid.Column="2"
                 Padding="10"
-                BackgroundColor="Transparent"
-                HorizontalOptions="EndAndExpand">
-                <Label
-                    FontSize="18"
-                    Text="Confirm"
-                    TextColor="White"
-                    VerticalTextAlignment="Center"/>
+                BackgroundColor="#0080E0"
+                HorizontalOptions="Fill">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DismissDialogCommand, Source={x:Reference MainColorDialogPopup}}"/>
                 </ContentView.GestureRecognizers>
 
+                <Label
+                    FontSize="18"
+                    HorizontalTextAlignment="End"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
             </ContentView>
-        </StackLayout>
+        </Grid>
 
-    </StackLayout>
+    </Grid>
 
 </xct:Popup>
