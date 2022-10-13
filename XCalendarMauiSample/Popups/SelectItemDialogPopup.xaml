@@ -9,16 +9,21 @@
     x:DataType="{x:Type Popups:SelectItemDialogPopup}"
     Size="300, 350">
 
-    <VerticalStackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
-        <VerticalStackLayout.Resources>
+    <Grid BackgroundColor="{StaticResource ContentBackgroundColor}">
+        <Grid.Resources>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
-        </VerticalStackLayout.Resources>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
         <CollectionView
-            BackgroundColor="{StaticResource ContentBackgroundColor}"
+            Grid.Row="0"
             ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectionMode="Single"
@@ -33,7 +38,7 @@
             </CollectionView.EmptyView>
 
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
+                <GridItemsLayout Orientation="Vertical" Span="1"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
@@ -61,10 +66,19 @@
                     </Label>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
         </CollectionView>
 
-        <HorizontalStackLayout BackgroundColor="#0080E0">
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
             <ContentView
+                Grid.Column="0"
                 Padding="10"
                 BackgroundColor="#0080E0">
 
@@ -80,6 +94,7 @@
             </ContentView>
 
             <ContentView
+                Grid.Column="1"
                 Padding="10"
                 BackgroundColor="#0080E0">
 
@@ -95,9 +110,10 @@
             </ContentView>
 
             <ContentView
+                Grid.Column="2"
                 Padding="10"
                 BackgroundColor="#0080E0"
-                HorizontalOptions="EndAndExpand">
+                HorizontalOptions="Fill">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CloseDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
@@ -105,11 +121,13 @@
 
                 <Label
                     FontSize="18"
+                    HorizontalTextAlignment="End"
                     Text="Confirm"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
             </ContentView>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
 
 </mct:Popup>
