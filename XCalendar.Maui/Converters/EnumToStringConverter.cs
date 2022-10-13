@@ -4,6 +4,17 @@ using CommunityToolkit.Maui.Converters;
 
 public class EnumToStringConverter : BaseConverterOneWay<Enum, string>
 {
+    public override string DefaultConvertReturnValue
+    {
+        get
+        {
+            return "";
+        }
+        set
+        {
+        }
+    }
+
     public override string ConvertFrom(Enum value, CultureInfo culture)
     {
         try

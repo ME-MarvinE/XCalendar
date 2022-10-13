@@ -4,6 +4,16 @@ using CommunityToolkit.Maui.Converters;
 
 public class StringCharLimitConverter : BaseConverterOneWay<string, string, int>
 {
+    public override string DefaultConvertReturnValue
+    {
+        get
+        {
+            return "";
+        }
+        set
+        {
+        }
+    }
     public override string ConvertFrom(string value, int parameter, CultureInfo culture)
     {
         try

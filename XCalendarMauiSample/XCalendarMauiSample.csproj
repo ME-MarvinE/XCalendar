@@ -53,7 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="PropertyChanged.Fody" Version="3.4.1" />
+	  <PackageReference Include="PropertyChanged.Fody" Version="4.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
