@@ -9,16 +9,21 @@
     x:DataType="{x:Type Popups:SelectItemDialogPopup}"
     Size="300, 350">
 
-    <StackLayout BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
-        <StackLayout.Resources>
+    <Grid BackgroundColor="{StaticResource ContentBackgroundColor}">
+        <Grid.Resources>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="TextColor" Value="{StaticResource ContentTextColor}"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
-        </StackLayout.Resources>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
         <CollectionView
-            BackgroundColor="{StaticResource ContentBackgroundColor}"
+            Grid.Row="0"
             ItemsSource="{Binding ItemsSource, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectedItem="{Binding ReturnValue, Source={x:Reference MainSelectItemDialogPopup}}"
             SelectionMode="Single"
@@ -26,14 +31,14 @@
 
             <CollectionView.EmptyView>
                 <Label
-                        HorizontalTextAlignment="Center"
-                        Text="Empty"
-                        TextColor="{StaticResource PageTextColor}"
-                        VerticalTextAlignment="Center"/>
+                    HorizontalTextAlignment="Center"
+                    Text="Empty"
+                    TextColor="{StaticResource PageTextColor}"
+                    VerticalTextAlignment="Center"/>
             </CollectionView.EmptyView>
-            
+
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
+                <GridItemsLayout Orientation="Vertical" Span="1"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
@@ -61,55 +66,68 @@
                     </Label>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
         </CollectionView>
 
-        <StackLayout BackgroundColor="#0080E0" Orientation="Horizontal">
+        <Grid Grid.Row="1">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
             <ContentView
+                Grid.Column="0"
                 Padding="10"
-                BackgroundColor="Transparent">
+                BackgroundColor="#0080E0">
+
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </ContentView.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Cancel"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CancelDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
-                </ContentView.GestureRecognizers>
-                
             </ContentView>
 
             <ContentView
+                Grid.Column="1"
                 Padding="10"
-                BackgroundColor="Transparent">
+                BackgroundColor="#0080E0">
+
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
+                </ContentView.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="Reset"
                     TextColor="White"
                     VerticalTextAlignment="Center"/>
-
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ResetReturnValueCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
-                </ContentView.GestureRecognizers>
-                
             </ContentView>
 
             <ContentView
+                Grid.Column="2"
                 Padding="10"
-                BackgroundColor="Transparent"
-                HorizontalOptions="EndAndExpand">
-                <Label
-                    FontSize="18"
-                    Text="Confirm"
-                    TextColor="White"
-                    VerticalTextAlignment="Center"/>
+                BackgroundColor="#0080E0"
+                HorizontalOptions="Fill">
 
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding DismissDialogCommand, Source={x:Reference MainSelectItemDialogPopup}}"/>
                 </ContentView.GestureRecognizers>
 
+                <Label
+                    FontSize="18"
+                    HorizontalTextAlignment="End"
+                    Text="Confirm"
+                    TextColor="White"
+                    VerticalTextAlignment="Center"/>
             </ContentView>
-        </StackLayout>
-    </StackLayout>
+        </Grid>
+        
+    </Grid>
 
 </xct:Popup>
