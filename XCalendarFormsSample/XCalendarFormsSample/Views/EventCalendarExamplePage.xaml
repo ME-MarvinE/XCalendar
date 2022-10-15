@@ -23,12 +23,20 @@
         <xct:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
     </ContentPage.Resources>
 
-    <Grid
-        ColumnSpacing="0"
-        RowDefinitions="Auto,*"
-        RowSpacing="0">
+    <Grid ColumnSpacing="0" RowSpacing="0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <Frame
+            Grid.Row="0"
+            Grid.Column="0"
             Margin="10"
             Padding="10"
             BackgroundColor="{StaticResource ContentBackgroundColor}"
@@ -36,7 +44,6 @@
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
-                Grid.Row="0"
                 BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 BackwardsArrowCommandParameter="{Binding EventCalendar.BackwardsNavigationAmount}"
                 Days="{Binding EventCalendar.Days}"
@@ -94,7 +101,7 @@
 
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="1.5*"/>
-                                                    <RowDefinition/>
+                                                    <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
 
                                                 <!--  ContentPresenter displays the default content for the control  -->
@@ -147,7 +154,10 @@
 
         </Frame>
 
-        <CollectionView Grid.Row="1" ItemsSource="{Binding SelectedEvents}">
+        <CollectionView
+            Grid.Row="1"
+            Grid.Column="0"
+            ItemsSource="{Binding SelectedEvents}">
 
             <CollectionView.EmptyView>
                 <Label
@@ -158,18 +168,29 @@
                     TextColor="{StaticResource ContentTextColor}"
                     VerticalTextAlignment="Center"/>
             </CollectionView.EmptyView>
+
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
+                <GridItemsLayout Orientation="Vertical" Span="1"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type Models:Event}">
-                    <ContentView Padding="5">
-                        <Frame Padding="0" CornerRadius="10">
-                            <StackLayout Orientation="Horizontal" Spacing="0">
-                                <BoxView BackgroundColor="{Binding Color}" WidthRequest="20"/>
+                    <ContentView>
+                        <Frame
+                            Margin="5"
+                            Padding="0"
+                            CornerRadius="10">
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <BoxView Grid.Column="0" BackgroundColor="{Binding Color}"/>
 
                                 <StackLayout
+                                    Grid.Column="1"
                                     Padding="10"
                                     BackgroundColor="{StaticResource ContentBackgroundColor}"
                                     Spacing="0">
@@ -190,7 +211,7 @@
                                         Text="{Binding Description}"
                                         TextColor="{StaticResource ContentTextColor}"/>
                                 </StackLayout>
-                            </StackLayout>
+                            </Grid>
                         </Frame>
                     </ContentView>
                 </DataTemplate>
