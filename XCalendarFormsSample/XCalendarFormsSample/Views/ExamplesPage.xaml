@@ -5,41 +5,76 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:XCalendarFormsSample.Models"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+    x:Name="MainExamplesPage"
     Title="Examples"
     x:DataType="{x:Type ViewModels:ExamplesViewModel}"
-    x:Name="MainExamplesPage"
     Style="{StaticResource DefaultPageStyle}">
 
     <StackLayout Spacing="0">
-        
-        <SearchBar Text="{Binding SearchText}" BackgroundColor="{StaticResource PrimaryColor}" SearchCommand="{Binding SearchExamplesCommand}" CancelButtonColor="White" TextColor="White"/>
-        
+
+        <SearchBar
+            BackgroundColor="{StaticResource PrimaryColor}"
+            CancelButtonColor="White"
+            Placeholder="Search..."
+            SearchCommand="{Binding SearchExamplesCommand}"
+            Text="{Binding SearchText}"
+            TextColor="White"/>
+
         <CollectionView ItemsSource="{Binding DisplayedExamples}">
 
             <CollectionView.EmptyView>
-                <Label Text="No Search Results" FontSize="24" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    HorizontalTextAlignment="Center"
+                    Text="No Search Results"
+                    VerticalTextAlignment="Center"/>
             </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type Models:Example}">
-                    <StackLayout Spacing="0">
-                        <StackLayout Padding="10" BackgroundColor="{StaticResource ContentBackgroundColor}" Spacing="0">
+                    <Grid>
 
-                            <StackLayout.GestureRecognizers>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid
+                            Grid.Row="0"
+                            Padding="10"
+                            BackgroundColor="{StaticResource ContentBackgroundColor}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding BindingContext.ShowPageCommand, Source={x:Reference MainExamplesPage}}" CommandParameter="{Binding Page}"/>
-                            </StackLayout.GestureRecognizers>
+                            </Grid.GestureRecognizers>
 
-                            <Label FontSize="{StaticResource ExamplesTitleFontSize}" FontAttributes="Bold" Text="{Binding Title}" TextColor="{StaticResource ContentTextColor}"/>
-                            <Label FontSize="{StaticResource ExamplesDescriptionFontSize}" Text="{Binding Description}"/>
-                        </StackLayout>
+                            <Label
+                                Grid.Row="0"
+                                FontAttributes="Bold"
+                                FontSize="{StaticResource ExamplesTitleFontSize}"
+                                Text="{Binding Title}"
+                                TextColor="{StaticResource ContentTextColor}"/>
 
-                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource SeparatorColor}"/>
-                    </StackLayout>
+                            <Label
+                                Grid.Row="1"
+                                FontSize="{StaticResource ExamplesDescriptionFontSize}"
+                                Text="{Binding Description}"/>
+
+                        </Grid>
+
+                        <BoxView Grid.Row="1" BackgroundColor="{StaticResource SeparatorColor}"/>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                <GridItemsLayout Orientation="Vertical" Span="1"/>
             </CollectionView.ItemsLayout>
         </CollectionView>
     </StackLayout>
