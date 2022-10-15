@@ -12,11 +12,6 @@ namespace XCalendar.Forms.Views
         #region Properties
 
         #region Bindable Properties
-        public DateTime NavigatedDate
-        {
-            get { return (DateTime)GetValue(NavigatedDateProperty); }
-            set { SetValue(NavigatedDateProperty, value); }
-        }
         public IEnumerable<ICalendarDay> Days
         {
             get { return (IEnumerable<ICalendarDay>)GetValue(DaysProperty); }
@@ -37,7 +32,6 @@ namespace XCalendar.Forms.Views
         }
 
         #region Bindable Properties Initialisers
-        public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(DaysView), DateTime.Today);
         public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<ICalendarDay>), typeof(DaysView), propertyChanged: DaysPropertyChanged);
         public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList<DayOfWeek>), typeof(DaysView));
         public static readonly BindableProperty DayTemplateProperty = BindableProperty.Create(nameof(DayTemplate), typeof(DataTemplate), typeof(DaysView));

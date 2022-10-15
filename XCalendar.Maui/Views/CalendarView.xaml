@@ -93,8 +93,7 @@
             ControlTemplate="{Binding DaysViewTemplate, Source={x:Reference CalendarView_Unique}}"
             DayTemplate="{Binding DayTemplate, Source={x:Reference CalendarView_Unique}}"
             DaysOfWeek="{Binding DaysOfWeek, Source={x:Reference CalendarView_Unique}}"
-            HeightRequest="{Binding DaysViewHeightRequest, Source={x:Reference CalendarView_Unique}}"
-            NavigatedDate="{Binding NavigatedDate, Source={x:Reference CalendarView_Unique}}"/>
+            HeightRequest="{Binding DaysViewHeightRequest, Source={x:Reference CalendarView_Unique}}"/>
 
     </VerticalStackLayout>
 
