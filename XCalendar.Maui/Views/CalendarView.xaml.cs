@@ -93,10 +93,10 @@ namespace XCalendar.Maui.Views
         /// <summary>
         /// The template used to display the view for navigating the calendar.
         /// </summary>
-        public ControlTemplate NavigationTemplate
+        public ControlTemplate NavigationViewTemplate
         {
-            get { return (ControlTemplate)GetValue(NavigationTemplateProperty); }
-            set { SetValue(NavigationTemplateProperty, value); }
+            get { return (ControlTemplate)GetValue(NavigationViewTemplateProperty); }
+            set { SetValue(NavigationViewTemplateProperty, value); }
         }
         /// <summary>
         /// The template used to display a <see cref="ICalendarDay"/>
@@ -123,7 +123,7 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty DayNameHorizontalSpacingProperty = BindableProperty.Create(nameof(DayNameHorizontalSpacing), typeof(double), typeof(CalendarView));
         public static readonly BindableProperty DaysViewTemplateProperty = BindableProperty.Create(nameof(DaysViewTemplate), typeof(ControlTemplate), typeof(CalendarView));
         public static readonly BindableProperty DaysViewHeightRequestProperty = BindableProperty.Create(nameof(DaysViewHeightRequest), typeof(double), typeof(CalendarView), 300d);
-        public static readonly BindableProperty NavigationTemplateProperty = BindableProperty.Create(nameof(NavigationTemplate), typeof(ControlTemplate), typeof(CalendarView));
+        public static readonly BindableProperty NavigationViewTemplateProperty = BindableProperty.Create(nameof(NavigationViewTemplate), typeof(ControlTemplate), typeof(CalendarView));
         #endregion
 
         #endregion

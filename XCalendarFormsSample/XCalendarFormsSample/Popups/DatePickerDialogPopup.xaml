@@ -68,7 +68,7 @@
             ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount, Source={x:Reference This}}"
             NavigatedDate="{Binding Calendar.NavigatedDate, Source={x:Reference This}}">
 
-            <xc:CalendarView.NavigationTemplate>
+            <xc:CalendarView.NavigationViewTemplate>
                 <ControlTemplate>
                     <xc:NavigationView
                         ArrowColor="{StaticResource ContentTextColor}"
@@ -81,7 +81,7 @@
                         Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
                         TextColor="{StaticResource ContentTextColor}"/>
                 </ControlTemplate>
-            </xc:CalendarView.NavigationTemplate>
+            </xc:CalendarView.NavigationViewTemplate>
 
             <xc:CalendarView.DayNameTemplate>
                 <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
