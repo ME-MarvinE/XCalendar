@@ -37,7 +37,7 @@
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 
-                <xc:CalendarView.NavigationTemplate>
+                <xc:CalendarView.NavigationViewTemplate>
                     <ControlTemplate>
                         <xc:NavigationView
                             BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
@@ -47,7 +47,7 @@
                             Style="{StaticResource DefaultNavigationViewStyle}"
                             Text="{Binding Text, Source={RelativeSource TemplatedParent}}"/>
                     </ControlTemplate>
-                </xc:CalendarView.NavigationTemplate>
+                </xc:CalendarView.NavigationViewTemplate>
 
                 <!--  Not Required, used only for styling.  -->
                 <xc:CalendarView.DayTemplate>

@@ -38,7 +38,7 @@
         <xc:NavigationView
             BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:Reference CalendarView_Unique}}"
             BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
-            ControlTemplate="{Binding NavigationTemplate, Source={x:Reference CalendarView_Unique}}"
+            ControlTemplate="{Binding NavigationViewTemplate, Source={x:Reference CalendarView_Unique}}"
             ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:Reference CalendarView_Unique}}"
             ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
             Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference CalendarView_Unique}}"/>
