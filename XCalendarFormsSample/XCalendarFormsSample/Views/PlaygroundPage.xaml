@@ -994,7 +994,7 @@
 
                 </xc:NewCalendarView>
 
-                <!--<xc:CalendarView
+                <xc:CalendarView
                     BackgroundColor="{Binding CalendarBackgroundColor}"
                     BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
                     BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
@@ -1064,7 +1064,7 @@
                         </DataTemplate>
                     </xc:CalendarView.DayTemplate>
 
-                </xc:CalendarView>-->
+                </xc:CalendarView>
 
             </StackLayout>
         </ScrollView>
