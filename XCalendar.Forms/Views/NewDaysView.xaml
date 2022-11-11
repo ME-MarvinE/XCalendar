@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="XCalendar.Forms.Views.NewDaysView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="NewDaysView_Unique"
+    x:DataType="{x:Type xc:NewDaysView}">
+
+    <ContentView.Resources>
+        <ControlTemplate x:Key="DefaultDayTemplate" x:DataType="{x:Type xcInterfaces:ICalendarDay}">
+            <ContentView>
+                <Frame
+                    Margin="2.5"
+                    Padding="0"
+                    CornerRadius="100"
+                    HasShadow="False">
+                    <xc:DayView
+                        DateTime="{Binding BindingContext.DateTime, Source={RelativeSource TemplatedParent}}"
+                        IsCurrentMonth="{Binding BindingContext.IsCurrentMonth, Source={RelativeSource TemplatedParent}}"
+                        IsInvalid="{Binding BindingContext.IsInvalid, Source={RelativeSource TemplatedParent}}"
+                        IsSelected="{Binding BindingContext.IsSelected, Source={RelativeSource TemplatedParent}}"
+                        IsToday="{Binding BindingContext.IsToday, Source={RelativeSource TemplatedParent}}"/>
+                </Frame>
+            </ContentView>
+        </ControlTemplate>
+    </ContentView.Resources>
+
+    <Grid x:Name="DaysGrid"/>
+
+</ContentView>

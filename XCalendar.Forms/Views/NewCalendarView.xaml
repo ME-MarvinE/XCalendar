@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="XCalendar.Forms.Views.NewCalendarView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="NewCalendarView_Unique"
+    x:DataType="{x:Type xc:NewCalendarView}">
+
+    <StackLayout Spacing="0">
+        <StackLayout.Resources>
+            <System:Boolean x:Key="TrueValue">True</System:Boolean>
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
+
+            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
+
+            <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+
+            <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
+                <Converters:EnumToStringConverter/>
+                <Converters:StringCharLimitConverter/>
+            </xct:MultiConverter>
+
+            <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
+                <xct:MultiConverterParameter ConverterType="{x:Type Converters:StringCharLimitConverter}" Value="3"/>
+            </x:Array>
+        </StackLayout.Resources>
+
+        <xc:NavigationView
+            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:Reference NewCalendarView_Unique}}"
+            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference NewCalendarView_Unique}}"
+            ControlTemplate="{Binding NavigationViewTemplate, Source={x:Reference NewCalendarView_Unique}}"
+            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:Reference NewCalendarView_Unique}}"
+            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference NewCalendarView_Unique}}"
+            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference NewCalendarView_Unique}}"/>
+
+        <!--#region DayNames-->
+        <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference NewCalendarView_Unique}}">
+            <CollectionView
+                x:Name="MainDaysOfWeekView"
+                Margin="0,5,0,0"
+                HeightRequest="{Binding DayNamesHeightRequest, Source={x:Reference NewCalendarView_Unique}}">
+
+                <CollectionView.Style>
+                    <Style TargetType="{x:Type CollectionView}">
+                        <Setter Property="ItemTemplate">
+                            <Setter.Value>
+                                <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
+                                    <Label
+                                        FontSize="15"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
+                                        TextColor="Black"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding DayNameTemplate, Source={x:Reference NewCalendarView_Unique}, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                TargetType="{x:Type CollectionView}"
+                                Value="{StaticResource TrueValue}">
+                                <Setter Property="ItemTemplate" Value="{Binding DayNameTemplate, Source={x:Reference NewCalendarView_Unique}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </CollectionView.Style>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="{Binding DayNameHorizontalSpacing, Source={x:Reference NewCalendarView_Unique}}"
+                        Orientation="Vertical"
+                        Span="{Binding DaysOfWeek.Count, Source={x:Reference NewCalendarView_Unique}}"
+                        VerticalItemSpacing="{Binding DayNameVerticalSpacing, Source={x:Reference NewCalendarView_Unique}}"/>
+                </CollectionView.ItemsLayout>
+
+            </CollectionView>
+        </ContentView>
+        <!--#endregion-->
+
+        <xc:NewDaysView
+            x:Name="MainDaysView"
+            ControlTemplate="{Binding DaysViewTemplate, Source={x:Reference NewCalendarView_Unique}}"
+            DayTemplate="{Binding DayTemplate, Source={x:Reference NewCalendarView_Unique}}"
+            DaysOfWeek="{Binding DaysOfWeek, Source={x:Reference NewCalendarView_Unique}}"
+            HeightRequest="{Binding DaysViewHeightRequest, Source={x:Reference NewCalendarView_Unique}}"/>
+
+    </StackLayout>
+
+</ContentView>
