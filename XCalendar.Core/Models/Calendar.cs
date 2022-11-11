@@ -693,10 +693,8 @@ namespace XCalendar.Core.Models
         {
             OnDaysUpdating();
 
-            List<DayOfWeek> DayNamesOrderList = DayNamesOrder.ToList();
-            int DatesUpdated = 0;
             int RowsRequiredToNavigate = AutoRows ? GetMonthRows(NavigationDate, AutoRowsIsConsistent, StartOfWeek) : Rows;
-            int DaysRequiredToNavigate = RowsRequiredToNavigate * DayNamesOrderList.Count;
+            int DaysRequiredToNavigate = RowsRequiredToNavigate * DayNamesOrder.Count;
 
             //Determine the starting date of the page.
             DateTime PageStartDate;
@@ -716,52 +714,63 @@ namespace XCalendar.Core.Models
             }
 
             //Update the dates for each row.
-            for (int RowsAdded = 0; DatesUpdated < DaysRequiredToNavigate; RowsAdded++)
+            int DaysUpdated = 0;
+            bool ReachedDateTimeMaxValue = false;
+            for (int RowsUpdated = 0; DaysUpdated < DaysRequiredToNavigate; RowsUpdated++)
             {
                 Dictionary<DayOfWeek, DateTime> Row = new Dictionary<DayOfWeek, DateTime>();
 
                 //Get the updated dates for the row.
                 for (int i = 0; i < DaysOfWeek.Count; i++)
                 {
-                    try
-                    {
-                        DateTime DateTime = PageStartDate.AddDays(RowsAdded * DaysOfWeek.Count + i);
-                        Row.Add(DateTime.DayOfWeek, DateTime);
-                    }
-                    catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
-                    {
-                    }
-                }
+                    DateTime DateTime;
 
-                //Update or create days for the row based on the DayNamesOrder.
-                for (int i = 0; i < DayNamesOrderList.Count; i++)
-                {
-
-                    //Handle the case that a week spans into an unrepresentable DateTime. E.g After DateTime.MaxValue.
-                    if (!Row.TryGetValue(DayNamesOrderList[i], out DateTime NewDateTime))
+                    //If at some point when updating dates, the DateTime went past the maximum value,
+                    //save resources by setting the higher dates to DateTime.MaxValue too.
+                    if (ReachedDateTimeMaxValue)
                     {
-                        NewDateTime = DateTime.MaxValue;
-                    }
-
-                    if (Days.Count <= DatesUpdated)
-                    {
-                        T Day = new T();
-                        UpdateDay(Day, NewDateTime);
-                        _Days.Add(Day);
+                        DateTime = DateTime.MaxValue;
                     }
                     else
                     {
-                        UpdateDay(Days[DatesUpdated], NewDateTime);
+                        try
+                        {
+                            DateTime = PageStartDate.AddDays(RowsUpdated * DaysOfWeek.Count + i);
+                        }
+                        catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
+                        {
+                            DateTime = DateTime.MaxValue;
+                            ReachedDateTimeMaxValue = true;
+                        }
                     }
 
-                    DatesUpdated += 1;
+                    Row.Add(DateTime.DayOfWeek, DateTime);
+                }
+
+                //Update or create days for the row based on the DayNamesOrder.
+                foreach (DayOfWeek DayOfWeek in DayNamesOrder)
+                {
+                    DateTime NewDateTime = Row[DayOfWeek];
+
+                    if (Days.Count <= DaysUpdated)
+                    {
+                        T NewDay = new T();
+                        UpdateDay(NewDay, NewDateTime);
+                        Days.Add(NewDay);
+                    }
+                    else
+                    {
+                        UpdateDay(Days[DaysUpdated], NewDateTime);
+                    }
+
+                    DaysUpdated += 1;
                 }
             }
 
-            //Remove any extra CalendarDays
+            //Remove any extra days.
             while (Days.Count > DaysRequiredToNavigate)
             {
-                _Days.RemoveAt(Days.Count - 1);
+                Days.RemoveAt(Days.Count - 1);
             }
 
             OnDaysUpdated();
@@ -842,7 +851,7 @@ namespace XCalendar.Core.Models
 
 
                 ////Preserve the original time.
-                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.Day, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
+                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
             }
             else if (HigherThanMaximumDate && NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMaximum))
             {
@@ -858,7 +867,7 @@ namespace XCalendar.Core.Models
                 //DateTime NewNavigatedDate = NavigateDateTime(MinimumDate, MinimumDate, MaximumDate, Amount - WeeksUntilMaxValue, NavigationLoopMode, StartOfWeek);
 
                 ////Preserve the original time.
-                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.Day, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
+                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
             }
 
             return NewNavigatedDate;
