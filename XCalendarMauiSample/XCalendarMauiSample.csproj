@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -53,6 +53,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\GarbageCollector.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidEnvironment Include="Platforms\Android\GarbageCollector.config" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="PropertyChanged.Fody" Version="4.0.4" />
 	</ItemGroup>
 
@@ -94,6 +102,9 @@
 	  <Compile Update="Views\SelectionExamplePage.xaml.cs">
 	    <DependentUpon>Views\SelectionExamplePage.xamlSelectionExamplePage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\SwipableCalendarExamplePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\UsingDayViewExamplePage.xaml.cs">
 	    <DependentUpon>UsingDayViewExamplePage.xaml</DependentUpon>
 	  </Compile>
@@ -128,7 +139,8 @@
 		  <Generator></Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SwipableCalendarExamplePage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+		  <SubType>Designer</SubType>
+		  <Generator></Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\UsingDayViewExamplePage.xaml">
 			<SubType>Designer</SubType>
