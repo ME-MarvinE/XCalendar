@@ -23,9 +23,11 @@ namespace XCalendarFormsSample.ViewModels
                 Description = "Uses indicators to show events for a certain day.",
                 Tags = new List<Tag>()
                 {
-                    new Tag() { Title = "ICalendarDay" },
-                    new Tag() { Title = "ICalendarDayResolver" },
-                    new Tag() { Title = "DayResolver" }
+                    new Tag() { Title = "Event" },
+                    new Tag() { Title = "Events" },
+                    new Tag() { Title = "Appointmnts" },
+                    new Tag() { Title = "Special" },
+                    new Tag() { Title = "Indicator" }
                 }
             },
             new Example()
@@ -63,6 +65,26 @@ namespace XCalendarFormsSample.ViewModels
                     new Tag() { Title = "Customise" },
                     new Tag() { Title = "Customisation" }
                 }
+            },
+                        new Example()
+            {
+                Page = new SwipableCalendarExamplePage(),
+                Title = $"Animated Swipable Calendar",
+                Description = $"How to create a Calendar where swiping navigates the calendar and shows a preview of the previous or next page.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "Swipe" },
+                    new Tag() { Title = "Swipable" },
+                    new Tag() { Title = "Gesture" },
+                    new Tag() { Title = "Recognizer" },
+                    new Tag() { Title = "Animate" },
+                    new Tag() { Title = "Animation" },
+                    new Tag() { Title = "Previous" },
+                    new Tag() { Title = "Next" },
+                    new Tag() { Title = "Page" },
+                    new Tag() { Title = "Carousel" },
+                    new Tag() { Title = "Template" }
+                }
             }
         };
         public ObservableRangeCollection<Example> DisplayedExamples { get; } = new ObservableRangeCollection<Example>();
@@ -99,7 +121,11 @@ namespace XCalendarFormsSample.ViewModels
             }
             else
             {
-                DisplayedExamples.ReplaceRange(Examples.Where(x => x.Title.ToLower().Contains(SearchText.ToLower()) || (SearchTags && x.Tags.Any(Tag => Tag.Title.ToLower().Contains(SearchText.ToLower())))));
+                DisplayedExamples.ReplaceRange(
+                    Examples.Where(x => 
+                    x.Title.ToLower().Contains(SearchText.ToLower()) ||
+                    (SearchTags && x.Tags.Any(Tag => 
+                        Tag.Title.ToLower().Contains(SearchText.ToLower())))));
             }
         }
         public async Task ShowPage(Page Page)
