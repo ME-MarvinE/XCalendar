@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="XCalendarFormsSample.Views.SwipableCalendarExamplePage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
+    x:Class="XCalendarMauiSample.Views.SwipableCalendarExamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
-    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
-    xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
+    xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
+    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
+    xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
     xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="This"
     Title="Animated Swipable Calendar"
     x:DataType="{x:Type ViewModels:SwipableCalendarExampleViewModel}"
@@ -16,17 +16,17 @@
 
     <ContentPage.Resources>
         <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
-        <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
+        <mct:MultiConverter x:Key="EnumToStringCharLimitConverter">
             <xcConverters:EnumToStringConverter/>
             <xcConverters:StringCharLimitConverter/>
-        </xct:MultiConverter>
+        </mct:MultiConverter>
 
-        <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
-            <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
-                <xct:MultiConverterParameter.Value>
-                    <x:Int32>3</x:Int32>
-                </xct:MultiConverterParameter.Value>
-            </xct:MultiConverterParameter>
+        <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
+            <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
+                <mct:MultiConverterParameter.Value>
+                    <x:Int32>3 </x:Int32>
+                </mct:MultiConverterParameter.Value>
+            </mct:MultiConverterParameter>
         </x:Array>
 
 
@@ -41,10 +41,10 @@
 
         <CarouselView
             Grid.Row="0"
-            CurrentItemChangedCommand="{Binding CurrentPageCalendarChangedCommand}"
+            Position="{Binding CurrentPageCalendarPosition}"
             HeightRequest="382.5"
             ItemsSource="{Binding Calendars}"
-            Position="{Binding CurrentPageCalendarPosition}">
+            CurrentItemChangedCommand="{Binding CurrentPageCalendarChangedCommand}">
 
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Null}">

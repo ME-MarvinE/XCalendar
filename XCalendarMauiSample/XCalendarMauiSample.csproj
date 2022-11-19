@@ -94,6 +94,9 @@
 	  <Compile Update="Views\SelectionExamplePage.xaml.cs">
 	    <DependentUpon>Views\SelectionExamplePage.xamlSelectionExamplePage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\SwipableCalendarExamplePage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\UsingDayViewExamplePage.xaml.cs">
 	    <DependentUpon>UsingDayViewExamplePage.xaml</DependentUpon>
 	  </Compile>
@@ -125,6 +128,10 @@
 	  </MauiXaml>
 		<MauiXaml Update="Views\SelectionExamplePage.xaml">
 			<SubType>Designer</SubType>
+		  <Generator></Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\SwipableCalendarExamplePage.xaml">
+		  <SubType>Designer</SubType>
 		  <Generator></Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\UsingDayViewExamplePage.xaml">
