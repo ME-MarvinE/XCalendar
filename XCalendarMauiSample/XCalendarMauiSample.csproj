@@ -53,6 +53,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\GarbageCollector.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidEnvironment Include="Platforms\Android\GarbageCollector.config" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="PropertyChanged.Fody" Version="4.0.4" />
 	</ItemGroup>
 
