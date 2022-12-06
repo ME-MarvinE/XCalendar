@@ -16,13 +16,25 @@
             StrokeThickness="0"
             WidthRequest="40">
 
-            <Label
-                FontAttributes="Bold"
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="←"
-                TextColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
-                VerticalTextAlignment="Center"/>
+            <Grid>
+                <ContentView
+                    BackgroundColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
+                    HeightRequest="3"
+                    HorizontalOptions="Center"
+                    Rotation="-45"
+                    TranslationY="-4.5"
+                    VerticalOptions="Center"
+                    WidthRequest="15"/>
+                <ContentView
+                    BackgroundColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
+                    HeightRequest="3"
+                    HorizontalOptions="Center"
+                    Rotation="-135"
+                    TranslationY="4.5"
+                    VerticalOptions="Center"
+                    WidthRequest="15"/>
+            </Grid>
+
 
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="{Binding ArrowCornerRadius, Source={x:Reference NavigationView_Unique}}"/>
@@ -63,13 +75,24 @@
                 <RoundRectangle CornerRadius="{Binding ArrowCornerRadius, Source={x:Reference NavigationView_Unique}}"/>
             </Border.StrokeShape>
 
-            <Label
-                FontAttributes="Bold"
-                FontSize="30"
-                HorizontalTextAlignment="Center"
-                Text="→"
-                TextColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
-                VerticalTextAlignment="Center"/>
+            <Grid>
+                <ContentView
+                    BackgroundColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
+                    HeightRequest="3"
+                    HorizontalOptions="Center"
+                    Rotation="45"
+                    TranslationY="-4.5"
+                    VerticalOptions="Center"
+                    WidthRequest="15"/>
+                <ContentView
+                    BackgroundColor="{Binding ArrowColor, Source={x:Reference NavigationView_Unique}}"
+                    HeightRequest="3"
+                    HorizontalOptions="Center"
+                    Rotation="135"
+                    TranslationY="4.5"
+                    VerticalOptions="Center"
+                    WidthRequest="15"/>
+            </Grid>
 
             <Border.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference NavigationView_Unique}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference NavigationView_Unique}}"/>

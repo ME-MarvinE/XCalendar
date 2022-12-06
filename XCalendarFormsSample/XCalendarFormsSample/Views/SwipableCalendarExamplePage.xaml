@@ -123,7 +123,7 @@
                 FontAttributes="Bold"
                 FontSize="{StaticResource MediumFontSize}"
                 HorizontalTextAlignment="Center"
-                Text="Swipe the calendar to the left to navigate to the previous month."
+                Text="Swipe the calendar to the right to navigate to the previous month."
                 TextColor="{StaticResource PageTextColor}"/>
 
             <Label
@@ -132,7 +132,7 @@
                 FontAttributes="Bold"
                 FontSize="{StaticResource MediumFontSize}"
                 HorizontalTextAlignment="Center"
-                Text="Swipe the calendar to the right to navigate to the next month."
+                Text="Swipe the calendar to the left to navigate to the next month."
                 TextColor="{StaticResource PageTextColor}"/>
         </Grid>
 

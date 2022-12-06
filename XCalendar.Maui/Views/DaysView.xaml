@@ -24,7 +24,11 @@
                 <Setter Property="ItemTemplate">
                     <Setter.Value>
                         <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
-                            <Border Margin="2.5" BackgroundColor="Transparent">
+                            <Border
+                                Margin="2.5"
+                                BackgroundColor="Transparent"
+                                HeightRequest="45"
+                                WidthRequest="45">
 
                                 <Border.StrokeShape>
                                     <Ellipse/>

@@ -96,7 +96,10 @@
 
             <xc:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                    <Border BackgroundColor="Transparent">
+                    <Border
+                        BackgroundColor="Transparent"
+                        HeightRequest="41"
+                        WidthRequest="41">
 
                         <Border.StrokeShape>
                             <Ellipse/>
@@ -109,7 +112,6 @@
                             CurrentMonthTextColor="Black"
                             DateTime="{Binding DateTime}"
                             FontSize="12"
-                            HeightRequest="41"
                             InvalidBackgroundColor="Transparent"
                             IsCurrentMonth="{Binding IsCurrentMonth}"
                             IsInvalid="{Binding IsInvalid}"
