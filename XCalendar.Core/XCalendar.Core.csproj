@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>4.1.0</Version>
+    <Version>4.2.1</Version>
     <Authors>MarvinE</Authors>
     <Description>A plugin providing a Calendar API and DateTime extensions.</Description>
-    <PackageIcon>XCalendar Nuget Icon.png</PackageIcon>
+    <PackageIcon>XCalendar.Core Nuget Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
     <PackageReadmeFile></PackageReadmeFile>
     <PackageTags>csharp; dotnet; cross-platform; calendar;</PackageTags>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\XCalendar Nuget Icon.png">
+    <None Update="XCalendar.Core Nuget Icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
