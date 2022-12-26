@@ -152,7 +152,7 @@ namespace XCalendar.Core.Extensions
         /// </summary>
         /// <param name="WeekNumber">The week to get the days from relative to the start of the month.</param>
         /// <returns>The list of days inside the specified week in this instance's month.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">he specified week number is outside the scope of the instance's month.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The specified week number is outside the scope of the instance's month.</exception>
         public static List<DateTime> CalendarWeekInMonth(this DateTime Self, int Week)
         {
             return Self.CalendarWeekInMonth(Week, CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
@@ -163,7 +163,7 @@ namespace XCalendar.Core.Extensions
         /// <param name="WeekNumber">The week to get the days from relative to the start of the month.</param>
         /// <param name="StartingDayOfWeek">The <see cref="System.DayOfWeek"/> at which the week starts.</param>
         /// <returns>The list of days inside the specified week in this instance's month.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">he specified week number is outside the scope of the instance's month.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The specified week number is outside the scope of the instance's month.</exception>
         public static List<DateTime> CalendarWeekInMonth(this DateTime Self, int Week, DayOfWeek StartingDayOfWeek)
         {
             int CheckWeek = 0;

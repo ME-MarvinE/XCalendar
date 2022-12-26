@@ -38,27 +38,31 @@
 
             <xc:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                    <Border Margin="2.5" BackgroundColor="Transparent">
+                    <Border
+                        Margin="2.5"
+                        BackgroundColor="Transparent"
+                        HeightRequest="45"
+                        WidthRequest="45">
 
                         <Border.StrokeShape>
                             <Ellipse/>
                         </Border.StrokeShape>
 
                         <xc:DayView
-                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                CurrentMonthCommandParameter="{Binding DateTime}"
-                                DateTime="{Binding DateTime}"
-                                FontAttributes="Bold"
-                                FontSize="18"
-                                IsCurrentMonth="{Binding IsCurrentMonth}"
-                                IsInvalid="{Binding IsInvalid}"
-                                IsSelected="{Binding IsSelected}"
-                                IsToday="{Binding IsToday}"
-                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                SelectedCommandParameter="{Binding DateTime}"
-                                Style="{StaticResource DefaultDayViewStyle}"
-                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                TodayCommandParameter="{Binding DateTime}"/>
+                            CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                            CurrentMonthCommandParameter="{Binding DateTime}"
+                            DateTime="{Binding DateTime}"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            IsCurrentMonth="{Binding IsCurrentMonth}"
+                            IsInvalid="{Binding IsInvalid}"
+                            IsSelected="{Binding IsSelected}"
+                            IsToday="{Binding IsToday}"
+                            SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                            SelectedCommandParameter="{Binding DateTime}"
+                            Style="{StaticResource DefaultDayViewStyle}"
+                            TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                            TodayCommandParameter="{Binding DateTime}"/>
                     </Border>
                 </DataTemplate>
             </xc:CalendarView.DayTemplate>
