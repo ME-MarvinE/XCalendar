@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using CommunityToolkit.Maui.Views;
+using System.Collections;
 using System.Windows.Input;
-using CommunityToolkit.Maui.Views;
 
 namespace XCalendarMauiSample.Popups
 {

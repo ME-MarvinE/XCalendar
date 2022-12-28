@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.Models
 {

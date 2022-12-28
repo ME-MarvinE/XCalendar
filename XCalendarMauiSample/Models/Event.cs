@@ -1,6 +1,4 @@
-﻿using XCalendar.Core.Models;
-
-namespace XCalendarMauiSample.Models
+﻿namespace XCalendarMauiSample.Models
 {
     public class Event : BaseObservableModel
     {

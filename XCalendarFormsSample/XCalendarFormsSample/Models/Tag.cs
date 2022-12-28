@@ -1,6 +1,4 @@
-﻿using XCalendar.Core.Models;
-
-namespace XCalendarFormsSample.Models
+﻿namespace XCalendarFormsSample.Models
 {
     public class Tag : BaseObservableModel
     {

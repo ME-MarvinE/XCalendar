@@ -1,5 +1,5 @@
-﻿using XCalendarFormsSample.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using XCalendarFormsSample.ViewModels;
 
 namespace XCalendarFormsSample.Views
 {
