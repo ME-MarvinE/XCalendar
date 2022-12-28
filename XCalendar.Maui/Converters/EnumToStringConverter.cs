@@ -1,29 +1,31 @@
-﻿namespace XCalendar.Maui.Converters;
-using System.Globalization;
-using CommunityToolkit.Maui.Converters;
-
-public class EnumToStringConverter : BaseConverterOneWay<Enum, string>
+﻿namespace XCalendar.Maui.Converters
 {
-    public override string DefaultConvertReturnValue
-    {
-        get
-        {
-            return "";
-        }
-        set
-        {
-        }
-    }
+    using System.Globalization;
+    using CommunityToolkit.Maui.Converters;
 
-    public override string ConvertFrom(Enum value, CultureInfo culture)
+    public class EnumToStringConverter : BaseConverterOneWay<Enum, string>
     {
-        try
+        public override string DefaultConvertReturnValue
         {
-            return Enum.GetName(value.GetType(), value);
+            get
+            {
+                return "";
+            }
+            set
+            {
+            }
         }
-        catch
+
+        public override string ConvertFrom(Enum value, CultureInfo culture)
         {
-            return value?.ToString();
+            try
+            {
+                return Enum.GetName(value.GetType(), value);
+            }
+            catch
+            {
+                return value?.ToString();
+            }
         }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XCalendar.Core.Enums;
-using XCalendar.Core.Extensions;
-using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.ViewModels
