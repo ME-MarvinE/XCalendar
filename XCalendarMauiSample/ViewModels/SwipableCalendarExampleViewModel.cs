@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 
 namespace XCalendarMauiSample.ViewModels
@@ -61,8 +62,29 @@ namespace XCalendarMauiSample.ViewModels
         }
         public void UpdateCalendarPages()
         {
-            DateTime CurrentPageCalendarPreviousNavigatedDate = CurrentPageCalendar.NavigateDateTime(CurrentPageCalendar.NavigatedDate, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, BackwardsNavigationAmount, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.NavigationTimeUnit, CurrentPageCalendar.StartOfWeek);
-            DateTime CurrentPageCalendarNextNavigatedDate = CurrentPageCalendar.NavigateDateTime(CurrentPageCalendar.NavigatedDate, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, ForwardsNavigationAmount, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.NavigationTimeUnit, CurrentPageCalendar.StartOfWeek);
+            TimeSpan BackwardsNavigationTimeSpan;
+            TimeSpan ForwardsNavigationTimeSpan;
+
+            if (CurrentPageCalendar.NavigatedDate.TryAddMonths(BackwardsNavigationAmount, out DateTime BackwardsNavigationDateTime))
+            {
+                BackwardsNavigationTimeSpan = BackwardsNavigationDateTime - CurrentPageCalendar.NavigatedDate;
+            }
+            else
+            {
+                BackwardsNavigationTimeSpan = BackwardsNavigationAmount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+            }
+
+            if (CurrentPageCalendar.NavigatedDate.TryAddMonths(ForwardsNavigationAmount, out DateTime ForwardsNavigationDateTime))
+            {
+                ForwardsNavigationTimeSpan = ForwardsNavigationDateTime - CurrentPageCalendar.NavigatedDate;
+            }
+            else
+            {
+                ForwardsNavigationTimeSpan = ForwardsNavigationAmount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+            }
+
+            DateTime CurrentPageCalendarPreviousNavigatedDate = CurrentPageCalendar.NavigateDateTime(CurrentPageCalendar.NavigatedDate, BackwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
+            DateTime CurrentPageCalendarNextNavigatedDate = CurrentPageCalendar.NavigateDateTime(CurrentPageCalendar.NavigatedDate, ForwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
 
             if (CurrentPageCalendar == FirstPageCalendar)
             {

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 
 namespace XCalendarMauiSample.ViewModels
@@ -36,7 +37,14 @@ namespace XCalendarMauiSample.ViewModels
         #region Methods
         public void NavigateCalendar(int Amount)
         {
-            Calendar?.NavigateCalendar(Amount);
+            if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            {
+                Calendar.NavigateCalendar(TargetDate - Calendar.NavigatedDate);
+            }
+            else
+            {
+                Calendar.NavigateCalendar(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+            }
         }
         public void ChangeDateSelection(DateTime DateTime)
         {

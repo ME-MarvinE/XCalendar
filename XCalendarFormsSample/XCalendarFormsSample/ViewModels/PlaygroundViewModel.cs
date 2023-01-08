@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 using XCalendarFormsSample.Helpers;
 
@@ -14,20 +15,27 @@ namespace XCalendarFormsSample.ViewModels
         #region Properties
         public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
         {
-            NavigatedDate = DateTime.Today,
-            NavigationLowerBound = DateTime.Today.AddYears(-2),
+            NavigatedDate = DateTime.MinValue,
+            NavigationLowerBound = DateTime.MinValue,
             NavigationUpperBound = DateTime.Today.AddYears(2),
             StartOfWeek = DayOfWeek.Monday,
             SelectionAction = SelectionAction.Modify,
             NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum,
             SelectionType = SelectionType.Single,
-            NavigationTimeUnit = NavigationTimeUnit.Month,
             PageStartMode = PageStartMode.FirstDayOfMonth,
             Rows = 2,
             AutoRows = true,
             AutoRowsIsConsistent = true,
             TodayDate = DateTime.Today
         };
+        public List<string> NavigationTimeUnits { get; } = new List<string>()
+        {
+            "Day",
+            "Week",
+            "Month",
+            "Year"
+        };
+        public string NavigationTimeUnit { get; set; } = "Month";
         public bool CalendarIsVisible { get; set; } = true;
         public double DaysViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
@@ -115,7 +123,89 @@ namespace XCalendarFormsSample.ViewModels
         #region Methods
         public void NavigateCalendar(int Amount)
         {
-            Calendar?.NavigateCalendar(Amount);
+            TimeSpan TimeSpanToNavigateBy;
+
+            switch (NavigationTimeUnit)
+            {
+                case "Day":
+                    TimeSpanToNavigateBy = TimeSpan.FromDays(Amount);
+                    break;
+
+                case "Week":
+                    TimeSpanToNavigateBy = TimeSpan.FromDays(Amount * 7);
+                    break;
+
+                case "Month":
+                    if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime AddMonthsDateTime))
+                    {
+                        TimeSpanToNavigateBy = AddMonthsDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        TimeSpanToNavigateBy = Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
+                    break;
+
+                case "Year":
+                    if (Calendar.NavigatedDate.TryAddYears(Amount, out DateTime AddYearsDateTime))
+                    {
+                        TimeSpanToNavigateBy = AddYearsDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        TimeSpanToNavigateBy = Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+            }
+
+            Calendar.NavigateCalendar(TimeSpanToNavigateBy);
+
+            //DateTime TimeSpanToNavigateBy;
+
+            //try
+            //{
+            //    switch (NavigationTimeUnit)
+            //    {
+            //        case "Day":
+            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddDays(Amount);
+            //            break;
+
+            //        case "Week":
+            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddWeeks(Amount);
+            //            break;
+
+            //        case "Month":
+            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddMonths(Amount);
+            //            break;
+
+            //        case "Year":
+            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddYears(Amount);
+            //            break;
+
+            //        case "Page":
+            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddWeeks(Calendar.Rows * Amount);
+            //            break;
+
+            //        default: 
+            //            throw new NotImplementedException();
+            //    }
+            //}
+            //catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
+            //{
+            //    if (Amount > 0)
+            //    {
+            //        TimeSpanToNavigateBy = DateTime.MaxValue;
+            //    }
+            //    else
+            //    {
+            //        TimeSpanToNavigateBy = DateTime.MinValue;
+            //    }
+            //}
+
+            //Calendar.NavigateCalendar(TimeSpanToNavigateBy);
         }
         public void ChangeDateSelection(DateTime DateTime)
         {
@@ -151,7 +241,7 @@ namespace XCalendarFormsSample.ViewModels
         }
         public async void ShowNavigationTimeUnitDialog()
         {
-            Calendar.NavigationTimeUnit = await PopupHelper.ShowNavigationTimeUnitDialog(Calendar.NavigationTimeUnit);
+            NavigationTimeUnit = await PopupHelper.ShowSelectItemDialog(NavigationTimeUnit, NavigationTimeUnits);
         }
         public async void ShowNavigationLoopModeDialog()
         {

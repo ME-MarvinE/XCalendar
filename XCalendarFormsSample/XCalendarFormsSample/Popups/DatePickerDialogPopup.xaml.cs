@@ -7,6 +7,7 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.Popups
@@ -80,7 +81,14 @@ namespace XCalendarFormsSample.Popups
         }
         public void NavigateCalendar(int Amount)
         {
-            Calendar?.NavigateCalendar(Amount);
+            if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            {
+                Calendar.NavigateCalendar(TargetDate - Calendar.NavigatedDate);
+            }
+            else
+            {
+                Calendar.NavigateCalendar(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+            }
         }
         public void ChangeDateSelection(DateTime DateTime)
         {

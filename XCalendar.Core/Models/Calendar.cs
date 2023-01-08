@@ -30,7 +30,6 @@ namespace XCalendar.Core.Models
         private ObservableRangeCollection<DateTime> _SelectedDates = new ObservableRangeCollection<DateTime>();
         private ObservableRangeCollection<DayOfWeek> _CustomDayNamesOrder;
         private int _Rows = 6;
-        private NavigationTimeUnit _NavigationTimeUnit = NavigationTimeUnit.Month;
         private PageStartMode _PageStartMode = PageStartMode.FirstDayOfMonth;
         private ObservableRangeCollection<DayOfWeek> _DayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
         private DateTime? _RangeSelectionStart;
@@ -310,25 +309,6 @@ namespace XCalendar.Core.Models
 
                     OnRowsChanged(OldValue, _Rows);
                     OnPropertyChanged(nameof(Rows));
-                }
-            }
-        }
-        /// <summary>
-        /// The amount that the source date will change when navigating using <see cref="NavigateCalendar(int)"/>.
-        /// </summary>
-        public NavigationTimeUnit NavigationTimeUnit
-        {
-            get
-            {
-                return _NavigationTimeUnit;
-            }
-            set
-            {
-                if (_NavigationTimeUnit != value)
-                {
-                    _NavigationTimeUnit = value;
-
-                    OnPropertyChanged(nameof(NavigationTimeUnit));
                 }
             }
         }
@@ -743,64 +723,38 @@ namespace XCalendar.Core.Models
             OnDaysUpdated();
         }
         /// <summary>
-        /// Navigates the date at which the time unit is extracted.
+        /// Navigates the calendar by the specified <see cref="TimeSpan"/> using the navigation rule properties set in the calendar (<see cref="NavigationLowerBound"/>, <see cref="NavigationUpperBound"/> <see cref="NavigationLoopMode"/>).
         /// </summary>
-        /// <exception cref="NotImplementedException">The current <see cref="PageStartMode"/> is not implemented</exception>
-        public virtual void NavigateCalendar(int Amount)
+        public virtual void NavigateCalendar(TimeSpan TimeSpan)
         {
-            NavigatedDate = NavigateDateTime(NavigatedDate, NavigationLowerBound, NavigationUpperBound, Amount, NavigationLoopMode, NavigationTimeUnit, StartOfWeek);
+            NavigatedDate = NavigateDateTime(NavigatedDate, TimeSpan, NavigationLowerBound, NavigationUpperBound, NavigationLoopMode, StartOfWeek);
         }
         /// <summary>
-        /// Performs navigation on a DateTime.
+        /// Performs navigation on a <see cref="DateTime"/> using the specified navigation rules.
         /// </summary>
-        /// <param name="DateTime">The <see cref="DateTime"/> that will be the source of the navigation.</param>
-        /// <param name="MinimumDate">The lower bound of the range of dates. Inclusive.</param>
-        /// <param name="MaximumDate">The upper bound of the range of dates. Inclusive.</param>
-        /// <param name="Amount">The amount of the <paramref name="NavigationTimeUnit"/> to navigate.</param>
+        /// <param name="CurrentDateTime">The <see cref="DateTime"/> that will be the source of the navigation.</param>
+        /// <param name="TimeSpan">The <see cref="TimeSpan"/> to attempt to navigate by.</param>
+        /// <param name="MinimumDate">The lower bound of the allowed range of dates. Inclusive.</param>
+        /// <param name="MaximumDate">The upper bound of the allowed range of dates. Inclusive.</param>
         /// <param name="NavigationLoopMode">What to do when the result of navigation is outside the range of the <paramref name="MinimumDate"/> and <paramref name="MaximumDate"/>.</param>
-        /// <param name="NavigationTimeUnit">The time unit to navigate the <paramref name="DateTime"/> by.</param>
         /// <param name="StartOfWeek">The start of the week.</param>
         /// <returns>The <see cref="DateTime"/> resulting from the navigation.</returns>
-        /// <exception cref="NotImplementedException">The <see cref="NavigationTimeUnit"/> is not implemented.</exception>
-        public DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek)
+        public DateTime NavigateDateTime(DateTime CurrentDateTime, TimeSpan TimeSpan, DateTime MinimumDate, DateTime MaximumDate, NavigationLoopMode NavigationLoopMode, DayOfWeek StartOfWeek)
         {
             bool LowerThanMinimumDate;
             bool HigherThanMaximumDate;
 
-            DateTime NewNavigatedDate;
-
-            try
+            if (CurrentDateTime.TryAdd(TimeSpan, out DateTime NewNavigatedDate))
             {
-                switch (NavigationTimeUnit)
-                {
-                    case NavigationTimeUnit.Day:
-                        NewNavigatedDate = DateTime.AddDays(Amount);
-                        break;
-
-                    case NavigationTimeUnit.Week:
-                        NewNavigatedDate = DateTime.AddWeeks(Amount);
-                        break;
-
-                    case NavigationTimeUnit.Month:
-                        NewNavigatedDate = DateTime.AddMonths(Amount);
-                        break;
-
-                    case NavigationTimeUnit.Year:
-                        NewNavigatedDate = DateTime.AddYears(Amount);
-                        break;
-
-                    default:
-                        throw new NotImplementedException($"{nameof(Enums.NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
-                }
-
                 LowerThanMinimumDate = NewNavigatedDate.Date < MinimumDate.Date;
                 HigherThanMaximumDate = NewNavigatedDate.Date > MaximumDate.Date;
             }
-            catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
+            else
             {
-                NewNavigatedDate = Amount > 0 ? MaximumDate : MinimumDate;
-                LowerThanMinimumDate = Amount < 0;
-                HigherThanMaximumDate = Amount > 0;
+                NewNavigatedDate = TimeSpan.Ticks > 0 ? MaximumDate : MinimumDate;
+
+                LowerThanMinimumDate = NewNavigatedDate.Date <= MinimumDate.Date;
+                HigherThanMaximumDate = NewNavigatedDate.Date >= MaximumDate.Date;
             }
 
             if (LowerThanMinimumDate && NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMinimum))
@@ -811,14 +765,14 @@ namespace XCalendar.Core.Models
 
                 ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
                 ////The minimum date may not always have the first day of week so the last day of week is used to do this.
-                //TimeSpan Difference = DateTime.LastDayOfWeek(StartOfWeek) - MinimumDate.LastDayOfWeek(StartOfWeek);
+                //TimeSpan Difference = CurrentDateTime.LastDayOfWeek(StartOfWeek) - MinimumDate.LastDayOfWeek(StartOfWeek);
 
                 //int WeeksUntilMinValue = (int)Math.Ceiling(Difference.TotalDays / 7);
                 //DateTime NewNavigatedDate = NavigateDateTime(MinimumDate, MinimumDate, MaximumDate, Amount + WeeksUntilMinValue, NavigationLoopMode, StartOfWeek);
 
 
                 ////Preserve the original time.
-                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
+                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, CurrentDateTime.Hour, CurrentDateTime.Minute, CurrentDateTime.Second, CurrentDateTime.Millisecond);
             }
             else if (HigherThanMaximumDate && NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMaximum))
             {
@@ -828,13 +782,13 @@ namespace XCalendar.Core.Models
 
                 ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
                 ////The maximum date may not always have the last day of week so the first day of week is used to do this.
-                //TimeSpan Difference = MaximumDate.FirstDayOfWeek(StartOfWeek) - DateTime.FirstDayOfWeek(StartOfWeek);
+                //TimeSpan Difference = MaximumDate.FirstDayOfWeek(StartOfWeek) - CurrentDateTime.FirstDayOfWeek(StartOfWeek);
 
                 //int WeeksUntilMaxValue = (int)Math.Ceiling(Difference.TotalDays / 7);
                 //DateTime NewNavigatedDate = NavigateDateTime(MinimumDate, MinimumDate, MaximumDate, Amount - WeeksUntilMaxValue, NavigationLoopMode, StartOfWeek);
 
                 ////Preserve the original time.
-                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, DateTime.Hour, DateTime.Minute, DateTime.Second, DateTime.Millisecond);
+                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, CurrentDateTime.Hour, CurrentDateTime.Minute, CurrentDateTime.Second, CurrentDateTime.Millisecond);
             }
 
             return NewNavigatedDate;

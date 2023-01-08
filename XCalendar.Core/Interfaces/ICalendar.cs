@@ -22,7 +22,6 @@ namespace XCalendar.Core.Interfaces
         ObservableRangeCollection<DateTime> SelectedDates { get; set; }
         ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder { get; set; }
         int Rows { get; set; }
-        NavigationTimeUnit NavigationTimeUnit { get; set; }
         PageStartMode PageStartMode { get; set; }
         ObservableRangeCollection<DayOfWeek> DayNamesOrder { get; }
         DateTime? RangeSelectionStart { get; set; }
@@ -42,8 +41,8 @@ namespace XCalendar.Core.Interfaces
         void CommitRangeSelection();
         int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek);
         void UpdateDays(DateTime NavigationDate);
-        void NavigateCalendar(int Amount);
-        DateTime NavigateDateTime(DateTime DateTime, DateTime MinimumDate, DateTime MaximumDate, int Amount, NavigationLoopMode NavigationLoopMode, NavigationTimeUnit NavigationTimeUnit, DayOfWeek StartOfWeek);
+        void NavigateCalendar(TimeSpan TimeSpan);
+        DateTime NavigateDateTime(DateTime CurrentDateTime, TimeSpan TimeSpan, DateTime MinimumDate, DateTime MaximumDate, NavigationLoopMode NavigationLoopMode, DayOfWeek StartOfWeek);
         #endregion
     }
 }
