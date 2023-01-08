@@ -31,7 +31,7 @@ namespace XCalendar.Core.Extensions
                 return false;
             }
         }
-        public static bool TrySutract(this DateTime Self, DateTime value, out TimeSpan Result)
+        public static bool TrySubtract(this DateTime Self, DateTime value, out TimeSpan Result)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace XCalendar.Core.Extensions
                 return false;
             }
         }
-        public static bool TrySutract(this DateTime Self, TimeSpan value, out DateTime Result)
+        public static bool TrySubtract(this DateTime Self, TimeSpan value, out DateTime Result)
         {
             try
             {
