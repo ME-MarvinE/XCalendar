@@ -10,7 +10,7 @@ namespace XCalendar.Forms.Converters
         {
             try
             {
-                string StringValue = (string)value;
+                string StringValue = value.ToString();
                 int TargetLength = System.Convert.ToInt32(parameter);
 
                 if (TargetLength == 0)

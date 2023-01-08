@@ -28,22 +28,6 @@
 
         <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
         <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any"/>
-
-        <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
-        <xcConverters:EnumToStringConverter x:Key="EnumToStringConverter"/>
-
-        <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-            <xcConverters:EnumToStringConverter/>
-            <xcConverters:StringCharLimitConverter/>
-        </xct:MultiConverter>
-
-        <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
-            <xct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
-                <xct:MultiConverterParameter.Value>
-                    <x:Int32>3</x:Int32>
-                </xct:MultiConverterParameter.Value>
-            </xct:MultiConverterParameter>
-        </x:Array>
     </ContentPage.Resources>
 
     <StackLayout Spacing="0">

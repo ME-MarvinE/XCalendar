@@ -14,8 +14,6 @@
     Style="{StaticResource DefaultPageStyle}">
 
     <ContentPage.Resources>
-        <!--  Limits a string to a certain amount of characters  -->
-        <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
         <!--  Returns true if all bindings evaluate to true  -->
         <mct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All"/>
         <!--  Inverts a binded boolean value  -->

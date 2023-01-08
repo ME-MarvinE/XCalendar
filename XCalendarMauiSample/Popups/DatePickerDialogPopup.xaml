@@ -16,18 +16,7 @@
     <Grid BackgroundColor="White">
 
         <Grid.Resources>
-
-            <mct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-                <xcConverters:EnumToStringConverter/>
-                <xcConverters:StringCharLimitConverter/>
-            </mct:MultiConverter>
-            <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
-                <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
-                    <mct:MultiConverterParameter.Value>
-                        <x:Int32>1</x:Int32>
-                    </mct:MultiConverterParameter.Value>
-                </mct:MultiConverterParameter>
-            </x:Array>
+            <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
             <!--<Color x:Key="PrimaryPickerColor">#F04080</Color>-->
             <!--<Color x:Key="PrimaryPickerColor">#4080F0</Color>-->
             <!--<Color x:Key="PrimaryPickerColor">#8040F0</Color>-->
@@ -94,7 +83,7 @@
                     <Label
                         FontSize="12"
                         HorizontalTextAlignment="Center"
-                        Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
+                        Text="{Binding ., Converter={StaticResource StringCharLimitConverter}, ConverterParameter=1}"
                         TextColor="#707070"
                         VerticalTextAlignment="Center"/>
                 </DataTemplate>
