@@ -12,7 +12,7 @@ namespace XCalendar.Core.Extensions
         /// </summary>
         /// <returns> An object whose value is the sum of the date and time represented by this instance and the number of weeks represented by <paramref name="value"/>.
         /// </returns>
-        public static DateTime AddWeeks(this DateTime Self, int value)
+        public static DateTime AddWeeks(this DateTime Self, double value)
         {
             return Self.AddDays(value * 7);
         }
@@ -106,7 +106,7 @@ namespace XCalendar.Core.Extensions
                 return false;
             }
         }
-        public static bool TryAddWeeks(this DateTime Self, int value, out DateTime Result)
+        public static bool TryAddWeeks(this DateTime Self, double value, out DateTime Result)
         {
             try
             {
