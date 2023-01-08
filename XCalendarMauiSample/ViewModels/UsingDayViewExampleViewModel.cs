@@ -14,8 +14,6 @@ namespace XCalendarMauiSample.ViewModels
             SelectionType = SelectionType.Single
         };
         public CalendarDay OutsideCalendarDay { get; set; } = new CalendarDay();
-        public int ForwardsNavigationAmount { get; set; } = 1;
-        public int BackwardsNavigationAmount { get; set; } = -1;
         #endregion
 
         #region Commands

@@ -61,8 +61,6 @@ namespace XCalendarFormsSample.ViewModels
             new Event() { Title = "Cooking", Description = "Cooking with friends" }
         };
         public ObservableRangeCollection<Event> SelectedEvents { get; } = new ObservableRangeCollection<Event>();
-        public int ForwardsNavigationAmount { get; set; } = 1;
-        public int BackwardsNavigationAmount { get; set; } = -1;
         #endregion
 
         #region Commands

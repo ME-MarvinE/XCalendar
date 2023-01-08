@@ -22,8 +22,6 @@ namespace XCalendarFormsSample.ViewModels
             }
         }
         public ObservableRangeCollection<Calendar<CalendarDay>> Calendars { get; set; } = new ObservableRangeCollection<Calendar<CalendarDay>>();
-        public int ForwardsNavigationAmount { get; set; } = 1;
-        public int BackwardsNavigationAmount { get; set; } = -1;
         #endregion
 
         #region Commands
@@ -66,6 +64,8 @@ namespace XCalendarFormsSample.ViewModels
         {
             TimeSpan BackwardsNavigationTimeSpan;
             TimeSpan ForwardsNavigationTimeSpan;
+            int ForwardsNavigationAmount = 1;
+            int BackwardsNavigationAmount = -1;
 
             if (CurrentPageCalendar.NavigatedDate.TryAddMonths(BackwardsNavigationAmount, out DateTime BackwardsNavigationDateTime))
             {
