@@ -16,6 +16,51 @@ namespace XCalendar.Core.Extensions
         {
             return Self.AddDays(value * 7);
         }
+        public static bool TryAdd(this DateTime Self, TimeSpan value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.Add(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TrySutract(this DateTime Self, DateTime value, out TimeSpan Result)
+        {
+            try
+            {
+                Result = Self.Subtract(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TrySutract(this DateTime Self, TimeSpan value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.Subtract(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
         public static bool TryAddTicks(this DateTime Self, long value, out DateTime Result)
         {
             try
