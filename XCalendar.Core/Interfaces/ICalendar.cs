@@ -25,8 +25,6 @@ namespace XCalendar.Core.Interfaces
         NavigationTimeUnit NavigationTimeUnit { get; set; }
         PageStartMode PageStartMode { get; set; }
         ObservableRangeCollection<DayOfWeek> DayNamesOrder { get; }
-        int ForwardsNavigationAmount { get; set; }
-        int BackwardsNavigationAmount { get; set; }
         DateTime? RangeSelectionStart { get; set; }
         DateTime? RangeSelectionEnd { get; set; }
         SelectionType SelectionType { get; set; }

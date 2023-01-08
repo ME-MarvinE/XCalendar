@@ -46,11 +46,11 @@
             <xc:CalendarView
                 x:Name="MainCalendarView"
                 BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                BackwardsArrowCommandParameter="{Binding EventCalendar.BackwardsNavigationAmount}"
+                BackwardsArrowCommandParameter="{Binding BackwardsNavigationAmount}"
                 Days="{Binding EventCalendar.Days}"
                 DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                ForwardsArrowCommandParameter="{Binding EventCalendar.ForwardsNavigationAmount}"
+                ForwardsArrowCommandParameter="{Binding ForwardsNavigationAmount}"
                 NavigatedDate="{Binding EventCalendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 

@@ -24,9 +24,7 @@ namespace XCalendarConsoleSample
             Rows = 2,
             AutoRows = true,
             AutoRowsIsConsistent = true,
-            TodayDate = DateTime.Today,
-            ForwardsNavigationAmount = 1,
-            BackwardsNavigationAmount = -1
+            TodayDate = DateTime.Today
         };
         static void Main(string[] args)
         {

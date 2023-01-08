@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Data.SqlTypes;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -34,8 +33,6 @@ namespace XCalendar.Core.Models
         private NavigationTimeUnit _NavigationTimeUnit = NavigationTimeUnit.Month;
         private PageStartMode _PageStartMode = PageStartMode.FirstDayOfMonth;
         private ObservableRangeCollection<DayOfWeek> _DayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
-        private int _ForwardsNavigationAmount = 1;
-        private int _BackwardsNavigationAmount = -1;
         private DateTime? _RangeSelectionStart;
         private DateTime? _RangeSelectionEnd;
         private SelectionType _SelectionType = SelectionType.None;
@@ -378,38 +375,6 @@ namespace XCalendar.Core.Models
 
                     OnDayNamesOrderChanged(OldValue, _DayNamesOrder);
                     OnPropertyChanged(nameof(DayNamesOrder));
-                }
-            }
-        }
-        public int ForwardsNavigationAmount
-        {
-            get
-            {
-                return _ForwardsNavigationAmount;
-            }
-            set
-            {
-                if (_ForwardsNavigationAmount != value)
-                {
-                    _ForwardsNavigationAmount = value;
-
-                    OnPropertyChanged(nameof(ForwardsNavigationAmount));
-                }
-            }
-        }
-        public int BackwardsNavigationAmount
-        {
-            get
-            {
-                return _BackwardsNavigationAmount;
-            }
-            set
-            {
-                if (_BackwardsNavigationAmount != value)
-                {
-                    _BackwardsNavigationAmount = value;
-
-                    OnPropertyChanged(nameof(BackwardsNavigationAmount));
                 }
             }
         }

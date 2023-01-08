@@ -28,11 +28,11 @@
             <xc:CalendarView
                 x:Name="MainCalendarView"
                 BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
+                BackwardsArrowCommandParameter="{Binding BackwardsNavigationAmount}"
                 Days="{Binding Calendar.Days}"
                 DaysOfWeek="{Binding Calendar.DayNamesOrder}"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
+                ForwardsArrowCommandParameter="{Binding ForwardsNavigationAmount}"
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 

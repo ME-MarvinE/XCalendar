@@ -254,7 +254,7 @@
                             Grid.Column="1"
                             HorizontalOptions="Center"
                             Keyboard="Numeric"
-                            Text="{Binding Calendar.ForwardsNavigationAmount}"
+                            Text="{Binding ForwardsNavigationAmount}"
                             VerticalOptions="End"/>
                     </Grid>
 
@@ -269,7 +269,7 @@
                             Grid.Column="1"
                             HorizontalOptions="Center"
                             Keyboard="Numeric"
-                            Text="{Binding Calendar.BackwardsNavigationAmount}"
+                            Text="{Binding BackwardsNavigationAmount}"
                             VerticalOptions="End"/>
                     </Grid>
 
@@ -925,13 +925,13 @@
                     x:Name="FancyCalendarView"
                     BackgroundColor="{Binding CalendarBackgroundColor}"
                     BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                    BackwardsArrowCommandParameter="{Binding Calendar.BackwardsNavigationAmount}"
+                    BackwardsArrowCommandParameter="{Binding BackwardsNavigationAmount}"
                     DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                     Days="{Binding Calendar.Days}"
                     DaysOfWeek="{Binding Calendar.DayNamesOrder}"
                     DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                     ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                    ForwardsArrowCommandParameter="{Binding Calendar.ForwardsNavigationAmount}"
+                    ForwardsArrowCommandParameter="{Binding ForwardsNavigationAmount}"
                     IsVisible="{Binding CalendarIsVisible}"
                     NavigatedDate="{Binding Calendar.NavigatedDate}"
                     Style="{StaticResource DefaultCalendarViewStyle}">
