@@ -20,14 +20,7 @@
 
             <xct:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
 
-            <xct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-                <Converters:EnumToStringConverter/>
-                <Converters:StringCharLimitConverter/>
-            </xct:MultiConverter>
-
-            <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type xct:MultiConverterParameter}">
-                <xct:MultiConverterParameter ConverterType="{x:Type Converters:StringCharLimitConverter}" Value="3"/>
-            </x:Array>
+            <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
         </StackLayout.Resources>
 
         <xc:NavigationView
@@ -53,7 +46,7 @@
                                     <Label
                                         FontSize="15"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
+                                        Text="{Binding ., Converter={StaticResource StringCharLimitConverter}, ConverterParameter=3}"
                                         TextColor="Black"/>
                                 </DataTemplate>
                             </Setter.Value>

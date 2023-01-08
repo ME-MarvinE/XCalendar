@@ -21,18 +21,7 @@
 
             <mct:MathExpressionConverter x:Key="MathExpressionConverter"/>
 
-            <mct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-                <Converters:EnumToStringConverter/>
-                <Converters:StringCharLimitConverter/>
-            </mct:MultiConverter>
-
-            <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
-                <mct:MultiConverterParameter ConverterType="{x:Type Converters:StringCharLimitConverter}">
-                    <mct:MultiConverterParameter.Value>
-                        <x:Int32>3</x:Int32>
-                    </mct:MultiConverterParameter.Value>
-                </mct:MultiConverterParameter>
-            </x:Array>
+            <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
         </VerticalStackLayout.Resources>
 
         <xc:NavigationView
@@ -58,7 +47,7 @@
                                     <Label
                                         FontSize="15"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding ., Converter={StaticResource EnumToStringCharLimitConverter}, ConverterParameter={StaticResource DayNamesMultiConverterParams}}"
+                                        Text="{Binding ., Converter={StaticResource StringCharLimitConverter}, ConverterParameter=3}"
                                         TextColor="Black"
                                         VerticalTextAlignment="Center"/>
                                 </DataTemplate>

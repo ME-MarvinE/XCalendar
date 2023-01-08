@@ -14,24 +14,6 @@
     x:DataType="{x:Type ViewModels:SwipableCalendarExampleViewModel}"
     Style="{StaticResource DefaultPageStyle}">
 
-    <ContentPage.Resources>
-        <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
-        <mct:MultiConverter x:Key="EnumToStringCharLimitConverter">
-            <xcConverters:EnumToStringConverter/>
-            <xcConverters:StringCharLimitConverter/>
-        </mct:MultiConverter>
-
-        <x:Array x:Key="DayNamesMultiConverterParams" Type="{x:Type mct:MultiConverterParameter}">
-            <mct:MultiConverterParameter ConverterType="{x:Type xcConverters:StringCharLimitConverter}">
-                <mct:MultiConverterParameter.Value>
-                    <x:Int32>3</x:Int32>
-                </mct:MultiConverterParameter.Value>
-            </mct:MultiConverterParameter>
-        </x:Array>
-
-
-    </ContentPage.Resources>
-
     <Grid ColumnSpacing="0" RowSpacing="0">
 
         <Grid.RowDefinitions>
