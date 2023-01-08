@@ -690,6 +690,7 @@ namespace XCalendar.Core.Models
                 for (int i = 0; i < DaysOfWeek.Count; i++)
                 {
                     DateTime DateTime;
+                    DayOfWeek DayOfWeek = DaysOfWeek[i];
 
                     //If at some point when updating dates, the DateTime went past the maximum value,
                     //save resources by setting the higher dates to DateTime.MaxValue too.
@@ -710,7 +711,7 @@ namespace XCalendar.Core.Models
                         }
                     }
 
-                    Row.Add(DateTime.DayOfWeek, DateTime);
+                    Row.Add(DayOfWeek, DateTime);
                 }
 
                 //Update or create days for the row based on the DayNamesOrder.
