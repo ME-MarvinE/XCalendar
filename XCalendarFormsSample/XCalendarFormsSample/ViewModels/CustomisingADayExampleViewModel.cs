@@ -15,8 +15,6 @@ namespace XCalendarFormsSample.ViewModels
             SelectionAction = SelectionAction.Replace,
             SelectionType = SelectionType.Single
         };
-        public int ForwardsNavigationAmount { get; set; } = 1;
-        public int BackwardsNavigationAmount { get; set; } = -1;
         #endregion
 
         #region Commands
