@@ -15,7 +15,7 @@ namespace XCalendarFormsSample.ViewModels
         #region Properties
         public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
         {
-            NavigatedDate = DateTime.MinValue,
+            NavigatedDate = DateTime.Today,
             NavigationLowerBound = DateTime.MinValue,
             NavigationUpperBound = DateTime.Today.AddYears(2),
             StartOfWeek = DayOfWeek.Monday,

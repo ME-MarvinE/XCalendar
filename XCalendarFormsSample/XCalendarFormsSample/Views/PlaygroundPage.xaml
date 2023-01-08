@@ -248,7 +248,7 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="Forwards&#10;NavigationAmount"
+                            Text="Forwards&#10;NavigationAmount*"
                             VerticalTextAlignment="Center"/>
                         <Editor
                             Grid.Column="1"
@@ -263,7 +263,7 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="Backwards&#10;NavigationAmount"
+                            Text="Backwards&#10;NavigationAmount*"
                             VerticalTextAlignment="Center"/>
                         <Editor
                             Grid.Column="1"
@@ -278,7 +278,7 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="NavigationTimeUnit"
+                            Text="NavigationTimeUnit*"
                             VerticalTextAlignment="Center"/>
                         <Label
                             Grid.Column="1"
@@ -437,21 +437,6 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="NavigationHeightRequest"
-                            VerticalTextAlignment="Center"/>
-                        <Editor
-                            Grid.Column="1"
-                            HorizontalOptions="Center"
-                            Keyboard="Numeric"
-                            Text="{Binding NavigationHeightRequest}"
-                            VerticalOptions="End"/>
-                    </Grid>
-
-                    <Grid>
-                        <Label
-                            Grid.Column="0"
-                            FontSize="{StaticResource SmallFontSize}"
-                            HorizontalTextAlignment="Center"
                             Text="DayNamesHeightRequest"
                             VerticalTextAlignment="Center"/>
                         <Editor
@@ -504,12 +489,34 @@
                         </Frame>
                     </Grid>
 
+                    <Label
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        HorizontalTextAlignment="Center"
+                        Text="NavigationView Properties"
+                        TextColor="{StaticResource PrimaryTextColor}"
+                        VerticalTextAlignment="Center"/>
+
                     <Grid>
                         <Label
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="NavigationBackgroundColor"
+                            Text="HeightRequest"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding NavigationHeightRequest}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="BackgroundColor"
                             VerticalTextAlignment="Center"/>
 
                         <Frame
@@ -536,7 +543,7 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="NavigationTextColor"
+                            Text="TextColor"
                             VerticalTextAlignment="Center"/>
 
                         <Frame
@@ -563,7 +570,7 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="NavigationArrowBackgroundColor"
+                            Text="ArrowBackgroundColor"
                             VerticalTextAlignment="Center"/>
 
                         <Frame
@@ -590,7 +597,7 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="NavigationArrowColor"
+                            Text="ArrowColor"
                             VerticalTextAlignment="Center"/>
 
                         <Frame
