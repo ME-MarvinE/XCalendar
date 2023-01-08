@@ -1,8 +1,8 @@
-﻿namespace XCalendar.Maui.Converters
-{
-    using System.Globalization;
-    using CommunityToolkit.Maui.Converters;
+﻿using CommunityToolkit.Maui.Converters;
+using System.Globalization;
 
+namespace XCalendar.Maui.Converters
+{
     public class StringCharLimitConverter : BaseConverterOneWay<string, string, int>
     {
         public override string DefaultConvertReturnValue
