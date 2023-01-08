@@ -1,32 +1,118 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Shell 
+<Shell
+    x:Class="XCalendarMauiSample.Views.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Views="clr-namespace:XCalendarMauiSample.Views"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    x:Class="XCalendarMauiSample.Views.AppShell"
     Title="AppShell"
     BackgroundColor="{StaticResource PrimaryColor}"
-    FlyoutBackgroundColor="{StaticResource ContentBackgroundColor}">
+    FlyoutBackgroundColor="{StaticResource ContentBackgroundColor}"
+    FlyoutBehavior="Flyout">
 
-    <!--Android bug in MAUI rc 1 - FlyoutItems invisible: https://github.com/dotnet/maui/issues/6061-->
-    <!--<Shell.FlyoutHeader>
+    <Shell.FlyoutHeader>
         <Grid Padding="10,20,10,20" BackgroundColor="{StaticResource PrimaryColor}">
-            <Label Text="XCalendar Sample" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{StaticResource PrimaryTextColor}" FontSize="24"/>
+            <Label
+                FontSize="24"
+                HorizontalTextAlignment="Center"
+                Text="XCalendar Sample"
+                TextColor="{StaticResource PrimaryTextColor}"
+                VerticalTextAlignment="Center"/>
         </Grid>
-    </Shell.FlyoutHeader>-->
+    </Shell.FlyoutHeader>
 
-    <!--<FlyoutItem Title="Playground" Route="PlaygroundPage">
-        <ShellContent ContentTemplate="{DataTemplate Views:PlaygroundPage}"/>
-    </FlyoutItem>
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid
+                x:Name="FlyoutItemLayout"
+                ColumnSpacing="{OnPlatform WinUI=0}"
+                HeightRequest="{OnPlatform 44,
+                                           Android=50}"
+                RowSpacing="{OnPlatform WinUI=0}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{OnPlatform Android=54, iOS=50, WinUI=Auto}"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image
+                    x:Name="FlyoutItemImage"
+                    HeightRequest="{OnPlatform Android=24,
+                                               iOS=22,
+                                               WinUI=16}"
+                    HorizontalOptions="{OnPlatform Default=Center,
+                                                   WinUI=Start}"
+                    Source="{Binding FlyoutIcon}"
+                    VerticalOptions="Center"
+                    WidthRequest="{OnPlatform Android=24,
+                                              iOS=22,
+                                              WinUI=16}">
+                    <Image.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <OnPlatform.Platforms>
+                                <On Platform="WinUI" Value="12,0,12,0"/>
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Image.Margin>
+                </Image>
+                <Label
+                    x:Name="FlyoutItemLabel"
+                    Grid.Column="1"
+                    FontAttributes="{OnPlatform iOS=Bold}"
+                    FontSize="{OnPlatform Android=14,
+                                          iOS=14}"
+                    HorizontalOptions="{OnPlatform WinUI=Start}"
+                    HorizontalTextAlignment="{OnPlatform WinUI=Start}"
+                    Text="{Binding Title}"
+                    VerticalTextAlignment="Center">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <OnPlatform.Platforms>
+                                <On Platform="Android" Value="{StaticResource ContentTextColor}"/>
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Label.TextColor>
+                    <Label.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <OnPlatform.Platforms>
+                                <On Platform="Android" Value="20, 0, 0, 0"/>
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Label.Margin>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <OnPlatform.Platforms>
+                                <On Platform="Android" Value="sans-serif-medium"/>
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#F2F2F2"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </DataTemplate>
 
-    <FlyoutItem Title="Examples" Route="ExamplesPage">
-        <ShellContent ContentTemplate="{DataTemplate Views:ExamplesPage}"/>
-    </FlyoutItem>-->
+    </Shell.ItemTemplate>
 
-    <TabBar>
-        <ShellContent Title="Playground" Route="PlaygroundPage" ContentTemplate="{DataTemplate Views:PlaygroundPage}"/>
-        <ShellContent Title="Examples" Route="ExamplesPage" ContentTemplate="{DataTemplate Views:ExamplesPage}"/>
-    </TabBar>
+    <ShellContent
+        Title="Playground"
+        ContentTemplate="{DataTemplate Views:PlaygroundPage}"
+        Route="PlaygroundPage"/>
+    <ShellContent
+        Title="Examples"
+        ContentTemplate="{DataTemplate Views:ExamplesPage}"
+        Route="ExamplesPage"/>
 
 </Shell>
