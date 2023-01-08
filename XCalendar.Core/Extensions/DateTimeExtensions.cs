@@ -16,6 +16,141 @@ namespace XCalendar.Core.Extensions
         {
             return Self.AddDays(value * 7);
         }
+        public static bool TryAddTicks(this DateTime Self, long value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddTicks(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddMilliseconds(this DateTime Self, double value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddMilliseconds(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddSeconds(this DateTime Self, double value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddSeconds(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddMinutes(this DateTime Self, double value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddMinutes(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddHours(this DateTime Self, double value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddHours(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddDays(this DateTime Self, double value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddDays(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddWeeks(this DateTime Self, int value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddWeeks(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddMonths(this DateTime Self, int value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddMonths(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
+        public static bool TryAddYears(this DateTime Self, int value, out DateTime Result)
+        {
+            try
+            {
+                Result = Self.AddYears(value);
+
+                return true;
+            }
+            catch
+            {
+                Result = default;
+
+                return false;
+            }
+        }
         /// <summary>
         /// Gets the first day of this instance's week.
         /// </summary>
