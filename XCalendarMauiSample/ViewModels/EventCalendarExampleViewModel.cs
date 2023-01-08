@@ -1,6 +1,8 @@
 ﻿using System.Collections.Specialized;
+using System.Globalization;
 using System.Windows.Input;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 using XCalendarMauiSample.Models;
 
@@ -99,7 +101,14 @@ namespace XCalendarMauiSample.ViewModels
         }
         public void NavigateCalendar(int Amount)
         {
-            EventCalendar?.NavigateCalendar(Amount);
+            if (EventCalendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            {
+                EventCalendar.NavigateCalendar(TargetDate - EventCalendar.NavigatedDate);
+            }
+            else
+            {
+                EventCalendar.NavigateCalendar(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+            }
         }
         public void ChangeDateSelection(DateTime DateTime)
         {

@@ -15,7 +15,6 @@ namespace XCalendarFormsSample.Helpers
         public static List<SelectionType> AllSelectionTypes { get; set; } = Enum.GetValues(typeof(SelectionType)).Cast<SelectionType>().ToList();
         public static List<SelectionAction> AllSelectionActions { get; set; } = Enum.GetValues(typeof(SelectionAction)).Cast<SelectionAction>().ToList();
         public static List<PageStartMode> AllPageStartModes { get; set; } = Enum.GetValues(typeof(PageStartMode)).Cast<PageStartMode>().ToList();
-        public static List<NavigationTimeUnit> AllNavigationTimeUnits { get; set; } = Enum.GetValues(typeof(NavigationTimeUnit)).Cast<NavigationTimeUnit>().ToList();
         public static List<NavigationLoopMode> AllNavigationLoopModes { get; set; } = Enum.GetValues(typeof(NavigationLoopMode)).Cast<NavigationLoopMode>().ToList();
         public static List<DayOfWeek> AllDaysOfWeek { get; set; } = new List<DayOfWeek>()
         {
@@ -30,6 +29,10 @@ namespace XCalendarFormsSample.Helpers
         #endregion
 
         #region Methods
+        public static async Task<T> ShowSelectItemDialog<T>(T InitialValue, IEnumerable<T> ItemsSource)
+        {
+            return (T)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(InitialValue, ItemsSource));
+        }
         public static async Task<IEnumerable<DayOfWeek>> ShowCustomDayNamesOrderDialog(IEnumerable<DayOfWeek> CustomDayNamesOrder)
         {
             return await ShowCustomDayNamesOrderDialog(CustomDayNamesOrder, AllDaysOfWeek);
@@ -45,14 +48,6 @@ namespace XCalendarFormsSample.Helpers
         public static async Task<SelectionAction> ShowSelectionActionDialog(SelectionAction SelectionAction, IEnumerable<SelectionAction> SelectionActions)
         {
             return (SelectionAction)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionAction, SelectionActions));
-        }
-        public static async Task<NavigationTimeUnit> ShowNavigationTimeUnitDialog(NavigationTimeUnit NavigationTimeUnit)
-        {
-            return await ShowNavigationTimeUnitDialog(NavigationTimeUnit, AllNavigationTimeUnits);
-        }
-        public static async Task<NavigationTimeUnit> ShowNavigationTimeUnitDialog(NavigationTimeUnit NavigationTimeUnit, IEnumerable<NavigationTimeUnit> NavigationTimeUnits)
-        {
-            return (NavigationTimeUnit)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(NavigationTimeUnit, NavigationTimeUnits));
         }
         public static async Task<NavigationLoopMode> ShowNavigationLoopModeDialog(NavigationLoopMode NavigationLoopMode)
         {

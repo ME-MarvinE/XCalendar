@@ -4,6 +4,7 @@ using System.Linq;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
+using XCalendar.Core.Extensions;
 
 namespace XCalendarConsoleSample
 {
@@ -19,7 +20,6 @@ namespace XCalendarConsoleSample
             SelectionAction = SelectionAction.Modify,
             NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum,
             SelectionType = SelectionType.Single,
-            NavigationTimeUnit = NavigationTimeUnit.Month,
             PageStartMode = PageStartMode.FirstDayOfMonth,
             Rows = 2,
             AutoRows = true,
@@ -102,30 +102,56 @@ namespace XCalendarConsoleSample
         }
         public static void PerformCalendarAction(ConsoleKey Key)
         {
+            TimeSpan TimeSpanToNavigateBy;
+            DateTime AddMonthsDateTime;
+
             switch (Key)
             {
                 case ConsoleKey.Escape:
                     return;
 
                 case ConsoleKey.LeftArrow:
-                    Calendar.NavigateCalendar(-1);
+                    if (Calendar.NavigatedDate.TryAddMonths(-1, out AddMonthsDateTime))
+                    {
+                        TimeSpanToNavigateBy = AddMonthsDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        TimeSpanToNavigateBy = TimeSpan.MinValue;
+                    }
+
+                    Calendar.NavigateCalendar(TimeSpanToNavigateBy);
                     break;
 
                 case ConsoleKey.RightArrow:
-                    Calendar.NavigateCalendar(1);
+                    if (Calendar.NavigatedDate.TryAddMonths(1, out AddMonthsDateTime))
+                    {
+                        TimeSpanToNavigateBy = AddMonthsDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        TimeSpanToNavigateBy = TimeSpan.MaxValue;
+                    }
+
+                    Calendar.NavigateCalendar(TimeSpanToNavigateBy);
                     break;
+
                 case ConsoleKey.UpArrow:
                     Calendar.Rows += 1;
                     break;
+
                 case ConsoleKey.DownArrow:
                     Calendar.Rows -= 1;
                     break;
+
                 case ConsoleKey.R:
                     Calendar.AutoRows = !Calendar.AutoRows;
                     break;
+
                 case ConsoleKey.C:
                     Calendar.AutoRowsIsConsistent = !Calendar.AutoRowsIsConsistent;
                     break;
+
                 case ConsoleKey.S:
                     Console.WriteLine("Write the date to be selected in the format dd/mm/yyyy");
                     string Input = Console.ReadLine();

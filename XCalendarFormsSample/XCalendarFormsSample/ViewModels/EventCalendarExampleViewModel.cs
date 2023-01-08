@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 using XCalendarFormsSample.Models;
 
@@ -103,7 +105,14 @@ namespace XCalendarFormsSample.ViewModels
         }
         public void NavigateCalendar(int Amount)
         {
-            EventCalendar?.NavigateCalendar(Amount);
+            if (EventCalendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            {
+                EventCalendar.NavigateCalendar(TargetDate - EventCalendar.NavigatedDate);
+            }
+            else
+            {
+                EventCalendar.NavigateCalendar(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+            }
         }
         public void ChangeDateSelection(DateTime DateTime)
         {

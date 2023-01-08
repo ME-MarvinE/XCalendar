@@ -284,7 +284,7 @@
                             Grid.Column="1"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
-                            Text="{Binding Calendar.NavigationTimeUnit}"
+                            Text="{Binding NavigationTimeUnit}"
                             TextColor="{StaticResource TappableSettingTextColor}"
                             VerticalTextAlignment="Center">
 

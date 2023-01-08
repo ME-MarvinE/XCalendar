@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 using XCalendarFormsSample.Helpers;
-using XCalendarFormsSample.Popups;
 
 namespace XCalendarFormsSample.ViewModels
 {
@@ -59,7 +58,7 @@ namespace XCalendarFormsSample.ViewModels
         }
         public async void ShowCommonFunctionalityDialog()
         {
-            string CommonFunctionality = (string)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(CommonFunctionalities[1], CommonFunctionalities));
+            string CommonFunctionality = await PopupHelper.ShowSelectItemDialog(CommonFunctionalities[1], CommonFunctionalities);
 
             switch (CommonFunctionality)
             {
@@ -85,7 +84,14 @@ namespace XCalendarFormsSample.ViewModels
         }
         public void NavigateCalendar(int Amount)
         {
-            Calendar?.NavigateCalendar(Amount);
+            if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            {
+                Calendar.NavigateCalendar(TargetDate - Calendar.NavigatedDate);
+            }
+            else
+            {
+                Calendar.NavigateCalendar(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+            }
         }
         public void ChangeDateSelection(DateTime DateTime)
         {

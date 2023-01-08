@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 using XCalendarMauiSample.Helpers;
 
@@ -17,13 +18,20 @@ namespace XCalendarMauiSample.ViewModels
             SelectionAction = SelectionAction.Modify,
             NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum,
             SelectionType = SelectionType.Single,
-            NavigationTimeUnit = NavigationTimeUnit.Month,
             PageStartMode = PageStartMode.FirstDayOfMonth,
             Rows = 2,
             AutoRows = true,
             AutoRowsIsConsistent = true,
             TodayDate = DateTime.Today
         };
+        public List<string> NavigationTimeUnits { get; } = new List<string>()
+        {
+            "Day",
+            "Week",
+            "Month",
+            "Year"
+        };
+        public string NavigationTimeUnit { get; set; } = "Month";
         public bool CalendarIsVisible { get; set; } = true;
         public double DaysViewHeightRequest { get; set; } = 300;
         public double DayNamesHeightRequest { get; set; } = 25;
@@ -111,7 +119,45 @@ namespace XCalendarMauiSample.ViewModels
         #region Methods
         public void NavigateCalendar(int Amount)
         {
-            Calendar?.NavigateCalendar(Amount);
+            TimeSpan TimeSpanToNavigateBy;
+
+            switch (NavigationTimeUnit)
+            {
+                case "Day":
+                    TimeSpanToNavigateBy = TimeSpan.FromDays(Amount);
+                    break;
+
+                case "Week":
+                    TimeSpanToNavigateBy = TimeSpan.FromDays(Amount * 7);
+                    break;
+
+                case "Month":
+                    if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime AddMonthsDateTime))
+                    {
+                        TimeSpanToNavigateBy = AddMonthsDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        TimeSpanToNavigateBy = Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
+                    break;
+
+                case "Year":
+                    if (Calendar.NavigatedDate.TryAddYears(Amount, out DateTime AddYearsDateTime))
+                    {
+                        TimeSpanToNavigateBy = AddYearsDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        TimeSpanToNavigateBy = Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+            }
+
+            Calendar.NavigateCalendar(TimeSpanToNavigateBy);
         }
         public void ChangeDateSelection(DateTime DateTime)
         {
@@ -147,7 +193,7 @@ namespace XCalendarMauiSample.ViewModels
         }
         public async void ShowNavigationTimeUnitDialog()
         {
-            Calendar.NavigationTimeUnit = await PopupHelper.ShowNavigationTimeUnitDialog(Calendar.NavigationTimeUnit);
+            NavigationTimeUnit = await PopupHelper.ShowSelectItemDialog(NavigationTimeUnit, NavigationTimeUnits);
         }
         public async void ShowNavigationLoopModeDialog()
         {
