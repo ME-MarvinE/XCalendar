@@ -1,22 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:Views="clr-namespace:XCalendarFormsSample.Views"
-       xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-       x:Class="XCalendarFormsSample.Views.AppShell"
-       Title="AppShell"
-       FlyoutBehavior="Flyout"
-       xct:SafeAreaEffect.SafeArea="True"
-       BackgroundColor="{StaticResource PrimaryColor}"
-       FlyoutBackgroundColor="{StaticResource ContentBackgroundColor}">
+<Shell
+    x:Class="XCalendarFormsSample.Views.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Views="clr-namespace:XCalendarFormsSample.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="AppShell"
+    xct:SafeAreaEffect.SafeArea="True"
+    BackgroundColor="{StaticResource PrimaryColor}"
+    FlyoutBackgroundColor="{StaticResource ContentBackgroundColor}"
+    FlyoutBehavior="Flyout">
 
     <Shell.FlyoutHeader>
         <Grid Padding="10,20,10,20" BackgroundColor="{StaticResource PrimaryColor}">
-            <Label Text="XCalendar Sample" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{StaticResource PrimaryTextColor}" FontSize="24"/>
+            <Label
+                FontSize="24"
+                HorizontalTextAlignment="Center"
+                Text="XCalendar Sample"
+                TextColor="{StaticResource PrimaryTextColor}"
+                VerticalTextAlignment="Center"/>
         </Grid>
     </Shell.FlyoutHeader>
 
-    <ShellContent Title="Playground" Route="PlaygroundPage" ContentTemplate="{DataTemplate Views:PlaygroundPage}"/>
-    <ShellContent Title="Examples" Route="ExamplesPage" ContentTemplate="{DataTemplate Views:ExamplesPage}"/>
+    <ShellContent
+        Title="Playground"
+        ContentTemplate="{DataTemplate Views:PlaygroundPage}"
+        Route="PlaygroundPage"/>
+
+    <ShellContent
+        Title="Examples"
+        ContentTemplate="{DataTemplate Views:ExamplesPage}"
+        Route="ExamplesPage"/>
 
 </Shell>
