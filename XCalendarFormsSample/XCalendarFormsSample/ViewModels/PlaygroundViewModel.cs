@@ -26,9 +26,7 @@ namespace XCalendarFormsSample.ViewModels
             Rows = 2,
             AutoRows = true,
             AutoRowsIsConsistent = true,
-            TodayDate = DateTime.Today,
-            ForwardsNavigationAmount = 1,
-            BackwardsNavigationAmount = -1
+            TodayDate = DateTime.Today
         };
         public bool CalendarIsVisible { get; set; } = true;
         public double DaysViewHeightRequest { get; set; } = 300;
@@ -36,6 +34,8 @@ namespace XCalendarFormsSample.ViewModels
         public double NavigationHeightRequest { get; set; } = 50;
         public double DayHeightRequest { get; set; } = 45;
         public double DayWidthRequest { get; set; } = 45;
+        public int ForwardsNavigationAmount { get; set; } = 1;
+        public int BackwardsNavigationAmount { get; set; } = -1;
         public Color CalendarBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
         public Color NavigationBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
         public Color NavigationTextColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
