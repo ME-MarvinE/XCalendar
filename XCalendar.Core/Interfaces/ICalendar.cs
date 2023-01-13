@@ -41,7 +41,7 @@ namespace XCalendar.Core.Interfaces
         void CommitRangeSelection();
         int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek);
         void UpdateDays(DateTime NavigationDate);
-        void NavigateCalendar(TimeSpan TimeSpan);
+        void Navigate(TimeSpan TimeSpan);
         #endregion
     }
 }

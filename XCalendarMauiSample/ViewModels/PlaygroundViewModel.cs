@@ -157,7 +157,7 @@ namespace XCalendarMauiSample.ViewModels
                     throw new NotImplementedException();
             }
 
-            Calendar.NavigateCalendar(TimeSpanToNavigateBy);
+            Calendar.Navigate(TimeSpanToNavigateBy);
         }
         public void ChangeDateSelection(DateTime DateTime)
         {

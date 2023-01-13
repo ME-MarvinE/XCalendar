@@ -725,7 +725,7 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// Navigates the calendar by the specified <see cref="TimeSpan"/> using the navigation rule properties set in the calendar (<see cref="NavigationLowerBound"/>, <see cref="NavigationUpperBound"/> <see cref="NavigationLoopMode"/>).
         /// </summary>
-        public virtual void NavigateCalendar(TimeSpan TimeSpan)
+        public virtual void Navigate(TimeSpan TimeSpan)
         {
             NavigatedDate = NavigatedDate.Navigate(TimeSpan, NavigationLowerBound, NavigationUpperBound, NavigationLoopMode, StartOfWeek);
         }

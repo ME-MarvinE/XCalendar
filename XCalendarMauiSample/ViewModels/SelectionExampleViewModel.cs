@@ -82,11 +82,11 @@ namespace XCalendarMauiSample.ViewModels
         {
             if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
             {
-                Calendar.NavigateCalendar(TargetDate - Calendar.NavigatedDate);
+                Calendar.Navigate(TargetDate - Calendar.NavigatedDate);
             }
             else
             {
-                Calendar.NavigateCalendar(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+                Calendar.Navigate(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
             }
         }
         public void ChangeDateSelection(DateTime DateTime)

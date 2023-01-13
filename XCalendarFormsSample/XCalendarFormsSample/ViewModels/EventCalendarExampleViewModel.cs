@@ -105,11 +105,11 @@ namespace XCalendarFormsSample.ViewModels
         {
             if (EventCalendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
             {
-                EventCalendar.NavigateCalendar(TargetDate - EventCalendar.NavigatedDate);
+                EventCalendar.Navigate(TargetDate - EventCalendar.NavigatedDate);
             }
             else
             {
-                EventCalendar.NavigateCalendar(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+                EventCalendar.Navigate(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
             }
         }
         public void ChangeDateSelection(DateTime DateTime)
