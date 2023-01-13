@@ -83,8 +83,8 @@ namespace XCalendarMauiSample.ViewModels
                 ForwardsNavigationTimeSpan = ForwardsNavigationAmount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
             }
 
-            DateTime CurrentPageCalendarPreviousNavigatedDate = CurrentPageCalendar.NavigateDateTime(CurrentPageCalendar.NavigatedDate, BackwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
-            DateTime CurrentPageCalendarNextNavigatedDate = CurrentPageCalendar.NavigateDateTime(CurrentPageCalendar.NavigatedDate, ForwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
+            DateTime CurrentPageCalendarPreviousNavigatedDate = CurrentPageCalendar.NavigatedDate.Navigate(BackwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
+            DateTime CurrentPageCalendarNextNavigatedDate = CurrentPageCalendar.NavigatedDate.Navigate(ForwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
 
             if (CurrentPageCalendar == FirstPageCalendar)
             {

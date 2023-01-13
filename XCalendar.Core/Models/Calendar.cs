@@ -727,71 +727,7 @@ namespace XCalendar.Core.Models
         /// </summary>
         public virtual void NavigateCalendar(TimeSpan TimeSpan)
         {
-            NavigatedDate = NavigateDateTime(NavigatedDate, TimeSpan, NavigationLowerBound, NavigationUpperBound, NavigationLoopMode, StartOfWeek);
-        }
-        /// <summary>
-        /// Performs navigation on a <see cref="DateTime"/> using the specified navigation rules.
-        /// </summary>
-        /// <param name="CurrentDateTime">The <see cref="DateTime"/> that will be the source of the navigation.</param>
-        /// <param name="TimeSpan">The <see cref="TimeSpan"/> to attempt to navigate by.</param>
-        /// <param name="MinimumDate">The lower bound of the allowed range of dates. Inclusive.</param>
-        /// <param name="MaximumDate">The upper bound of the allowed range of dates. Inclusive.</param>
-        /// <param name="NavigationLoopMode">What to do when the result of navigation is outside the range of the <paramref name="MinimumDate"/> and <paramref name="MaximumDate"/>.</param>
-        /// <param name="StartOfWeek">The start of the week.</param>
-        /// <returns>The <see cref="DateTime"/> resulting from the navigation.</returns>
-        public DateTime NavigateDateTime(DateTime CurrentDateTime, TimeSpan TimeSpan, DateTime MinimumDate, DateTime MaximumDate, NavigationLoopMode NavigationLoopMode, DayOfWeek StartOfWeek)
-        {
-            bool LowerThanMinimumDate;
-            bool HigherThanMaximumDate;
-
-            if (CurrentDateTime.TryAdd(TimeSpan, out DateTime NewNavigatedDate))
-            {
-                LowerThanMinimumDate = NewNavigatedDate.Date < MinimumDate.Date;
-                HigherThanMaximumDate = NewNavigatedDate.Date > MaximumDate.Date;
-            }
-            else
-            {
-                NewNavigatedDate = TimeSpan.Ticks > 0 ? MaximumDate : MinimumDate;
-
-                LowerThanMinimumDate = NewNavigatedDate.Date <= MinimumDate.Date;
-                HigherThanMaximumDate = NewNavigatedDate.Date >= MaximumDate.Date;
-            }
-
-            if (LowerThanMinimumDate && NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMinimum))
-            {
-                NewNavigatedDate = MaximumDate;
-                //The code below makes sure that the correct amount of weeks are added after looping.
-                //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
-
-                ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
-                ////The minimum date may not always have the first day of week so the last day of week is used to do this.
-                //TimeSpan Difference = CurrentDateTime.LastDayOfWeek(StartOfWeek) - MinimumDate.LastDayOfWeek(StartOfWeek);
-
-                //int WeeksUntilMinValue = (int)Math.Ceiling(Difference.TotalDays / 7);
-                //DateTime NewNavigatedDate = NavigateDateTime(MinimumDate, MinimumDate, MaximumDate, Amount + WeeksUntilMinValue, NavigationLoopMode, StartOfWeek);
-
-
-                ////Preserve the original time.
-                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, CurrentDateTime.Hour, CurrentDateTime.Minute, CurrentDateTime.Second, CurrentDateTime.Millisecond);
-            }
-            else if (HigherThanMaximumDate && NavigationLoopMode.HasFlag(NavigationLoopMode.LoopMaximum))
-            {
-                NewNavigatedDate = MinimumDate;
-                //The code below makes sure that the correct amount of weeks are added after looping.
-                //However this is not possible when setting the NavigatedDate directly, so it is commented out for the sake of consistency.
-
-                ////The difference in weeks must be made consistent because NavigatedDate could be any value within the week.
-                ////The maximum date may not always have the last day of week so the first day of week is used to do this.
-                //TimeSpan Difference = MaximumDate.FirstDayOfWeek(StartOfWeek) - CurrentDateTime.FirstDayOfWeek(StartOfWeek);
-
-                //int WeeksUntilMaxValue = (int)Math.Ceiling(Difference.TotalDays / 7);
-                //DateTime NewNavigatedDate = NavigateDateTime(MinimumDate, MinimumDate, MaximumDate, Amount - WeeksUntilMaxValue, NavigationLoopMode, StartOfWeek);
-
-                ////Preserve the original time.
-                //return new DateTime(NewNavigatedDate.Year, NewNavigatedDate.Month, NewNavigatedDate.DayToUpdate, CurrentDateTime.Hour, CurrentDateTime.Minute, CurrentDateTime.Second, CurrentDateTime.Millisecond);
-            }
-
-            return NewNavigatedDate;
+            NavigatedDate = NavigatedDate.Navigate(TimeSpan, NavigationLowerBound, NavigationUpperBound, NavigationLoopMode, StartOfWeek);
         }
         /// <summary>
         /// Raises an event signaling that the days' properties need to be reevaluated due to changes in the <see cref="CalendarView"/>
