@@ -120,7 +120,7 @@ namespace XCalendarConsoleSample
                         TimeSpanToNavigateBy = TimeSpan.MinValue;
                     }
 
-                    Calendar.NavigateCalendar(TimeSpanToNavigateBy);
+                    Calendar.Navigate(TimeSpanToNavigateBy);
                     break;
 
                 case ConsoleKey.RightArrow:
@@ -133,7 +133,7 @@ namespace XCalendarConsoleSample
                         TimeSpanToNavigateBy = TimeSpan.MaxValue;
                     }
 
-                    Calendar.NavigateCalendar(TimeSpanToNavigateBy);
+                    Calendar.Navigate(TimeSpanToNavigateBy);
                     break;
 
                 case ConsoleKey.UpArrow:

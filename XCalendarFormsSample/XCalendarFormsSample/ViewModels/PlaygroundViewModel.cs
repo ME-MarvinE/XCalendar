@@ -161,7 +161,7 @@ namespace XCalendarFormsSample.ViewModels
                     throw new NotImplementedException();
             }
 
-            Calendar.NavigateCalendar(TimeSpanToNavigateBy);
+            Calendar.Navigate(TimeSpanToNavigateBy);
 
             //DateTime TimeSpanToNavigateBy;
 
@@ -205,7 +205,7 @@ namespace XCalendarFormsSample.ViewModels
             //    }
             //}
 
-            //Calendar.NavigateCalendar(TimeSpanToNavigateBy);
+            //Calendar.Navigate(TimeSpanToNavigateBy);
         }
         public void ChangeDateSelection(DateTime DateTime)
         {
