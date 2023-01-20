@@ -661,7 +661,7 @@ namespace XCalendar.Core.Models
 
             //Update the dates for each row.
             int DaysUpdated = 0;
-            bool ReachedDateTimeMaxValue = false;
+
             for (int RowsUpdated = 0; DaysUpdated < DaysRequiredToNavigate; RowsUpdated++)
             {
                 Dictionary<DayOfWeek, DateTime> Row = new Dictionary<DayOfWeek, DateTime>();
@@ -669,29 +669,15 @@ namespace XCalendar.Core.Models
                 //Get the updated dates for the row.
                 for (int i = 0; i < DaysOfWeek.Count; i++)
                 {
-                    DateTime DateTime;
-                    DayOfWeek DayOfWeek = DaysOfWeek[i];
-
-                    //If at some point when updating dates, the DateTime went past the maximum value,
-                    //save resources by setting the higher dates to DateTime.MaxValue too.
-                    if (ReachedDateTimeMaxValue)
+                    try
                     {
-                        DateTime = DateTime.MaxValue;
+                        DateTime DateTime = PageStartDate.AddDays(RowsUpdated * DaysOfWeek.Count + i);
+                        Row.Add(DateTime.DayOfWeek, DateTime);
                     }
-                    else
+                    catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
                     {
-                        try
-                        {
-                            DateTime = PageStartDate.AddDays(RowsUpdated * DaysOfWeek.Count + i);
-                        }
-                        catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
-                        {
-                            DateTime = DateTime.MaxValue;
-                            ReachedDateTimeMaxValue = true;
-                        }
+                        Row.Add(DaysOfWeek[i], DateTime.MaxValue);
                     }
-
-                    Row.Add(DayOfWeek, DateTime);
                 }
 
                 //Update or create days for the row based on the DayNamesOrder.
