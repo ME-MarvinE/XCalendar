@@ -124,8 +124,8 @@ namespace XCalendarFormsSample.ViewModels
                 DisplayedExamples.ReplaceRange(
                     Examples.Where(x => 
                     x.Title.ToLower().Contains(SearchText.ToLower()) ||
-                    (searchTags && x.Tags.Any(Tag => 
-                        Tag.Title.ToLower().Contains(SearchText.ToLower())))));
+                    (searchTags && x.Tags.Any(tag => 
+                        tag.Title.ToLower().Contains(SearchText.ToLower())))));
             }
         }
         public async Task ShowPage(Page page)
