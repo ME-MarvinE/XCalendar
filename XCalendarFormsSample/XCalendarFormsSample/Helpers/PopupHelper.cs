@@ -29,61 +29,61 @@ namespace XCalendarFormsSample.Helpers
         #endregion
 
         #region Methods
-        public static async Task<T> ShowSelectItemDialog<T>(T InitialValue, IEnumerable<T> ItemsSource)
+        public static async Task<T> ShowSelectItemDialog<T>(T initialValue, IEnumerable<T> itemsSource)
         {
-            return (T)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(InitialValue, ItemsSource));
+            return (T)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(initialValue, itemsSource));
         }
-        public static async Task<IEnumerable<DayOfWeek>> ShowCustomDayNamesOrderDialog(IEnumerable<DayOfWeek> CustomDayNamesOrder)
+        public static async Task<IEnumerable<DayOfWeek>> ShowCustomDayNamesOrderDialog(IEnumerable<DayOfWeek> customDayNamesOrder)
         {
-            return await ShowCustomDayNamesOrderDialog(CustomDayNamesOrder, AllDaysOfWeek);
+            return await ShowCustomDayNamesOrderDialog(customDayNamesOrder, AllDaysOfWeek);
         }
-        public static async Task<IEnumerable<DayOfWeek>> ShowCustomDayNamesOrderDialog(IEnumerable<DayOfWeek> CustomDayNamesOrder, IEnumerable<DayOfWeek> DaysOfWeek)
+        public static async Task<IEnumerable<DayOfWeek>> ShowCustomDayNamesOrderDialog(IEnumerable<DayOfWeek> customDayNamesOrder, IEnumerable<DayOfWeek> daysOfWeek)
         {
-            return (await Shell.Current.ShowPopupAsync(new ConstructListDialogPopup(CustomDayNamesOrder, DaysOfWeek))).Cast<DayOfWeek>();
+            return (await Shell.Current.ShowPopupAsync(new ConstructListDialogPopup(customDayNamesOrder, daysOfWeek))).Cast<DayOfWeek>();
         }
-        public static async Task<SelectionAction> ShowSelectionActionDialog(SelectionAction SelectionAction)
+        public static async Task<SelectionAction> ShowSelectionActionDialog(SelectionAction selectionAction)
         {
-            return await ShowSelectionActionDialog(SelectionAction, AllSelectionActions);
+            return await ShowSelectionActionDialog(selectionAction, AllSelectionActions);
         }
-        public static async Task<SelectionAction> ShowSelectionActionDialog(SelectionAction SelectionAction, IEnumerable<SelectionAction> SelectionActions)
+        public static async Task<SelectionAction> ShowSelectionActionDialog(SelectionAction selectionAction, IEnumerable<SelectionAction> selectionActions)
         {
-            return (SelectionAction)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionAction, SelectionActions));
+            return (SelectionAction)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(selectionAction, selectionActions));
         }
-        public static async Task<NavigationLoopMode> ShowNavigationLoopModeDialog(NavigationLoopMode NavigationLoopMode)
+        public static async Task<NavigationLoopMode> ShowNavigationLoopModeDialog(NavigationLoopMode navigationLoopMode)
         {
-            return await ShowNavigationLoopModeDialog(NavigationLoopMode, AllNavigationLoopModes);
+            return await ShowNavigationLoopModeDialog(navigationLoopMode, AllNavigationLoopModes);
         }
-        public static async Task<NavigationLoopMode> ShowNavigationLoopModeDialog(NavigationLoopMode NavigationLoopMode, IEnumerable<NavigationLoopMode> NavigationLoopModes)
+        public static async Task<NavigationLoopMode> ShowNavigationLoopModeDialog(NavigationLoopMode navigationLoopMode, IEnumerable<NavigationLoopMode> navigationLoopModes)
         {
-            return (NavigationLoopMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(NavigationLoopMode, NavigationLoopModes));
+            return (NavigationLoopMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(navigationLoopMode, navigationLoopModes));
         }
-        public static async Task<PageStartMode> ShowPageStartModeDialog(PageStartMode PageStartMode)
+        public static async Task<PageStartMode> ShowPageStartModeDialog(PageStartMode pageStartMode)
         {
-            return await ShowPageStartModeDialog(PageStartMode, AllPageStartModes);
+            return await ShowPageStartModeDialog(pageStartMode, AllPageStartModes);
         }
-        public static async Task<PageStartMode> ShowPageStartModeDialog(PageStartMode PageStartMode, IEnumerable<PageStartMode> PageStartModes)
+        public static async Task<PageStartMode> ShowPageStartModeDialog(PageStartMode pageStartMode, IEnumerable<PageStartMode> pageStartModes)
         {
-            return (PageStartMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(PageStartMode, PageStartModes));
+            return (PageStartMode)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(pageStartMode, pageStartModes));
         }
-        public static async Task<DayOfWeek> ShowStartOfWeekDialog(DayOfWeek DayOfWeek)
+        public static async Task<DayOfWeek> ShowStartOfWeekDialog(DayOfWeek dayOfWeek)
         {
-            return await ShowStartOfWeekDialog(DayOfWeek, AllDaysOfWeek);
+            return await ShowStartOfWeekDialog(dayOfWeek, AllDaysOfWeek);
         }
-        public static async Task<DayOfWeek> ShowStartOfWeekDialog(DayOfWeek DayOfWeek, IEnumerable<DayOfWeek> DaysOfWeek)
+        public static async Task<DayOfWeek> ShowStartOfWeekDialog(DayOfWeek dayOfWeek, IEnumerable<DayOfWeek> daysOfWeek)
         {
-            return (DayOfWeek)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(DayOfWeek, DaysOfWeek));
+            return (DayOfWeek)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(dayOfWeek, daysOfWeek));
         }
-        public static async Task<SelectionType> ShowSelectionTypeDialog(SelectionType SelectionType)
+        public static async Task<SelectionType> ShowSelectionTypeDialog(SelectionType selectionType)
         {
-            return await ShowSelectionTypeDialog(SelectionType, AllSelectionTypes);
+            return await ShowSelectionTypeDialog(selectionType, AllSelectionTypes);
         }
-        public static async Task<SelectionType> ShowSelectionTypeDialog(SelectionType SelectionType, IEnumerable<SelectionType> SelectionTypes)
+        public static async Task<SelectionType> ShowSelectionTypeDialog(SelectionType selectionType, IEnumerable<SelectionType> selectionTypes)
         {
-            return (SelectionType)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(SelectionType, SelectionTypes));
+            return (SelectionType)await Shell.Current.ShowPopupAsync(new SelectItemDialogPopup(selectionType, selectionTypes));
         }
-        public static async Task<Color> ShowColorDialog(Color Color)
+        public static async Task<Color> ShowColorDialog(Color color)
         {
-            return await Shell.Current.ShowPopupAsync(new ColorDialogPopup(Color));
+            return await Shell.Current.ShowPopupAsync(new ColorDialogPopup(color));
         }
         #endregion
     }

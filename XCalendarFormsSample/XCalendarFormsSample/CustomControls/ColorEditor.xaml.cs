@@ -58,41 +58,41 @@ namespace XCalendarFormsSample.CustomControls
         #region Methods
         private static void SelectedColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            Color NewColor = (Color)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            Color newColor = (Color)newValue;
 
-            if (Control.SelectedColorR != NewColor.R) { Control.SelectedColorR = NewColor.R; }
-            if (Control.SelectedColorG != NewColor.G) { Control.SelectedColorG = NewColor.G; }
-            if (Control.SelectedColorB != NewColor.B) { Control.SelectedColorB = NewColor.B; }
-            if (Control.SelectedColorA != NewColor.A) { Control.SelectedColorA = NewColor.A; }
+            if (control.SelectedColorR != newColor.R) { control.SelectedColorR = newColor.R; }
+            if (control.SelectedColorG != newColor.G) { control.SelectedColorG = newColor.G; }
+            if (control.SelectedColorB != newColor.B) { control.SelectedColorB = newColor.B; }
+            if (control.SelectedColorA != newColor.A) { control.SelectedColorA = newColor.A; }
         }
         private static void SelectedColorRPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            double NewR = (double)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            double newR = (double)newValue;
 
-            Control.SelectedColor = new Color(NewR, Control.SelectedColor.G, Control.SelectedColor.B, Control.SelectedColor.A);
+            control.SelectedColor = new Color(newR, control.SelectedColor.G, control.SelectedColor.B, control.SelectedColor.A);
         }
         private static void SelectedColorGPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            double NewG = (double)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            double newG = (double)newValue;
 
-            Control.SelectedColor = new Color(Control.SelectedColor.R, NewG, Control.SelectedColor.B, Control.SelectedColor.A);
+            control.SelectedColor = new Color(control.SelectedColor.R, newG, control.SelectedColor.B, control.SelectedColor.A);
         }
         private static void SelectedColorBPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            double NewB = (double)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            double newB = (double)newValue;
 
-            Control.SelectedColor = new Color(Control.SelectedColor.R, Control.SelectedColor.G, NewB, Control.SelectedColor.A);
+            control.SelectedColor = new Color(control.SelectedColor.R, control.SelectedColor.G, newB, control.SelectedColor.A);
         }
         private static void SelectedColorAPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            double NewA = (double)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            double newA = (double)newValue;
 
-            Control.SelectedColor = new Color(Control.SelectedColor.R, Control.SelectedColor.G, Control.SelectedColor.B, NewA);
+            control.SelectedColor = new Color(control.SelectedColor.R, control.SelectedColor.G, control.SelectedColor.B, newA);
         }
         #endregion
     }
