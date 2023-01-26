@@ -10,20 +10,20 @@ namespace XCalendar.Forms.Converters
         {
             try
             {
-                string StringValue = value.ToString();
-                int TargetLength = System.Convert.ToInt32(parameter);
+                string stringValue = value.ToString();
+                int targetLength = System.Convert.ToInt32(parameter);
 
-                if (TargetLength == 0)
+                if (targetLength == 0)
                 {
                     return "";
                 }
-                else if (TargetLength >= StringValue.Length)
+                else if (targetLength >= stringValue.Length)
                 {
-                    return StringValue;
+                    return stringValue;
                 }
                 else
                 {
-                    return StringValue.Substring(0, TargetLength);
+                    return stringValue.Substring(0, targetLength);
                 }
             }
             catch
