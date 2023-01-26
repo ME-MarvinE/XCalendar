@@ -14,7 +14,7 @@ namespace XCalendarFormsSample.Popups
     public partial class ConstructListDialogPopup : Popup<List<object>>
     {
         #region Properties
-        private List<object> _InitialItems { get; }
+        private List<object> _initialItems { get; }
 
         #region Bindable Properties
         public ObservableRangeCollection<object> ReturnValueItems
@@ -47,11 +47,11 @@ namespace XCalendarFormsSample.Popups
         #endregion
 
         #region Constructors
-        public ConstructListDialogPopup(IEnumerable AvailableItems)
-            :this(new List<object>(), AvailableItems)
+        public ConstructListDialogPopup(IEnumerable availableItems)
+            :this(new List<object>(), availableItems)
         {
         }
-        public ConstructListDialogPopup(IEnumerable InitialItems, IEnumerable AvailableItems)
+        public ConstructListDialogPopup(IEnumerable initialItems, IEnumerable availableItems)
         {
             DismissDialogCommand = new Command(() => Dismiss(new List<object>(ReturnValueItems)));
             CancelDialogCommand = new Command(CancelDialog);
@@ -62,8 +62,8 @@ namespace XCalendarFormsSample.Popups
 
             InitializeComponent();
 
-            _InitialItems = InitialItems.Cast<object>().ToList();
-            this.AvailableItems = AvailableItems.Cast<object>().ToList();
+            _initialItems = initialItems.Cast<object>().ToList();
+            this.AvailableItems = availableItems.Cast<object>().ToList();
 
             ResetReturnValueItems();
         }
@@ -72,28 +72,28 @@ namespace XCalendarFormsSample.Popups
         #region Methods
         public void CancelDialog()
         {
-            Dismiss(_InitialItems);
+            Dismiss(_initialItems);
         }
         public void ResetReturnValueItems()
         {
-            ReturnValueItems.ReplaceRange(_InitialItems);
+            ReturnValueItems.ReplaceRange(_initialItems);
         }
         protected override List<object> GetLightDismissResult()
         {
-            return _InitialItems;
+            return _initialItems;
         }
-        public void AddItem(object Item)
+        public void AddItem(object item)
         {
-            if (Item != null)
+            if (item != null)
             {
-                ReturnValueItems.Add(Item);
+                ReturnValueItems.Add(item);
             }
         }
-        public void RemoveItem(object Item)
+        public void RemoveItem(object item)
         {
-            if (Item != null)
+            if (item != null)
             {
-                ReturnValueItems.Remove(Item);
+                ReturnValueItems.Remove(item);
             }
         }
         public void ClearReturnValueItems()

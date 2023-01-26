@@ -147,17 +147,17 @@ namespace XCalendar.Forms.Views
         #region Bindable Properties Methods
         private static void DaysPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            CalendarView Control = (CalendarView)bindable;
-            IEnumerable<ICalendarDay> NewDays = (IEnumerable<ICalendarDay>)newValue;
+            CalendarView control = (CalendarView)bindable;
+            IEnumerable<ICalendarDay> newDays = (IEnumerable<ICalendarDay>)newValue;
 
-            Control.MainDaysView.Days = NewDays;
+            control.MainDaysView.Days = newDays;
         }
         private static void DaysOfWeekPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            CalendarView Control = (CalendarView)bindable;
-            IList<DayOfWeek> NewDaysOfWeek = (IList<DayOfWeek>)newValue;
+            CalendarView control = (CalendarView)bindable;
+            IList<DayOfWeek> newDaysOfWeek = (IList<DayOfWeek>)newValue;
 
-            Control.MainDaysOfWeekView.ItemsSource = NewDaysOfWeek;
+            control.MainDaysOfWeekView.ItemsSource = newDaysOfWeek;
         }
         #endregion
 

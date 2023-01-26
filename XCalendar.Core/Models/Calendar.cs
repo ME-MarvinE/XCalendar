@@ -16,25 +16,25 @@ namespace XCalendar.Core.Models
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
-        private ObservableCollection<T> _Days = new ObservableCollection<T>();
-        private readonly List<DateTime> _PreviousSelectedDates = new List<DateTime>();
-        private DateTime _NavigatedDate = DateTime.Today;
-        private DateTime _TodayDate = DateTime.Today;
-        private DateTime _NavigationLowerBound = DateTime.MinValue;
-        private DateTime _NavigationUpperBound = DateTime.MaxValue;
-        private DayOfWeek _StartOfWeek = CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek;
-        private bool _AutoRows = true;
-        private bool _AutoRowsIsConsistent = true;
-        private SelectionAction _SelectionAction = SelectionAction.Modify;
-        private NavigationLoopMode _NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum;
-        private ObservableRangeCollection<DateTime> _SelectedDates = new ObservableRangeCollection<DateTime>();
-        private ObservableRangeCollection<DayOfWeek> _CustomDayNamesOrder;
-        private int _Rows = 6;
-        private PageStartMode _PageStartMode = PageStartMode.FirstDayOfMonth;
-        private ObservableRangeCollection<DayOfWeek> _DayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
-        private DateTime? _RangeSelectionStart;
-        private DateTime? _RangeSelectionEnd;
-        private SelectionType _SelectionType = SelectionType.None;
+        private ObservableCollection<T> _days = new ObservableCollection<T>();
+        private readonly List<DateTime> _previousSelectedDates = new List<DateTime>();
+        private DateTime _navigatedDate = DateTime.Today;
+        private DateTime _todayDate = DateTime.Today;
+        private DateTime _navigationLowerBound = DateTime.MinValue;
+        private DateTime _navigationUpperBound = DateTime.MaxValue;
+        private DayOfWeek _startOfWeek = CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek;
+        private bool _autoRows = true;
+        private bool _autoRowsIsConsistent = true;
+        private SelectionAction _selectionAction = SelectionAction.Modify;
+        private NavigationLoopMode _navigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum;
+        private ObservableRangeCollection<DateTime> _selectedDates = new ObservableRangeCollection<DateTime>();
+        private ObservableRangeCollection<DayOfWeek> _customDayNamesOrder;
+        private int _rows = 6;
+        private PageStartMode _pageStartMode = PageStartMode.FirstDayOfMonth;
+        private ObservableRangeCollection<DayOfWeek> _dayNamesOrder = new ObservableRangeCollection<DayOfWeek>();
+        private DateTime? _rangeSelectionStart;
+        private DateTime? _rangeSelectionEnd;
+        private SelectionType _selectionType = SelectionType.None;
         #endregion
 
         #region Properties
@@ -45,13 +45,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _Days;
+                return _days;
             }
             protected set
             {
-                if (_Days != value)
+                if (_days != value)
                 {
-                    _Days = value;
+                    _days = value;
 
                     OnPropertyChanged(nameof(Days));
                 }
@@ -64,16 +64,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _NavigatedDate;
+                return _navigatedDate;
             }
             set
             {
-                if (_NavigatedDate != value)
+                if (_navigatedDate != value)
                 {
-                    var OldValue = _NavigatedDate;
-                    _NavigatedDate = value;
+                    var oldValue = _navigatedDate;
+                    _navigatedDate = value;
 
-                    OnNavigatedDateChanged(OldValue, _NavigatedDate);
+                    OnNavigatedDateChanged(oldValue, _navigatedDate);
                     OnPropertyChanged(nameof(NavigatedDate));
                 }
             }
@@ -85,16 +85,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _TodayDate;
+                return _todayDate;
             }
             set
             {
-                if (_TodayDate != value)
+                if (_todayDate != value)
                 {
-                    var OldValue = _TodayDate;
-                    _TodayDate = value;
+                    var oldValue = _todayDate;
+                    _todayDate = value;
 
-                    OnTodayDateChanged(OldValue, _TodayDate);
+                    OnTodayDateChanged(oldValue, _todayDate);
                     OnPropertyChanged(nameof(TodayDate));
                 }
             }
@@ -107,16 +107,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _NavigationLowerBound;
+                return _navigationLowerBound;
             }
             set
             {
-                if (_NavigationLowerBound != value)
+                if (_navigationLowerBound != value)
                 {
-                    var OldValue = _NavigationLowerBound;
-                    _NavigationLowerBound = value;
+                    var oldValue = _navigationLowerBound;
+                    _navigationLowerBound = value;
 
-                    OnNavigationLowerBoundChanged(OldValue, _NavigationLowerBound);
+                    OnNavigationLowerBoundChanged(oldValue, _navigationLowerBound);
                     OnPropertyChanged(nameof(NavigationLowerBound));
                 }
             }
@@ -129,16 +129,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _NavigationUpperBound;
+                return _navigationUpperBound;
             }
             set
             {
-                if (_NavigationUpperBound != value)
+                if (_navigationUpperBound != value)
                 {
-                    var OldValue = _NavigationUpperBound;
-                    _NavigationUpperBound = value;
+                    var oldValue = _navigationUpperBound;
+                    _navigationUpperBound = value;
 
-                    OnNavigationUpperBoundChanged(OldValue, _NavigationUpperBound);
+                    OnNavigationUpperBoundChanged(oldValue, _navigationUpperBound);
                     OnPropertyChanged(nameof(NavigationUpperBound));
                 }
             }
@@ -151,16 +151,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _StartOfWeek;
+                return _startOfWeek;
             }
             set
             {
-                if (_StartOfWeek != value)
+                if (_startOfWeek != value)
                 {
-                    var OldValue = _StartOfWeek;
-                    _StartOfWeek = value;
+                    var oldValue = _startOfWeek;
+                    _startOfWeek = value;
 
-                    OnStartOfWeekChanged(OldValue, _StartOfWeek);
+                    OnStartOfWeekChanged(oldValue, _startOfWeek);
                     OnPropertyChanged(nameof(StartOfWeek));
                 }
             }
@@ -173,16 +173,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _AutoRows;
+                return _autoRows;
             }
             set
             {
-                if (_AutoRows != value)
+                if (_autoRows != value)
                 {
-                    var OldValue = _AutoRows;
-                    _AutoRows = value;
+                    var oldValue = _autoRows;
+                    _autoRows = value;
 
-                    OnAutoRowsChanged(OldValue, _AutoRows);
+                    OnAutoRowsChanged(oldValue, _autoRows);
                     OnPropertyChanged(nameof(AutoRows));
                 }
             }
@@ -198,16 +198,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _AutoRowsIsConsistent;
+                return _autoRowsIsConsistent;
             }
             set
             {
-                if (_AutoRowsIsConsistent != value)
+                if (_autoRowsIsConsistent != value)
                 {
-                    var OldValue = _AutoRowsIsConsistent;
-                    _AutoRowsIsConsistent = value;
+                    var oldValue = _autoRowsIsConsistent;
+                    _autoRowsIsConsistent = value;
 
-                    OnAutoRowsIsConsistentChanged(OldValue, _AutoRowsIsConsistent);
+                    OnAutoRowsIsConsistentChanged(oldValue, _autoRowsIsConsistent);
                     OnPropertyChanged(nameof(AutoRowsIsConsistent));
                 }
             }
@@ -219,13 +219,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _SelectionAction;
+                return _selectionAction;
             }
             set
             {
-                if (_SelectionAction != value)
+                if (_selectionAction != value)
                 {
-                    _SelectionAction = value;
+                    _selectionAction = value;
 
                     OnPropertyChanged(nameof(SelectionAction));
                 }
@@ -239,13 +239,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _NavigationLoopMode;
+                return _navigationLoopMode;
             }
             set
             {
-                if (_NavigationLoopMode != value)
+                if (_navigationLoopMode != value)
                 {
-                    _NavigationLoopMode = value;
+                    _navigationLoopMode = value;
 
                     OnPropertyChanged(nameof(NavigationLoopMode));
                 }
@@ -258,16 +258,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _SelectedDates;
+                return _selectedDates;
             }
             set
             {
-                if (_SelectedDates != value)
+                if (_selectedDates != value)
                 {
-                    var OldValue = _SelectedDates;
-                    _SelectedDates = value;
+                    var oldValue = _selectedDates;
+                    _selectedDates = value;
 
-                    OnSelectedDatesChanged(OldValue, _SelectedDates);
+                    OnSelectedDatesChanged(oldValue, _selectedDates);
                     OnPropertyChanged(nameof(SelectedDates));
                 }
             }
@@ -276,16 +276,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _CustomDayNamesOrder;
+                return _customDayNamesOrder;
             }
             set
             {
-                if (_CustomDayNamesOrder != value)
+                if (_customDayNamesOrder != value)
                 {
-                    var OldValue = _CustomDayNamesOrder;
-                    _CustomDayNamesOrder = value;
+                    var oldValue = _customDayNamesOrder;
+                    _customDayNamesOrder = value;
 
-                    OnCustomDayNamesOrderChanged(OldValue, _CustomDayNamesOrder);
+                    OnCustomDayNamesOrderChanged(oldValue, _customDayNamesOrder);
                     OnPropertyChanged(nameof(CustomDayNamesOrder));
                 }
             }
@@ -298,16 +298,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _Rows;
+                return _rows;
             }
             set
             {
-                if (_Rows != value)
+                if (_rows != value)
                 {
-                    var OldValue = _Rows;
-                    _Rows = value;
+                    var oldValue = _rows;
+                    _rows = value;
 
-                    OnRowsChanged(OldValue, _Rows);
+                    OnRowsChanged(oldValue, _rows);
                     OnPropertyChanged(nameof(Rows));
                 }
             }
@@ -323,16 +323,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _PageStartMode;
+                return _pageStartMode;
             }
             set
             {
-                if (_PageStartMode != value)
+                if (_pageStartMode != value)
                 {
-                    var OldValue = _PageStartMode;
-                    _PageStartMode = value;
+                    var oldValue = _pageStartMode;
+                    _pageStartMode = value;
 
-                    OnPageStartModeChanged(OldValue, _PageStartMode);
+                    OnPageStartModeChanged(oldValue, _pageStartMode);
                     OnPropertyChanged(nameof(PageStartMode));
                 }
             }
@@ -344,16 +344,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _DayNamesOrder;
+                return _dayNamesOrder;
             }
             set
             {
-                if (_DayNamesOrder != value)
+                if (_dayNamesOrder != value)
                 {
-                    var OldValue = _DayNamesOrder;
-                    _DayNamesOrder = value;
+                    var oldValue = _dayNamesOrder;
+                    _dayNamesOrder = value;
 
-                    OnDayNamesOrderChanged(OldValue, _DayNamesOrder);
+                    OnDayNamesOrderChanged(oldValue, _dayNamesOrder);
                     OnPropertyChanged(nameof(DayNamesOrder));
                 }
             }
@@ -362,16 +362,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _RangeSelectionStart;
+                return _rangeSelectionStart;
             }
             set
             {
-                if (_RangeSelectionStart != value)
+                if (_rangeSelectionStart != value)
                 {
-                    var OldValue = _RangeSelectionStart;
-                    _RangeSelectionStart = value;
+                    var oldValue = _rangeSelectionStart;
+                    _rangeSelectionStart = value;
 
-                    OnRangeSelectionStartChanged(OldValue, _RangeSelectionStart);
+                    OnRangeSelectionStartChanged(oldValue, _rangeSelectionStart);
                     OnPropertyChanged(nameof(RangeSelectionStart));
                 }
             }
@@ -380,16 +380,16 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _RangeSelectionEnd;
+                return _rangeSelectionEnd;
             }
             set
             {
-                if (_RangeSelectionEnd != value)
+                if (_rangeSelectionEnd != value)
                 {
-                    var OldValue = _RangeSelectionEnd;
-                    _RangeSelectionEnd = value;
+                    var oldValue = _rangeSelectionEnd;
+                    _rangeSelectionEnd = value;
 
-                    OnRangeSelectionEndChanged(OldValue, _RangeSelectionEnd);
+                    OnRangeSelectionEndChanged(oldValue, _rangeSelectionEnd);
                     OnPropertyChanged(nameof(RangeSelectionEnd));
                 }
             }
@@ -398,13 +398,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _SelectionType;
+                return _selectionType;
             }
             set
             {
-                if (_SelectionType != value)
+                if (_selectionType != value)
                 {
-                    _SelectionType = value;
+                    _selectionType = value;
 
                     OnPropertyChanged(nameof(SelectionType));
                 }
@@ -453,9 +453,9 @@ namespace XCalendar.Core.Models
         /// <remarks>
         /// Called when <see cref="SelectedDates"/> changes.
         /// </remarks>
-        protected virtual void OnDateSelectionChanged(IList<DateTime> OldSelection, IList<DateTime> NewSelection)
+        protected virtual void OnDateSelectionChanged(IList<DateTime> oldSelection, IList<DateTime> newSelection)
         {
-            DateSelectionChanged?.Invoke(this, new DateSelectionChangedEventArgs(OldSelection, NewSelection));
+            DateSelectionChanged?.Invoke(this, new DateSelectionChangedEventArgs(oldSelection, newSelection));
         }
         protected virtual void OnDaysUpdated()
         {
@@ -468,8 +468,8 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// Performs selection of a <see cref="DateTime"/> depending on the current <see cref="SelectionAction"/> and <see cref="SelectionType"/>.
         /// </summary>
-        /// <param name="DateTime">The <see cref="DateTime"/> to select/unselect.</param>
-        public virtual void ChangeDateSelection(DateTime DateTime)
+        /// <param name="dateTime">The <see cref="DateTime"/> to select/unselect.</param>
+        public virtual void ChangeDateSelection(DateTime dateTime)
         {
             switch (SelectionType)
             {
@@ -480,34 +480,34 @@ namespace XCalendar.Core.Models
                     switch (SelectionAction)
                     {
                         case SelectionAction.Add:
-                            if (!SelectedDates.Any(x => x.Date == DateTime.Date))
+                            if (!SelectedDates.Any(x => x.Date == dateTime.Date))
                             {
-                                SelectedDates.Add(DateTime.Date);
+                                SelectedDates.Add(dateTime.Date);
                             }
                             break;
 
                         case SelectionAction.Remove:
-                            if (SelectedDates.Any(x => x.Date == DateTime.Date))
+                            if (SelectedDates.Any(x => x.Date == dateTime.Date))
                             {
-                                SelectedDates.Remove(DateTime.Date);
+                                SelectedDates.Remove(dateTime.Date);
                             }
                             break;
 
                         case SelectionAction.Modify:
-                            if (SelectedDates.Any(x => x.Date == DateTime.Date))
+                            if (SelectedDates.Any(x => x.Date == dateTime.Date))
                             {
-                                SelectedDates.Remove(DateTime.Date);
+                                SelectedDates.Remove(dateTime.Date);
                             }
                             else
                             {
-                                SelectedDates.Add(DateTime.Date);
+                                SelectedDates.Add(dateTime.Date);
                             }
                             break;
 
                         case SelectionAction.Replace:
-                            if (SelectedDates.Count != 1 || (SelectedDates.Count == 1 && SelectedDates.First().Date != DateTime.Date))
+                            if (SelectedDates.Count != 1 || (SelectedDates.Count == 1 && SelectedDates.First().Date != dateTime.Date))
                             {
-                                SelectedDates.Replace(DateTime.Date);
+                                SelectedDates.Replace(dateTime.Date);
                             }
                             break;
 
@@ -519,15 +519,15 @@ namespace XCalendar.Core.Models
                 case SelectionType.Range:
                     if (RangeSelectionStart == null)
                     {
-                        RangeSelectionStart = DateTime;
+                        RangeSelectionStart = dateTime;
                     }
-                    else if (DateTime == RangeSelectionStart)
+                    else if (dateTime == RangeSelectionStart)
                     {
                         RangeSelectionStart = null;
                     }
-                    else if (DateTime != RangeSelectionStart)
+                    else if (dateTime != RangeSelectionStart)
                     {
-                        RangeSelectionEnd = DateTime;
+                        RangeSelectionEnd = dateTime;
                     }
                     break;
 
@@ -542,43 +542,43 @@ namespace XCalendar.Core.Models
         {
             if (RangeSelectionStart == null || RangeSelectionEnd == null) { throw new InvalidOperationException($"{nameof(RangeSelectionStart)} and {nameof(RangeSelectionEnd)} must not be null."); }
 
-            List<DateTime> DateRange = RangeSelectionStart.Value.GetDatesBetween(RangeSelectionEnd.Value);
-            IEnumerable<DateTime> DatesToAdd = DateRange.Where(x => !SelectedDates.Contains(x.Date));
-            IEnumerable<DateTime> DatesToRemove = DateRange.Where(x => SelectedDates.Contains(x.Date));
+            List<DateTime> dateRange = RangeSelectionStart.Value.GetDatesBetween(RangeSelectionEnd.Value);
+            IEnumerable<DateTime> datesToAdd = dateRange.Where(x => !SelectedDates.Contains(x.Date));
+            IEnumerable<DateTime> datesToRemove = dateRange.Where(x => SelectedDates.Contains(x.Date));
 
             switch (SelectionAction)
             {
                 case SelectionAction.Add:
-                    if (DatesToAdd.Count() != 0)
+                    if (datesToAdd.Count() != 0)
                     {
-                        SelectedDates.AddRange(DatesToAdd);
+                        SelectedDates.AddRange(datesToAdd);
                     }
                     break;
 
                 case SelectionAction.Remove:
-                    if (DatesToRemove.Count() != 0)
+                    if (datesToRemove.Count() != 0)
                     {
-                        SelectedDates.RemoveRange(DatesToRemove);
+                        SelectedDates.RemoveRange(datesToRemove);
                     }
                     break;
 
                 case SelectionAction.Modify:
-                    if (DatesToAdd.Count() != 0 || DatesToRemove.Count() != 0)
+                    if (datesToAdd.Count() != 0 || datesToRemove.Count() != 0)
                     {
-                        List<DateTime> NewSelectedDates = SelectedDates.Where(x => !DatesToRemove.Contains(x.Date)).ToList();
-                        NewSelectedDates.AddRange(DatesToAdd);
-                        SelectedDates.ReplaceRange(NewSelectedDates);
+                        List<DateTime> newSelectedDates = SelectedDates.Where(x => !datesToRemove.Contains(x.Date)).ToList();
+                        newSelectedDates.AddRange(datesToAdd);
+                        SelectedDates.ReplaceRange(newSelectedDates);
                     }
                     break;
 
                 case SelectionAction.Replace:
-                    if (SelectedDates.SequenceEqual(DateRange))
+                    if (SelectedDates.SequenceEqual(dateRange))
                     {
                         SelectedDates.Clear();
                     }
                     else
                     {
-                        SelectedDates.ReplaceRange(DateRange);
+                        SelectedDates.ReplaceRange(dateRange);
                     }
                     break;
 
@@ -592,116 +592,116 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// Gets the number of rows needed to display the days of a month based on how many weeks the months has.
         /// </summary>
-        /// <param name="DateTime">The <see cref="DateTime"/> representing the month to get the number of rows for.</param>
-        /// <param name="IsConsistent">Whether the return value should be the highest possible value occuring in the year or not.</param>
-        /// <param name="StartOfWeek">The start of the week.</param>
+        /// <param name="dateTime">The <see cref="DateTime"/> representing the month to get the number of rows for.</param>
+        /// <param name="isConsistent">Whether the return value should be the highest possible value occuring in the year or not.</param>
+        /// <param name="startOfWeek">The start of the week.</param>
         /// <returns></returns>
-        public int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek)
+        public int GetMonthRows(DateTime dateTime, bool isConsistent, DayOfWeek startOfWeek)
         {
-            if (IsConsistent)
+            if (isConsistent)
             {
-                return DateTime.CalendarHighestMonthWeekCountOfYear(StartOfWeek);
+                return dateTime.CalendarHighestMonthWeekCountOfYear(startOfWeek);
             }
             else
             {
-                return DateTime.CalendarWeeksInMonth(StartOfWeek);
+                return dateTime.CalendarWeeksInMonth(startOfWeek);
             }
         }
-        public virtual bool IsDateTimeCurrentMonth(DateTime DateTime)
+        public virtual bool IsDateTimeCurrentMonth(DateTime dateTime)
         {
-            return DateTime.Month == NavigatedDate.Month && DateTime.Year == NavigatedDate.Year;
+            return dateTime.Month == NavigatedDate.Month && dateTime.Year == NavigatedDate.Year;
         }
-        public virtual bool IsDateTimeToday(DateTime DateTime)
+        public virtual bool IsDateTimeToday(DateTime dateTime)
         {
-            return DateTime.Date == TodayDate.Date;
+            return dateTime.Date == TodayDate.Date;
         }
-        public virtual bool IsDateTimeSelected(DateTime DateTime)
+        public virtual bool IsDateTimeSelected(DateTime dateTime)
         {
-            return SelectedDates.Any(x => x.Date == DateTime.Date) == true;
+            return SelectedDates.Any(x => x.Date == dateTime.Date) == true;
         }
-        public virtual bool IsDateTimeInvalid(DateTime DateTime)
+        public virtual bool IsDateTimeInvalid(DateTime dateTime)
         {
-            return DateTime.Date < NavigationLowerBound.Date || DateTime.Date > NavigationUpperBound.Date;
+            return dateTime.Date < NavigationLowerBound.Date || dateTime.Date > NavigationUpperBound.Date;
         }
-        public virtual void UpdateDay(T Day, DateTime NewDateTime)
+        public virtual void UpdateDay(T day, DateTime newDateTime)
         {
-            Day.DateTime = NewDateTime;
-            Day.IsCurrentMonth = IsDateTimeCurrentMonth(Day.DateTime);
-            Day.IsToday = IsDateTimeToday(Day.DateTime);
-            Day.IsSelected = IsDateTimeSelected(Day.DateTime);
-            Day.IsInvalid = IsDateTimeInvalid(Day.DateTime);
+            day.DateTime = newDateTime;
+            day.IsCurrentMonth = IsDateTimeCurrentMonth(day.DateTime);
+            day.IsToday = IsDateTimeToday(day.DateTime);
+            day.IsSelected = IsDateTimeSelected(day.DateTime);
+            day.IsInvalid = IsDateTimeInvalid(day.DateTime);
         }
         /// <summary>
         /// Updates the dates displayed on the calendar.
         /// </summary>
-        /// <param name="NavigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
-        public void UpdateDays(DateTime NavigationDate)
+        /// <param name="navigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
+        public void UpdateDays(DateTime navigationDate)
         {
             OnDaysUpdating();
 
-            int RowsRequiredToNavigate = AutoRows ? GetMonthRows(NavigationDate, AutoRowsIsConsistent, StartOfWeek) : Rows;
-            int DaysRequiredToNavigate = RowsRequiredToNavigate * DayNamesOrder.Count;
+            int rowsRequiredToNavigate = AutoRows ? GetMonthRows(navigationDate, AutoRowsIsConsistent, StartOfWeek) : Rows;
+            int daysRequiredToNavigate = rowsRequiredToNavigate * DayNamesOrder.Count;
 
             //Determine the starting date of the page.
-            DateTime PageStartDate;
+            DateTime pageStartDate;
             switch (PageStartMode)
             {
                 case PageStartMode.FirstDayOfWeek:
-                    PageStartDate = NavigationDate.FirstDayOfWeek(StartOfWeek);
+                    pageStartDate = navigationDate.FirstDayOfWeek(StartOfWeek);
                     break;
                 case PageStartMode.FirstDayOfMonth:
-                    PageStartDate = NavigationDate.FirstDayOfMonth().FirstDayOfWeek(StartOfWeek);
+                    pageStartDate = navigationDate.FirstDayOfMonth().FirstDayOfWeek(StartOfWeek);
                     break;
                 case PageStartMode.FirstDayOfYear:
-                    PageStartDate = new DateTime(NavigatedDate.Year, 1, 1).FirstDayOfWeek(StartOfWeek);
+                    pageStartDate = new DateTime(NavigatedDate.Year, 1, 1).FirstDayOfWeek(StartOfWeek);
                     break;
                 default:
                     throw new NotImplementedException($"{nameof(Enums.PageStartMode)} '{PageStartMode}' has not been implemented.");
             }
 
             //Update the dates for each row.
-            int DaysUpdated = 0;
+            int daysUpdated = 0;
 
-            for (int RowsUpdated = 0; DaysUpdated < DaysRequiredToNavigate; RowsUpdated++)
+            for (int rowsUpdated = 0; daysUpdated < daysRequiredToNavigate; rowsUpdated++)
             {
-                Dictionary<DayOfWeek, DateTime> Row = new Dictionary<DayOfWeek, DateTime>();
+                Dictionary<DayOfWeek, DateTime> row = new Dictionary<DayOfWeek, DateTime>();
 
                 //Get the updated dates for the row.
                 for (int i = 0; i < DaysOfWeek.Count; i++)
                 {
                     try
                     {
-                        DateTime DateTime = PageStartDate.AddDays(RowsUpdated * DaysOfWeek.Count + i);
-                        Row.Add(DateTime.DayOfWeek, DateTime);
+                        DateTime dateTime = pageStartDate.AddDays(rowsUpdated * DaysOfWeek.Count + i);
+                        row.Add(dateTime.DayOfWeek, dateTime);
                     }
-                    catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
+                    catch (ArgumentOutOfRangeException ex) when (ex.TargetSite.DeclaringType == typeof(DateTime))
                     {
-                        Row.Add(DaysOfWeek[i], DateTime.MaxValue);
+                        row.Add(DaysOfWeek[i], DateTime.MaxValue);
                     }
                 }
 
                 //Update or create days for the row based on the DayNamesOrder.
-                foreach (DayOfWeek DayOfWeek in DayNamesOrder)
+                foreach (DayOfWeek dayOfWeek in DayNamesOrder)
                 {
-                    DateTime NewDateTime = Row[DayOfWeek];
+                    DateTime newDateTime = row[dayOfWeek];
 
-                    if (Days.Count <= DaysUpdated)
+                    if (Days.Count <= daysUpdated)
                     {
-                        T NewDay = new T();
-                        UpdateDay(NewDay, NewDateTime);
-                        Days.Add(NewDay);
+                        T newDay = new T();
+                        UpdateDay(newDay, newDateTime);
+                        Days.Add(newDay);
                     }
                     else
                     {
-                        UpdateDay(Days[DaysUpdated], NewDateTime);
+                        UpdateDay(Days[daysUpdated], newDateTime);
                     }
 
-                    DaysUpdated += 1;
+                    daysUpdated += 1;
                 }
             }
 
             //Remove any extra days.
-            while (Days.Count > DaysRequiredToNavigate)
+            while (Days.Count > daysRequiredToNavigate)
             {
                 Days.RemoveAt(Days.Count - 1);
             }
@@ -711,9 +711,9 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// Navigates the calendar by the specified <see cref="TimeSpan"/> using the navigation rule properties set in the calendar (<see cref="NavigationLowerBound"/>, <see cref="NavigationUpperBound"/> <see cref="NavigationLoopMode"/>).
         /// </summary>
-        public virtual void Navigate(TimeSpan TimeSpan)
+        public virtual void Navigate(TimeSpan timeSpan)
         {
-            NavigatedDate = NavigatedDate.Navigate(TimeSpan, NavigationLowerBound, NavigationUpperBound, NavigationLoopMode, StartOfWeek);
+            NavigatedDate = NavigatedDate.Navigate(timeSpan, NavigationLowerBound, NavigationUpperBound, NavigationLoopMode, StartOfWeek);
         }
         /// <summary>
         /// Raises an event signaling that the days' properties need to be reevaluated due to changes in the <see cref="CalendarView"/>
@@ -722,10 +722,10 @@ namespace XCalendar.Core.Models
         {
             UpdateDays(NavigatedDate);
 
-            OnDateSelectionChanged(_PreviousSelectedDates, SelectedDates);
+            OnDateSelectionChanged(_previousSelectedDates, SelectedDates);
 
-            _PreviousSelectedDates.Clear();
-            _PreviousSelectedDates.AddRange(SelectedDates.ToList());
+            _previousSelectedDates.Clear();
+            _previousSelectedDates.AddRange(SelectedDates.ToList());
         }
         private void DayNamesOrder_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -740,13 +740,13 @@ namespace XCalendar.Core.Models
         }
         private void OnRowsChanged(int oldValue, int newValue)
         {
-            int CoercedRows = CoerceRows(Rows);
+            int coercedRows = CoerceRows(Rows);
 
-            if (CoercedRows < 1) { throw new ArgumentException(nameof(newValue)); }
+            if (coercedRows < 1) { throw new ArgumentException(nameof(newValue)); }
 
-            if (Rows != CoercedRows)
+            if (Rows != coercedRows)
             {
-                Rows = CoercedRows;
+                Rows = coercedRows;
             }
             else
             {
@@ -757,11 +757,11 @@ namespace XCalendar.Core.Models
         {
             NavigatedDate = CoerceNavigatedDate(newValue);
 
-            int CoercedRows = CoerceRows(Rows);
+            int coercedRows = CoerceRows(Rows);
 
-            if (Rows != CoercedRows)
+            if (Rows != coercedRows)
             {
-                Rows = CoercedRows;
+                Rows = coercedRows;
             }
             else
             {
@@ -798,13 +798,13 @@ namespace XCalendar.Core.Models
             if (oldValue != null) { oldValue.CollectionChanged -= SelectedDates_CollectionChanged; }
             if (newValue != null) { newValue.CollectionChanged += SelectedDates_CollectionChanged; }
 
-            _PreviousSelectedDates.Clear();
-            _PreviousSelectedDates.AddRange(oldValue);
+            _previousSelectedDates.Clear();
+            _previousSelectedDates.AddRange(oldValue);
 
             if (oldValue == null || !oldValue.SequenceEqual(newValue))
             {
                 UpdateDays(NavigatedDate);
-                OnDateSelectionChanged(_PreviousSelectedDates, newValue);
+                OnDateSelectionChanged(_previousSelectedDates, newValue);
             }
         }
         private void OnCustomDayNamesOrderChanged(ObservableRangeCollection<DayOfWeek> oldValue, ObservableRangeCollection<DayOfWeek> newValue)
@@ -866,28 +866,28 @@ namespace XCalendar.Core.Models
         }
         private DateTime CoerceNavigatedDate(DateTime value)
         {
-            DateTime MinimumDate = NavigationLowerBound;
-            DateTime MaximumDate = NavigationUpperBound;
+            DateTime minimumDate = NavigationLowerBound;
+            DateTime maximumDate = NavigationUpperBound;
 
             switch (NavigationLoopMode)
             {
                 case NavigationLoopMode.DontLoop:
-                    if (value.Date < MinimumDate.Date) { return MinimumDate; }
-                    if (value.Date > MaximumDate.Date) { return MaximumDate; }
+                    if (value.Date < minimumDate.Date) { return minimumDate; }
+                    if (value.Date > maximumDate.Date) { return maximumDate; }
                     break;
                 case NavigationLoopMode.LoopMinimum:
-                    if (value.Date < MinimumDate.Date) { return MaximumDate; }
-                    if (value.Date > MaximumDate.Date) { return MaximumDate; }
+                    if (value.Date < minimumDate.Date) { return maximumDate; }
+                    if (value.Date > maximumDate.Date) { return maximumDate; }
                     break;
 
                 case NavigationLoopMode.LoopMaximum:
-                    if (value.Date < MinimumDate.Date) { return MinimumDate; }
-                    if (value.Date > MaximumDate.Date) { return MinimumDate; }
+                    if (value.Date < minimumDate.Date) { return minimumDate; }
+                    if (value.Date > maximumDate.Date) { return minimumDate; }
                     break;
 
                 case NavigationLoopMode.LoopMinimumAndMaximum:
-                    if (value.Date < MinimumDate.Date) { return MaximumDate; }
-                    if (value.Date > MaximumDate.Date) { return MinimumDate; }
+                    if (value.Date < minimumDate.Date) { return maximumDate; }
+                    if (value.Date > maximumDate.Date) { return minimumDate; }
                     break;
 
                 default:
@@ -900,9 +900,9 @@ namespace XCalendar.Core.Models
         {
             return AutoRows ? GetMonthRows(NavigatedDate, AutoRowsIsConsistent, StartOfWeek) : value;
         }
-        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

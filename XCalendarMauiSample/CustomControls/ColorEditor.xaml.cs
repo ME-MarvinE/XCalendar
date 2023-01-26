@@ -53,41 +53,41 @@
         #region Methods
         private static void SelectedColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            Color NewColor = (Color)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            Color newColor = (Color)newValue;
 
-            if (Control.SelectedColorRed != NewColor.Red) { Control.SelectedColorRed = NewColor.Red; }
-            if (Control.SelectedColorGreen != NewColor.Green) { Control.SelectedColorGreen = NewColor.Green; }
-            if (Control.SelectedColorBlue != NewColor.Blue) { Control.SelectedColorBlue = NewColor.Blue; }
-            if (Control.SelectedColorAlpha != NewColor.Alpha) { Control.SelectedColorAlpha = NewColor.Alpha; }
+            if (control.SelectedColorRed != newColor.Red) { control.SelectedColorRed = newColor.Red; }
+            if (control.SelectedColorGreen != newColor.Green) { control.SelectedColorGreen = newColor.Green; }
+            if (control.SelectedColorBlue != newColor.Blue) { control.SelectedColorBlue = newColor.Blue; }
+            if (control.SelectedColorAlpha != newColor.Alpha) { control.SelectedColorAlpha = newColor.Alpha; }
         }
         private static void SelectedColorRedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            float NewRed = (float)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            float newRed = (float)newValue;
 
-            Control.SelectedColor = new Color(NewRed, Control.SelectedColor.Green, Control.SelectedColor.Blue, Control.SelectedColor.Alpha);
+            control.SelectedColor = new Color(newRed, control.SelectedColor.Green, control.SelectedColor.Blue, control.SelectedColor.Alpha);
         }
         private static void SelectedColorGreenPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            float NewGreen = (float)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            float newGreen = (float)newValue;
 
-            Control.SelectedColor = new Color(Control.SelectedColor.Red, NewGreen, Control.SelectedColor.Blue, Control.SelectedColor.Alpha);
+            control.SelectedColor = new Color(control.SelectedColor.Red, newGreen, control.SelectedColor.Blue, control.SelectedColor.Alpha);
         }
         private static void SelectedColorBluePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            float NewBlue = (float)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            float newBlue = (float)newValue;
 
-            Control.SelectedColor = new Color(Control.SelectedColor.Red, Control.SelectedColor.Green, NewBlue, Control.SelectedColor.Alpha);
+            control.SelectedColor = new Color(control.SelectedColor.Red, control.SelectedColor.Green, newBlue, control.SelectedColor.Alpha);
         }
         private static void SelectedColorAlphaPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ColorEditor Control = (ColorEditor)bindable;
-            float NewAlpha = (float)newValue;
+            ColorEditor control = (ColorEditor)bindable;
+            float newAlpha = (float)newValue;
 
-            Control.SelectedColor = new Color(Control.SelectedColor.Red, Control.SelectedColor.Green, Control.SelectedColor.Blue, NewAlpha);
+            control.SelectedColor = new Color(control.SelectedColor.Red, control.SelectedColor.Green, control.SelectedColor.Blue, newAlpha);
         }
         #endregion
     }

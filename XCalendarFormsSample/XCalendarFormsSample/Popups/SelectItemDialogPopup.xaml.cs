@@ -10,7 +10,7 @@ namespace XCalendarFormsSample.Popups
     public partial class SelectItemDialogPopup : Popup
     {
         #region Properties
-        private object _InitialValue { get; }
+        private object _initialValue { get; }
 
         #region Bindable Properties
         public object ReturnValue
@@ -40,7 +40,7 @@ namespace XCalendarFormsSample.Popups
         #endregion
 
         #region Constructors
-        public SelectItemDialogPopup(object InitialValue, IEnumerable ItemsSource)
+        public SelectItemDialogPopup(object initialValue, IEnumerable itemsSource)
         {
             DismissDialogCommand = new Command(() => Dismiss(ReturnValue));
             CancelDialogCommand = new Command(CancelDialog);
@@ -48,8 +48,8 @@ namespace XCalendarFormsSample.Popups
 
             InitializeComponent();
 
-            _InitialValue = InitialValue;
-            this.ItemsSource = ItemsSource;
+            _initialValue = initialValue;
+            ItemsSource = itemsSource;
 
             ResetReturnValue();
         }
@@ -58,15 +58,15 @@ namespace XCalendarFormsSample.Popups
         #region Methods
         public void CancelDialog()
         {
-            Dismiss(_InitialValue);
+            Dismiss(_initialValue);
         }
         public void ResetReturnValue()
         {
-            ReturnValue = _InitialValue;
+            ReturnValue = _initialValue;
         }
         protected override object GetLightDismissResult()
         {
-            return _InitialValue;
+            return _initialValue;
         }
         #endregion
     }

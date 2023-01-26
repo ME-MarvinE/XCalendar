@@ -8,11 +8,11 @@ namespace XCalendar.Core.Models
     public class CalendarDay : ICalendarDay
     {
         #region Fields
-        private DateTime _DateTime = DateTime.Today;
-        private bool _IsSelected;
-        private bool _IsCurrentMonth;
-        private bool _IsToday;
-        private bool _IsInvalid;
+        private DateTime _dateTime = DateTime.Today;
+        private bool _isSelected;
+        private bool _isCurrentMonth;
+        private bool _isToday;
+        private bool _isInvalid;
         #endregion
 
         #region Properties
@@ -20,13 +20,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _DateTime;
+                return _dateTime;
             }
             set
             {
-                if (_DateTime != value)
+                if (_dateTime != value)
                 {
-                    _DateTime = value;
+                    _dateTime = value;
                     OnPropertyChanged();
                 }
             }
@@ -35,13 +35,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _IsSelected;
+                return _isSelected;
             }
             set
             {
-                if (_IsSelected != value)
+                if (_isSelected != value)
                 {
-                    _IsSelected = value;
+                    _isSelected = value;
                     OnPropertyChanged();
                 }
             }
@@ -50,13 +50,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _IsCurrentMonth;
+                return _isCurrentMonth;
             }
             set
             {
-                if (_IsCurrentMonth != value)
+                if (_isCurrentMonth != value)
                 {
-                    _IsCurrentMonth = value;
+                    _isCurrentMonth = value;
                     OnPropertyChanged();
                 }
             }
@@ -65,13 +65,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _IsToday;
+                return _isToday;
             }
             set
             {
-                if (_IsToday != value)
+                if (_isToday != value)
                 {
-                    _IsToday = value;
+                    _isToday = value;
                     OnPropertyChanged();
                 }
             }
@@ -80,13 +80,13 @@ namespace XCalendar.Core.Models
         {
             get
             {
-                return _IsInvalid;
+                return _isInvalid;
             }
             set
             {
-                if (_IsInvalid != value)
+                if (_isInvalid != value)
                 {
-                    _IsInvalid = value;
+                    _isInvalid = value;
                     OnPropertyChanged();
                 }
             }
@@ -98,9 +98,9 @@ namespace XCalendar.Core.Models
         #endregion
 
         #region Methods
-        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

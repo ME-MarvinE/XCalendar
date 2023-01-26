@@ -41,11 +41,11 @@ namespace XCalendarMauiSample.Popups
         #endregion
 
         #region Constructors
-        public ConstructListDialogPopup(IEnumerable AvailableItems)
-            :this(new List<object>(), AvailableItems)
+        public ConstructListDialogPopup(IEnumerable availableItems)
+            :this(new List<object>(), availableItems)
         {
         }
-        public ConstructListDialogPopup(IEnumerable InitialItems, IEnumerable AvailableItems)
+        public ConstructListDialogPopup(IEnumerable initialItems, IEnumerable availableItems)
         {
             CloseDialogCommand = new Command(() => Close(new List<object>(ReturnValueItems)));
             CancelDialogCommand = new Command(CancelDialog);
@@ -56,8 +56,8 @@ namespace XCalendarMauiSample.Popups
 
             InitializeComponent();
 
-            _InitialItems = InitialItems.Cast<object>().ToList();
-            this.AvailableItems = AvailableItems.Cast<object>().ToList();
+            _InitialItems = initialItems.Cast<object>().ToList();
+            this.AvailableItems = availableItems.Cast<object>().ToList();
 
             ResetReturnValueItems();
             ResultWhenUserTapsOutsideOfPopup = _InitialItems;
@@ -73,18 +73,18 @@ namespace XCalendarMauiSample.Popups
         {
             ReturnValueItems.ReplaceRange(_InitialItems);
         }
-        public void AddItem(object Item)
+        public void AddItem(object item)
         {
-            if (Item != null)
+            if (item != null)
             {
-                ReturnValueItems.Add(Item);
+                ReturnValueItems.Add(item);
             }
         }
-        public void RemoveItem(object Item)
+        public void RemoveItem(object item)
         {
-            if (Item != null)
+            if (item != null)
             {
-                ReturnValueItems.Remove(Item);
+                ReturnValueItems.Remove(item);
             }
         }
         public void ClearReturnValueItems()

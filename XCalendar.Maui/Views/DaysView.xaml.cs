@@ -48,10 +48,10 @@ namespace XCalendar.Maui.Views
         #region Bindable Properties Methods
         private static void DaysPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DaysView Control = (DaysView)bindable;
-            IEnumerable<ICalendarDay> NewDays = (IEnumerable<ICalendarDay>)newValue;
+            DaysView control = (DaysView)bindable;
+            IEnumerable<ICalendarDay> newDays = (IEnumerable<ICalendarDay>)newValue;
 
-            Control.MainCollectionView.ItemsSource = NewDays;
+            control.MainCollectionView.ItemsSource = newDays;
         }
         #endregion
 

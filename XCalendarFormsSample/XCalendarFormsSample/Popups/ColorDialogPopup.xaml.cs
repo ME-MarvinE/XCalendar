@@ -9,7 +9,6 @@ namespace XCalendarFormsSample.Popups
     public partial class ColorDialogPopup : Popup<Color>
     {
         #region Properties
-
         public Color InitialSelectedColor { get; }
 
         #region Bindable Properties
@@ -38,7 +37,7 @@ namespace XCalendarFormsSample.Popups
             : this(Color.Default)
         {
         }
-        public ColorDialogPopup(Color InitialSelectedColor)
+        public ColorDialogPopup(Color initialSelectedColor)
         {
             CancelDialogCommand = new Command(CancelDialog);
             DismissDialogCommand = new Command(DismissDialog);
@@ -46,8 +45,8 @@ namespace XCalendarFormsSample.Popups
 
             InitializeComponent();
 
-            this.InitialSelectedColor = InitialSelectedColor;
-            SelectedColor = InitialSelectedColor;
+            InitialSelectedColor = initialSelectedColor;
+            SelectedColor = initialSelectedColor;
         }
         #endregion
 

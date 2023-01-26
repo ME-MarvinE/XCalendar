@@ -43,14 +43,14 @@ namespace XCalendarConsoleSample
 
             for (int i = 0; i < Calendar.Days.Count; i++)
             {
-                ICalendarDay Day = Calendar.Days[i];
+                ICalendarDay day = Calendar.Days[i];
 
                 if (i % 7 == 0)
                 {
                     Console.WriteLine();
                 }
 
-                WriteDay(Day);
+                WriteDay(day);
 
                 Console.Write("  ");
                 Console.ResetColor();
@@ -58,24 +58,24 @@ namespace XCalendarConsoleSample
 
             Console.WriteLine();
         }
-        public static void WriteWeek(IEnumerable<DayOfWeek> DaysOfWeek, string WhiteSpace)
+        public static void WriteWeek(IEnumerable<DayOfWeek> daysOfWeek, string whiteSpace)
         {
-            if (DaysOfWeek == null) { throw new ArgumentNullException(nameof(DaysOfWeek)); }
+            if (daysOfWeek == null) { throw new ArgumentNullException(nameof(daysOfWeek)); }
 
-            foreach (var DayOfWeek in DaysOfWeek)
+            foreach (var dayOfWeek in daysOfWeek)
             {
-                Console.Write($"{DayOfWeek}".Substring(0, 3));
-                if (DayOfWeek != DaysOfWeek.Last())
+                Console.Write($"{dayOfWeek}".Substring(0, 3));
+                if (dayOfWeek != daysOfWeek.Last())
                 {
-                    Console.Write(WhiteSpace);
+                    Console.Write(whiteSpace);
                 }
             }
         }
-        public static void WriteDay(ICalendarDay Day)
+        public static void WriteDay(ICalendarDay day)
         {
-            DayState DayState = EvaluateDayState(Day);
+            DayState dayState = EvaluateDayState(day);
 
-            switch (DayState)
+            switch (dayState)
             {
                 case DayState.CurrentMonth:
                     Console.ForegroundColor = ConsoleColor.Gray;
@@ -98,12 +98,12 @@ namespace XCalendarConsoleSample
                     break;
             }
 
-            Console.Write(Day.DateTime.ToString("dd"));
+            Console.Write(day.DateTime.ToString("dd"));
         }
         public static void PerformCalendarAction(ConsoleKey Key)
         {
-            TimeSpan TimeSpanToNavigateBy;
-            DateTime AddMonthsDateTime;
+            TimeSpan timeSpanToNavigateBy;
+            DateTime addMonthsDateTime;
 
             switch (Key)
             {
@@ -111,29 +111,29 @@ namespace XCalendarConsoleSample
                     return;
 
                 case ConsoleKey.LeftArrow:
-                    if (Calendar.NavigatedDate.TryAddMonths(-1, out AddMonthsDateTime))
+                    if (Calendar.NavigatedDate.TryAddMonths(-1, out addMonthsDateTime))
                     {
-                        TimeSpanToNavigateBy = AddMonthsDateTime - Calendar.NavigatedDate;
+                        timeSpanToNavigateBy = addMonthsDateTime - Calendar.NavigatedDate;
                     }
                     else
                     {
-                        TimeSpanToNavigateBy = TimeSpan.MinValue;
+                        timeSpanToNavigateBy = TimeSpan.MinValue;
                     }
 
-                    Calendar.Navigate(TimeSpanToNavigateBy);
+                    Calendar.Navigate(timeSpanToNavigateBy);
                     break;
 
                 case ConsoleKey.RightArrow:
-                    if (Calendar.NavigatedDate.TryAddMonths(1, out AddMonthsDateTime))
+                    if (Calendar.NavigatedDate.TryAddMonths(1, out addMonthsDateTime))
                     {
-                        TimeSpanToNavigateBy = AddMonthsDateTime - Calendar.NavigatedDate;
+                        timeSpanToNavigateBy = addMonthsDateTime - Calendar.NavigatedDate;
                     }
                     else
                     {
-                        TimeSpanToNavigateBy = TimeSpan.MaxValue;
+                        timeSpanToNavigateBy = TimeSpan.MaxValue;
                     }
 
-                    Calendar.Navigate(TimeSpanToNavigateBy);
+                    Calendar.Navigate(timeSpanToNavigateBy);
                     break;
 
                 case ConsoleKey.UpArrow:
@@ -154,10 +154,10 @@ namespace XCalendarConsoleSample
 
                 case ConsoleKey.S:
                     Console.WriteLine("Write the date to be selected in the format dd/mm/yyyy");
-                    string Input = Console.ReadLine();
-                    if (DateTime.TryParse(Input, out DateTime DateToSelect))
+                    string input = Console.ReadLine();
+                    if (DateTime.TryParse(input, out DateTime dateToSelect))
                     {
-                        Calendar.ChangeDateSelection(DateToSelect);
+                        Calendar.ChangeDateSelection(dateToSelect);
                         Console.WriteLine($"Selection Successful. Press any key to continue.");
                     }
                     else
@@ -168,27 +168,27 @@ namespace XCalendarConsoleSample
                     break;
             }
         }
-        public static DayState EvaluateDayState(ICalendarDay Day)
+        public static DayState EvaluateDayState(ICalendarDay day)
         {
-            bool DayIsOtherMonth = !Day.IsCurrentMonth;
+            bool dayIsOtherMonth = !day.IsCurrentMonth;
 
-            if (Day.IsInvalid)
+            if (day.IsInvalid)
             {
                 return DayState.Invalid;
             }
-            else if (Day.IsSelected && Day.IsCurrentMonth)
+            else if (day.IsSelected && day.IsCurrentMonth)
             {
                 return DayState.Selected;
             }
-            else if (Day.IsToday && Day.IsCurrentMonth)
+            else if (day.IsToday && day.IsCurrentMonth)
             {
                 return DayState.Today;
             }
-            else if (DayIsOtherMonth)
+            else if (dayIsOtherMonth)
             {
                 return DayState.OtherMonth;
             }
-            else if (Day.IsCurrentMonth)
+            else if (day.IsCurrentMonth)
             {
                 return DayState.CurrentMonth;
             }
@@ -197,21 +197,21 @@ namespace XCalendarConsoleSample
                 throw new NotImplementedException();
             }
         }
-        public static bool IsDateTimeCurrentMonth(DateTime DateTime, DateTime NavigatedDate)
+        public static bool IsDateTimeCurrentMonth(DateTime dateTime, DateTime navigatedDate)
         {
-            return DateTime.Month == NavigatedDate.Month && DateTime.Year == NavigatedDate.Year;
+            return dateTime.Month == navigatedDate.Month && dateTime.Year == navigatedDate.Year;
         }
-        public static bool IsDateTimeInvalid(DateTime DateTime, DateTime LowerBound, DateTime UpperBound)
+        public static bool IsDateTimeInvalid(DateTime dateTime, DateTime lowerBound, DateTime upperBound)
         {
-            return DateTime.Date < LowerBound.Date || DateTime.Date > UpperBound.Date;
+            return dateTime.Date < lowerBound.Date || dateTime.Date > upperBound.Date;
         }
-        public static bool IsDateTimeToday(DateTime DateTime, DateTime TodayDate)
+        public static bool IsDateTimeToday(DateTime dateTime, DateTime todayDate)
         {
-            return DateTime.Date == TodayDate.Date;
+            return dateTime.Date == todayDate.Date;
         }
-        public static bool IsDateTimeSelected(DateTime DateTime, IEnumerable<DateTime> SelectedDates)
+        public static bool IsDateTimeSelected(DateTime dateTime, IEnumerable<DateTime> selectedDates)
         {
-            return SelectedDates.Any(x => x.Date == DateTime.Date) == true;
+            return selectedDates.Any(x => x.Date == dateTime.Date) == true;
         }
     }
 }

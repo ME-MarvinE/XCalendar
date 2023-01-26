@@ -24,9 +24,9 @@ namespace XCalendarFormsSample.ViewModels
         #endregion
 
         #region Methods
-        public async void ShowDatePickerDialog(DateTime InitialDate)
+        public async void ShowDatePickerDialog(DateTime initialDate)
         {
-           SelectedDate = await Shell.Current.ShowPopupAsync(new DatePickerDialogPopup(InitialDate));
+           SelectedDate = await Shell.Current.ShowPopupAsync(new DatePickerDialogPopup(initialDate));
         }
         #endregion
     }

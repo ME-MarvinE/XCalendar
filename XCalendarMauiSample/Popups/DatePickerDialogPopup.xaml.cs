@@ -32,7 +32,7 @@ namespace XCalendarMauiSample.Popups
         #endregion
 
         #region Constructors
-        public DatePickerDialogPopup(DateTime InitialDate)
+        public DatePickerDialogPopup(DateTime initialDate)
         {
             ReturnSelectedDateCommand = new Command(ReturnSelectedDate);
             ReturnInitialDateCommand = new Command(ReturnInitialDate);
@@ -42,9 +42,9 @@ namespace XCalendarMauiSample.Popups
 
             Calendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
 
-            this.InitialDate = InitialDate;
-            ResultWhenUserTapsOutsideOfPopup = InitialDate;
-            Calendar.SelectedDates.Replace(InitialDate);
+            InitialDate = initialDate;
+            ResultWhenUserTapsOutsideOfPopup = initialDate;
+            Calendar.SelectedDates.Replace(initialDate);
 
             InitializeComponent();
             ResetNavigatedDate();
@@ -69,20 +69,20 @@ namespace XCalendarMauiSample.Popups
         {
             Close(SelectedDate);
         }
-        public void NavigateCalendar(int Amount)
+        public void NavigateCalendar(int amount)
         {
-            if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            if (Calendar.NavigatedDate.TryAddMonths(amount, out DateTime targetDate))
             {
-                Calendar.Navigate(TargetDate - Calendar.NavigatedDate);
+                Calendar.Navigate(targetDate - Calendar.NavigatedDate);
             }
             else
             {
-                Calendar.Navigate(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+                Calendar.Navigate(amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
             }
         }
-        public void ChangeDateSelection(DateTime DateTime)
+        public void ChangeDateSelection(DateTime dateTime)
         {
-            Calendar?.ChangeDateSelection(DateTime);
+            Calendar?.ChangeDateSelection(dateTime);
         }
         #endregion
     }

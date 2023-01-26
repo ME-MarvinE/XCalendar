@@ -97,7 +97,7 @@ namespace XCalendarMauiSample.ViewModels
         public ExamplesViewModel()
         {
             SearchExamplesCommand = new Command(SearchExamples);
-            ShowPageCommand = new Command<Page>(async (Page Page) => await ShowPage(Page));
+            ShowPageCommand = new Command<Page>(async (Page page) => await ShowPage(page));
             SearchExamples();
         }
         #endregion
@@ -109,7 +109,7 @@ namespace XCalendarMauiSample.ViewModels
         }
         public void SearchExamples()
         {
-            bool SearchTags = true;
+            bool searchTags = true;
 
             if (string.IsNullOrWhiteSpace(SearchText))
             {
@@ -120,13 +120,13 @@ namespace XCalendarMauiSample.ViewModels
                 DisplayedExamples.ReplaceRange(
                     Examples.Where(x =>
                     x.Title.ToLower().Contains(SearchText.ToLower()) ||
-                    (SearchTags && x.Tags.Any(Tag =>
-                        Tag.Title.ToLower().Contains(SearchText.ToLower())))));
+                    (searchTags && x.Tags.Any(tag =>
+                        tag.Title.ToLower().Contains(SearchText.ToLower())))));
             }
         }
-        public async Task ShowPage(Page Page)
+        public async Task ShowPage(Page page)
         {
-            await Shell.Current.Navigation.PushAsync(Page);
+            await Shell.Current.Navigation.PushAsync(page);
         }
         #endregion
     }

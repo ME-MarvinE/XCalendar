@@ -1,10 +1,9 @@
-using System;
-using XCalendar.Core.Models;
-using Xunit;
 using FluentAssertions;
-using FluentAssertions.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using XCalendar.Core.Models;
+using Xunit;
 
 namespace XCalendar.Core.Tests.Models
 {
@@ -19,16 +18,16 @@ namespace XCalendar.Core.Tests.Models
         [InlineData(6)]
         [InlineData(10)]
         [InlineData(34646)]
-        public void SettingRowsChangesRowCount(int Rows)
+        public void SettingRowsChangesRowCount(int rows)
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 AutoRows = false
             };
 
-            Calendar.Rows = Rows;
+            calendar.Rows = rows;
 
-            Assert.Equal(Rows, Calendar.Rows);
+            Assert.Equal(rows, calendar.Rows);
         }
         [Theory]
         [InlineData(0)]
@@ -37,7 +36,7 @@ namespace XCalendar.Core.Tests.Models
         [InlineData(-3)]
         [InlineData(-34646)]
         [InlineData(int.MinValue)]
-        public void SettingRowsBelow1ThrowsException(int Rows)
+        public void SettingRowsBelow1ThrowsException(int rows)
         {
             Assert.ThrowsAny<Exception>(() =>
             {
@@ -46,19 +45,19 @@ namespace XCalendar.Core.Tests.Models
                     AutoRows = false
                 };
 
-                Calendar.Rows = Rows;
+                Calendar.Rows = rows;
             });
         }
         [Fact]
         public void FirstDayOfWeekWorksForMonday()
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 NavigatedDate = new DateTime(2023, 1, 1),
                 StartOfWeek = DayOfWeek.Monday
             };
 
-            Calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
+            calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
             {
                 new DateTime(2022, 12, 26),
                 new DateTime(2022, 12, 27),
@@ -107,13 +106,13 @@ namespace XCalendar.Core.Tests.Models
         [Fact]
         public void FirstDayOfWeekWorksForTuesday()
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 NavigatedDate = new DateTime(2023, 1, 1),
                 StartOfWeek = DayOfWeek.Tuesday
             };
 
-            Calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
+            calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
             {
                 new DateTime(2022, 12, 27),
                 new DateTime(2022, 12, 28),
@@ -162,13 +161,13 @@ namespace XCalendar.Core.Tests.Models
         [Fact]
         public void FirstDayOfWeekWorksForWednesday()
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 NavigatedDate = new DateTime(2023, 1, 1),
                 StartOfWeek = DayOfWeek.Wednesday
             };
 
-            Calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
+            calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
             {
                 new DateTime(2022, 12, 28),
                 new DateTime(2022, 12, 29),
@@ -217,13 +216,13 @@ namespace XCalendar.Core.Tests.Models
         [Fact]
         public void FirstDayOfWeekWorksForThursday()
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 NavigatedDate = new DateTime(2023, 1, 1),
                 StartOfWeek = DayOfWeek.Thursday
             };
 
-            Calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
+            calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
             {
                 new DateTime(2022, 12, 29),
                 new DateTime(2022, 12, 30),
@@ -272,13 +271,13 @@ namespace XCalendar.Core.Tests.Models
         [Fact]
         public void FirstDayOfWeekWorksForFriday()
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 NavigatedDate = new DateTime(2023, 1, 1),
                 StartOfWeek = DayOfWeek.Friday
             };
 
-            Calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
+            calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
             {
                 new DateTime(2022, 12, 30),
                 new DateTime(2022, 12, 31),
@@ -327,13 +326,13 @@ namespace XCalendar.Core.Tests.Models
         [Fact]
         public void FirstDayOfWeekWorksForSaturday()
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 NavigatedDate = new DateTime(2023, 1, 1),
                 StartOfWeek = DayOfWeek.Saturday
             };
 
-            Calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
+            calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
             {
                 new DateTime(2022, 12, 31),
                 new DateTime(2023, 1, 1),
@@ -382,13 +381,13 @@ namespace XCalendar.Core.Tests.Models
         [Fact]
         public void FirstDayOfWeekWorksForSunday()
         {
-            var Calendar = new Calendar<CalendarDay>()
+            var calendar = new Calendar<CalendarDay>()
             {
                 NavigatedDate = new DateTime(2023, 1, 1),
                 StartOfWeek = DayOfWeek.Sunday
             };
 
-            Calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
+            calendar.Days.Select(x => x.DateTime).Should().Equal(new List<DateTime>()
             {
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 1, 2),

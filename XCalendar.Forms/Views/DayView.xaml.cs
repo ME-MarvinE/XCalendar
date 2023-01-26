@@ -327,7 +327,7 @@ namespace XCalendar.Forms.Views
         #region Methods
         public virtual DayState EvaluateDayState()
         {
-            bool IsOtherMonth = !IsCurrentMonth;
+            bool isOtherMonth = !IsCurrentMonth;
 
             if (IsInvalid)
             {
@@ -341,7 +341,7 @@ namespace XCalendar.Forms.Views
             {
                 return DayState.Today;
             }
-            else if (IsOtherMonth)
+            else if (isOtherMonth)
             {
                 return DayState.OtherMonth;
             }
@@ -402,68 +402,68 @@ namespace XCalendar.Forms.Views
         #region Bindable Properties Methods
         private static void DateTimePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            Control.DayState = Control.EvaluateDayState();
-            Control.UpdateView();
+            control.DayState = control.EvaluateDayState();
+            control.UpdateView();
         }
         private static void IsCurrentMonthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            Control.DayState = Control.EvaluateDayState();
-            Control.UpdateView();
+            control.DayState = control.EvaluateDayState();
+            control.UpdateView();
         }
         private static void IsOtherMonthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            Control.DayState = Control.EvaluateDayState();
-            Control.UpdateView();
+            control.DayState = control.EvaluateDayState();
+            control.UpdateView();
         }
         private static void IsTodayPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            Control.DayState = Control.EvaluateDayState();
-            Control.UpdateView();
+            control.DayState = control.EvaluateDayState();
+            control.UpdateView();
         }
         private static void IsSelectedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            Control.DayState = Control.EvaluateDayState();
-            Control.UpdateView();
+            control.DayState = control.EvaluateDayState();
+            control.UpdateView();
         }
         private static void IsInvalidPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            Control.DayState = Control.EvaluateDayState();
-            Control.UpdateView();
+            control.DayState = control.EvaluateDayState();
+            control.UpdateView();
         }
         private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
-            DayState NewDayState = (DayState)newValue;
+            DayView control = (DayView)bindable;
+            DayState newDayState = (DayState)newValue;
 
-            Control.IsDayStateCurrentMonth = NewDayState == DayState.CurrentMonth;
-            Control.IsDayStateOtherMonth = NewDayState == DayState.OtherMonth;
-            Control.IsDayStateToday = NewDayState == DayState.Today;
-            Control.IsDayStateSelected = NewDayState == DayState.Selected;
-            Control.IsDayStateInvalid = NewDayState == DayState.Invalid;
+            control.IsDayStateCurrentMonth = newDayState == DayState.CurrentMonth;
+            control.IsDayStateOtherMonth = newDayState == DayState.OtherMonth;
+            control.IsDayStateToday = newDayState == DayState.Today;
+            control.IsDayStateSelected = newDayState == DayState.Selected;
+            control.IsDayStateInvalid = newDayState == DayState.Invalid;
         }
         private static void StateAppearanceChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            Control.UpdateView();
+            control.UpdateView();
         }
         private static object CoerceDayState (BindableObject bindable, object value)
         {
-            DayView Control = (DayView)bindable;
+            DayView control = (DayView)bindable;
 
-            return Control.EvaluateDayState();
+            return control.EvaluateDayState();
         }
         #endregion
 
