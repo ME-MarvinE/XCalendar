@@ -36,12 +36,12 @@ namespace XCalendar.Core.Interfaces
         #endregion
 
         #region Methods
-        void UpdateDay(T Day, DateTime NewDateTime);
-        void ChangeDateSelection(DateTime DateTime);
+        void UpdateDay(T day, DateTime newDateTime);
+        void ChangeDateSelection(DateTime dateTime);
         void CommitRangeSelection();
-        int GetMonthRows(DateTime DateTime, bool IsConsistent, DayOfWeek StartOfWeek);
-        void UpdateDays(DateTime NavigationDate);
-        void Navigate(TimeSpan TimeSpan);
+        int GetMonthRows(DateTime dateTime, bool isConsistent, DayOfWeek startOfWeek);
+        void UpdateDays(DateTime navigationDate);
+        void Navigate(TimeSpan timeSpan);
         #endregion
     }
 }
