@@ -117,39 +117,39 @@ namespace XCalendarMauiSample.ViewModels
         #endregion
 
         #region Methods
-        public void NavigateCalendar(int Amount)
+        public void NavigateCalendar(int amount)
         {
-            TimeSpan TimeSpanToNavigateBy;
+            TimeSpan timeSpanToNavigateBy;
 
             switch (NavigationTimeUnit)
             {
                 case "Day":
-                    TimeSpanToNavigateBy = TimeSpan.FromDays(Amount);
+                    timeSpanToNavigateBy = TimeSpan.FromDays(amount);
                     break;
 
                 case "Week":
-                    TimeSpanToNavigateBy = TimeSpan.FromDays(Amount * 7);
+                    timeSpanToNavigateBy = TimeSpan.FromDays(amount * 7);
                     break;
 
                 case "Month":
-                    if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime AddMonthsDateTime))
+                    if (Calendar.NavigatedDate.TryAddMonths(amount, out DateTime addMonthsDateTime))
                     {
-                        TimeSpanToNavigateBy = AddMonthsDateTime - Calendar.NavigatedDate;
+                        timeSpanToNavigateBy = addMonthsDateTime - Calendar.NavigatedDate;
                     }
                     else
                     {
-                        TimeSpanToNavigateBy = Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
                     }
                     break;
 
                 case "Year":
-                    if (Calendar.NavigatedDate.TryAddYears(Amount, out DateTime AddYearsDateTime))
+                    if (Calendar.NavigatedDate.TryAddYears(amount, out DateTime addYearsDateTime))
                     {
-                        TimeSpanToNavigateBy = AddYearsDateTime - Calendar.NavigatedDate;
+                        timeSpanToNavigateBy = addYearsDateTime - Calendar.NavigatedDate;
                     }
                     else
                     {
-                        TimeSpanToNavigateBy = Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
                     }
                     break;
 
@@ -157,29 +157,29 @@ namespace XCalendarMauiSample.ViewModels
                     throw new NotImplementedException();
             }
 
-            Calendar.Navigate(TimeSpanToNavigateBy);
+            Calendar.Navigate(timeSpanToNavigateBy);
         }
-        public void ChangeDateSelection(DateTime DateTime)
+        public void ChangeDateSelection(DateTime dateTime)
         {
-            Calendar?.ChangeDateSelection(DateTime);
+            Calendar?.ChangeDateSelection(dateTime);
         }
-        public void ChangeCalendarVisibility(bool IsVisible)
+        public void ChangeCalendarVisibility(bool isVisible)
         {
-            CalendarIsVisible = IsVisible;
+            CalendarIsVisible = isVisible;
         }
         public async void ShowCustomDayNamesOrderDialog()
         {
-            IEnumerable<DayOfWeek> NewCustomDayNamesOrder = await PopupHelper.ShowCustomDayNamesOrderDialog(Calendar.CustomDayNamesOrder ?? new ObservableRangeCollection<DayOfWeek>());
+            IEnumerable<DayOfWeek> newCustomDayNamesOrder = await PopupHelper.ShowCustomDayNamesOrderDialog(Calendar.CustomDayNamesOrder ?? new ObservableRangeCollection<DayOfWeek>());
 
-            if (NewCustomDayNamesOrder.Any())
+            if (newCustomDayNamesOrder.Any())
             {
                 if (Calendar.CustomDayNamesOrder == null)
                 {
-                    Calendar.CustomDayNamesOrder = new ObservableRangeCollection<DayOfWeek>(NewCustomDayNamesOrder);
+                    Calendar.CustomDayNamesOrder = new ObservableRangeCollection<DayOfWeek>(newCustomDayNamesOrder);
                 }
                 else
                 {
-                    Calendar.CustomDayNamesOrder.ReplaceRange(NewCustomDayNamesOrder);
+                    Calendar.CustomDayNamesOrder.ReplaceRange(newCustomDayNamesOrder);
                 }
             }
             else

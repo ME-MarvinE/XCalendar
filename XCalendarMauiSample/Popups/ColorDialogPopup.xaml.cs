@@ -35,7 +35,7 @@ namespace XCalendarMauiSample.Popups
             : this(new Color())
         {
         }
-        public ColorDialogPopup(Color InitialSelectedColor)
+        public ColorDialogPopup(Color initialSelectedColor)
         {
             CancelDialogCommand = new Command(CancelDialog);
             DismissDialogCommand = new Command(DismissDialog);
@@ -43,9 +43,9 @@ namespace XCalendarMauiSample.Popups
 
             InitializeComponent();
 
-            this.InitialSelectedColor = InitialSelectedColor;
-            ResultWhenUserTapsOutsideOfPopup = InitialSelectedColor;
-            SelectedColor = InitialSelectedColor;
+            InitialSelectedColor = initialSelectedColor;
+            ResultWhenUserTapsOutsideOfPopup = initialSelectedColor;
+            SelectedColor = initialSelectedColor;
         }
         #endregion
 
