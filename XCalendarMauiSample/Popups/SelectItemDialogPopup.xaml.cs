@@ -7,7 +7,7 @@ namespace XCalendarMauiSample.Popups
     public partial class SelectItemDialogPopup : Popup
     {
         #region Properties
-        private object _InitialValue { get; }
+        private object _initialValue { get; }
 
         #region Bindable Properties
         public object ReturnValue
@@ -37,7 +37,7 @@ namespace XCalendarMauiSample.Popups
         #endregion
 
         #region Constructors
-        public SelectItemDialogPopup(object InitialValue, IEnumerable ItemsSource)
+        public SelectItemDialogPopup(object initialValue, IEnumerable itemsSource)
         {
             CloseDialogCommand = new Command(() => Close(ReturnValue));
             CancelDialogCommand = new Command(CancelDialog);
@@ -45,22 +45,22 @@ namespace XCalendarMauiSample.Popups
 
             InitializeComponent();
 
-            _InitialValue = InitialValue;
-            this.ItemsSource = ItemsSource;
+            _initialValue = initialValue;
+            ItemsSource = itemsSource;
 
             ResetReturnValue();
-            ResultWhenUserTapsOutsideOfPopup = _InitialValue;
+            ResultWhenUserTapsOutsideOfPopup = _initialValue;
         }
         #endregion
 
         #region Methods
         public void CancelDialog()
         {
-            Close(_InitialValue);
+            Close(_initialValue);
         }
         public void ResetReturnValue()
         {
-            ReturnValue = _InitialValue;
+            ReturnValue = _initialValue;
         }
         #endregion
     }

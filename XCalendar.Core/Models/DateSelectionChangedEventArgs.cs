@@ -11,10 +11,10 @@ namespace XCalendar.Core.Models
         #endregion
 
         #region Constructors
-        public DateSelectionChangedEventArgs(IList<DateTime> PreviousSelection, IList<DateTime> CurrentSelection)
+        public DateSelectionChangedEventArgs(IList<DateTime> previousSelection, IList<DateTime> currentSelection)
         {
-            this.PreviousSelection = new List<DateTime>(PreviousSelection ?? throw new ArgumentNullException(nameof(PreviousSelection)));
-            this.CurrentSelection = new List<DateTime>(CurrentSelection ?? throw new ArgumentNullException(nameof(CurrentSelection)));
+            PreviousSelection = new List<DateTime>(previousSelection ?? throw new ArgumentNullException(nameof(previousSelection)));
+            CurrentSelection = new List<DateTime>(currentSelection ?? throw new ArgumentNullException(nameof(currentSelection)));
         }
         #endregion
     }

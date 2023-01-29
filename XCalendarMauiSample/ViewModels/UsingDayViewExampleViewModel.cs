@@ -33,20 +33,20 @@ namespace XCalendarMauiSample.ViewModels
         #endregion
 
         #region Methods
-        public void NavigateCalendar(int Amount)
+        public void NavigateCalendar(int amount)
         {
-            if (Calendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            if (Calendar.NavigatedDate.TryAddMonths(amount, out DateTime targetDate))
             {
-                Calendar.Navigate(TargetDate - Calendar.NavigatedDate);
+                Calendar.Navigate(targetDate - Calendar.NavigatedDate);
             }
             else
             {
-                Calendar.Navigate(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+                Calendar.Navigate(amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
             }
         }
-        public void ChangeDateSelection(DateTime DateTime)
+        public void ChangeDateSelection(DateTime dateTime)
         {
-            Calendar?.ChangeDateSelection(DateTime);
+            Calendar?.ChangeDateSelection(dateTime);
         }
         private void Calendar_DaysUpdated(object sender, EventArgs e)
         {

@@ -52,9 +52,9 @@ namespace XCalendarFormsSample.ViewModels
         #endregion
 
         #region Methods
-        public void ChangeDateSelection(DateTime DateTime)
+        public void ChangeDateSelection(DateTime dateTime)
         {
-            CurrentPageCalendar.ChangeDateSelection(DateTime);
+            CurrentPageCalendar.ChangeDateSelection(dateTime);
         }
         public void CurrentPageCalendarChanged()
         {
@@ -62,46 +62,46 @@ namespace XCalendarFormsSample.ViewModels
         }
         public void UpdateCalendarPages()
         {
-            TimeSpan BackwardsNavigationTimeSpan;
-            TimeSpan ForwardsNavigationTimeSpan;
-            int ForwardsNavigationAmount = 1;
-            int BackwardsNavigationAmount = -1;
+            TimeSpan backwardsNavigationTimeSpan;
+            TimeSpan forwardsNavigationTimeSpan;
+            int forwardsNavigationAmount = 1;
+            int backwardsNavigationAmount = -1;
 
-            if (CurrentPageCalendar.NavigatedDate.TryAddMonths(BackwardsNavigationAmount, out DateTime BackwardsNavigationDateTime))
+            if (CurrentPageCalendar.NavigatedDate.TryAddMonths(backwardsNavigationAmount, out DateTime backwardsNavigationDateTime))
             {
-                BackwardsNavigationTimeSpan = BackwardsNavigationDateTime - CurrentPageCalendar.NavigatedDate;
+                backwardsNavigationTimeSpan = backwardsNavigationDateTime - CurrentPageCalendar.NavigatedDate;
             }
             else
             {
-                BackwardsNavigationTimeSpan = BackwardsNavigationAmount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                backwardsNavigationTimeSpan = backwardsNavigationAmount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
             }
 
-            if (CurrentPageCalendar.NavigatedDate.TryAddMonths(ForwardsNavigationAmount, out DateTime ForwardsNavigationDateTime))
+            if (CurrentPageCalendar.NavigatedDate.TryAddMonths(forwardsNavigationAmount, out DateTime forwardsNavigationDateTime))
             {
-                ForwardsNavigationTimeSpan = ForwardsNavigationDateTime - CurrentPageCalendar.NavigatedDate;
+                forwardsNavigationTimeSpan = forwardsNavigationDateTime - CurrentPageCalendar.NavigatedDate;
             }
             else
             {
-                ForwardsNavigationTimeSpan = ForwardsNavigationAmount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                forwardsNavigationTimeSpan = forwardsNavigationAmount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
             }
 
-            DateTime CurrentPageCalendarPreviousNavigatedDate = CurrentPageCalendar.NavigatedDate.Navigate(BackwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
-            DateTime CurrentPageCalendarNextNavigatedDate = CurrentPageCalendar.NavigatedDate.Navigate(ForwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
+            DateTime currentPageCalendarPreviousNavigatedDate = CurrentPageCalendar.NavigatedDate.Navigate(backwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
+            DateTime currentPageCalendarNextNavigatedDate = CurrentPageCalendar.NavigatedDate.Navigate(forwardsNavigationTimeSpan, CurrentPageCalendar.NavigationLowerBound, CurrentPageCalendar.NavigationUpperBound, CurrentPageCalendar.NavigationLoopMode, CurrentPageCalendar.StartOfWeek);
 
             if (CurrentPageCalendar == FirstPageCalendar)
             {
-                SecondPageCalendar.NavigatedDate = CurrentPageCalendarNextNavigatedDate;
-                ThirdPageCalendar.NavigatedDate = CurrentPageCalendarPreviousNavigatedDate;
+                SecondPageCalendar.NavigatedDate = currentPageCalendarNextNavigatedDate;
+                ThirdPageCalendar.NavigatedDate = currentPageCalendarPreviousNavigatedDate;
             }
             else if (CurrentPageCalendar == SecondPageCalendar)
             {
-                FirstPageCalendar.NavigatedDate = CurrentPageCalendarPreviousNavigatedDate;
-                ThirdPageCalendar.NavigatedDate = CurrentPageCalendarNextNavigatedDate;
+                FirstPageCalendar.NavigatedDate = currentPageCalendarPreviousNavigatedDate;
+                ThirdPageCalendar.NavigatedDate = currentPageCalendarNextNavigatedDate;
             }
             else if (CurrentPageCalendar == ThirdPageCalendar)
             {
-                FirstPageCalendar.NavigatedDate = CurrentPageCalendarNextNavigatedDate;
-                SecondPageCalendar.NavigatedDate = CurrentPageCalendarPreviousNavigatedDate;
+                FirstPageCalendar.NavigatedDate = currentPageCalendarNextNavigatedDate;
+                SecondPageCalendar.NavigatedDate = currentPageCalendarPreviousNavigatedDate;
             }
         }
         #endregion

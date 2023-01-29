@@ -5,36 +5,36 @@ namespace XCalendar.Maui.Converters
 {
     public class StringCharLimitConverter : BaseConverterOneWay<object, string, object>
     {
-        private string _DefaultConvertReturnValue = "";
+        private string _defaultConvertReturnValue = "";
         public override string DefaultConvertReturnValue
         {
             get
             {
-                return _DefaultConvertReturnValue;
+                return _defaultConvertReturnValue;
             }
             set
             {
-                _DefaultConvertReturnValue = value;
+                _defaultConvertReturnValue = value;
             }
         }
         public override string ConvertFrom(object value, object parameter, CultureInfo culture)
         {
             try
             {
-                string StringValue = value.ToString();
-                int TargetLength = Convert.ToInt32(parameter);
+                string stringValue = value.ToString();
+                int targetLength = Convert.ToInt32(parameter);
 
-                if (TargetLength == 0)
+                if (targetLength == 0)
                 {
                     return "";
                 }
-                else if (TargetLength >= StringValue.Length)
+                else if (targetLength >= stringValue.Length)
                 {
-                    return StringValue;
+                    return stringValue;
                 }
                 else
                 {
-                    return StringValue.Substring(0, TargetLength);
+                    return stringValue.Substring(0, targetLength);
                 }
             }
             catch

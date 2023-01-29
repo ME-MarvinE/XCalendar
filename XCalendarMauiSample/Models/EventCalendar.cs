@@ -9,10 +9,10 @@ namespace XCalendarMauiSample.Models
         #endregion
 
         #region Methods
-        public override void UpdateDay(EventDay Day, DateTime NewDateTime)
+        public override void UpdateDay(EventDay day, DateTime newDateTime)
         {
-            base.UpdateDay(Day, NewDateTime);
-            Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == NewDateTime.Date));
+            base.UpdateDay(day, newDateTime);
+            day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == newDateTime.Date));
         }
         #endregion
     }

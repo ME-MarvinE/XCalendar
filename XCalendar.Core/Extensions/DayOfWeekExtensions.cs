@@ -23,37 +23,37 @@ namespace XCalendar.Core.Extensions
         /// <summary>
         /// Gets a chronological list of every <see cref="DayOfWeek"/> in which the first element is this instance.
         /// </summary>
-        public static List<DayOfWeek> GetWeekAsFirst(this DayOfWeek Self)
+        public static List<DayOfWeek> GetWeekAsFirst(this DayOfWeek self)
         {
-            List<DayOfWeek> Week = new List<DayOfWeek>();
-            int StartOfWeekIndex = DaysOfWeek.IndexOf(Self);
+            List<DayOfWeek> week = new List<DayOfWeek>();
+            int startOfWeekIndex = DaysOfWeek.IndexOf(self);
 
-            for (int i = StartOfWeekIndex; Week.Count != DaysOfWeek.Count; i = i < DaysOfWeek.Count - 1 ? i + 1 : 0)
+            for (int i = startOfWeekIndex; week.Count != DaysOfWeek.Count; i = i < DaysOfWeek.Count - 1 ? i + 1 : 0)
             {
-                Week.Add(DaysOfWeek[i]);
+                week.Add(DaysOfWeek[i]);
             }
 
-            return Week;
+            return week;
         }
         /// <summary>
         /// Gets a chronological list of every <see cref="DayOfWeek"/> in which the last element is this instance.
         /// </summary>
-        public static List<DayOfWeek> GetWeekAsLast(this DayOfWeek Self)
+        public static List<DayOfWeek> GetWeekAsLast(this DayOfWeek self)
         {
-            List<DayOfWeek> Week = new List<DayOfWeek>();
-            int StartOfWeekIndex = DaysOfWeek.IndexOf(Self) + 1;
+            List<DayOfWeek> week = new List<DayOfWeek>();
+            int startOfWeekIndex = DaysOfWeek.IndexOf(self) + 1;
 
-            if (StartOfWeekIndex == DaysOfWeek.Count)
+            if (startOfWeekIndex == DaysOfWeek.Count)
             {
-                StartOfWeekIndex = 0;
+                startOfWeekIndex = 0;
             }
 
-            for (int i = StartOfWeekIndex; Week.Count != DaysOfWeek.Count; i = i < DaysOfWeek.Count - 1 ? i + 1 : 0)
+            for (int i = startOfWeekIndex; week.Count != DaysOfWeek.Count; i = i < DaysOfWeek.Count - 1 ? i + 1 : 0)
             {
-                Week.Add(DaysOfWeek[i]);
+                week.Add(DaysOfWeek[i]);
             }
 
-            return Week;
+            return week;
         }
         #endregion
     }

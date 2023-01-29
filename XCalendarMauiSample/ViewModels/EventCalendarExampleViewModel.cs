@@ -70,17 +70,17 @@ namespace XCalendarMauiSample.ViewModels
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
 
-            foreach (Event Event in Events)
+            foreach (Event @event in Events)
             {
-                Event.DateTime = DateTime.Today.AddDays(Random.Next(-20, 21)).AddSeconds(Random.Next(86400));
-                Event.Color = Colors[Random.Next(6)];
+                @event.DateTime = DateTime.Today.AddDays(Random.Next(-20, 21)).AddSeconds(Random.Next(86400));
+                @event.Color = Colors[Random.Next(6)];
             }
 
             EventCalendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
             EventCalendar.DaysUpdated += EventCalendar_DaysUpdated;
-            foreach (var Day in EventCalendar.Days)
+            foreach (var day in EventCalendar.Days)
             {
-                Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime.Date));
+                day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == day.DateTime.Date));
             }
         }
         #endregion
@@ -88,29 +88,29 @@ namespace XCalendarMauiSample.ViewModels
         #region Methods
         private void EventCalendar_DaysUpdated(object sender, EventArgs e)
         {
-            foreach (var Day in EventCalendar.Days)
+            foreach (var day in EventCalendar.Days)
             {
-                Day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == Day.DateTime.Date));
+                day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == day.DateTime.Date));
             }
         }
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             SelectedEvents.ReplaceRange(Events.Where(x => EventCalendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
         }
-        public void NavigateCalendar(int Amount)
+        public void NavigateCalendar(int amount)
         {
-            if (EventCalendar.NavigatedDate.TryAddMonths(Amount, out DateTime TargetDate))
+            if (EventCalendar.NavigatedDate.TryAddMonths(amount, out DateTime targetDate))
             {
-                EventCalendar.Navigate(TargetDate - EventCalendar.NavigatedDate);
+                EventCalendar.Navigate(targetDate - EventCalendar.NavigatedDate);
             }
             else
             {
-                EventCalendar.Navigate(Amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
+                EventCalendar.Navigate(amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
             }
         }
-        public void ChangeDateSelection(DateTime DateTime)
+        public void ChangeDateSelection(DateTime dateTime)
         {
-            EventCalendar?.ChangeDateSelection(DateTime);
+            EventCalendar?.ChangeDateSelection(dateTime);
         }
         #endregion
     }
