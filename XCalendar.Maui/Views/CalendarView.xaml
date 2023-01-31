@@ -6,7 +6,6 @@
     xmlns:Converters="clr-namespace:XCalendar.Maui.Converters"
     xmlns:Models="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="CalendarView_Unique"
@@ -14,13 +13,9 @@
 
     <VerticalStackLayout Spacing="0">
         <VerticalStackLayout.Resources>
-            <System:Boolean x:Key="TrueValue">True</System:Boolean>
             <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
-            <mct:IsNotEqualConverter x:Key="IsNotEqualConverter"/>
-
-            <mct:MathExpressionConverter x:Key="MathExpressionConverter"/>
-
+            <Converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter"/>
             <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
         </VerticalStackLayout.Resources>
 
@@ -56,9 +51,9 @@
 
                         <Style.Triggers>
                             <DataTrigger
-                                Binding="{Binding DayNameTemplate, Source={x:Reference CalendarView_Unique}, Converter={StaticResource IsNotEqualConverter}, ConverterParameter={x:Null}}"
+                                Binding="{Binding DayNameTemplate, Source={x:Reference CalendarView_Unique}, Converter={StaticResource IsNullOrEmptyConverter}}"
                                 TargetType="{x:Type CollectionView}"
-                                Value="{StaticResource TrueValue}">
+                                Value="{StaticResource FalseValue}">
                                 <Setter Property="ItemTemplate" Value="{Binding DayNameTemplate, Source={x:Reference CalendarView_Unique}}"/>
                             </DataTrigger>
                         </Style.Triggers>
