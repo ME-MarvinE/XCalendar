@@ -124,11 +124,25 @@ namespace XCalendarMauiSample.ViewModels
             switch (NavigationTimeUnit)
             {
                 case "Day":
-                    timeSpanToNavigateBy = TimeSpan.FromDays(amount);
+                    if (Calendar.NavigatedDate.TryAddDays(amount, out DateTime addDaysDateTime))
+                    {
+                        timeSpanToNavigateBy = addDaysDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
                     break;
 
                 case "Week":
-                    timeSpanToNavigateBy = TimeSpan.FromDays(amount * 7);
+                    if (Calendar.NavigatedDate.TryAddWeeks(amount, out DateTime addWeeksDateTime))
+                    {
+                        timeSpanToNavigateBy = addWeeksDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
                     break;
 
                 case "Month":
@@ -154,7 +168,7 @@ namespace XCalendarMauiSample.ViewModels
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException($"{nameof(NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
             }
 
             Calendar.Navigate(timeSpanToNavigateBy);
@@ -169,7 +183,7 @@ namespace XCalendarMauiSample.ViewModels
         }
         public async void ShowCustomDayNamesOrderDialog()
         {
-            IEnumerable<DayOfWeek> newCustomDayNamesOrder = await PopupHelper.ShowCustomDayNamesOrderDialog(Calendar.CustomDayNamesOrder ?? new ObservableRangeCollection<DayOfWeek>());
+            IEnumerable<DayOfWeek> newCustomDayNamesOrder = await PopupHelper.ShowConstructListDialogPopupAsync(Calendar.CustomDayNamesOrder ?? new ObservableRangeCollection<DayOfWeek>(), Calendar.StartOfWeek.GetWeekAsFirst());
 
             if (newCustomDayNamesOrder.Any())
             {
@@ -189,87 +203,87 @@ namespace XCalendarMauiSample.ViewModels
         }
         public async void ShowSelectionActionDialog()
         {
-            Calendar.SelectionAction = await PopupHelper.ShowSelectionActionDialog(Calendar.SelectionAction);
+            Calendar.SelectionAction = await PopupHelper.ShowSelectItemDialogAsync(Calendar.SelectionAction, PopupHelper.AllSelectionActions);
         }
         public async void ShowNavigationTimeUnitDialog()
         {
-            NavigationTimeUnit = await PopupHelper.ShowSelectItemDialog(NavigationTimeUnit, NavigationTimeUnits);
+            NavigationTimeUnit = await PopupHelper.ShowSelectItemDialogAsync(NavigationTimeUnit, NavigationTimeUnits);
         }
         public async void ShowNavigationLoopModeDialog()
         {
-            Calendar.NavigationLoopMode = await PopupHelper.ShowNavigationLoopModeDialog(Calendar.NavigationLoopMode);
+            Calendar.NavigationLoopMode = await PopupHelper.ShowSelectItemDialogAsync(Calendar.NavigationLoopMode, PopupHelper.AllNavigationLoopModes);
         }
         public async void ShowPageStartModeDialog()
         {
-            Calendar.PageStartMode = await PopupHelper.ShowPageStartModeDialog(Calendar.PageStartMode);
+            Calendar.PageStartMode = await PopupHelper.ShowSelectItemDialogAsync(Calendar.PageStartMode, PopupHelper.AllPageStartModes);
         }
         public async void ShowStartOfWeekDialog()
         {
-            Calendar.StartOfWeek = await PopupHelper.ShowStartOfWeekDialog(Calendar.StartOfWeek);
+            Calendar.StartOfWeek = await PopupHelper.ShowSelectItemDialogAsync(Calendar.StartOfWeek, Calendar.StartOfWeek.GetWeekAsFirst());
         }
         public async void ShowSelectionTypeDialog()
         {
-            Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
+            Calendar.SelectionType = await PopupHelper.ShowSelectItemDialogAsync(Calendar.SelectionType, PopupHelper.AllSelectionTypes);
         }
         public async void ShowCalendarBackgroundColorDialog()
         {
-            CalendarBackgroundColor = await PopupHelper.ShowColorDialog(CalendarBackgroundColor);
+            CalendarBackgroundColor = await PopupHelper.ShowColorDialogAsync(CalendarBackgroundColor);
         }
         public async void ShowNavigationBackgroundColorDialog()
         {
-            NavigationBackgroundColor = await PopupHelper.ShowColorDialog(NavigationBackgroundColor);
+            NavigationBackgroundColor = await PopupHelper.ShowColorDialogAsync(NavigationBackgroundColor);
         }
         public async void ShowNavigationTextColorDialog()
         {
-            NavigationTextColor = await PopupHelper.ShowColorDialog(NavigationTextColor);
+            NavigationTextColor = await PopupHelper.ShowColorDialogAsync(NavigationTextColor);
         }
         public async void ShowNavigationArrowColorDialog()
         {
-            NavigationArrowColor = await PopupHelper.ShowColorDialog(NavigationArrowColor);
+            NavigationArrowColor = await PopupHelper.ShowColorDialogAsync(NavigationArrowColor);
         }
         public async void ShowNavigationArrowBackgroundColorDialog()
         {
-            NavigationArrowBackgroundColor = await PopupHelper.ShowColorDialog(NavigationArrowBackgroundColor);
+            NavigationArrowBackgroundColor = await PopupHelper.ShowColorDialogAsync(NavigationArrowBackgroundColor);
         }
         public async void ShowDayCurrentMonthBackgroundColorDialog()
         {
-            DayCurrentMonthBackgroundColor = await PopupHelper.ShowColorDialog(DayCurrentMonthBackgroundColor);
+            DayCurrentMonthBackgroundColor = await PopupHelper.ShowColorDialogAsync(DayCurrentMonthBackgroundColor);
         }
         public async void ShowDayCurrentMonthTextColorDialog()
         {
-            DayCurrentMonthTextColor = await PopupHelper.ShowColorDialog(DayCurrentMonthTextColor);
+            DayCurrentMonthTextColor = await PopupHelper.ShowColorDialogAsync(DayCurrentMonthTextColor);
         }
         public async void ShowDayOtherMonthBackgroundColorDialog()
         {
-            DayOtherMonthBackgroundColor = await PopupHelper.ShowColorDialog(DayOtherMonthBackgroundColor);
+            DayOtherMonthBackgroundColor = await PopupHelper.ShowColorDialogAsync(DayOtherMonthBackgroundColor);
         }
         public async void ShowDayOtherMonthTextColorDialog()
         {
-            DayOtherMonthTextColor = await PopupHelper.ShowColorDialog(DayOtherMonthTextColor);
+            DayOtherMonthTextColor = await PopupHelper.ShowColorDialogAsync(DayOtherMonthTextColor);
         }
         public async void ShowDayTodayBackgroundColorDialog()
         {
-            DayTodayBackgroundColor = await PopupHelper.ShowColorDialog(DayTodayBackgroundColor);
+            DayTodayBackgroundColor = await PopupHelper.ShowColorDialogAsync(DayTodayBackgroundColor);
         }
         public async void ShowDayTodayTextColorDialog()
         {
-            DayTodayTextColor = await PopupHelper.ShowColorDialog(DayTodayTextColor);
+            DayTodayTextColor = await PopupHelper.ShowColorDialogAsync(DayTodayTextColor);
         }
         public async void ShowDaySelectedBackgroundColorDialog()
         {
-            DaySelectedBackgroundColor = await PopupHelper.ShowColorDialog(DaySelectedBackgroundColor);
+            DaySelectedBackgroundColor = await PopupHelper.ShowColorDialogAsync(DaySelectedBackgroundColor);
         }
         public async void ShowDaySelectedTextColorDialog()
         {
-            DaySelectedTextColor = await PopupHelper.ShowColorDialog(DaySelectedTextColor);
+            DaySelectedTextColor = await PopupHelper.ShowColorDialogAsync(DaySelectedTextColor);
         }
         public async void ShowDayInvalidBackgroundColorDialog()
         {
-            DayInvalidBackgroundColor = await PopupHelper.ShowColorDialog(DayInvalidBackgroundColor);
+            DayInvalidBackgroundColor = await PopupHelper.ShowColorDialogAsync(DayInvalidBackgroundColor);
         }
         public async void ShowDayInvalidTextColorDialog()
         {
-            DayInvalidTextColor = await PopupHelper.ShowColorDialog(DayInvalidTextColor);
+            DayInvalidTextColor = await PopupHelper.ShowColorDialogAsync(DayInvalidTextColor);
         }
         #endregion
     }

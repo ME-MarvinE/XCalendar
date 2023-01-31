@@ -48,15 +48,15 @@ namespace XCalendarFormsSample.ViewModels
         #region Methods
         public async void ShowSelectionTypeDialog()
         {
-            Calendar.SelectionType = await PopupHelper.ShowSelectionTypeDialog(Calendar.SelectionType);
+            Calendar.SelectionType = await PopupHelper.ShowSelectItemDialogAsync(Calendar.SelectionType, PopupHelper.AllSelectionTypes);
         }
         public async void ShowSelectionActionDialog()
         {
-            Calendar.SelectionAction = await PopupHelper.ShowSelectionActionDialog(Calendar.SelectionAction);
+            Calendar.SelectionAction = await PopupHelper.ShowSelectItemDialogAsync(Calendar.SelectionAction, PopupHelper.AllSelectionActions);
         }
         public async void ShowCommonFunctionalityDialog()
         {
-            string commonFunctionality = await PopupHelper.ShowSelectItemDialog(CommonFunctionalities[1], CommonFunctionalities);
+            string commonFunctionality = await PopupHelper.ShowSelectItemDialogAsync(CommonFunctionalities[1], CommonFunctionalities);
 
             switch (commonFunctionality)
             {
