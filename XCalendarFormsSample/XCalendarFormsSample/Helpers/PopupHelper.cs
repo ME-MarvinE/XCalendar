@@ -10,7 +10,7 @@ using XCalendar.Core.Extensions;
 
 namespace XCalendarFormsSample.Helpers
 {
-    public class PopupHelper
+    public static class PopupHelper
     {
         #region Properties
         public static List<SelectionType> AllSelectionTypes { get; set; } = Enum.GetValues(typeof(SelectionType)).Cast<SelectionType>().ToList();
