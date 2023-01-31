@@ -124,11 +124,25 @@ namespace XCalendarMauiSample.ViewModels
             switch (NavigationTimeUnit)
             {
                 case "Day":
-                    timeSpanToNavigateBy = TimeSpan.FromDays(amount);
+                    if (Calendar.NavigatedDate.TryAddDays(amount, out DateTime addDaysDateTime))
+                    {
+                        timeSpanToNavigateBy = addDaysDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
                     break;
 
                 case "Week":
-                    timeSpanToNavigateBy = TimeSpan.FromDays(amount * 7);
+                    if (Calendar.NavigatedDate.TryAddWeeks(amount, out DateTime addWeeksDateTime))
+                    {
+                        timeSpanToNavigateBy = addWeeksDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
                     break;
 
                 case "Month":
@@ -154,7 +168,7 @@ namespace XCalendarMauiSample.ViewModels
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException($"{nameof(NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
             }
 
             Calendar.Navigate(timeSpanToNavigateBy);

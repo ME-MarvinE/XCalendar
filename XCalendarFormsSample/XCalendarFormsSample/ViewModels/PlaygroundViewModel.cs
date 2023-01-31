@@ -128,11 +128,25 @@ namespace XCalendarFormsSample.ViewModels
             switch (NavigationTimeUnit)
             {
                 case "Day":
-                    timeSpanToNavigateBy = TimeSpan.FromDays(amount);
+                    if (Calendar.NavigatedDate.TryAddDays(amount, out DateTime addDaysDateTime))
+                    {
+                        timeSpanToNavigateBy = addDaysDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
                     break;
 
                 case "Week":
-                    timeSpanToNavigateBy = TimeSpan.FromDays(amount * 7);
+                    if (Calendar.NavigatedDate.TryAddWeeks(amount, out DateTime addWeeksDateTime))
+                    {
+                        timeSpanToNavigateBy = addWeeksDateTime - Calendar.NavigatedDate;
+                    }
+                    else
+                    {
+                        timeSpanToNavigateBy = amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue;
+                    }
                     break;
 
                 case "Month":
@@ -158,54 +172,10 @@ namespace XCalendarFormsSample.ViewModels
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException($"{nameof(NavigationTimeUnit)} '{NavigationTimeUnit}' is not implemented.");
             }
 
             Calendar.Navigate(timeSpanToNavigateBy);
-
-            //DateTime TimeSpanToNavigateBy;
-
-            //try
-            //{
-            //    switch (NavigationTimeUnit)
-            //    {
-            //        case "Day":
-            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddDays(Amount);
-            //            break;
-
-            //        case "Week":
-            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddWeeks(Amount);
-            //            break;
-
-            //        case "Month":
-            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddMonths(Amount);
-            //            break;
-
-            //        case "Year":
-            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddYears(Amount);
-            //            break;
-
-            //        case "Page":
-            //            TimeSpanToNavigateBy = Calendar.NavigatedDate.AddWeeks(Calendar.Rows * Amount);
-            //            break;
-
-            //        default: 
-            //            throw new NotImplementedException();
-            //    }
-            //}
-            //catch (ArgumentOutOfRangeException Ex) when (Ex.TargetSite.DeclaringType == typeof(DateTime))
-            //{
-            //    if (Amount > 0)
-            //    {
-            //        TimeSpanToNavigateBy = DateTime.MaxValue;
-            //    }
-            //    else
-            //    {
-            //        TimeSpanToNavigateBy = DateTime.MinValue;
-            //    }
-            //}
-
-            //Calendar.Navigate(TimeSpanToNavigateBy);
         }
         public void ChangeDateSelection(DateTime dateTime)
         {
