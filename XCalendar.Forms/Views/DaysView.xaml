@@ -7,16 +7,15 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="DaysView_Unique"
     x:DataType="{x:Type xc:DaysView}">
 
     <CollectionView x:Name="MainCollectionView">
 
         <CollectionView.Resources>
-            <System:Boolean x:Key="TrueValue">True</System:Boolean>
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
-            <xct:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter"/>
+            <Converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter"/>
         </CollectionView.Resources>
 
         <CollectionView.Style>
@@ -45,9 +44,9 @@
 
                 <Style.Triggers>
                     <DataTrigger
-                        Binding="{Binding DayTemplate, Source={x:Reference DaysView_Unique}, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                        Binding="{Binding DayTemplate, Source={x:Reference DaysView_Unique}, Converter={StaticResource IsNullOrEmptyConverter}}"
                         TargetType="{x:Type CollectionView}"
-                        Value="{StaticResource TrueValue}">
+                        Value="{StaticResource FalseValue}">
                         <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference DaysView_Unique}}"/>
                     </DataTrigger>
                 </Style.Triggers>
