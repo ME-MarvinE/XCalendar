@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Converters="clr-namespace:XCalendar.Maui.Converters"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="DaysView_Unique"
@@ -14,9 +13,9 @@
     <CollectionView x:Name="MainCollectionView">
 
         <CollectionView.Resources>
-            <System:Boolean x:Key="TrueValue">True</System:Boolean>
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
-            <mct:IsNotEqualConverter x:Key="IsNotEqualConverter"/>
+            <Converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter"/>
         </CollectionView.Resources>
 
         <CollectionView.Style>
@@ -47,9 +46,9 @@
 
                 <Style.Triggers>
                     <DataTrigger
-                        Binding="{Binding DayTemplate, Source={x:Reference DaysView_Unique}, Converter={StaticResource IsNotEqualConverter}, ConverterParameter={x:Null}}"
+                        Binding="{Binding DayTemplate, Source={x:Reference DaysView_Unique}, Converter={StaticResource IsNullOrEmptyConverter}}"
                         TargetType="{x:Type CollectionView}"
-                        Value="{StaticResource TrueValue}">
+                        Value="{StaticResource FalseValue}">
                         <Setter Property="ItemTemplate" Value="{Binding DayTemplate, Source={x:Reference DaysView_Unique}}"/>
                     </DataTrigger>
                 </Style.Triggers>
