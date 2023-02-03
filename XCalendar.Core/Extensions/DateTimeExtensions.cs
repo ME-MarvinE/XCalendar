@@ -320,13 +320,15 @@ namespace XCalendar.Core.Extensions
         /// </summary>
         /// <param name="startingDayOfWeek">The <see cref="System.DayOfWeek"/> at which the week starts.</param>
         /// <returns>The number corresponding to which week of this instance's month it is in</returns>
+        /// <exception cref="ArgumentOutOfRangeException">The <see cref="DateTime"/> is not present in any of its month's weeks.</exception>
         public static int CalendarWeekOfMonth(this DateTime self, DayOfWeek startingDayOfWeek)
         {
             for (int i = self.CalendarWeeksInMonth(startingDayOfWeek); i > 0; i--)
             {
                 if (self.CalendarWeekInMonth(i, startingDayOfWeek).Contains(self.Date)) { return i; }
             }
-            throw new Exception($"The {nameof(DateTime)} is not present in any of its month's weeks.");
+
+            throw new ArgumentOutOfRangeException($"The {nameof(DateTime)} is not present in any of its month's weeks.");
         }
         /// <summary>
         /// Gets the specified week in this instance's month.
