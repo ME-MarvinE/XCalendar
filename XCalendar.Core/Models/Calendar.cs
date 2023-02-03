@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -6,12 +7,17 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Extensions;
 using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Core.Models
 {
+    /// <summary>
+    /// A class to represent a calendar.
+    /// </summary>
+    /// <typeparam name="T">A model implementing <see cref="ICalendarDay"/> to be used to represent each day in a page.</typeparam>
     public class Calendar<T> : ICalendar<T> where T : ICalendarDay, new()
     {
         #region Fields
@@ -272,6 +278,11 @@ namespace XCalendar.Core.Models
                 }
             }
         }
+        /// <summary>
+        /// The custom order to display the days of the week in. Replaces the values inside <see cref="DayNamesOrder"/> when this value is not null.
+        /// First, the calendar uses the <see cref="StartOfWeek"/> to get the <see cref="DateTime"/>s
+        /// for every day of the week, then it uses those <see cref="DateTime"/>s to construct the dates in the order of the values inside this collection.
+        /// </summary>
         public ObservableRangeCollection<DayOfWeek> CustomDayNamesOrder
         {
             get
@@ -358,6 +369,11 @@ namespace XCalendar.Core.Models
                 }
             }
         }
+        /// <summary>
+        /// The start of the range of dates to perform selection on inclusive.
+
+        ///If <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/> are not null, <see cref="CommitRangeSelection"/> will be called and their values will be set back to null.
+        /// </summary>
         public DateTime? RangeSelectionStart
         {
             get
@@ -376,6 +392,10 @@ namespace XCalendar.Core.Models
                 }
             }
         }
+        /// <summary>
+        /// The end of the range of dates to perform selection on inclusive.
+        ///If <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/> are not null, <see cref="CommitRangeSelection"/> will be called and their values will be set back to null.
+        /// </summary>
         public DateTime? RangeSelectionEnd
         {
             get
@@ -394,6 +414,9 @@ namespace XCalendar.Core.Models
                 }
             }
         }
+        /// <summary>
+        /// Defines how the user is able to select dates.
+        /// </summary>
         public SelectionType SelectionType
         {
             get
@@ -450,9 +473,11 @@ namespace XCalendar.Core.Models
         #endregion
 
         #region Methods
-        /// <remarks>
+        /// <summary>
         /// Called when <see cref="SelectedDates"/> changes.
-        /// </remarks>
+        /// </summary>
+        /// <param name="oldSelection">The previously selected dates.</param>
+        /// <param name="newSelection">The newely selected dates.</param>
         protected virtual void OnDateSelectionChanged(IList<DateTime> oldSelection, IList<DateTime> newSelection)
         {
             DateSelectionChanged?.Invoke(this, new DateSelectionChangedEventArgs(oldSelection, newSelection));
@@ -538,6 +563,7 @@ namespace XCalendar.Core.Models
         /// <summary>
         ///  Performs selection on a range of dates as defined by <see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/> depending on the current <see cref="SelectionType"/>.
         /// </summary>
+        /// <exception cref="InvalidOperationException"><see cref="RangeSelectionStart"/> and <see cref="RangeSelectionEnd"/> must not be null."</exception>
         public virtual void CommitRangeSelection()
         {
             if (RangeSelectionStart == null || RangeSelectionEnd == null) { throw new InvalidOperationException($"{nameof(RangeSelectionStart)} and {nameof(RangeSelectionEnd)} must not be null."); }
@@ -549,21 +575,21 @@ namespace XCalendar.Core.Models
             switch (SelectionAction)
             {
                 case SelectionAction.Add:
-                    if (datesToAdd.Count() != 0)
+                    if (datesToAdd.Any())
                     {
                         SelectedDates.AddRange(datesToAdd);
                     }
                     break;
 
                 case SelectionAction.Remove:
-                    if (datesToRemove.Count() != 0)
+                    if (datesToRemove.Any())
                     {
                         SelectedDates.RemoveRange(datesToRemove);
                     }
                     break;
 
                 case SelectionAction.Modify:
-                    if (datesToAdd.Count() != 0 || datesToRemove.Count() != 0)
+                    if (datesToAdd.Any() || datesToRemove.Any())
                     {
                         List<DateTime> newSelectedDates = SelectedDates.Where(x => !datesToRemove.Contains(x.Date)).ToList();
                         newSelectedDates.AddRange(datesToAdd);
@@ -607,22 +633,47 @@ namespace XCalendar.Core.Models
                 return dateTime.CalendarWeeksInMonth(startOfWeek);
             }
         }
+        /// <summary>
+        /// Evaluates if the specified <see cref="DateTime"/> is in the <see cref="NavigatedDate"/>'s Calendar month.
+        /// </summary>
+        /// <param name="dateTime">The value to evaluate.</param>
+        /// <returns></returns>
         public virtual bool IsDateTimeCurrentMonth(DateTime dateTime)
         {
             return dateTime.Month == NavigatedDate.Month && dateTime.Year == NavigatedDate.Year;
         }
+        /// <summary>
+        /// Evaluates if the specified <see cref="DateTime"/> is considered as 'Today' by the calendar.
+        /// </summary>
+        /// <param name="dateTime">The value to evaluate.</param>
+        /// <returns></returns>
         public virtual bool IsDateTimeToday(DateTime dateTime)
         {
             return dateTime.Date == TodayDate.Date;
         }
+        /// <summary>
+        /// Evaluates if the specified <see cref="DateTime"/> is considered as selected by the Calendar.
+        /// </summary>
+        /// <param name="dateTime">The value to evaluate.</param>
+        /// <returns></returns>
         public virtual bool IsDateTimeSelected(DateTime dateTime)
         {
             return SelectedDates.Any(x => x.Date == dateTime.Date) == true;
         }
+        /// <summary>
+        /// Evaluates if the specified <see cref="DateTime"/> is not in a valid range for the Calendar.
+        /// </summary>
+        /// <param name="dateTime">The value to evaluate.</param>
+        /// <returns></returns>
         public virtual bool IsDateTimeInvalid(DateTime dateTime)
         {
             return dateTime.Date < NavigationLowerBound.Date || dateTime.Date > NavigationUpperBound.Date;
         }
+        /// <summary>
+        /// Updates a day to represent the <see cref="DateTime"/> specified by <paramref name="newDateTime"/>.
+        /// </summary>
+        /// <param name="day">The day to update.</param>
+        /// <param name="newDateTime">The new <see cref="DateTime"/> that '<see cref="day"/>' should represent.</param>
         public virtual void UpdateDay(T day, DateTime newDateTime)
         {
             day.DateTime = newDateTime;
@@ -742,7 +793,7 @@ namespace XCalendar.Core.Models
         {
             int coercedRows = CoerceRows(Rows);
 
-            if (coercedRows < 1) { throw new ArgumentException(nameof(newValue)); }
+            if (coercedRows < 1) { throw new ArgumentOutOfRangeException(nameof(newValue)); }
 
             if (Rows != coercedRows)
             {
