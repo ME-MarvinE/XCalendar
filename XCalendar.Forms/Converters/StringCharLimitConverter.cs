@@ -10,6 +10,10 @@ namespace XCalendar.Forms.Converters
         {
             try
             {
+                if (value == null) {
+                    return null;
+                }
+
                 string stringValue = value.ToString();
                 int targetLength = System.Convert.ToInt32(parameter);
 
