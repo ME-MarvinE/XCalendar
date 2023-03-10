@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Converters="clr-namespace:XCalendar.Maui.Converters"
     xmlns:Models="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
-    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views"
     xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="CalendarView_Unique"
