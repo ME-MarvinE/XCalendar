@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Popups="clr-namespace:XCalendarFormsSample.Popups"
-    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
     xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"

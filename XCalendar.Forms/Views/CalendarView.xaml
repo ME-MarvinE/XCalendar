@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
-    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     x:Name="CalendarView_Unique"
     x:DataType="{x:Type xc:CalendarView}">
