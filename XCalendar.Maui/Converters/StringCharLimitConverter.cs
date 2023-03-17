@@ -12,7 +12,7 @@ namespace XCalendar.Maui.Converters
                     return null;
                 }
 
-                string stringValue = value.ToString();
+                string stringValue = value?.ToString() ?? string.Empty;
                 int targetLength = System.Convert.ToInt32(parameter);
 
                 if (targetLength == 0)
