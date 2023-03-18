@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Views;
 using System.Collections;
 using System.Windows.Input;
-using XCalendar.Core.Models;
+using XCalendar.Core.Collections;
 
 namespace XCalendarMauiSample.Popups
 {

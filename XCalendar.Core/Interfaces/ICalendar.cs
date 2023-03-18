@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using XCalendar.Core.Collections;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Models;
 

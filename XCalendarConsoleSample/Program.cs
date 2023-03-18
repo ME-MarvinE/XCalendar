@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using XCalendar.Core.Collections;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Extensions;
 using XCalendar.Core.Interfaces;
 using XCalendar.Core.Models;
-using XCalendar.Core.Extensions;
 
 namespace XCalendarConsoleSample
 {

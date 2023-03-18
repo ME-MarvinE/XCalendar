@@ -1,6 +1,6 @@
 ﻿using System;
+using XCalendar.Core.Collections;
 using XCalendar.Core.Interfaces;
-using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.Models
 {

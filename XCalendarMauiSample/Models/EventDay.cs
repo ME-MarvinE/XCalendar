@@ -1,5 +1,5 @@
-﻿using XCalendar.Core.Interfaces;
-using XCalendar.Core.Models;
+﻿using XCalendar.Core.Collections;
+using XCalendar.Core.Interfaces;
 
 namespace XCalendarMauiSample.Models
 {

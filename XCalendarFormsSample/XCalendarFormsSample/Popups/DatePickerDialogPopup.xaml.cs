@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XCalendar.Core.Collections;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
