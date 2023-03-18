@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XCalendar.Core.Collections;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;

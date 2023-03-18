@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace XCalendar.Core.Models
+namespace XCalendar.Core.Collections
 {
     public static class ObservableRangeCollectionExtension
     {
