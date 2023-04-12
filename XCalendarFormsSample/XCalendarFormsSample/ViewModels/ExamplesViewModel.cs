@@ -66,7 +66,7 @@ namespace XCalendarFormsSample.ViewModels
                     new Tag() { Title = "Customisation" }
                 }
             },
-                        new Example()
+            new Example()
             {
                 Page = new SwipableCalendarExamplePage(),
                 Title = $"Animated Swipable Calendar",
@@ -84,6 +84,27 @@ namespace XCalendarFormsSample.ViewModels
                     new Tag() { Title = "Page" },
                     new Tag() { Title = "Carousel" },
                     new Tag() { Title = "Template" }
+                }
+            },
+            new Example()
+            {
+                Page = new ConnectingSelectedDaysExamplePage(),
+                Title = "Connecting Selected Days",
+                Description = $"Implementation of connecting consecutively selected days.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "Span" },
+                    new Tag() { Title = "Template" },
+                    new Tag() { Title = "Templates" },
+                    new Tag() { Title = "Inherit" },
+                    new Tag() { Title = "Custom" },
+                    new Tag() { Title = "Customise" },
+                    new Tag() { Title = "DayView" },
+                    new Tag() { Title = "Extend" },
+                    new Tag() { Title = "Selection" },
+                    new Tag() { Title = "Connect" },
+                    new Tag() { Title = "Connecting" },
+                    new Tag() { Title = "Connection" }
                 }
             }
         };

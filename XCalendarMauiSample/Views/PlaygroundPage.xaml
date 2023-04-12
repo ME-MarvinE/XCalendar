@@ -63,8 +63,6 @@
 
             </Label>
 
-            <BoxView BackgroundColor="{DynamicResource OutlineColor}" HeightRequest="1"/>
-
             <VerticalStackLayout
                 BackgroundColor="{StaticResource ContentBackgroundColor}"
                 IsVisible="{Binding CalendarIsVisible, Converter={StaticResource InvertedBoolConverter}}"

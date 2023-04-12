@@ -42,6 +42,12 @@
     <Compile Update="Views\CustomisingADayExamplePage.xaml.cs">
       <DependentUpon>CustomisingADayExamplePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ConnectingSelectedDaysExamplePage.xaml.cs">
+      <DependentUpon>ConnectingSelectedDaysExamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ConnectingSelectedDaysExamplePage.xaml.cs">
+      <DependentUpon>ConnectingSelectedDaysExamplePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\SwipableCalendarExamplePage.xaml.cs">
       <DependentUpon>SwipableCalendarExamplePage.xaml</DependentUpon>
     </Compile>
