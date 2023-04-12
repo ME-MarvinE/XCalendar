@@ -63,8 +63,6 @@
 
         </Label>
 
-        <BoxView BackgroundColor="{DynamicResource OutlineColor}" HeightRequest="1"/>
-
         <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
             <StackLayout Spacing="0">
 

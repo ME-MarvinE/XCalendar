@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XCalendarFormsSample.Views.ConnectingSelectedDaysExamplePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:XCalendarFormsSample.Models"
+    xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
+    xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
+    x:Name="This"
+    Title="Connecting Selected Days"
+    x:DataType="{x:Type ViewModels:ConnectingSelectedDaysExampleViewModel}"
+    Style="{StaticResource DefaultPageStyle}">
+
+    <ScrollView>
+        <StackLayout Spacing="0">
+
+            <StackLayout.Resources>
+                <Style
+                    x:Key="PropertyEditorContainer"
+                    CanCascade="True"
+                    TargetType="{x:Type Grid}">
+                    <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
+                    <Setter Property="HeightRequest" Value="50"/>
+                    <Setter Property="BackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
+                </Style>
+            </StackLayout.Resources>
+
+            <xc:CalendarView
+                x:Name="MainCalendarView"
+                BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                Days="{Binding Calendar.Days}"
+                DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                NavigatedDate="{Binding Calendar.NavigatedDate}"
+                Style="{StaticResource DefaultCalendarViewStyle}">
+
+                <xc:CalendarView.ForwardsArrowCommandParameter>
+                    <x:Int32>1</x:Int32>
+                </xc:CalendarView.ForwardsArrowCommandParameter>
+
+                <xc:CalendarView.BackwardsArrowCommandParameter>
+                    <x:Int32>-1</x:Int32>
+                </xc:CalendarView.BackwardsArrowCommandParameter>
+
+                <xc:CalendarView.NavigationViewTemplate>
+                    <ControlTemplate>
+                        <xc:NavigationView
+                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            Style="{StaticResource DefaultNavigationViewStyle}"
+                            Text="{Binding Text, Source={RelativeSource TemplatedParent}}"/>
+                    </ControlTemplate>
+                </xc:CalendarView.NavigationViewTemplate>
+
+                <xc:CalendarView.DayTemplate>
+                    <DataTemplate x:DataType="{x:Type Models:ConnectableDay}">
+                        <ContentView>
+                            <xc:DayView
+                                CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                CurrentMonthCommandParameter="{Binding DateTime}"
+                                DateTime="{Binding DateTime}"
+                                IsCurrentMonth="{Binding IsCurrentMonth}"
+                                IsInvalid="{Binding IsInvalid}"
+                                IsSelected="{Binding IsSelected}"
+                                IsToday="{Binding IsToday}"
+                                SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                SelectedCommandParameter="{Binding DateTime}"
+                                Style="{StaticResource DefaultDayViewStyle}"
+                                TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
+                                TodayCommandParameter="{Binding DateTime}">
+
+                                <!--
+                                    The ControlTemplate should completely override the look of the control but this did not happen and the selected background color was still shown.
+                                    Workaround was to set the Grid's colour to the normal background color and add an extra BoxView for when nothing is connected.
+                                -->
+                                <xc:DayView.ControlTemplate>
+                                    <ControlTemplate>
+                                        <Grid BackgroundColor="{StaticResource CalendarBackgroundColor}" BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}">
+
+                                            <!--  Workaround BoxView  -->
+                                            <BoxView
+                                                Margin="2.5"
+                                                BackgroundColor="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                CornerRadius="100"/>
+
+                                            <BoxView
+                                                Margin="0,2.5,2.5,2.5"
+                                                BackgroundColor="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                CornerRadius="0 100 0 100"
+                                                IsVisible="{Binding ConnectsToLeft}"/>
+                                            <BoxView
+                                                Margin="2.5,2.5,0,2.5"
+                                                BackgroundColor="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                CornerRadius="100 0 100 0"
+                                                IsVisible="{Binding ConnectsToRight}"/>
+                                            <BoxView
+                                                Margin="2.5,0,2.5,2.5"
+                                                BackgroundColor="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                CornerRadius="0 0 100 100"
+                                                IsVisible="{Binding ConnectsToTop}"/>
+                                            <BoxView
+                                                Margin="2.5,2.5,2.5,0"
+                                                BackgroundColor="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                CornerRadius="100 100 0 0"
+                                                IsVisible="{Binding ConnectsToBottom}"/>
+
+                                            <ContentPresenter/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </xc:DayView.ControlTemplate>
+
+                            </xc:DayView>
+                        </ContentView>
+                    </DataTemplate>
+                </xc:CalendarView.DayTemplate>
+
+            </xc:CalendarView>
+
+            <BoxView BackgroundColor="{StaticResource SeparatorColor}" HeightRequest="1"/>
+
+            <Grid Style="{StaticResource PropertyEditorContainer}">
+                <Label
+                    Grid.Column="0"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="SelectionType"
+                    VerticalTextAlignment="Center"/>
+                <Label
+                    Grid.Column="1"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Calendar.SelectionType}"
+                    TextColor="{StaticResource TappableSettingTextColor}"
+                    VerticalTextAlignment="Center">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowSelectionTypeDialogCommand}"/>
+                    </Label.GestureRecognizers>
+
+                </Label>
+            </Grid>
+
+            <Grid Style="{StaticResource PropertyEditorContainer}">
+                <Label
+                    Grid.Column="0"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="SelectionAction"
+                    VerticalTextAlignment="Center"/>
+                <Label
+                    Grid.Column="1"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Calendar.SelectionAction}"
+                    TextColor="{StaticResource TappableSettingTextColor}"
+                    VerticalTextAlignment="Center">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowSelectionActionDialogCommand}"/>
+                    </Label.GestureRecognizers>
+
+                </Label>
+            </Grid>
+
+            <BoxView BackgroundColor="{DynamicResource SeparatorColor}" HeightRequest="1"/>
+
+            <Grid Style="{StaticResource PropertyEditorContainer}">
+                <Label
+                    Grid.Column="0"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="Connect To Left"
+                    VerticalTextAlignment="Center"/>
+
+                <Switch
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    IsToggled="{Binding ConnectDaysToLeft}"/>
+            </Grid>
+
+            <Grid Style="{StaticResource PropertyEditorContainer}">
+                <Label
+                    Grid.Column="0"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="Connect To Right"
+                    VerticalTextAlignment="Center"/>
+
+                <Switch
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    IsToggled="{Binding ConnectDaysToRight}"/>
+            </Grid>
+
+            <Grid Style="{StaticResource PropertyEditorContainer}">
+                <Label
+                    Grid.Column="0"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="Connect To Top"
+                    VerticalTextAlignment="Center"/>
+
+                <Switch
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    IsToggled="{Binding ConnectDaysToTop}"/>
+            </Grid>
+
+            <Grid Style="{StaticResource PropertyEditorContainer}">
+                <Label
+                    Grid.Column="0"
+                    FontSize="{StaticResource SmallFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="Connect To Bottom"
+                    VerticalTextAlignment="Center"/>
+
+                <Switch
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    IsToggled="{Binding ConnectDaysToBottom}"/>
+            </Grid>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

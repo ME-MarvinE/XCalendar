@@ -100,6 +100,9 @@
 	  <Compile Update="Views\PlaygroundPage.xaml.cs">
 	    <DependentUpon>Views\PlaygroundPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\ConnectingSelectedDaysExamplePage.xaml.cs">
+	    <DependentUpon>ConnectingSelectedDaysExamplePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\SelectionExamplePage.xaml.cs">
 	    <DependentUpon>Views\SelectionExamplePage.xamlSelectionExamplePage.xaml</DependentUpon>
 	  </Compile>
@@ -135,6 +138,9 @@
 			<SubType>Designer</SubType>
 	    <Generator></Generator>
 	  </MauiXaml>
+		<MauiXaml Update="Views\ConnectingSelectedDaysExamplePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\SelectionExamplePage.xaml">
 			<SubType>Designer</SubType>
 		  <Generator></Generator>
