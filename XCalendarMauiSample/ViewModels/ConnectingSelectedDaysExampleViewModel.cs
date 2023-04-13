@@ -86,10 +86,10 @@ namespace XCalendarMauiSample.ViewModels
                 ConnectableDay dayToBottom = Calendar.Days.ElementAtOrDefault(dayToBottomIndex);
 
                 //This could be made more efficient by storing which days' sides have already been checked and skipping the calculation for that side when it's that day's turn to be processed.
-                day.ConnectsToLeft = ConnectDaysToLeft && day.IsSelected && dayToLeft != null && dayToLeft.IsSelected;
-                day.ConnectsToRight = ConnectDaysToRight && day.IsSelected && dayToRight != null && dayToRight.IsSelected;
-                day.ConnectsToTop = ConnectDaysToTop && day.IsSelected && dayToTop != null && dayToTop.IsSelected;
-                day.ConnectsToBottom = ConnectDaysToBottom && day.IsSelected && dayToBottom != null && dayToBottom.IsSelected;
+                day.ConnectsToLeft = ConnectDaysToLeft && day.IsSelected && !day.IsInvalid && day.IsCurrentMonth && dayToLeft != null && dayToLeft.IsSelected && !dayToLeft.IsInvalid && dayToLeft.IsCurrentMonth;
+                day.ConnectsToRight = ConnectDaysToRight && day.IsSelected && !day.IsInvalid && day.IsCurrentMonth && dayToRight != null && dayToRight.IsSelected && !dayToRight.IsInvalid && dayToRight.IsCurrentMonth;
+                day.ConnectsToTop = ConnectDaysToTop && day.IsSelected && !day.IsInvalid && day.IsCurrentMonth && dayToTop != null && dayToTop.IsSelected && !dayToTop.IsInvalid && dayToTop.IsCurrentMonth;
+                day.ConnectsToBottom = ConnectDaysToBottom && day.IsSelected && !day.IsInvalid && day.IsCurrentMonth && dayToBottom != null && dayToBottom.IsSelected && !dayToBottom.IsInvalid && dayToBottom.IsCurrentMonth;
             }
         }
         private void Calendar_DateSelectionChanged(object sender, DateSelectionChangedEventArgs e)
