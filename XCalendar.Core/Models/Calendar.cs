@@ -14,7 +14,13 @@ using XCalendar.Core.Interfaces;
 namespace XCalendar.Core.Models
 {
     /// <summary>
-    /// A class to represent a calendar.
+    /// A class representing a calendar.
+    /// </summary>
+    public class Calendar : Calendar<CalendarDay>
+    {
+    }
+    /// <summary>
+    /// A class representing a calendar.
     /// </summary>
     /// <typeparam name="T">A model implementing <see cref="ICalendarDay"/> to be used to represent each day in a page.</typeparam>
     public class Calendar<T> : ICalendar<T> where T : ICalendarDay, new()
