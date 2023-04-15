@@ -17,6 +17,9 @@ namespace XCalendar.Core.Models
     /// A class to represent a calendar.
     /// </summary>
     /// <typeparam name="T">A model implementing <see cref="ICalendarDay"/> to be used to represent each day in a page.</typeparam>
+    public class Calendar : Calendar<CalendarDay>
+    {
+    }
     public class Calendar<T> : ICalendar<T> where T : ICalendarDay, new()
     {
         #region Fields
