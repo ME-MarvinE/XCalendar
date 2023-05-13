@@ -98,26 +98,53 @@
                         CornerRadius="100"
                         HeightRequest="39">
                         <xc:DayView
-                            CurrentMonthBackgroundColor="Transparent"
-                            CurrentMonthCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
-                            CurrentMonthCommandParameter="{Binding DateTime}"
-                            CurrentMonthTextColor="Black"
                             DateTime="{Binding DateTime}"
                             FontSize="12"
-                            InvalidBackgroundColor="Transparent"
                             IsCurrentMonth="{Binding IsCurrentMonth}"
                             IsInvalid="{Binding IsInvalid}"
                             IsSelected="{Binding IsSelected}"
-                            IsToday="{Binding IsToday}"
-                            OtherMonthTextColor="Transparent"
-                            SelectedBackgroundColor="{StaticResource PrimaryColor}"
-                            SelectedCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
-                            SelectedCommandParameter="{Binding DateTime}"
-                            SelectedTextColor="White"
-                            TodayBackgroundColor="Transparent"
-                            TodayCommand="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"
-                            TodayCommandParameter="{Binding DateTime}"
-                            TodayTextColor="{StaticResource PrimaryColor}"/>
+                            IsToday="{Binding IsToday}">
+
+                            <xc:DayView.CurrentMonthStyle>
+                                <Style TargetType="{x:Type xc:DayView}">
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                    <Setter Property="TextColor" Value="Black"/>
+                                    <Setter Property="Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                                    <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
+                                </Style>
+                            </xc:DayView.CurrentMonthStyle>
+
+                            <xc:DayView.OtherMonthStyle>
+                                <Style TargetType="{x:Type xc:DayView}">
+                                    <Setter Property="TextColor" Value="Transparent"/>
+                                </Style>
+                            </xc:DayView.OtherMonthStyle>
+
+                            <xc:DayView.TodayStyle>
+                                <Style TargetType="{x:Type xc:DayView}">
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                    <Setter Property="TextColor" Value="{StaticResource PrimaryColor}"/>
+                                    <Setter Property="Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                                    <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
+                                </Style>
+                            </xc:DayView.TodayStyle>
+
+                            <xc:DayView.SelectedStyle>
+                                <Style TargetType="{x:Type xc:DayView}">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"/>
+                                    <Setter Property="TextColor" Value="White"/>
+                                    <Setter Property="Command" Value="{Binding ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                                    <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
+                                </Style>
+                            </xc:DayView.SelectedStyle>
+
+                            <xc:DayView.InvalidStyle>
+                                <Style TargetType="{x:Type xc:DayView}">
+                                    <Setter Property="BackgroundColor" Value="Transparent"/>
+                                </Style>
+                            </xc:DayView.InvalidStyle>
+
+                        </xc:DayView>
                     </Frame>
                 </DataTemplate>
             </xc:CalendarView.DayTemplate>

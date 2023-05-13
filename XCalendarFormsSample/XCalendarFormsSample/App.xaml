@@ -3,6 +3,7 @@
     x:Class="XCalendarFormsSample.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Styles="clr-namespace:XCalendar.Forms.Styles;assembly=XCalendar.Forms"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
@@ -50,12 +51,36 @@
             <Setter Property="HeightRequest" Value="50"/>
         </Style>
 
-        <Style x:Key="DefaultDayViewStyle" TargetType="{x:Type xc:DayView}">
-            <Setter Property="CurrentMonthTextColor" Value="{StaticResource CalendarBackgroundTextColor}"/>
-            <Setter Property="TodayTextColor" Value="{StaticResource CalendarPrimaryColor}"/>
-            <Setter Property="InvalidTextColor" Value="{StaticResource CalendarTertiaryColor}"/>
-            <Setter Property="SelectedBackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
-            <Setter Property="SelectedTextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+        <Style
+            x:Key="DefaultDayViewCurrentMonthStyle"
+            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewCurrentMonthStyle}"
+            TargetType="{x:Type xc:DayView}"/>
+
+        <Style
+            x:Key="DefaultDayViewOtherMonthStyle"
+            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewOtherMonthStyle}"
+            TargetType="{x:Type xc:DayView}"/>
+
+        <Style
+            x:Key="DefaultDayViewTodayStyle"
+            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewTodayStyle}"
+            TargetType="{x:Type xc:DayView}">
+            <Setter Property="TextColor" Value="{StaticResource CalendarPrimaryColor}"/>
+        </Style>
+
+        <Style
+            x:Key="DefaultDayViewSelectedStyle"
+            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewSelectedStyle}"
+            TargetType="{x:Type xc:DayView}">
+            <Setter Property="BackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
+            <Setter Property="TextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
+        </Style>
+
+        <Style
+            x:Key="DefaultDayViewInvalidStyle"
+            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewInvalidStyle}"
+            TargetType="{x:Type xc:DayView}">
+            <Setter Property="TextColor" Value="{StaticResource CalendarTertiaryColor}"/>
         </Style>
 
         <Style x:Key="DefaultPageStyle" TargetType="{x:Type ContentPage}">
