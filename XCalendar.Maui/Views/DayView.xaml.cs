@@ -104,6 +104,11 @@ namespace XCalendar.Maui.Views
             get { return (object)GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
+        public bool AutoSetStyleBasedOnDayState
+        {
+            get { return (bool)GetValue(AutoSetStyleBasedOnDayStateProperty); }
+            set { SetValue(AutoSetStyleBasedOnDayStateProperty, value); }
+        }
         public TextTransform TextTransform
         {
             get { return (TextTransform)GetValue(TextTransformProperty); }
@@ -216,6 +221,7 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty TextTypeProperty = BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(DayView), Label.TextTypeProperty.DefaultValue);
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(DayView), Label.TextColorProperty.DefaultValue);
         public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(DayView), TextAlignment.Center);
+        public static readonly BindableProperty AutoSetStyleBasedOnDayStateProperty = BindableProperty.Create(nameof(AutoSetStyleBasedOnDayState), typeof(bool), typeof(DayView), true, propertyChanged: AutoSetStyleBasedOnDayStatePropertyChanged);
         #endregion
 
         #endregion
@@ -261,30 +267,33 @@ namespace XCalendar.Maui.Views
         }
         public virtual void UpdateView()
         {
-            switch (DayState)
+            if (AutoSetStyleBasedOnDayState)
             {
-                case DayState.CurrentMonth:
-                    Style = CurrentMonthStyle;
-                    break;
+                switch (DayState)
+                {
+                    case DayState.CurrentMonth:
+                        Style = CurrentMonthStyle;
+                        break;
 
-                case DayState.OtherMonth:
-                    Style = OtherMonthStyle;
-                    break;
+                    case DayState.OtherMonth:
+                        Style = OtherMonthStyle;
+                        break;
 
-                case DayState.Today:
-                    Style = TodayStyle;
-                    break;
+                    case DayState.Today:
+                        Style = TodayStyle;
+                        break;
 
-                case DayState.Selected:
-                    Style = SelectedStyle;
-                    break;
+                    case DayState.Selected:
+                        Style = SelectedStyle;
+                        break;
 
-                case DayState.Invalid:
-                    Style = InvalidStyle;
-                    break;
+                    case DayState.Invalid:
+                        Style = InvalidStyle;
+                        break;
 
-                default:
-                    throw new NotImplementedException($"{nameof(DayState)} '{DayState}' is not implemented.");
+                    default:
+                        throw new NotImplementedException($"{nameof(DayState)} '{DayState}' is not implemented.");
+                }
             }
         }
 
@@ -396,6 +405,16 @@ namespace XCalendar.Maui.Views
             DayView control = (DayView)bindable;
 
             control.UpdateView();
+        }
+        private static void AutoSetStyleBasedOnDayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            bool newAutoSetStyleBasedOnDayState = (bool)newValue;
+
+            if (newAutoSetStyleBasedOnDayState)
+            {
+                control.UpdateView();
+            }
         }
         private static object CoerceDayState(BindableObject bindable, object value)
         {

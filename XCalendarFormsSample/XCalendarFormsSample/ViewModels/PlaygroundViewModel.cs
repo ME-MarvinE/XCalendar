@@ -43,6 +43,7 @@ namespace XCalendarFormsSample.ViewModels
         public double NavigationHeightRequest { get; set; } = 50;
         public double DayHeightRequest { get; set; } = 45;
         public double DayWidthRequest { get; set; } = 45;
+        public bool DayAutoSetStyleBasedOnDayState { get; set; } = true;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
         public Color CalendarBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
