@@ -625,6 +625,19 @@
                         Grid.Column="0"
                         FontSize="{StaticResource SmallFontSize}"
                         HorizontalTextAlignment="Center"
+                        Text="AutoSetStyleBasedOnDayState"
+                        VerticalTextAlignment="Center"/>
+                    <Switch
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        IsToggled="{Binding DayAutoSetStyleBasedOnDayState}"/>
+                </Grid>
+
+                <Grid>
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
                         Text="WidthRequest"
                         VerticalTextAlignment="Center"/>
                     <Editor
@@ -998,6 +1011,7 @@
                             </Border.StrokeShape>
 
                             <xc:DayView
+                                AutoSetStyleBasedOnDayState="{Binding BindingContext.DayAutoSetStyleBasedOnDayState, Source={x:Reference This}}"
                                 DateTime="{Binding DateTime}"
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsInvalid="{Binding IsInvalid}"
