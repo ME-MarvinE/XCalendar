@@ -53,19 +53,37 @@
                                 CornerRadius="100"
                                 HasShadow="False">
                                 <xc:DayView
-                                    CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                    CurrentMonthCommandParameter="{Binding DateTime}"
                                     DateTime="{Binding DateTime}"
                                     HeightRequest="47"
+                                    InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                                     IsCurrentMonth="{Binding IsCurrentMonth}"
                                     IsInvalid="{Binding IsInvalid}"
                                     IsSelected="{Binding IsSelected}"
                                     IsToday="{Binding IsToday}"
-                                    SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                    SelectedCommandParameter="{Binding DateTime}"
-                                    Style="{StaticResource DefaultDayViewStyle}"
-                                    TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                                    TodayCommandParameter="{Binding DateTime}"/>
+                                    OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
+
+                                    <xc:DayView.CurrentMonthStyle>
+                                        <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">
+                                            <Setter Property="Command" Value="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                                            <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
+                                        </Style>
+                                    </xc:DayView.CurrentMonthStyle>
+
+                                    <xc:DayView.TodayStyle>
+                                        <Style BasedOn="{StaticResource DefaultDayViewTodayStyle}" TargetType="{x:Type xc:DayView}">
+                                            <Setter Property="Command" Value="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                                            <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
+                                        </Style>
+                                    </xc:DayView.TodayStyle>
+
+                                    <xc:DayView.SelectedStyle>
+                                        <Style BasedOn="{StaticResource DefaultDayViewSelectedStyle}" TargetType="{x:Type xc:DayView}">
+                                            <Setter Property="Command" Value="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                                            <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
+                                        </Style>
+                                    </xc:DayView.SelectedStyle>
+
+                                </xc:DayView>
                             </Frame>
                         </ContentView>
                     </DataTemplate>
@@ -92,18 +110,36 @@
                 HorizontalOptions="Center"
                 WidthRequest="47">
                 <xc:DayView
-                    CurrentMonthCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                    CurrentMonthCommandParameter="{Binding OutsideCalendarDay.DateTime}"
                     DateTime="{Binding OutsideCalendarDay.DateTime}"
+                    InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                     IsCurrentMonth="{Binding OutsideCalendarDay.IsCurrentMonth}"
                     IsInvalid="{Binding OutsideCalendarDay.IsInvalid}"
                     IsSelected="{Binding OutsideCalendarDay.IsSelected}"
                     IsToday="{Binding OutsideCalendarDay.IsToday}"
-                    SelectedCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                    SelectedCommandParameter="{Binding OutsideCalendarDay.DateTime}"
-                    Style="{StaticResource DefaultDayViewStyle}"
-                    TodayCommand="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"
-                    TodayCommandParameter="{Binding OutsideCalendarDay.DateTime}"/>
+                    OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
+
+                    <xc:DayView.CurrentMonthStyle>
+                        <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">
+                            <Setter Property="Command" Value="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                            <Setter Property="CommandParameter" Value="{Binding OutsideCalendarDay.DateTime}"/>
+                        </Style>
+                    </xc:DayView.CurrentMonthStyle>
+
+                    <xc:DayView.TodayStyle>
+                        <Style BasedOn="{StaticResource DefaultDayViewTodayStyle}" TargetType="{x:Type xc:DayView}">
+                            <Setter Property="Command" Value="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                            <Setter Property="CommandParameter" Value="{Binding OutsideCalendarDay.DateTime}"/>
+                        </Style>
+                    </xc:DayView.TodayStyle>
+
+                    <xc:DayView.SelectedStyle>
+                        <Style BasedOn="{StaticResource DefaultDayViewSelectedStyle}" TargetType="{x:Type xc:DayView}">
+                            <Setter Property="Command" Value="{Binding BindingContext.ChangeDateSelectionCommand, Source={x:Reference This}}"/>
+                            <Setter Property="CommandParameter" Value="{Binding OutsideCalendarDay.DateTime}"/>
+                        </Style>
+                    </xc:DayView.SelectedStyle>
+
+                </xc:DayView>
             </Frame>
 
         </StackLayout>

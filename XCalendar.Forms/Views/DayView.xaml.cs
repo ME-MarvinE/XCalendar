@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
+using XCalendar.Forms.Styles;
 
 namespace XCalendar.Forms.Views
 {
@@ -72,105 +73,30 @@ namespace XCalendar.Forms.Views
             get { return (bool)GetValue(IsDayStateInvalidProperty); }
             set { SetValue(IsDayStateInvalidProperty, value); }
         }
-        public Color CurrentMonthTextColor
+        public Style CurrentMonthStyle
         {
-            get { return (Color)GetValue(CurrentMonthTextColorProperty); }
-            set { SetValue(CurrentMonthTextColorProperty, value); }
+            get { return (Style)GetValue(CurrentMonthStyleProperty); }
+            set { SetValue(CurrentMonthStyleProperty, value); }
         }
-        public Color CurrentMonthBackgroundColor
+        public Style TodayStyle
         {
-            get { return (Color)GetValue(CurrentMonthBackgroundColorProperty); }
-            set { SetValue(CurrentMonthBackgroundColorProperty, value); }
+            get { return (Style)GetValue(TodayStyleProperty); }
+            set { SetValue(TodayStyleProperty, value); }
         }
-        public ICommand CurrentMonthCommand
+        public Style OtherMonthStyle
         {
-            get { return (ICommand)GetValue(CurrentMonthCommandProperty); }
-            set { SetValue(CurrentMonthCommandProperty, value); }
+            get { return (Style)GetValue(OtherMonthStyleProperty); }
+            set { SetValue(OtherMonthStyleProperty, value); }
         }
-        public object CurrentMonthCommandParameter
+        public Style InvalidStyle
         {
-            get { return (object)GetValue(CurrentMonthCommandParameterProperty); }
-            set { SetValue(CurrentMonthCommandParameterProperty, value); }
+            get { return (Style)GetValue(InvalidStyleProperty); }
+            set { SetValue(InvalidStyleProperty, value); }
         }
-        public Color TodayTextColor
+        public Style SelectedStyle
         {
-            get { return (Color)GetValue(TodayTextColorProperty); }
-            set { SetValue(TodayTextColorProperty, value); }
-        }
-        public Color TodayBackgroundColor
-        {
-            get { return (Color)GetValue(TodayBackgroundColorProperty); }
-            set { SetValue(TodayBackgroundColorProperty, value); }
-        }
-        public ICommand TodayCommand
-        {
-            get { return (ICommand)GetValue(TodayCommandProperty); }
-            set { SetValue(TodayCommandProperty, value); }
-        }
-        public object TodayCommandParameter
-        {
-            get { return (object)GetValue(TodayCommandParameterProperty); }
-            set { SetValue(TodayCommandParameterProperty, value); }
-        }
-        public Color OtherMonthTextColor
-        {
-            get { return (Color)GetValue(OtherMonthTextColorProperty); }
-            set { SetValue(OtherMonthTextColorProperty, value); }
-        }
-        public Color OtherMonthBackgroundColor
-        {
-            get { return (Color)GetValue(OtherMonthBackgroundColorProperty); }
-            set { SetValue(OtherMonthBackgroundColorProperty, value); }
-        }
-        public ICommand OtherMonthCommand
-        {
-            get { return (ICommand)GetValue(OtherMonthCommandProperty); }
-            set { SetValue(OtherMonthCommandProperty, value); }
-        }
-        public object OtherMonthCommandParameter
-        {
-            get { return (object)GetValue(OtherMonthCommandParameterProperty); }
-            set { SetValue(OtherMonthCommandParameterProperty, value); }
-        }
-        public Color InvalidTextColor
-        {
-            get { return (Color)GetValue(InvalidTextColorProperty); }
-            set { SetValue(InvalidTextColorProperty, value); }
-        }
-        public Color InvalidBackgroundColor
-        {
-            get { return (Color)GetValue(InvalidBackgroundColorProperty); }
-            set { SetValue(InvalidBackgroundColorProperty, value); }
-        }
-        public ICommand InvalidCommand
-        {
-            get { return (ICommand)GetValue(InvalidCommandProperty); }
-            set { SetValue(InvalidCommandProperty, value); }
-        }
-        public object InvalidCommandParameter
-        {
-            get { return (object)GetValue(InvalidCommandParameterProperty); }
-            set { SetValue(InvalidCommandParameterProperty, value); }
-        }
-        public Color SelectedTextColor
-        {
-            get { return (Color)GetValue(SelectedTextColorProperty); }
-            set { SetValue(SelectedTextColorProperty, value); }
-        }
-        public Color SelectedBackgroundColor
-        {
-            get { return (Color)GetValue(SelectedBackgroundColorProperty); }
-            set { SetValue(SelectedBackgroundColorProperty, value); }
-        }
-        public ICommand SelectedCommand
-        {
-            get { return (ICommand)GetValue(SelectedCommandProperty); }
-            set { SetValue(SelectedCommandProperty, value); }
-        }
-        public object SelectedCommandParameter
-        {
-            get { return (object)GetValue(SelectedCommandParameterProperty); }
-            set { SetValue(SelectedCommandParameterProperty, value); }
+            get { return (Style)GetValue(SelectedStyleProperty); }
+            set { SetValue(SelectedStyleProperty, value); }
         }
         public ICommand Command
         {
@@ -262,7 +188,7 @@ namespace XCalendar.Forms.Views
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(DayView), System.DateTime.Today, propertyChanged: DateTimePropertyChanged);
-        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(DayState), typeof(DayState), typeof(DayView), propertyChanged: DayStatePropertyChanged, coerceValue: CoerceDayState);
+        public static readonly BindableProperty DayStateProperty = BindableProperty.Create(nameof(DayState), typeof(DayState), typeof(DayView), DayState.CurrentMonth, propertyChanged: DayStatePropertyChanged, coerceValue: CoerceDayState);
         public static readonly BindableProperty IsCurrentMonthProperty = BindableProperty.Create(nameof(IsCurrentMonth), typeof(bool), typeof(DayView), true, propertyChanged: IsCurrentMonthPropertyChanged);
         public static readonly BindableProperty IsOtherMonthProperty = BindableProperty.Create(nameof(IsOtherMonth), typeof(bool), typeof(DayView), propertyChanged: IsOtherMonthPropertyChanged);
         public static readonly BindableProperty IsTodayProperty = BindableProperty.Create(nameof(IsToday), typeof(bool), typeof(DayView), propertyChanged: IsTodayPropertyChanged);
@@ -273,26 +199,11 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty IsDayStateTodayProperty = BindableProperty.Create(nameof(IsDayStateToday), typeof(bool), typeof(DayView));
         public static readonly BindableProperty IsDayStateSelectedProperty = BindableProperty.Create(nameof(IsDayStateSelected), typeof(bool), typeof(DayView));
         public static readonly BindableProperty IsDayStateInvalidProperty = BindableProperty.Create(nameof(IsDayStateInvalid), typeof(bool), typeof(DayView));
-        public static readonly BindableProperty CurrentMonthTextColorProperty = BindableProperty.Create(nameof(CurrentMonthTextColor), typeof(Color), typeof(DayView), Color.Black, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty CurrentMonthBackgroundColorProperty = BindableProperty.Create(nameof(CurrentMonthBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty CurrentMonthCommandProperty = BindableProperty.Create(nameof(CurrentMonthCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty CurrentMonthCommandParameterProperty = BindableProperty.Create(nameof(CurrentMonthCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty TodayTextColorProperty = BindableProperty.Create(nameof(TodayTextColor), typeof(Color), typeof(DayView), Color.Black, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty TodayBackgroundColorProperty = BindableProperty.Create(nameof(TodayBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty TodayCommandProperty = BindableProperty.Create(nameof(TodayCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty TodayCommandParameterProperty = BindableProperty.Create(nameof(TodayCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty OtherMonthTextColorProperty = BindableProperty.Create(nameof(OtherMonthTextColor), typeof(Color), typeof(DayView), Color.FromHex("#A0A0A0"), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty OtherMonthBackgroundColorProperty = BindableProperty.Create(nameof(OtherMonthBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty OtherMonthCommandProperty = BindableProperty.Create(nameof(OtherMonthCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty OtherMonthCommandParameterProperty = BindableProperty.Create(nameof(OtherMonthCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty InvalidTextColorProperty = BindableProperty.Create(nameof(InvalidTextColor), typeof(Color), typeof(DayView), Color.FromHex("#FFA0A0"), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty InvalidBackgroundColorProperty = BindableProperty.Create(nameof(InvalidBackgroundColor), typeof(Color), typeof(DayView), Color.Transparent, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty InvalidCommandProperty = BindableProperty.Create(nameof(InvalidCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty InvalidCommandParameterProperty = BindableProperty.Create(nameof(InvalidCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(DayView), Color.White, propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty SelectedBackgroundColorProperty = BindableProperty.Create(nameof(SelectedBackgroundColor), typeof(Color), typeof(DayView), Color.FromHex("#E00000"), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty SelectedCommandProperty = BindableProperty.Create(nameof(SelectedCommand), typeof(ICommand), typeof(DayView), propertyChanged: StateAppearanceChanged);
-        public static readonly BindableProperty SelectedCommandParameterProperty = BindableProperty.Create(nameof(SelectedCommandParameter), typeof(object), typeof(DayView), propertyChanged: StateAppearanceChanged);
+        public static readonly BindableProperty CurrentMonthStyleProperty = BindableProperty.Create(nameof(CurrentMonthStyle), typeof(Style), typeof(DayView), propertyChanged: CurrentMonthStylePropertyChanged, defaultValueCreator: CreateDefaultDayViewCurrentMonthStyle);
+        public static readonly BindableProperty OtherMonthStyleProperty = BindableProperty.Create(nameof(OtherMonthStyle), typeof(Style), typeof(DayView), propertyChanged: OtherMonthStylePropertyChanged, defaultValueCreator: CreateDefaultDayViewOtherMonthStyle);
+        public static readonly BindableProperty TodayStyleProperty = BindableProperty.Create(nameof(TodayStyle), typeof(Style), typeof(DayView), propertyChanged: TodayStylePropertyChanged, defaultValueCreator: CreateDefaultDayViewTodayStyle);
+        public static readonly BindableProperty SelectedStyleProperty = BindableProperty.Create(nameof(SelectedStyle), typeof(Style), typeof(DayView), propertyChanged: SelectedStylePropertyChanged, defaultValueCreator: CreateDefaultDayViewSelectedStyle);
+        public static readonly BindableProperty InvalidStyleProperty = BindableProperty.Create(nameof(InvalidStyle), typeof(Style), typeof(DayView), propertyChanged: InvalidStylePropertyChanged, defaultValueCreator: CreateDefaultDayViewInvalidStyle);
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(DayView));
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(DayView));
         public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(DayView), Label.CharacterSpacingProperty.DefaultValue);
@@ -318,7 +229,6 @@ namespace XCalendar.Forms.Views
         public DayView()
         {
             SetBinding(TextProperty, new Binding(path: "DateTime.Day", source: this));
-            DayState = DayState.CurrentMonth;
 
             InitializeComponent();
         }
@@ -359,39 +269,23 @@ namespace XCalendar.Forms.Views
             switch (DayState)
             {
                 case DayState.CurrentMonth:
-                    BackgroundColor = CurrentMonthBackgroundColor;
-                    TextColor = CurrentMonthTextColor;
-                    Command = CurrentMonthCommand;
-                    CommandParameter = CurrentMonthCommandParameter;
+                    Style = CurrentMonthStyle;
                     break;
 
                 case DayState.OtherMonth:
-                    BackgroundColor = OtherMonthBackgroundColor;
-                    TextColor = OtherMonthTextColor;
-                    Command = OtherMonthCommand;
-                    CommandParameter = OtherMonthCommandParameter;
+                    Style = OtherMonthStyle;
                     break;
 
                 case DayState.Today:
-                    BackgroundColor = TodayBackgroundColor;
-                    TextColor = TodayTextColor;
-                    Command = TodayCommand;
-                    CommandParameter = TodayCommandParameter;
+                    Style = TodayStyle;
                     break;
 
                 case DayState.Selected:
-                    BackgroundColor = SelectedBackgroundColor;
-                    TextColor = SelectedTextColor;
-                    Command = SelectedCommand;
-                    CommandParameter = SelectedCommandParameter;
+                    Style = SelectedStyle;
                     break;
 
                 case DayState.Invalid:
-                    BackgroundColor = InvalidBackgroundColor;
-                    TextColor = InvalidTextColor;
-                    Command = InvalidCommand;
-                    CommandParameter = InvalidCommandParameter;
-
+                    Style = InvalidStyle;
                     break;
 
                 default:
@@ -400,47 +294,66 @@ namespace XCalendar.Forms.Views
         }
 
         #region Bindable Properties Methods
+        private static object CreateDefaultDayViewCurrentMonthStyle(BindableObject bindable)
+        {
+            //Default value doesn't work so a DefaultValueCreator is used instead.
+            return DefaultStyles.DefaultDayViewCurrentMonthStyle;
+        }
+        private static object CreateDefaultDayViewOtherMonthStyle(BindableObject bindable)
+        {
+            //Default value doesn't work so a DefaultValueCreator is used instead.
+            return DefaultStyles.DefaultDayViewOtherMonthStyle;
+        }
+        private static object CreateDefaultDayViewTodayStyle(BindableObject bindable)
+        {
+            //Default value doesn't work so a DefaultValueCreator is used instead.
+            return DefaultStyles.DefaultDayViewTodayStyle;
+        }
+        private static object CreateDefaultDayViewSelectedStyle(BindableObject bindable)
+        {
+            //Default value doesn't work so a DefaultValueCreator is used instead.
+            return DefaultStyles.DefaultDayViewSelectedStyle;
+        }
+        private static object CreateDefaultDayViewInvalidStyle(BindableObject bindable)
+        {
+            //Default value doesn't work so a DefaultValueCreator is used instead.
+            return DefaultStyles.DefaultDayViewInvalidStyle;
+        }
         private static void DateTimePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             DayView control = (DayView)bindable;
 
             control.DayState = control.EvaluateDayState();
-            control.UpdateView();
         }
         private static void IsCurrentMonthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             DayView control = (DayView)bindable;
 
             control.DayState = control.EvaluateDayState();
-            control.UpdateView();
         }
         private static void IsOtherMonthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             DayView control = (DayView)bindable;
 
             control.DayState = control.EvaluateDayState();
-            control.UpdateView();
         }
         private static void IsTodayPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             DayView control = (DayView)bindable;
 
             control.DayState = control.EvaluateDayState();
-            control.UpdateView();
         }
         private static void IsSelectedPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             DayView control = (DayView)bindable;
 
             control.DayState = control.EvaluateDayState();
-            control.UpdateView();
         }
         private static void IsInvalidPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             DayView control = (DayView)bindable;
 
             control.DayState = control.EvaluateDayState();
-            control.UpdateView();
         }
         private static void DayStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -452,14 +365,44 @@ namespace XCalendar.Forms.Views
             control.IsDayStateToday = newDayState == DayState.Today;
             control.IsDayStateSelected = newDayState == DayState.Selected;
             control.IsDayStateInvalid = newDayState == DayState.Invalid;
+
+            control.UpdateView();
         }
-        private static void StateAppearanceChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void CurrentMonthStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             DayView control = (DayView)bindable;
 
             control.UpdateView();
         }
-        private static object CoerceDayState (BindableObject bindable, object value)
+        private static void OtherMonthStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+
+            control.UpdateView();
+        }
+        private static void TodayStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+
+            control.UpdateView();
+        }
+        private static void SelectedStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            Style newSelectedStyle = (Style)newValue;
+
+            if (control.DayState == DayState.Selected)
+            {
+                control.Style = newSelectedStyle;
+            }
+        }
+        private static void InvalidStylePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+
+            control.UpdateView();
+        }
+        private static object CoerceDayState(BindableObject bindable, object value)
         {
             DayView control = (DayView)bindable;
 
