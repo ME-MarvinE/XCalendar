@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XCalendarMauiSample.Views.DuolingoStreakCalendarExamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:XCalendarMauiSample.Models"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
+    xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
+    x:Name="This"
+    Title="Duolingo Streak Calendar"
+    x:DataType="{x:Type ViewModels:DuolingoStreakCalendarExampleViewModel}"
+    Style="{StaticResource DefaultPageStyle}">
+
+    <ContentPage.Resources>
+
+        <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
+
+        <x:Int32 x:Key="DuolingoCalendarDayNamesLength">2</x:Int32>
+        <Color x:Key="DuolingoCalendarDayNamesTextColor">#405050</Color>
+        <Color x:Key="DuolingoCalendarOutlineColor">#405050</Color>
+        <Color x:Key="DuolingoCalendarBackgroundColor">#181F1F</Color>
+        <Color x:Key="DuolingoCalendarNavigationViewTextColor">White</Color>
+
+        <Color x:Key="DuolingoCalendarCurrentMonthTextColor">#405050</Color>
+        <Color x:Key="DuolingoCalendarOtherMonthTextColor">Transparent</Color>
+        <Color x:Key="DuolingoCalendarTodayBackgroundColor">#405050</Color>
+        <Color x:Key="DuolingoCalendarTodayTextColor">White</Color>
+
+        <Color x:Key="DuolingoCalendarStreakBackgroundColor">#444424</Color>
+        <Color x:Key="DuolingoCalendarStreakTextColor">#F0A000</Color>
+        <Color x:Key="DuolingoCalendarWeekStreakBackgroundColor">#F0A000</Color>
+        <Color x:Key="DuolingoCalendarWeekStreakTextColor">#444424</Color>
+        <Color x:Key="DuolingoCalendarStreakFreezeTextColor">#181F1F</Color>
+
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="{StaticResource DuolingoCalendarBackgroundColor}" Spacing="0">
+
+            <VerticalStackLayout.Resources>
+                <Style
+                    x:Key="PropertyEditorContainer"
+                    CanCascade="True"
+                    TargetType="{x:Type Grid}">
+                    <Setter Property="Grid.ColumnDefinitions" Value="*,*"/>
+                    <Setter Property="HeightRequest" Value="50"/>
+                    <Setter Property="BackgroundColor" Value="{StaticResource ContentBackgroundColor}"/>
+                </Style>
+            </VerticalStackLayout.Resources>
+
+            <Border
+                Margin="20"
+                Padding="20,5,20,5"
+                BackgroundColor="{StaticResource DuolingoCalendarBackgroundColor}"
+                Stroke="{StaticResource DuolingoCalendarOutlineColor}"
+                StrokeThickness="3">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <xc:CalendarView
+                    x:Name="MainCalendarView"
+                    BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                    Days="{Binding Calendar.Days}"
+                    DaysOfWeek="{Binding Calendar.DayNamesOrder}"
+                    ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                    HeightRequest="365"
+                    NavigatedDate="{Binding Calendar.NavigatedDate}">
+
+                    <xc:CalendarView.ForwardsArrowCommandParameter>
+                        <x:Int32>1</x:Int32>
+                    </xc:CalendarView.ForwardsArrowCommandParameter>
+
+                    <xc:CalendarView.BackwardsArrowCommandParameter>
+                        <x:Int32>-1</x:Int32>
+                    </xc:CalendarView.BackwardsArrowCommandParameter>
+
+                    <xc:CalendarView.NavigationViewTemplate>
+                        <ControlTemplate>
+                            <xc:NavigationView
+                                ArrowColor="{StaticResource DuolingoCalendarOutlineColor}"
+                                BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                                BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                                ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                                ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                                HeightRequest="50"
+                                Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
+                                TextColor="{StaticResource DuolingoCalendarNavigationViewTextColor}"/>
+                        </ControlTemplate>
+                    </xc:CalendarView.NavigationViewTemplate>
+
+                    <xc:CalendarView.DayNameTemplate>
+                        <DataTemplate x:DataType="{x:Type System:DayOfWeek}">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding ., Converter={StaticResource StringCharLimitConverter}, ConverterParameter={StaticResource DuolingoCalendarDayNamesLength}}"
+                                TextColor="{StaticResource DuolingoCalendarDayNamesTextColor}"/>
+                        </DataTemplate>
+                    </xc:CalendarView.DayNameTemplate>
+
+                    <xc:CalendarView.DayTemplate>
+                        <DataTemplate x:DataType="{x:Type Models:DuolingoDay}">
+                            <ContentView>
+                                <xc:DayView
+                                    Margin="0,2.5,0,2.5"
+                                    CommandParameter="{Binding DateTime}"
+                                    DateTime="{Binding DateTime}"
+                                    FontAttributes="Bold"
+                                    HeightRequest="42.5"
+                                    IsCurrentMonth="{Binding IsCurrentMonth}"
+                                    IsInvalid="{Binding IsInvalid}"
+                                    IsSelected="{Binding IsSelected}"
+                                    IsToday="{Binding IsToday}">
+
+                                    <xc:DayView.CurrentMonthStyle>
+                                        <Style TargetType="{x:Type xc:DayView}">
+                                            <Setter Property="Command" Value="{Binding BindingContext.ToggleDayCommand, Source={x:Reference This}}"/>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarBackgroundColor}"/>
+                                            <Setter Property="TextColor" Value="{StaticResource DuolingoCalendarCurrentMonthTextColor}"/>
+                                        </Style>
+                                    </xc:DayView.CurrentMonthStyle>
+
+                                    <xc:DayView.OtherMonthStyle>
+                                        <Style TargetType="{x:Type xc:DayView}">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarBackgroundColor}"/>
+                                            <Setter Property="TextColor" Value="{StaticResource DuolingoCalendarOtherMonthTextColor}"/>
+                                        </Style>
+                                    </xc:DayView.OtherMonthStyle>
+
+                                    <xc:DayView.TodayStyle>
+                                        <Style TargetType="{x:Type xc:DayView}">
+                                            <Setter Property="Command" Value="{Binding BindingContext.ToggleDayCommand, Source={x:Reference This}}"/>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarTodayBackgroundColor}"/>
+                                            <Setter Property="TextColor" Value="{StaticResource DuolingoCalendarTodayTextColor}"/>
+                                        </Style>
+                                    </xc:DayView.TodayStyle>
+
+                                    <xc:DayView.Triggers>
+
+                                        <MultiTrigger TargetType="{x:Type xc:DayView}">
+                                            <MultiTrigger.Conditions>
+                                                <BindingCondition Binding="{Binding IsInsidePerfectWeek}" Value="True"/>
+                                                <BindingCondition Binding="{Binding DailyGoalAchieved}" Value="True"/>
+                                            </MultiTrigger.Conditions>
+
+                                            <Setter Property="Style">
+                                                <Setter.Value>
+                                                    <Style TargetType="{x:Type xc:DayView}">
+                                                        <Setter Property="Command" Value="{Binding BindingContext.ToggleDayCommand, Source={x:Reference This}}"/>
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarWeekStreakBackgroundColor}"/>
+                                                        <Setter Property="TextColor" Value="{StaticResource DuolingoCalendarWeekStreakTextColor}"/>
+                                                    </Style>
+                                                </Setter.Value>
+                                            </Setter>
+
+                                        </MultiTrigger>
+
+                                        <MultiTrigger TargetType="{x:Type xc:DayView}">
+                                            <MultiTrigger.Conditions>
+                                                <BindingCondition Binding="{Binding DailyGoalAchieved}" Value="True"/>
+                                                <BindingCondition Binding="{Binding IsInsidePerfectWeek}" Value="False"/>
+                                            </MultiTrigger.Conditions>
+
+                                            <Setter Property="Style">
+                                                <Setter.Value>
+                                                    <Style TargetType="{x:Type xc:DayView}">
+                                                        <Setter Property="Command" Value="{Binding BindingContext.ToggleDayCommand, Source={x:Reference This}}"/>
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarStreakBackgroundColor}"/>
+                                                        <Setter Property="TextColor" Value="{StaticResource DuolingoCalendarStreakTextColor}"/>
+                                                    </Style>
+                                                </Setter.Value>
+                                            </Setter>
+
+                                        </MultiTrigger>
+
+                                        <DataTrigger
+                                            Binding="{Binding StreakFreezeUsed}"
+                                            TargetType="{x:Type xc:DayView}"
+                                            Value="True">
+                                            <Setter Property="AutoSetStyleBasedOnDayState" Value="False"/>
+                                            <Setter Property="Style">
+                                                <Setter.Value>
+                                                    <Style TargetType="{x:Type xc:DayView}">
+                                                        <Setter Property="Command" Value="{Binding BindingContext.ToggleDayCommand, Source={x:Reference This}}"/>
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarStreakBackgroundColor}"/>
+                                                        <Setter Property="TextColor" Value="{StaticResource DuolingoCalendarStreakFreezeTextColor}"/>
+                                                    </Style>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </xc:DayView.Triggers>
+
+                                    <!--
+                                        The ControlTemplate should completely override the look of the control but this did not happen and the selected background color was still shown.
+                                        Workaround was to set the Grid's colour to the normal background color and add an extra RoundRectangle for when nothing is connected.
+                                    -->
+                                    <xc:DayView.ControlTemplate>
+                                        <ControlTemplate>
+                                            <Grid BackgroundColor="{StaticResource DuolingoCalendarBackgroundColor}" BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}">
+
+                                                <!--  Workaround RoundRectangle  -->
+                                                <RoundRectangle
+                                                    Margin="2.5"
+                                                    CornerRadius="100"
+                                                    Fill="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                    StrokeThickness="0"/>
+
+                                                <RoundRectangle
+                                                    Margin="0,2.5,2.5,2.5"
+                                                    CornerRadius="0, 100, 0, 100"
+                                                    Fill="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{Binding ConnectsToLeft}"
+                                                    StrokeThickness="0"/>
+                                                <RoundRectangle
+                                                    Margin="2.5,2.5,0,2.5"
+                                                    CornerRadius="100, 0, 100, 0"
+                                                    Fill="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{Binding ConnectsToRight}"
+                                                    StrokeThickness="0"/>
+                                                <RoundRectangle
+                                                    Margin="2.5,0,2.5,2.5"
+                                                    CornerRadius="0, 0, 100, 100"
+                                                    Fill="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{Binding ConnectsToTop}"
+                                                    StrokeThickness="0"/>
+                                                <RoundRectangle
+                                                    Margin="2.5,2.5,2.5,0"
+                                                    CornerRadius="100, 100, 0, 0"
+                                                    Fill="{Binding BackgroundColor, Source={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{Binding ConnectsToBottom}"
+                                                    StrokeThickness="0"/>
+
+                                                <ContentView Padding="0,5,0,0">
+                                                    <Image
+                                                        Aspect="AspectFit"
+                                                        IsVisible="{Binding StreakFreezeUsed}"
+                                                        Source="{Binding BindingContext.DuolingoStreakFreezeImageSource, Source={x:Reference This}}"/>
+                                                </ContentView>
+
+                                                <ContentPresenter/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </xc:DayView.ControlTemplate>
+
+                                </xc:DayView>
+                            </ContentView>
+                        </DataTemplate>
+                    </xc:CalendarView.DayTemplate>
+
+                </xc:CalendarView>
+            </Border>
+
+            <Grid
+                Grid.Row="1"
+                Padding="0,10,0,10"
+                ColumnSpacing="0"
+                RowSpacing="0"
+                VerticalOptions="Center">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="1"
+                    Margin="0,15,0,0"
+                    FontAttributes="Bold"
+                    FontSize="{StaticResource MediumFontSize}"
+                    HorizontalTextAlignment="Center"
+                    Text="Tap on a day to cycle through its states (None, Streak, StreakFreeze)."
+                    TextColor="{StaticResource DuolingoCalendarNavigationViewTextColor}"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

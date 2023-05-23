@@ -53,11 +53,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Images\duolingo_streak_freeze.png" />
 	  <None Remove="Platforms\Android\GarbageCollector.config" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <AndroidEnvironment Include="Platforms\Android\GarbageCollector.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Images\duolingo_streak_freeze.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -139,6 +144,9 @@
 	    <Generator></Generator>
 	  </MauiXaml>
 		<MauiXaml Update="Views\ConnectingSelectedDaysExamplePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\DuolingoStreakCalendarExamplePage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SelectionExamplePage.xaml">
