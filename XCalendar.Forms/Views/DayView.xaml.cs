@@ -332,7 +332,16 @@ namespace XCalendar.Forms.Views
         {
             DayView control = (DayView)bindable;
 
-            control.DayState = control.EvaluateDayState();
+            DayState evaluatedDayState = control.EvaluateDayState();
+
+            if (control.DayState != evaluatedDayState)
+            {
+                control.DayState = evaluatedDayState;
+            }
+            else
+            {
+                control.UpdateView();
+            }
         }
         private static void IsCurrentMonthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {

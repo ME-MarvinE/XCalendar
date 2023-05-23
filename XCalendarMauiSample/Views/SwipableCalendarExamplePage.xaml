@@ -112,6 +112,7 @@
 
         <Grid
             Grid.Row="1"
+            Padding="0,10,0,10"
             ColumnSpacing="0"
             RowSpacing="0"
             VerticalOptions="Center">

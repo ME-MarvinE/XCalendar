@@ -6,7 +6,6 @@
     xmlns:Models="clr-namespace:XCalendarFormsSample.Models"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
-    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="This"
     Title="Connecting Selected Days"
     x:DataType="{x:Type ViewModels:ConnectingSelectedDaysExampleViewModel}"

@@ -102,6 +102,27 @@ namespace XCalendarMauiSample.ViewModels
                     new Tag() { Title = "Connecting" },
                     new Tag() { Title = "Connection" }
                 }
+            },
+            new Example()
+            {
+                Page = new DuolingoStreakCalendarExamplePage(),
+                Title = "Duolingo Calendar",
+                Description = "Implementation of the streak calendar in the 'Duolingo' app.",
+                Tags = new List<Tag>()
+                {
+                    new Tag() { Title = "Duolingo" },
+                    new Tag() { Title = "Template" },
+                    new Tag() { Title = "Templates" },
+                    new Tag() { Title = "Inherit" },
+                    new Tag() { Title = "Custom" },
+                    new Tag() { Title = "Customise" },
+                    new Tag() { Title = "DayView" },
+                    new Tag() { Title = "Extend" },
+                    new Tag() { Title = "Selection" },
+                    new Tag() { Title = "Connect" },
+                    new Tag() { Title = "Connecting" },
+                    new Tag() { Title = "Connection" }
+                }
             }
         };
         public ObservableRangeCollection<Example> DisplayedExamples { get; } = new ObservableRangeCollection<Example>();

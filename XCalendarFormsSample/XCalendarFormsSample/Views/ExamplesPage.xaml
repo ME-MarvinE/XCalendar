@@ -10,9 +10,10 @@
     x:DataType="{x:Type ViewModels:ExamplesViewModel}"
     Style="{StaticResource DefaultPageStyle}">
 
-    <StackLayout Spacing="0">
+    <Grid RowDefinitions="Auto, *">
 
         <SearchBar
+            Grid.Row="0"
             BackgroundColor="{StaticResource PrimaryColor}"
             CancelButtonColor="White"
             Placeholder="Search..."
@@ -20,7 +21,7 @@
             Text="{Binding SearchText}"
             TextColor="White"/>
 
-        <CollectionView ItemsSource="{Binding DisplayedExamples}">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding DisplayedExamples}">
 
             <CollectionView.EmptyView>
                 <Label
@@ -77,6 +78,6 @@
                 <GridItemsLayout Orientation="Vertical" Span="1"/>
             </CollectionView.ItemsLayout>
         </CollectionView>
-    </StackLayout>
+    </Grid>
 
 </ContentPage>

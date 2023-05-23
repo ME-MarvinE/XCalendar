@@ -11,6 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\duolingo_streak_freeze.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\duolingo_streak_freeze.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.6" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
@@ -24,6 +32,12 @@
   <ItemGroup>
     <Compile Update="Popups\ConstructListDialogPopup.xaml.cs">
       <DependentUpon>ConstructListDialogPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DuolingoStreakCalendarExamplePage.xaml.cs">
+      <DependentUpon>DuolingoStreakCalendarExamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DuolingoStreakCalendarExamplePage.xaml.cs">
+      <DependentUpon>DuolingoStreakCalendarExamplePage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\EventCalendarExamplePage.xaml.cs">
       <DependentUpon>EventCalendarExamplePage.xaml</DependentUpon>
