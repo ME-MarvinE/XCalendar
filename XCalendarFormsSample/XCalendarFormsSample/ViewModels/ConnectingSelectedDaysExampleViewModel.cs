@@ -69,9 +69,8 @@ namespace XCalendarFormsSample.ViewModels
         {
             Calendar.ChangeDateSelection(dateTime);
         }
-        public void UpdateDayConnections()
+        public void EvaluateConnectedDays()
         {
-            //Calculate which days should be connected to each other. 
             for (int i = 0; i < Calendar.Days.Count; i++)
             {
                 //Using indexes is faster than performing operations on the current day's date and also supports the Calendar's 'CustomDayNamesOrder' property.
@@ -97,11 +96,11 @@ namespace XCalendarFormsSample.ViewModels
         }
         private void Calendar_DateSelectionChanged(object sender, DateSelectionChangedEventArgs e)
         {
-            UpdateDayConnections();
+            EvaluateConnectedDays();
         }
         private void Calendar_DaysUpdated(object sender, EventArgs e)
         {
-            UpdateDayConnections();
+            EvaluateConnectedDays();
         }
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -112,7 +111,7 @@ namespace XCalendarFormsSample.ViewModels
                 || propertyName == nameof(ConnectDaysToTop)
                 || propertyName == nameof(ConnectDaysToBottom))
             {
-                UpdateDayConnections();
+                EvaluateConnectedDays();
             }
         }
         #endregion

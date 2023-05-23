@@ -7,7 +7,6 @@
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
-    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="This"
     Title="Connecting Selected Days"
     x:DataType="{x:Type ViewModels:ConnectingSelectedDaysExampleViewModel}"
