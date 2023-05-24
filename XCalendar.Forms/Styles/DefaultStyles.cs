@@ -54,7 +54,7 @@ namespace XCalendar.Forms.Styles
         {
             Style style = new Style(typeof(DayView)) { CanCascade = true, BasedOn = DefaultDayViewStyle };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.Transparent });
-            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.Black });
+            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.FromHex("#E00000") });
 
             return style;
         }
@@ -62,7 +62,7 @@ namespace XCalendar.Forms.Styles
         {
             Style style = new Style(typeof(DayView)) { CanCascade = true, BasedOn = DefaultDayViewStyle };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.FromHex("#E00000") });
-            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.Black });
+            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.White });
 
             return style;
         }

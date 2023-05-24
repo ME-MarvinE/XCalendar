@@ -53,7 +53,7 @@ namespace XCalendar.Maui.Styles
         {
             Style style = new Style(typeof(DayView)) { CanCascade = true, BasedOn = DefaultDayViewStyle };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Colors.Transparent });
-            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Colors.Black });
+            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.FromArgb("#E00000") });
 
             return style;
         }
@@ -61,7 +61,7 @@ namespace XCalendar.Maui.Styles
         {
             Style style = new Style(typeof(DayView)) { CanCascade = true, BasedOn = DefaultDayViewStyle };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.FromArgb("#E00000") });
-            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Colors.Black });
+            style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Colors.White });
 
             return style;
         }
