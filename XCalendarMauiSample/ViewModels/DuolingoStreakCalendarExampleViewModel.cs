@@ -90,10 +90,6 @@ namespace XCalendarMauiSample.ViewModels
                 DuolingoDay day = Calendar.Days[i];
 
                 day.IsInsidePerfectWeek = datesInsidePerfectWeek.Any(x => x.Date == day.DateTime.Date);
-                if (day.IsInsidePerfectWeek)
-                {
-                    var thing = 2;
-                }
                 day.DailyGoalAchieved = DatesWhenGoalWasAchieved.Any(x => x.Date == day.DateTime.Date);
                 day.StreakFreezeUsed = DatesWhenStreakFreezeWasUsed.Any(x => x.Date == day.DateTime.Date);
             }

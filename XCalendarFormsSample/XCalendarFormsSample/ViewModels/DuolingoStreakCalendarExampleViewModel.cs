@@ -8,7 +8,6 @@ using XCalendar.Core.Collections;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
-using XCalendarFormsSample.Helpers;
 using XCalendarFormsSample.Models;
 
 namespace XCalendarFormsSample.ViewModels
@@ -95,10 +94,6 @@ namespace XCalendarFormsSample.ViewModels
                 DuolingoDay day = Calendar.Days[i];
 
                 day.IsInsidePerfectWeek = datesInsidePerfectWeek.Any(x => x.Date == day.DateTime.Date);
-                if (day.IsInsidePerfectWeek)
-                {
-                    var thing = 2;
-                }
                 day.DailyGoalAchieved = DatesWhenGoalWasAchieved.Any(x => x.Date == day.DateTime.Date);
                 day.StreakFreezeUsed = DatesWhenStreakFreezeWasUsed.Any(x => x.Date == day.DateTime.Date);
             }

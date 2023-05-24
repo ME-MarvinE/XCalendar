@@ -28,6 +28,7 @@
                                 <Frame
                                     Margin="2.5"
                                     Padding="0"
+                                    BackgroundColor="Transparent"
                                     CornerRadius="100"
                                     HasShadow="False">
                                     <xc:DayView
