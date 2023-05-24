@@ -18,7 +18,6 @@
                 BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 Days="{Binding Calendar.Days}"
                 DaysOfWeek="{Binding Calendar.DayNamesOrder}"
-                DaysViewHeightRequest="330"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
@@ -54,7 +53,6 @@
                                 HasShadow="False">
                                 <xc:DayView
                                     DateTime="{Binding DateTime}"
-                                    HeightRequest="47"
                                     InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                                     IsCurrentMonth="{Binding IsCurrentMonth}"
                                     IsInvalid="{Binding IsInvalid}"
@@ -106,17 +104,17 @@
                 BackgroundColor="Transparent"
                 CornerRadius="100"
                 HasShadow="False"
-                HeightRequest="47"
-                HorizontalOptions="Center"
-                WidthRequest="47">
+                HorizontalOptions="Center">
                 <xc:DayView
                     DateTime="{Binding OutsideCalendarDay.DateTime}"
+                    HeightRequest="45"
                     InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                     IsCurrentMonth="{Binding OutsideCalendarDay.IsCurrentMonth}"
                     IsInvalid="{Binding OutsideCalendarDay.IsInvalid}"
                     IsSelected="{Binding OutsideCalendarDay.IsSelected}"
                     IsToday="{Binding OutsideCalendarDay.IsToday}"
-                    OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
+                    OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}"
+                    WidthRequest="45">
 
                     <xc:DayView.CurrentMonthStyle>
                         <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">

@@ -963,9 +963,7 @@
                                     Margin="2.5"
                                     Padding="0"
                                     CornerRadius="100"
-                                    HasShadow="False"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center">
+                                    HasShadow="False">
                                     <xc:DayView
                                         AutoSetStyleBasedOnDayState="{Binding BindingContext.DayAutoSetStyleBasedOnDayState, Source={x:Reference This}}"
                                         DateTime="{Binding DateTime}"

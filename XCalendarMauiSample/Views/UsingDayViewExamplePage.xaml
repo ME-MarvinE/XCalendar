@@ -18,7 +18,6 @@
                 BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 Days="{Binding Calendar.Days}"
                 DaysOfWeek="{Binding Calendar.DayNamesOrder}"
-                DaysViewHeightRequest="330"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                 NavigatedDate="{Binding Calendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
@@ -46,19 +45,14 @@
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
                         <!--  Inside the CalendarView  -->
-                        <Border
-                            Margin="2.5"
-                            BackgroundColor="Transparent"
-                            HeightRequest="45"
-                            WidthRequest="45">
+                        <Border Margin="2.5" BackgroundColor="Transparent">
 
                             <Border.StrokeShape>
-                                <Ellipse/>
+                                <RoundRectangle CornerRadius="100"/>
                             </Border.StrokeShape>
 
                             <xc:DayView
                                 DateTime="{Binding DateTime}"
-                                HeightRequest="47"
                                 InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsInvalid="{Binding IsInvalid}"
@@ -107,9 +101,7 @@
             <Border
                 Margin="0,5,0,5"
                 BackgroundColor="Transparent"
-                HeightRequest="47"
-                HorizontalOptions="Center"
-                WidthRequest="47">
+                HorizontalOptions="Center">
 
                 <Border.StrokeShape>
                     <Ellipse/>
@@ -117,13 +109,14 @@
 
                 <xc:DayView
                     DateTime="{Binding OutsideCalendarDay.DateTime}"
-                    HeightRequest="47"
+                    HeightRequest="45"
                     InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                     IsCurrentMonth="{Binding OutsideCalendarDay.IsCurrentMonth}"
                     IsInvalid="{Binding OutsideCalendarDay.IsInvalid}"
                     IsSelected="{Binding OutsideCalendarDay.IsSelected}"
                     IsToday="{Binding OutsideCalendarDay.IsToday}"
-                    OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
+                    OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}"
+                    WidthRequest="45">
 
                     <xc:DayView.CurrentMonthStyle>
                         <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">

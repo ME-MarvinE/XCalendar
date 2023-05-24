@@ -43,6 +43,7 @@
 
         <Style x:Key="DefaultCalendarViewStyle" TargetType="{x:Type xc:CalendarView}">
             <Setter Property="BackgroundColor" Value="{StaticResource CalendarBackgroundColor}"/>
+            <Setter Property="DaysViewHeightRequest" Value="320"/>
         </Style>
 
         <Style x:Key="DefaultNavigationViewStyle" TargetType="{x:Type xc:NavigationView}">

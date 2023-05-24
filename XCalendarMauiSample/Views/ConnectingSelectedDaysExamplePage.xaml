@@ -60,15 +60,13 @@
                     <DataTemplate x:DataType="{x:Type Models:ConnectableDay}">
                         <xc:DayView
                             DateTime="{Binding DateTime}"
-                            HorizontalOptions="FillAndExpand"
-                            InvalidStyle="{StaticResource DefaultDayViewOtherMonthStyle}"
+                            HeightRequest="52.5"
+                            InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                             IsCurrentMonth="{Binding IsCurrentMonth}"
                             IsInvalid="{Binding IsInvalid}"
                             IsSelected="{Binding IsSelected}"
                             IsToday="{Binding IsToday}"
-                            OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}"
-                            VerticalOptions="FillAndExpand"
-                            WidthRequest="-1">
+                            OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
 
                             <xc:DayView.CurrentMonthStyle>
                                 <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">

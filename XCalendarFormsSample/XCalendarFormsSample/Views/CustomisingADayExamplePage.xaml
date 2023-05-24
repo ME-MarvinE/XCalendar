@@ -17,7 +17,6 @@
             BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
             Days="{Binding Calendar.Days}"
             DaysOfWeek="{Binding Calendar.DayNamesOrder}"
-            DaysViewHeightRequest="320"
             ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
             NavigatedDate="{Binding Calendar.NavigatedDate}"
             Style="{StaticResource DefaultCalendarViewStyle}">

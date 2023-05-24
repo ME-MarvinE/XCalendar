@@ -24,7 +24,7 @@
         <CarouselView
             Grid.Row="0"
             CurrentItemChangedCommand="{Binding CurrentPageCalendarChangedCommand}"
-            HeightRequest="382.5"
+            HeightRequest="400"
             ItemsSource="{Binding Calendars}"
             Position="{Binding CurrentPageCalendarPosition}">
 
@@ -59,14 +59,10 @@
 
                             <xc:CalendarView.DayTemplate>
                                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                                    <Border
-                                        Margin="2.5"
-                                        BackgroundColor="Transparent"
-                                        HeightRequest="45"
-                                        WidthRequest="45">
+                                    <Border Margin="2.5" BackgroundColor="Transparent">
 
                                         <Border.StrokeShape>
-                                            <Ellipse/>
+                                            <RoundRectangle CornerRadius="100"/>
                                         </Border.StrokeShape>
 
                                         <xc:DayView

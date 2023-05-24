@@ -5,9 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     x:Name="DayView_Unique"
-    x:DataType="{x:Type xc:DayView}"
-    HeightRequest="45"
-    WidthRequest="45">
+    x:DataType="{x:Type xc:DayView}">
 
     <Label
         CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference DayView_Unique}}"
