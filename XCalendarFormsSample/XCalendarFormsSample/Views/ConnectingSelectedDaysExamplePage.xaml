@@ -59,6 +59,7 @@
                         <ContentView>
                             <xc:DayView
                                 DateTime="{Binding DateTime}"
+                                HeightRequest="52.5"
                                 InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsInvalid="{Binding IsInvalid}"

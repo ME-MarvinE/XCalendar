@@ -84,7 +84,7 @@
                                 HasShadow="False">
                                 <xc:DayView
                                     DateTime="{Binding DateTime}"
-                                    HeightRequest="41"
+                                    HeightRequest="42"
                                     InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                                     IsCurrentMonth="{Binding IsCurrentMonth}"
                                     IsInvalid="{Binding IsInvalid}"

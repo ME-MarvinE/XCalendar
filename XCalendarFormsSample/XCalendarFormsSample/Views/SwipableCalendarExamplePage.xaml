@@ -24,7 +24,7 @@
         <CarouselView
             Grid.Row="0"
             CurrentItemChangedCommand="{Binding CurrentPageCalendarChangedCommand}"
-            HeightRequest="382.5"
+            HeightRequest="400"
             ItemsSource="{Binding Calendars}"
             Position="{Binding CurrentPageCalendarPosition}">
 

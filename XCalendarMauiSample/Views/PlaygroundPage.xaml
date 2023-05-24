@@ -1000,23 +1000,21 @@
 
                 <xc:CalendarView.DayTemplate>
                     <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                        <Border
-                            Margin="2.5"
-                            BackgroundColor="Transparent"
-                            HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
-                            WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
+                        <Border Margin="2.5" BackgroundColor="Transparent">
 
                             <Border.StrokeShape>
-                                <Ellipse/>
+                                <RoundRectangle CornerRadius="100"/>
                             </Border.StrokeShape>
 
                             <xc:DayView
                                 AutoSetStyleBasedOnDayState="{Binding BindingContext.DayAutoSetStyleBasedOnDayState, Source={x:Reference This}}"
                                 DateTime="{Binding DateTime}"
+                                HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsInvalid="{Binding IsInvalid}"
                                 IsSelected="{Binding IsSelected}"
-                                IsToday="{Binding IsToday}">
+                                IsToday="{Binding IsToday}"
+                                WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
 
                                 <xc:DayView.CurrentMonthStyle>
                                     <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">

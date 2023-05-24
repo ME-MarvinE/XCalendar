@@ -34,11 +34,11 @@ namespace XCalendarMauiSample.ViewModels
         };
         public string NavigationTimeUnit { get; set; } = "Month";
         public bool CalendarIsVisible { get; set; } = true;
-        public double DaysViewHeightRequest { get; set; } = 300;
+        public double DaysViewHeightRequest { get; set; } = 320;
         public double DayNamesHeightRequest { get; set; } = 25;
         public double NavigationHeightRequest { get; set; } = 50;
         public double DayHeightRequest { get; set; } = 45;
-        public double DayWidthRequest { get; set; } = 45;
+        public double DayWidthRequest { get; set; } = -1;
         public bool DayAutoSetStyleBasedOnDayState { get; set; } = true;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;

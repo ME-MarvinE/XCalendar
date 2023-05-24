@@ -19,6 +19,7 @@ namespace XCalendar.Forms.Styles
             Style style = new Style(typeof(DayView)) { CanCascade = true };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.Transparent });
             style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.Black });
+            style.Setters.Add(new Setter() { Property = VisualElement.HeightRequestProperty, Value = 45d });
 
             return style;
         }
@@ -27,6 +28,7 @@ namespace XCalendar.Forms.Styles
             Style style = new Style(typeof(DayView)) { CanCascade = true };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.Transparent });
             style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.FromHex("#A0A0A0") });
+            style.Setters.Add(new Setter() { Property = VisualElement.HeightRequestProperty, Value = 45d });
 
             return style;
         }
@@ -35,6 +37,7 @@ namespace XCalendar.Forms.Styles
             Style style = new Style(typeof(DayView)) { CanCascade = true };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.Transparent });
             style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.Black });
+            style.Setters.Add(new Setter() { Property = VisualElement.HeightRequestProperty, Value = 45d });
 
             return style;
         }
@@ -43,6 +46,7 @@ namespace XCalendar.Forms.Styles
             Style style = new Style(typeof(DayView)) { CanCascade = true };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.FromHex("#E00000") });
             style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.Black });
+            style.Setters.Add(new Setter() { Property = VisualElement.HeightRequestProperty, Value = 45d });
 
             return style;
         }
@@ -51,6 +55,7 @@ namespace XCalendar.Forms.Styles
             Style style = new Style(typeof(DayView)) { CanCascade = true };
             style.Setters.Add(new Setter() { Property = VisualElement.BackgroundColorProperty, Value = Color.Transparent });
             style.Setters.Add(new Setter() { Property = DayView.TextColorProperty, Value = Color.FromHex("#FFA0A0") });
+            style.Setters.Add(new Setter() { Property = VisualElement.HeightRequestProperty, Value = 45d });
 
             return style;
         }

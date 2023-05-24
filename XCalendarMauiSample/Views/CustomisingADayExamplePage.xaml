@@ -17,7 +17,6 @@
             BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
             Days="{Binding Calendar.Days}"
             DaysOfWeek="{Binding Calendar.DayNamesOrder}"
-            DaysViewHeightRequest="320"
             ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
             NavigatedDate="{Binding Calendar.NavigatedDate}"
             Style="{StaticResource DefaultCalendarViewStyle}">
@@ -44,14 +43,10 @@
 
             <xc:CalendarView.DayTemplate>
                 <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
-                    <Border
-                        Margin="2.5"
-                        BackgroundColor="Transparent"
-                        HeightRequest="45"
-                        WidthRequest="45">
+                    <Border Margin="2.5" BackgroundColor="Transparent">
 
                         <Border.StrokeShape>
-                            <Ellipse/>
+                            <RoundRectangle CornerRadius="100"/>
                         </Border.StrokeShape>
 
                         <xc:DayView
