@@ -15,7 +15,8 @@ namespace XCalendarMauiSample.ViewModels
         {
             SelectionType = SelectionType.Single,
             SelectionAction = SelectionAction.Modify,
-            AutoRowsIsConsistent = false
+            AutoRowsIsConsistent = false,
+            StartOfWeek = DayOfWeek.Sunday
         };
         public ObservableRangeCollection<DateTime> DatesWhenGoalWasAchieved { get; set; } = new ObservableRangeCollection<DateTime>();
         public ObservableRangeCollection<DateTime> DatesWhenStreakFreezeWasUsed { get; set; } = new ObservableRangeCollection<DateTime>();
@@ -24,7 +25,6 @@ namespace XCalendarMauiSample.ViewModels
 
         #region Commands
         public ICommand NavigateCalendarCommand { get; set; }
-        public ICommand ShowEditModeDialogCommand { get; set; }
         public ICommand ToggleDayCommand { get; set; }
         #endregion
 
