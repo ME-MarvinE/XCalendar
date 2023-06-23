@@ -30,19 +30,19 @@ namespace XCalendarMauiSample.ViewModels
             {
                 Page = new CustomDatePickerDialogExamplePage(),
                 Title = "Custom DatePicker Dialog",
-                Description = $"A custom DatePicker made using a {nameof(CalendarView)}."
+                Description = "A custom DatePicker made using a {nameof(CalendarView)}."
             },
             new Example()
             {
                 Page = new SelectionExamplePage(),
                 Title = "Date Selection",
-                Description = $"Showcase of {nameof(CalendarView)}'s selection capabilities."
+                Description = "Showcase of {nameof(CalendarView)}'s selection capabilities."
             },
             new Example()
             {
                 Page = new UsingDayViewExamplePage(),
-                Title = $"Using {nameof(DayView)}",
-                Description = $"How to use the {nameof(DayView)} control.",
+                Title = "Using {nameof(DayView)}",
+                Description = "How to use the {nameof(DayView)} control.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "DayTemplate" },
@@ -53,8 +53,8 @@ namespace XCalendarMauiSample.ViewModels
             new Example()
             {
                 Page = new CustomisingADayExamplePage(),
-                Title = $"Customising A Day",
-                Description = $"How to customise the appearance of a day in {nameof(CalendarView)}.",
+                Title = "Customising A Day",
+                Description = "How to customise the appearance of a day in {nameof(CalendarView)}.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "DayTemplate" },
@@ -65,8 +65,8 @@ namespace XCalendarMauiSample.ViewModels
             new Example()
             {
                 Page = new SwipableCalendarExamplePage(),
-                Title = $"Animated Swipable Calendar",
-                Description = $"How to create a Calendar where swiping navigates the calendar and shows a preview of the previous or next page.",
+                Title = "Animated Swipable Calendar",
+                Description = "How to create a Calendar where swiping navigates the calendar and shows a preview of the previous or next page.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "Swipe" },
@@ -86,7 +86,7 @@ namespace XCalendarMauiSample.ViewModels
             {
                 Page = new ConnectingSelectedDaysExamplePage(),
                 Title = "Connecting Selected Days",
-                Description = $"Implementation of connecting consecutively selected days.",
+                Description = "Implementation of connecting consecutively selected days.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "Span" },
@@ -106,7 +106,7 @@ namespace XCalendarMauiSample.ViewModels
             new Example()
             {
                 Page = new DuolingoStreakCalendarExamplePage(),
-                Title = "Duolingo Calendar",
+                Title = "Duolingo Streak Calendar",
                 Description = "Implementation of the streak calendar in the 'Duolingo' app.",
                 Tags = new List<Tag>()
                 {
