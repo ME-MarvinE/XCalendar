@@ -139,12 +139,11 @@
                                         </xc:DayView.TodayStyle>
 
                                         <xc:DayView.Triggers>
-                                            <!--  Perfect Week  -->
+
                                             <MultiTrigger TargetType="{x:Type xc:DayView}">
                                                 <MultiTrigger.Conditions>
                                                     <BindingCondition Binding="{Binding IsInsidePerfectWeek}" Value="True"/>
                                                     <BindingCondition Binding="{Binding DailyGoalAchieved}" Value="True"/>
-                                                    <BindingCondition Binding="{Binding IsCurrentMonth}" Value="True"/>
                                                 </MultiTrigger.Conditions>
 
                                                 <Setter Property="Style">
@@ -161,29 +160,8 @@
 
                                             <MultiTrigger TargetType="{x:Type xc:DayView}">
                                                 <MultiTrigger.Conditions>
-                                                    <BindingCondition Binding="{Binding IsInsidePerfectWeek}" Value="True"/>
-                                                    <BindingCondition Binding="{Binding DailyGoalAchieved}" Value="True"/>
-                                                    <BindingCondition Binding="{Binding IsCurrentMonth}" Value="False"/>
-                                                </MultiTrigger.Conditions>
-
-                                                <Setter Property="Style">
-                                                    <Setter.Value>
-                                                        <Style TargetType="{x:Type xc:DayView}">
-                                                            <Setter Property="Command" Value="{Binding BindingContext.ToggleDayCommand, Source={x:Reference This}}"/>
-                                                            <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarWeekStreakBackgroundColor}"/>
-                                                            <Setter Property="TextColor" Value="Transparent"/>
-                                                        </Style>
-                                                    </Setter.Value>
-                                                </Setter>
-
-                                            </MultiTrigger>
-
-                                            <!--  Not Perfect Week  -->
-                                            <MultiTrigger TargetType="{x:Type xc:DayView}">
-                                                <MultiTrigger.Conditions>
                                                     <BindingCondition Binding="{Binding DailyGoalAchieved}" Value="True"/>
                                                     <BindingCondition Binding="{Binding IsInsidePerfectWeek}" Value="False"/>
-                                                    <BindingCondition Binding="{Binding IsCurrentMonth}" Value="True"/>
                                                 </MultiTrigger.Conditions>
 
                                                 <Setter Property="Style">
@@ -198,25 +176,6 @@
 
                                             </MultiTrigger>
 
-                                            <MultiTrigger TargetType="{x:Type xc:DayView}">
-                                                <MultiTrigger.Conditions>
-                                                    <BindingCondition Binding="{Binding DailyGoalAchieved}" Value="True"/>
-                                                    <BindingCondition Binding="{Binding IsInsidePerfectWeek}" Value="False"/>
-                                                    <BindingCondition Binding="{Binding IsCurrentMonth}" Value="False"/>
-                                                </MultiTrigger.Conditions>
-
-                                                <Setter Property="Style">
-                                                    <Setter.Value>
-                                                        <Style TargetType="{x:Type xc:DayView}">
-                                                            <Setter Property="BackgroundColor" Value="{StaticResource DuolingoCalendarStreakBackgroundColor}"/>
-                                                            <Setter Property="TextColor" Value="Transparent"/>
-                                                        </Style>
-                                                    </Setter.Value>
-                                                </Setter>
-
-                                            </MultiTrigger>
-
-                                            <!--  Streak Freeze  -->
                                             <DataTrigger
                                                 Binding="{Binding StreakFreezeUsed}"
                                                 TargetType="{x:Type xc:DayView}"
