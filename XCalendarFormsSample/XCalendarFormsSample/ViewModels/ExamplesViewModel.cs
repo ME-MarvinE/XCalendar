@@ -57,8 +57,8 @@ namespace XCalendarFormsSample.ViewModels
             new Example()
             {
                 Page = new CustomisingADayExamplePage(),
-                Title = $"Customising A Day",
-                Description = $"How to customise the appearance of a day in {nameof(CalendarView)}.",
+                Title = "Customising A Day",
+                Description = "How to customise the appearance of a day in {nameof(CalendarView)}.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "DayTemplate" },
@@ -69,8 +69,8 @@ namespace XCalendarFormsSample.ViewModels
             new Example()
             {
                 Page = new SwipableCalendarExamplePage(),
-                Title = $"Animated Swipable Calendar",
-                Description = $"How to create a Calendar where swiping navigates the calendar and shows a preview of the previous or next page.",
+                Title = "Animated Swipable Calendar",
+                Description = "How to create a Calendar where swiping navigates the calendar and shows a preview of the previous or next page.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "Swipe" },
@@ -90,7 +90,7 @@ namespace XCalendarFormsSample.ViewModels
             {
                 Page = new ConnectingSelectedDaysExamplePage(),
                 Title = "Connecting Selected Days",
-                Description = $"Implementation of connecting consecutively selected days.",
+                Description = "Implementation of connecting consecutively selected days.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "Span" },
@@ -110,7 +110,7 @@ namespace XCalendarFormsSample.ViewModels
             new Example()
             {
                 Page = new DuolingoStreakCalendarExamplePage(),
-                Title = "Duolingo Calendar",
+                Title = "Duolingo Streak Calendar",
                 Description = "Implementation of the streak calendar in the 'Duolingo' app.",
                 Tags = new List<Tag>()
                 {
