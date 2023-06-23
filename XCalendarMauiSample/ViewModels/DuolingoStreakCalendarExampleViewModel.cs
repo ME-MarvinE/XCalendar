@@ -85,38 +85,13 @@ namespace XCalendarMauiSample.ViewModels
                 }
             }
 
-            DateTime firstDayOfMonth = Calendar.NavigatedDate.FirstDayOfMonth();
-            DateTime lastDayOfMonth = Calendar.NavigatedDate.LastDayOfMonth();
-            DateTime lastDayOfPreviousMonth = firstDayOfMonth.AddDays(-1);
-            DateTime firstDayOfNextMonth = lastDayOfMonth.AddDays(1);
-
             for (int i = 0; i < Calendar.Days.Count; i++)
             {
                 DuolingoDay day = Calendar.Days[i];
 
-                //Days outside the month should be connected if the first day of the current month connects to the last day of the previous month or
-                //the last day of the current month connects to the first day of the next month.
-
-                if (day.DateTime.Date < firstDayOfMonth.Date)
-                {
-                    day.IsInsidePerfectWeek = datesInsidePerfectWeek.Any(x => x.Date == firstDayOfMonth.Date) && datesInsidePerfectWeek.Any(x => x.Date == lastDayOfPreviousMonth.Date);
-                    day.DailyGoalAchieved = (DatesWhenGoalWasAchieved.Any(x => x.Date == firstDayOfMonth.Date) || DatesWhenStreakFreezeWasUsed.Any(x => x.Date == firstDayOfMonth.Date))
-                        && (DatesWhenGoalWasAchieved.Any(x => x.Date == lastDayOfPreviousMonth.Date) || DatesWhenStreakFreezeWasUsed.Any(x => x.Date == lastDayOfPreviousMonth.Date));
-                    day.StreakFreezeUsed = false;
-                }
-                else if (day.DateTime.Date > lastDayOfMonth.Date)
-                {
-                    day.IsInsidePerfectWeek = datesInsidePerfectWeek.Any(x => x.Date == lastDayOfMonth.Date) && datesInsidePerfectWeek.Any(x => x.Date == firstDayOfNextMonth.Date);
-                    day.DailyGoalAchieved = (DatesWhenGoalWasAchieved.Any(x => x.Date == lastDayOfMonth.Date) || DatesWhenStreakFreezeWasUsed.Any(x => x.Date == lastDayOfMonth.Date))
-                        && (DatesWhenGoalWasAchieved.Any(x => x.Date == firstDayOfNextMonth.Date) || DatesWhenStreakFreezeWasUsed.Any(x => x.Date == firstDayOfNextMonth.Date));
-                    day.StreakFreezeUsed = false;
-                }
-                else
-                {
-                    day.IsInsidePerfectWeek = datesInsidePerfectWeek.Any(x => x.Date == day.DateTime.Date);
-                    day.DailyGoalAchieved = DatesWhenGoalWasAchieved.Any(x => x.Date == day.DateTime.Date);
-                    day.StreakFreezeUsed = DatesWhenStreakFreezeWasUsed.Any(x => x.Date == day.DateTime.Date);
-                }
+                day.IsInsidePerfectWeek = datesInsidePerfectWeek.Any(x => x.Date == day.DateTime.Date);
+                day.DailyGoalAchieved = DatesWhenGoalWasAchieved.Any(x => x.Date == day.DateTime.Date);
+                day.StreakFreezeUsed = DatesWhenStreakFreezeWasUsed.Any(x => x.Date == day.DateTime.Date);
             }
 
             for (int i = 0; i < Calendar.Days.Count; i++)
