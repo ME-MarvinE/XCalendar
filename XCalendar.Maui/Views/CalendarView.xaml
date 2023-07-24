@@ -20,11 +20,11 @@
         </VerticalStackLayout.Resources>
 
         <xc:NavigationView
-            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:Reference CalendarView_Unique}}"
-            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
+            LeftArrowCommand="{Binding LeftArrowCommand, Source={x:Reference CalendarView_Unique}}"
+            LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
             ControlTemplate="{Binding NavigationViewTemplate, Source={x:Reference CalendarView_Unique}}"
-            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:Reference CalendarView_Unique}}"
-            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
+            RightArrowCommand="{Binding RightArrowCommand, Source={x:Reference CalendarView_Unique}}"
+            RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
             Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference CalendarView_Unique}}"/>
 
         <!--#region DayNames-->

@@ -43,30 +43,30 @@
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
-                BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                LeftArrowCommand="{Binding NavigateCalendarCommand}"
                 Days="{Binding EventCalendar.Days}"
                 DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
-                ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                RightArrowCommand="{Binding NavigateCalendarCommand}"
                 NavigatedDate="{Binding EventCalendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 
-                <xc:CalendarView.ForwardsArrowCommandParameter>
+                <xc:CalendarView.RightArrowCommandParameter>
                     <x:Int32>1</x:Int32>
-                </xc:CalendarView.ForwardsArrowCommandParameter>
+                </xc:CalendarView.RightArrowCommandParameter>
 
-                <xc:CalendarView.BackwardsArrowCommandParameter>
+                <xc:CalendarView.LeftArrowCommandParameter>
                     <x:Int32>-1</x:Int32>
-                </xc:CalendarView.BackwardsArrowCommandParameter>
+                </xc:CalendarView.LeftArrowCommandParameter>
 
                 <xc:CalendarView.NavigationViewTemplate>
                     <ControlTemplate>
                         <xc:NavigationView
                             ArrowColor="{StaticResource ContentTextColor}"
                             BackgroundColor="Transparent"
-                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
-                            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
-                            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
-                            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            LeftArrowCommand="{Binding LeftArrowCommand, Source={RelativeSource TemplatedParent}}"
+                            LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            RightArrowCommand="{Binding RightArrowCommand, Source={RelativeSource TemplatedParent}}"
+                            RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             HeightRequest="40"
                             Style="{StaticResource DefaultNavigationViewStyle}"
                             Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
