@@ -53,12 +53,12 @@
             Days="{Binding Calendar.Days, Source={x:Reference This}}"
             DaysOfWeek="{Binding Calendar.DayNamesOrder, Source={x:Reference This}}"
             DaysViewHeightRequest="246"
-            ForwardsArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
+            RightArrowCommand="{Binding NavigateCalendarCommand, Source={x:Reference This}}"
             NavigatedDate="{Binding Calendar.NavigatedDate, Source={x:Reference This}}">
 
-            <xc:CalendarView.ForwardsArrowCommandParameter>
+            <xc:CalendarView.RightArrowCommandParameter>
                 <x:Int32>1</x:Int32>
-            </xc:CalendarView.ForwardsArrowCommandParameter>
+            </xc:CalendarView.RightArrowCommandParameter>
 
             <xc:CalendarView.LeftArrowCommandParameter>
                 <x:Int32>-1</x:Int32>
@@ -71,8 +71,8 @@
                         BackgroundColor="Transparent"
                         LeftArrowCommand="{Binding LeftArrowCommand, Source={x:RelativeSource TemplatedParent}}"
                         LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
-                        ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
-                        ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                        RightArrowCommand="{Binding RightArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                        RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                         Style="{StaticResource DefaultNavigationViewStyle}"
                         Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
                         TextColor="{StaticResource ContentTextColor}"/>

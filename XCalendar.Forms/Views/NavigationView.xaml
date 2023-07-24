@@ -95,7 +95,7 @@
             </Grid>
 
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding ForwardsArrowCommand, Source={x:Reference NavigationView_Unique}}" CommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference NavigationView_Unique}}"/>
+                <TapGestureRecognizer Command="{Binding RightArrowCommand, Source={x:Reference NavigationView_Unique}}" CommandParameter="{Binding RightArrowCommandParameter, Source={x:Reference NavigationView_Unique}}"/>
             </Frame.GestureRecognizers>
 
         </Frame>

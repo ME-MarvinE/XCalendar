@@ -86,15 +86,15 @@ namespace XCalendar.Forms.Views
             get { return (TextType)GetValue(TextTypeProperty); }
             set { SetValue(TextTypeProperty, value); }
         }
-        public ICommand ForwardsArrowCommand
+        public ICommand RightArrowCommand
         {
-            get { return (ICommand)GetValue(ForwardsArrowCommandProperty); }
-            set { SetValue(ForwardsArrowCommandProperty, value); }
+            get { return (ICommand)GetValue(RightArrowCommandProperty); }
+            set { SetValue(RightArrowCommandProperty, value); }
         }
-        public object ForwardsArrowCommandParameter
+        public object RightArrowCommandParameter
         {
-            get { return (object)GetValue(ForwardsArrowCommandParameterProperty); }
-            set { SetValue(ForwardsArrowCommandParameterProperty, value); }
+            get { return (object)GetValue(RightArrowCommandParameterProperty); }
+            set { SetValue(RightArrowCommandParameterProperty, value); }
         }
         public ICommand LeftArrowCommand
         {
@@ -138,8 +138,8 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty TextTypeProperty = BindableProperty.Create(nameof(TextType), typeof(TextType), typeof(NavigationView), Label.TextTypeProperty.DefaultValue);
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NavigationView), Color.White);
         public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(NavigationView), TextAlignment.Center);
-        public static readonly BindableProperty ForwardsArrowCommandProperty = BindableProperty.Create(nameof(ForwardsArrowCommand), typeof(object), typeof(NavigationView));
-        public static readonly BindableProperty ForwardsArrowCommandParameterProperty = BindableProperty.Create(nameof(ForwardsArrowCommandParameter), typeof(object), typeof(NavigationView));
+        public static readonly BindableProperty RightArrowCommandProperty = BindableProperty.Create(nameof(RightArrowCommand), typeof(object), typeof(NavigationView));
+        public static readonly BindableProperty RightArrowCommandParameterProperty = BindableProperty.Create(nameof(RightArrowCommandParameter), typeof(object), typeof(NavigationView));
         public static readonly BindableProperty LeftArrowCommandProperty = BindableProperty.Create(nameof(LeftArrowCommand), typeof(object), typeof(NavigationView));
         public static readonly BindableProperty LeftArrowCommandParameterProperty = BindableProperty.Create(nameof(LeftArrowCommandParameter), typeof(object), typeof(NavigationView));
         public static readonly BindableProperty ArrowColorProperty = BindableProperty.Create(nameof(ArrowColor), typeof(Color), typeof(NavigationView), Color.White);
