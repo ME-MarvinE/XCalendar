@@ -42,7 +42,7 @@
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
-                BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                LeftArrowCommand="{Binding NavigateCalendarCommand}"
                 Days="{Binding EventCalendar.Days}"
                 DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
@@ -53,17 +53,17 @@
                     <x:Int32>1</x:Int32>
                 </xc:CalendarView.ForwardsArrowCommandParameter>
 
-                <xc:CalendarView.BackwardsArrowCommandParameter>
+                <xc:CalendarView.LeftArrowCommandParameter>
                     <x:Int32>-1</x:Int32>
-                </xc:CalendarView.BackwardsArrowCommandParameter>
+                </xc:CalendarView.LeftArrowCommandParameter>
 
                 <xc:CalendarView.NavigationViewTemplate>
                     <ControlTemplate>
                         <xc:NavigationView
                             ArrowColor="{StaticResource ContentTextColor}"
                             BackgroundColor="Transparent"
-                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
-                            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            LeftArrowCommand="{Binding LeftArrowCommand, Source={RelativeSource TemplatedParent}}"
+                            LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
                             ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             HeightRequest="40"

@@ -42,7 +42,7 @@
             </Grid>
 
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding BackwardsArrowCommand, Source={x:Reference NavigationView_Unique}}" CommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference NavigationView_Unique}}"/>
+                <TapGestureRecognizer Command="{Binding LeftArrowCommand, Source={x:Reference NavigationView_Unique}}" CommandParameter="{Binding LeftArrowCommandParameter, Source={x:Reference NavigationView_Unique}}"/>
             </Frame.GestureRecognizers>
 
         </Frame>

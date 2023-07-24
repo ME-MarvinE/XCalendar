@@ -15,7 +15,7 @@
         <VerticalStackLayout Spacing="0">
             <xc:CalendarView
                 x:Name="MainCalendarView"
-                BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                LeftArrowCommand="{Binding NavigateCalendarCommand}"
                 Days="{Binding Calendar.Days}"
                 DaysOfWeek="{Binding Calendar.DayNamesOrder}"
                 ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
@@ -26,15 +26,15 @@
                     <x:Int32>1</x:Int32>
                 </xc:CalendarView.ForwardsArrowCommandParameter>
 
-                <xc:CalendarView.BackwardsArrowCommandParameter>
+                <xc:CalendarView.LeftArrowCommandParameter>
                     <x:Int32>-1</x:Int32>
-                </xc:CalendarView.BackwardsArrowCommandParameter>
+                </xc:CalendarView.LeftArrowCommandParameter>
 
                 <xc:CalendarView.NavigationViewTemplate>
                     <ControlTemplate>
                         <xc:NavigationView
-                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
-                            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            LeftArrowCommand="{Binding LeftArrowCommand, Source={RelativeSource TemplatedParent}}"
+                            LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={RelativeSource TemplatedParent}}"
                             ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             Style="{StaticResource DefaultNavigationViewStyle}"

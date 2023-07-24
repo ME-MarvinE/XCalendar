@@ -20,8 +20,8 @@
         </VerticalStackLayout.Resources>
 
         <xc:NavigationView
-            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:Reference CalendarView_Unique}}"
-            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
+            LeftArrowCommand="{Binding LeftArrowCommand, Source={x:Reference CalendarView_Unique}}"
+            LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
             ControlTemplate="{Binding NavigationViewTemplate, Source={x:Reference CalendarView_Unique}}"
             ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:Reference CalendarView_Unique}}"
             ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
