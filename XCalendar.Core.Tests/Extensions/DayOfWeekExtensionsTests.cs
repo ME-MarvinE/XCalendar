@@ -15,7 +15,7 @@ namespace XCalendar.Core.Tests.Extensions
         [InlineData(DayOfWeek.Thursday, new[] { DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday })]
         [InlineData(DayOfWeek.Friday, new[] { DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday })]
         [InlineData(DayOfWeek.Saturday, new[] { DayOfWeek.Saturday, DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday })]
-        public void GetWeekAsFirst_Should_Return_Correct_Order(DayOfWeek inputDayOfWeek, DayOfWeek[] expectedOrder)
+        public void GetWeekAsFirstShouldReturnCorrectOrder(DayOfWeek inputDayOfWeek, DayOfWeek[] expectedOrder)
         {
             // Act
             var week = inputDayOfWeek.GetWeekAsFirst();
@@ -32,7 +32,7 @@ namespace XCalendar.Core.Tests.Extensions
         [InlineData(DayOfWeek.Thursday, new[] { DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday })]
         [InlineData(DayOfWeek.Friday, new[] { DayOfWeek.Saturday, DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday })]
         [InlineData(DayOfWeek.Saturday, new[] { DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday })]
-        public void GetWeekAsLast_Should_Return_Correct_Order(DayOfWeek inputDayOfWeek, DayOfWeek[] expectedOrder)
+        public void GetWeekAsLastShouldReturnCorrectOrder(DayOfWeek inputDayOfWeek, DayOfWeek[] expectedOrder)
         {
             // Act
             var week = inputDayOfWeek.GetWeekAsLast();
