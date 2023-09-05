@@ -16,7 +16,7 @@
 
     <ContentPage.Resources>
 
-        <xcConverters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
+        <xcConverters:LocalizeDayOfWeekAndCharLimitConverter x:Key="LocalizeDayOfWeekAndCharLimitConverter"/>
 
         <x:Int32 x:Key="DuolingoCalendarDayNamesLength">2</x:Int32>
         <Color x:Key="DuolingoCalendarDayNamesTextColor">#405050</Color>
@@ -99,7 +99,7 @@
                                 FontAttributes="Bold"
                                 FontSize="15"
                                 HorizontalTextAlignment="Center"
-                                Text="{Binding ., Converter={StaticResource StringCharLimitConverter}, ConverterParameter={StaticResource DuolingoCalendarDayNamesLength}}"
+                                Text="{Binding ., Converter={StaticResource LocalizeDayOfWeekAndCharLimitConverter}, ConverterParameter={StaticResource DuolingoCalendarDayNamesLength}}"
                                 TextColor="{StaticResource DuolingoCalendarDayNamesTextColor}"/>
                         </DataTemplate>
                     </xc:CalendarView.DayNameTemplate>
