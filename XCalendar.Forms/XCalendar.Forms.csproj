@@ -27,11 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\XCalendarResource.Designer.cs">
-      <DependentUpon>XCalendarResource.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Update="Views\DayView.xaml.cs">
       <DependentUpon>DayView.xaml</DependentUpon>
     </Compile>
@@ -41,10 +36,6 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <EmbeddedResource Update="Resources\XCalendarResource.resx">
-      <LastGenOutput>XCalendarResource.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\DayView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

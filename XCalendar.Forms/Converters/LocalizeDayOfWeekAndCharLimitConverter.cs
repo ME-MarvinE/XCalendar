@@ -2,7 +2,6 @@
 using System.Globalization;
 using Xamarin.Forms;
 using XCalendar.Core.Extensions;
-using XCalendar.Forms.Resources;
 
 namespace XCalendar.Forms.Converters
 {
@@ -15,20 +14,9 @@ namespace XCalendar.Forms.Converters
                 return string.Empty;
             }
 
-            string resourceName = $"{dayOfWeek}";
+            string dayName = culture.DateTimeFormat.GetDayName(dayOfWeek);
 
-            string dayName = XCalendarResource.ResourceManager.GetString(resourceName, culture);
-
-            if (string.IsNullOrWhiteSpace(dayName))
-            {
-                dayName = dayOfWeek.ToString().Substring(0, 3);
-            }
-            else
-            {
-                dayName = dayName.TruncateStringToMaxLength(parameter);
-            }
-
-            return dayName;
+            return dayName.TruncateStringToMaxLength(parameter);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

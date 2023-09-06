@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using XCalendar.Maui.Resources;
 using XCalendar.Core.Extensions;
 
 namespace XCalendar.Maui.Converters
@@ -8,25 +7,14 @@ namespace XCalendar.Maui.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not DayOfWeek dayOfWeek)
+            if (!(value is DayOfWeek dayOfWeek))
             {
                 return string.Empty;
             }
 
-            string resourceName = $"{dayOfWeek}";
+            string dayName = culture.DateTimeFormat.GetDayName(dayOfWeek);
 
-            string dayName = XCalendarResource.ResourceManager.GetString(resourceName, culture);
-
-            if (string.IsNullOrWhiteSpace(dayName))
-            {
-                dayName = dayOfWeek.ToString().Substring(0, 3);
-            }
-            else
-            {
-                dayName = dayName.TruncateStringToMaxLength(parameter);
-            }
-
-            return dayName;
+            return dayName.TruncateStringToMaxLength(parameter);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

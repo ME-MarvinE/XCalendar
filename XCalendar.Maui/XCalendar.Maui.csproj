@@ -45,24 +45,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Resources\XCalendarResource.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>XCalendarResource.resx</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\DayView.xaml.cs">
 	    <DependentUpon>DayView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\DaysView.xaml.cs">
 	    <DependentUpon>DaysView.xaml</DependentUpon>
 	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\XCalendarResource.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>XCalendarResource.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
