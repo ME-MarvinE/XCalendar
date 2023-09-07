@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace XCalendar.Core.Extensions
 {
@@ -54,6 +55,11 @@ namespace XCalendar.Core.Extensions
             }
 
             return week;
+        }
+
+        public static string Localize(this DayOfWeek self, CultureInfo culture)
+        {
+            return culture.DateTimeFormat.GetDayName(self);
         }
         #endregion
     }

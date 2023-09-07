@@ -3,13 +3,18 @@ using XCalendar.Core.Extensions;
 
 namespace XCalendar.Maui.Converters
 {
-    public class StringCharLimitConverter : IValueConverter
+    public class LocalizeDayOfWeekAndCharLimitConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value?
-                .ToString()
-                .TruncateStringToMaxLength(parameter) ?? string.Empty;
+            if (!(value is DayOfWeek dayOfWeek))
+            {
+                return string.Empty;
+            }
+
+            return dayOfWeek.Localize(culture)
+                .TruncateStringToMaxLength(parameter)
+                .ToTitleCase(culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
