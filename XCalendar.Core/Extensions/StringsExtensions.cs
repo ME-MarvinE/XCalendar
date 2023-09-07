@@ -4,7 +4,11 @@
     {
         public static string TruncateStringToMaxLength(this string value, object parameter)
         {
-            if (parameter != null && int.TryParse(parameter.ToString(), out int maxLength))
+            int maxLength = 0;
+
+            bool parameterIsNotNullAndIsAInt = parameter != null && int.TryParse(parameter.ToString(), out maxLength);
+
+            if (parameterIsNotNullAndIsAInt)
             {
                 return value.TruncateStringToMaxLength(maxLength);
             }
@@ -31,6 +35,16 @@
             {
                 return value.Substring(0, maxLength);
             }
+        }
+
+        public static string UppercaseFirst(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            return char.ToUpper(text[0]) + text.Substring(1);
         }
     }
 }

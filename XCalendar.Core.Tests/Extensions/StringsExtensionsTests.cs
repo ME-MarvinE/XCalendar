@@ -58,5 +58,30 @@ namespace XCalendar.Core.Tests.Extensions
 
             result.Should().Be(expected);
         }
+
+        [Theory]
+        [InlineData("hello", "Hello")]
+        [InlineData("world", "World")]
+        [InlineData("t", "T")]
+        [InlineData("123", "123")]
+        [InlineData("", "")]
+        [InlineData(null, "")]
+        public void UppercaseFirstShouldReturnStringWithFirstLetterUppercased(string input, string expectedOutput)
+        {
+            var result = input.UppercaseFirst();
+
+            result.Should().Be(expectedOutput);
+        }
+
+        [Theory]
+        [InlineData("Hello", "Hello")]
+        [InlineData("WOrld", "WOrld")]
+        [InlineData("123abc", "123abc")]
+        public void UppercaseFirstShouldNotChangeStringStartingWithUppercaseLetter(string input, string expectedOutput)
+        {
+            var result = input.UppercaseFirst();
+
+            result.Should().Be(expectedOutput);
+        }
     }
 }

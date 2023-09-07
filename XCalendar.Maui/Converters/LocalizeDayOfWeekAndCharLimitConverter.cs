@@ -12,9 +12,9 @@ namespace XCalendar.Maui.Converters
                 return string.Empty;
             }
 
-            string dayName = culture.DateTimeFormat.GetDayName(dayOfWeek);
-
-            return dayName.TruncateStringToMaxLength(parameter);
+            return dayOfWeek.LocalizeDayOfWeek(culture)
+                .TruncateStringToMaxLength(parameter)
+                .UppercaseFirst();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
