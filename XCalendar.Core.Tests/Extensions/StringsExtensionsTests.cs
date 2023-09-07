@@ -69,7 +69,22 @@ namespace XCalendar.Core.Tests.Extensions
         [InlineData(null, "")]
         public void ToTitleCaseShouldReturnStringWithFirstLetterUppercased(string input, string expectedOutput)
         {
-            var result = input.ToTitleCase(CultureInfo.CurrentCulture);
+            var result = input.ToTitleCase(CultureInfo.InvariantCulture);
+
+            result.Should().Be(expectedOutput);
+        }
+
+        [Theory]
+        [InlineData("monday tuesday wednesday thursday friday saturday sunday", "en-US", "Monday Tuesday Wednesday Thursday Friday Saturday Sunday")]
+        [InlineData("lundi mardi mercredi jeudi vendredi samedi dimanche", "fr-FR", "Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche")]
+        [InlineData("lunes martes miércoles jueves viernes sábado domingo", "es-ES", "Lunes Martes Miércoles Jueves Viernes Sábado Domingo")]
+        [InlineData("الاثنين الثلاثاء الأربعاء الخميس الجمعة السبت الأحد", "ar-SA", "الاثنين الثلاثاء الأربعاء الخميس الجمعة السبت الأحد")]
+        [InlineData("星期一 星期二 星期三 星期四 星期五 星期六 星期日", "zh-CN", "星期一 星期二 星期三 星期四 星期五 星期六 星期日")]
+        public void ToTitleCaseShouldConvertToTitleCaseWithDifferentCultures(string input, string cultureName, string expectedOutput)
+        {
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            string result = input.ToTitleCase(culture);
 
             result.Should().Be(expectedOutput);
         }
@@ -79,7 +94,7 @@ namespace XCalendar.Core.Tests.Extensions
         [InlineData("World", "World")]
         public void ToTitleCaseShouldNotChangeStringStartingWithUppercaseLetter(string input, string expectedOutput)
         {
-            var result = input.ToTitleCase(CultureInfo.CurrentCulture);
+            var result = input.ToTitleCase(CultureInfo.InvariantCulture);
 
             result.Should().Be(expectedOutput);
         }
