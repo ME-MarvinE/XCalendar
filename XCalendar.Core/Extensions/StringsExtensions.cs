@@ -1,4 +1,6 @@
-﻿namespace XCalendar.Core.Extensions
+﻿using System.Globalization;
+
+namespace XCalendar.Core.Extensions
 {
     public static class StringsExtensions
     {
@@ -37,14 +39,14 @@
             }
         }
 
-        public static string UppercaseFirst(this string text)
+        public static string ToTitleCase(this string text, CultureInfo culture)
         {
             if (string.IsNullOrEmpty(text))
             {
                 return string.Empty;
             }
 
-            return char.ToUpper(text[0]) + text.Substring(1);
+            return culture.TextInfo.ToTitleCase(text);
         }
     }
 }

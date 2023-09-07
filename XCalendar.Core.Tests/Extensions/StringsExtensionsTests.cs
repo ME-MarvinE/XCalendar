@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 using XCalendar.Core.Extensions;
+using System.Globalization;
 
 namespace XCalendar.Core.Tests.Extensions
 {
@@ -66,20 +67,19 @@ namespace XCalendar.Core.Tests.Extensions
         [InlineData("123", "123")]
         [InlineData("", "")]
         [InlineData(null, "")]
-        public void UppercaseFirstShouldReturnStringWithFirstLetterUppercased(string input, string expectedOutput)
+        public void ToTitleCaseShouldReturnStringWithFirstLetterUppercased(string input, string expectedOutput)
         {
-            var result = input.UppercaseFirst();
+            var result = input.ToTitleCase(CultureInfo.CurrentCulture);
 
             result.Should().Be(expectedOutput);
         }
 
         [Theory]
         [InlineData("Hello", "Hello")]
-        [InlineData("WOrld", "WOrld")]
-        [InlineData("123abc", "123abc")]
-        public void UppercaseFirstShouldNotChangeStringStartingWithUppercaseLetter(string input, string expectedOutput)
+        [InlineData("World", "World")]
+        public void ToTitleCaseShouldNotChangeStringStartingWithUppercaseLetter(string input, string expectedOutput)
         {
-            var result = input.UppercaseFirst();
+            var result = input.ToTitleCase(CultureInfo.CurrentCulture);
 
             result.Should().Be(expectedOutput);
         }
