@@ -304,7 +304,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The number representing the position of this instance's day in this instance's week.</returns>
         public static int DayOfWeek(this DateTime self, DayOfWeek startingDayOfWeek)
         {
-            IList<DayOfWeek> weekAsFirst = startingDayOfWeek.GetWeekAsFirst();
+            List<DayOfWeek> weekAsFirst = startingDayOfWeek.GetWeekAsFirst();
 
             return weekAsFirst.IndexOf(self.Date.DayOfWeek) + 1;
         }
