@@ -33,7 +33,7 @@ namespace XCalendar.Core.Models
         private DateTime _todayDate = DateTime.Today;
         private DateTime _navigationLowerBound = DateTime.MinValue;
         private DateTime _navigationUpperBound = DateTime.MaxValue;
-        private DayOfWeek _startOfWeek = CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek;
+        private DayOfWeek _startOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
         private bool _autoRows = true;
         private bool _autoRowsIsConsistent = true;
         private SelectionAction _selectionAction = SelectionAction.Modify;
