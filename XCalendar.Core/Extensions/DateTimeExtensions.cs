@@ -203,7 +203,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>A <see cref="DateTime"/> representing the first day of the week.</returns>
         public static DateTime FirstDayOfWeek(this DateTime self)
         {
-            return self.FirstDayOfWeek(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.FirstDayOfWeek(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the first day of this instance's week using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -233,7 +233,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>A <see cref="DateTime"/> representing the first day of the week.</returns>
         public static DateTime LastDayOfWeek(this DateTime self)
         {
-            return self.LastDayOfWeek(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.LastDayOfWeek(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the last day of this instance's week using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -295,7 +295,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The number representing the position of this instance's day in this instance's week.</returns>
         public static int DayOfWeek(this DateTime self)
         {
-            return self.DayOfWeek(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.DayOfWeek(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the position of this instance's day in this instance's week using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -314,7 +314,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The number corresponding to which week of this instance's month it is in</returns>
         public static int CalendarWeekOfMonth(this DateTime self)
         {
-            return self.CalendarWeekOfMonth(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.CalendarWeekOfMonth(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets which week of this instance's month this instance is in using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -380,7 +380,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The number of weeks in this instance's month counting the weeks that span into the previous or next year.</returns>
         public static int CalendarWeeksInMonth(this DateTime self)
         {
-            return self.CalendarWeeksInMonth(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.CalendarWeeksInMonth(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the number of weeks in this instance's month counting the weeks that span into the previous or next month using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -423,7 +423,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The list of days which are before this instance's month and within the same week as its first day.</returns>
         public static List<DateTime> CalendarPreviousDaysInMonth(this DateTime self)
         {
-            return self.CalendarPreviousDaysInMonth(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.CalendarPreviousDaysInMonth(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the days which are before this instance's month and within the same week as its first day using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -447,7 +447,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The list of days which are after this instance's month and within the same week as its last day.</returns>
         public static List<DateTime> CalendarNextDaysInMonth(this DateTime self)
         {
-            return self.CalendarNextDaysInMonth(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.CalendarNextDaysInMonth(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the days which are after this instance's month and within the same week as its last day using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -477,7 +477,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The highest number of weeks that occur inside a month within this instance's year.</returns>
         public static int CalendarHighestMonthWeekCountOfYear(this DateTime self)
         {
-            return self.CalendarHighestMonthWeekCountOfYear(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.CalendarHighestMonthWeekCountOfYear(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the highest number of weeks that occur inside a month within this instance's year using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -508,7 +508,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The lowest number of weeks that occur inside a month within this instance's year.</returns>
         public static int CalendarLowestMonthWeekCountOfYear(this DateTime self)
         {
-            return self.CalendarLowestMonthWeekCountOfYear(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek);
+            return self.CalendarLowestMonthWeekCountOfYear(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Gets the lowest number of weeks that occur inside a month within this instance's year using the specified <see cref="System.DayOfWeek"/> as the week start.
@@ -540,7 +540,7 @@ namespace XCalendar.Core.Extensions
         /// <returns>The list of dates in this instance's week.</returns>
         public static List<DateTime> DaysOfWeek(this DateTime self, int weekOffset = 0)
         {
-            return self.DaysOfWeek(CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek, weekOffset);
+            return self.DaysOfWeek(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek, weekOffset);
         }
         /// <summary>
         /// Gets the dates in this instance's week using the specified <see cref="System.DayOfWeek"/> as the week start.
