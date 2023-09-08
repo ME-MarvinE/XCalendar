@@ -56,11 +56,6 @@ namespace XCalendar.Core.Extensions
 
             return week;
         }
-
-        public static string Localize(this DayOfWeek self, CultureInfo culture)
-        {
-            return culture.DateTimeFormat.GetDayName(self);
-        }
         #endregion
     }
 }

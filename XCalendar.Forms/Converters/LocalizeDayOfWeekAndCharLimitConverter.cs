@@ -14,7 +14,8 @@ namespace XCalendar.Forms.Converters
                 return string.Empty;
             }
 
-            return dayOfWeek.Localize(culture)
+            return culture.DateTimeFormat
+                .GetDayName(dayOfWeek)
                 .TruncateStringToMaxLength(parameter)
                 .ToTitleCase(culture);
         }
