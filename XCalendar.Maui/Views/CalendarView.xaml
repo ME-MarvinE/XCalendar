@@ -15,8 +15,8 @@
         <VerticalStackLayout.Resources>
             <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
-            <Converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter"/>
-            <Converters:StringCharLimitConverter x:Key="StringCharLimitConverter"/>
+            <Converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
+            <Converters:LocalizeDayOfWeekAndCharLimitConverter x:Key="LocalizeDayOfWeekAndCharLimitConverter" />
         </VerticalStackLayout.Resources>
 
         <xc:NavigationView
@@ -42,7 +42,7 @@
                                     <Label
                                         FontSize="15"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding ., Converter={StaticResource StringCharLimitConverter}, ConverterParameter=3}"
+                                        Text="{Binding ., Converter={StaticResource LocalizeDayOfWeekAndCharLimitConverter}, ConverterParameter=3}"
                                         TextColor="Black"
                                         VerticalTextAlignment="Center"/>
                                 </DataTemplate>
