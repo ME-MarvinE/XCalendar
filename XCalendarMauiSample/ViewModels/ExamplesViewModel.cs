@@ -21,7 +21,7 @@ namespace XCalendarMauiSample.ViewModels
                 {
                     new Tag() { Title = "Event" },
                     new Tag() { Title = "Events" },
-                    new Tag() { Title = "Appointmnts" },
+                    new Tag() { Title = "Appointments" },
                     new Tag() { Title = "Special" },
                     new Tag() { Title = "Indicator" }
                 }
@@ -30,19 +30,19 @@ namespace XCalendarMauiSample.ViewModels
             {
                 Page = new CustomDatePickerDialogExamplePage(),
                 Title = "Custom DatePicker Dialog",
-                Description = "A custom DatePicker made using a {nameof(CalendarView)}."
+                Description = $"A custom DatePicker made using a {nameof(CalendarView)}."
             },
             new Example()
             {
                 Page = new SelectionExamplePage(),
                 Title = "Date Selection",
-                Description = "Showcase of {nameof(CalendarView)}'s selection capabilities."
+                Description = $"Showcase of {nameof(CalendarView)}'s selection capabilities."
             },
             new Example()
             {
                 Page = new UsingDayViewExamplePage(),
-                Title = "Using {nameof(DayView)}",
-                Description = "How to use the {nameof(DayView)} control.",
+                Title = $"Using {nameof(DayView)}",
+                Description = $"How to use the {nameof(DayView)} control.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "DayTemplate" },
@@ -54,7 +54,7 @@ namespace XCalendarMauiSample.ViewModels
             {
                 Page = new CustomisingADayExamplePage(),
                 Title = "Customising A Day",
-                Description = "How to customise the appearance of a day in {nameof(CalendarView)}.",
+                Description = $"How to customise the appearance of a day in {nameof(CalendarView)}.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "DayTemplate" },

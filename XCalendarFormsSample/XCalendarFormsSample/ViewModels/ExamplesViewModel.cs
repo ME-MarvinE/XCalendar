@@ -25,7 +25,7 @@ namespace XCalendarFormsSample.ViewModels
                 {
                     new Tag() { Title = "Event" },
                     new Tag() { Title = "Events" },
-                    new Tag() { Title = "Appointmnts" },
+                    new Tag() { Title = "Appointments" },
                     new Tag() { Title = "Special" },
                     new Tag() { Title = "Indicator" }
                 }
@@ -58,7 +58,7 @@ namespace XCalendarFormsSample.ViewModels
             {
                 Page = new CustomisingADayExamplePage(),
                 Title = "Customising A Day",
-                Description = "How to customise the appearance of a day in {nameof(CalendarView)}.",
+                Description = $"How to customise the appearance of a day in {nameof(CalendarView)}.",
                 Tags = new List<Tag>()
                 {
                     new Tag() { Title = "DayTemplate" },
