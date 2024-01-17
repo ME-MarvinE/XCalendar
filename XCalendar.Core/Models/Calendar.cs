@@ -841,11 +841,23 @@ namespace XCalendar.Core.Models
         }
         private void OnNavigationLowerBoundChanged(DateTime oldValue, DateTime newValue)
         {
-            NavigatedDate = CoerceNavigatedDate(NavigatedDate);
+            NavigatedDate = CoerceNavigatedDate(newValue);
+
+            //Days are already updated if the coerced value is different from the new value.
+            if (NavigatedDate == newValue)
+            {
+                UpdateDays(newValue);
+            }
         }
         private void OnNavigationUpperBoundChanged(DateTime oldValue, DateTime newValue)
         {
-            NavigatedDate = CoerceNavigatedDate(NavigatedDate);
+            NavigatedDate = CoerceNavigatedDate(newValue);
+
+            //Days are already updated if the coerced value is different from the new value.
+            if (NavigatedDate == newValue)
+            {
+                UpdateDays(newValue);
+            }
         }
         private void OnSelectedDatesChanged(ObservableRangeCollection<DateTime> oldValue, ObservableRangeCollection<DateTime> newValue)
         {
