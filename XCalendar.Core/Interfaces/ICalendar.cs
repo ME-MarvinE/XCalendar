@@ -10,7 +10,7 @@ namespace XCalendar.Core.Interfaces
     public interface ICalendar<T> : INotifyPropertyChanged where T : ICalendarDay, new()
     {
         #region Properties
-        ObservableCollection<T> Days { get; }
+        ObservableRangeCollection<T> Days { get; }
         DateTime NavigatedDate { get; set; }
         DateTime TodayDate { get; set; }
         DateTime NavigationLowerBound { get; set; }
