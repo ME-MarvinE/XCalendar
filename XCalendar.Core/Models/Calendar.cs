@@ -27,7 +27,7 @@ namespace XCalendar.Core.Models
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
-        private ObservableCollection<T> _days = new ObservableCollection<T>();
+        private ObservableRangeCollection<T> _days = new ObservableRangeCollection<T>();
         private readonly List<DateTime> _previousSelectedDates = new List<DateTime>();
         private DateTime _navigatedDate = DateTime.Today;
         private DateTime _todayDate = DateTime.Today;
@@ -52,7 +52,7 @@ namespace XCalendar.Core.Models
         /// <summary>
         /// The list of displayed days.
         /// </summary>
-        public ObservableCollection<T> Days
+        public ObservableRangeCollection<T> Days
         {
             get
             {
