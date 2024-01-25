@@ -841,7 +841,7 @@ namespace XCalendar.Core.Models
         }
         private void OnNavigationLowerBoundChanged(DateTime oldValue, DateTime newValue)
         {
-            NavigatedDate = CoerceNavigatedDate(newValue);
+            NavigatedDate = CoerceNavigatedDate(NavigatedDate);
 
             //Days are already updated if the coerced value is different from the new value.
             if (NavigatedDate == newValue)
@@ -851,7 +851,7 @@ namespace XCalendar.Core.Models
         }
         private void OnNavigationUpperBoundChanged(DateTime oldValue, DateTime newValue)
         {
-            NavigatedDate = CoerceNavigatedDate(newValue);
+            NavigatedDate = CoerceNavigatedDate(NavigatedDate);
 
             //Days are already updated if the coerced value is different from the new value.
             if (NavigatedDate == newValue)
