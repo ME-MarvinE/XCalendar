@@ -18,12 +18,12 @@
         </StackLayout.Resources>
 
         <xc:NavigationView
+            ControlTemplate="{Binding NavigationViewTemplate, Source={x:Reference CalendarView_Unique}}"
+            DateTime="{Binding NavigatedDate, Source={x:Reference CalendarView_Unique}}"
             LeftArrowCommand="{Binding LeftArrowCommand, Source={x:Reference CalendarView_Unique}}"
             LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
-            ControlTemplate="{Binding NavigationViewTemplate, Source={x:Reference CalendarView_Unique}}"
             RightArrowCommand="{Binding RightArrowCommand, Source={x:Reference CalendarView_Unique}}"
-            RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"
-            Text="{Binding NavigatedDate, StringFormat='{0:MMMM yyy}', Source={x:Reference CalendarView_Unique}}"/>
+            RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"/>
 
         <!--#region DayNames-->
         <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference CalendarView_Unique}}">

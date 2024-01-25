@@ -8,6 +8,11 @@ namespace XCalendar.Maui.Views
         #region Properties
 
         #region Bindable Properties
+        public DateTime? DateTime
+        {
+            get { return (DateTime?)GetValue(DateTimeProperty); }
+            set { SetValue(DateTimeProperty, value); }
+        }
         public TextTransform TextTransform
         {
             get { return (TextTransform)GetValue(TextTransformProperty); }
@@ -121,6 +126,7 @@ namespace XCalendar.Maui.Views
         }
 
         #region Bindable Properties Initialisers
+        public static readonly BindableProperty DateTimeProperty = BindableProperty.Create(nameof(DateTime), typeof(DateTime?), typeof(DayView), System.DateTime.Today);
         public static readonly BindableProperty CharacterSpacingProperty = BindableProperty.Create(nameof(CharacterSpacing), typeof(double), typeof(NavigationView), Label.CharacterSpacingProperty.DefaultValue);
         public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(NavigationView), FontAttributes.Bold);
         public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(NavigationView), Label.FontFamilyProperty.DefaultValue);
@@ -152,6 +158,8 @@ namespace XCalendar.Maui.Views
         #region Constructors
         public NavigationView()
         {
+            SetBinding(TextProperty, new Binding(path: "DateTime", stringFormat: "{0:MMMM yyy}", source: this));
+
             InitializeComponent();
         }
         #endregion

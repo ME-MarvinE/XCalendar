@@ -968,16 +968,16 @@
             <xc:CalendarView
                 x:Name="FancyCalendarView"
                 BackgroundColor="{Binding CalendarBackgroundColor}"
-                LeftArrowCommand="{Binding NavigateCalendarCommand}"
-                LeftArrowCommandParameter="{Binding BackwardsNavigationAmount}"
                 DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                 Days="{Binding Calendar.Days}"
                 DaysOfWeek="{Binding Calendar.DayNamesOrder}"
                 DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
+                IsVisible="{Binding CalendarIsVisible}"
+                LeftArrowCommand="{Binding NavigateCalendarCommand}"
+                LeftArrowCommandParameter="{Binding BackwardsNavigationAmount}"
+                NavigatedDate="{Binding Calendar.NavigatedDate}"
                 RightArrowCommand="{Binding NavigateCalendarCommand}"
                 RightArrowCommandParameter="{Binding ForwardsNavigationAmount}"
-                IsVisible="{Binding CalendarIsVisible}"
-                NavigatedDate="{Binding Calendar.NavigatedDate}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 
                 <xc:CalendarView.NavigationViewTemplate>
@@ -986,14 +986,14 @@
                             ArrowBackgroundColor="{Binding NavigationArrowBackgroundColor}"
                             ArrowColor="{Binding NavigationArrowColor}"
                             BackgroundColor="{Binding NavigationBackgroundColor}"
+                            BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}"
+                            DateTime="{Binding DateTime, Source={RelativeSource TemplatedParent}}"
+                            HeightRequest="{Binding NavigationHeightRequest}"
                             LeftArrowCommand="{Binding LeftArrowCommand, Source={x:RelativeSource TemplatedParent}}"
                             LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
-                            BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}"
                             RightArrowCommand="{Binding RightArrowCommand, Source={x:RelativeSource TemplatedParent}}"
                             RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
-                            HeightRequest="{Binding NavigationHeightRequest}"
                             Style="{StaticResource DefaultNavigationViewStyle}"
-                            Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
                             TextColor="{Binding NavigationTextColor}"/>
                     </ControlTemplate>
                 </xc:CalendarView.NavigationViewTemplate>
