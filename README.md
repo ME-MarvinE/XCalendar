@@ -1,3 +1,7 @@
+
+# Attention
+Due to an accident, my computer no longer works. I believe my wellbeing is better off without it anyway so I'm not in any rush to get it working and won't be able to develop XCalendar for the time being.
+
 # XCalendar
 A plugin for .NET providing a Calendar API and DateTime extensions.
 
