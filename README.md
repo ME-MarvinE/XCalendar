@@ -3,6 +3,9 @@ A plugin for .NET providing a Calendar API and DateTime extensions.
 
 UI controls are available for Xamarin Forms and .NET MAUI.
 
+### Attention
+Due to an accident, my computer no longer works. I believe my wellbeing is better off without it so I'm not in any rush to get it working and thus won't be able to develop XCalendar for the foreseeable future.
+
 * **[Getting Started](https://github.com/ME-MarvinE/XCalendar/wiki/Getting-Started)**
 * **[Sample App](https://github.com/ME-MarvinE/XCalendar/wiki/Sample-App)**
 * **[Wiki](https://github.com/ME-MarvinE/XCalendar/wiki)**
