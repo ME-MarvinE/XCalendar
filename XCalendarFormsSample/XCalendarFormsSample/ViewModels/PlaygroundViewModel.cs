@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -46,6 +47,7 @@ namespace XCalendarFormsSample.ViewModels
         public bool DayAutoSetStyleBasedOnDayState { get; set; } = true;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
+        public string TargetCultureCode { get; set; } = CultureInfo.CurrentCulture?.Name ?? CultureInfo.DefaultThreadCurrentCulture?.Name ?? CultureInfo.CurrentUICulture?.Name ?? CultureInfo.DefaultThreadCurrentUICulture?.Name ?? "en";
         public Color CalendarBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarBackgroundColor"];
         public Color NavigationBackgroundColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryColor"];
         public Color NavigationTextColor { get; set; } = (Color)Application.Current.Resources["CalendarPrimaryTextColor"];
@@ -89,6 +91,7 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand NavigateCalendarCommand { get; set; }
         public ICommand ChangeDateSelectionCommand { get; set; }
         public ICommand ChangeCalendarVisibilityCommand { get; set; }
+        public ICommand UpdateCurrentCultureCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -119,6 +122,8 @@ namespace XCalendarFormsSample.ViewModels
             NavigateCalendarCommand = new Command<int>(NavigateCalendar);
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
+            UpdateCurrentCultureCommand = new Command(UpdateCurrentCulture);
+            UpdateCurrentCulture();
         }
         #endregion
 
@@ -186,6 +191,29 @@ namespace XCalendarFormsSample.ViewModels
         public void ChangeCalendarVisibility(bool isVisible)
         {
             CalendarIsVisible = isVisible;
+        }
+        public async void UpdateCurrentCulture()
+        {
+            try
+            {
+                //Set DefaultThreadCurrentCulture because CurrentCulture gets automatically reset when changed.
+                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(TargetCultureCode);
+                CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(TargetCultureCode);
+
+                //This causes the binding converters (which use the current culture) to update.
+                //Day Names
+                var oldDayNamesOlder = Calendar.DayNamesOrder.ToList();
+                Calendar.DayNamesOrder.ReplaceRange(new List<DayOfWeek>() { DayOfWeek.Monday });
+                Calendar.DayNamesOrder.ReplaceRange(oldDayNamesOlder);
+
+                //NavigationView Title
+                NavigateCalendar(1);
+                NavigateCalendar(-1);
+            }
+            catch
+            {
+                await Shell.Current.DisplayAlert("Invalid Culture Code", "The specified culture code was invalid.", "OK");
+            }
         }
         public async void ShowCustomDayNamesOrderDialog()
         {
@@ -291,6 +319,7 @@ namespace XCalendarFormsSample.ViewModels
         {
             DayInvalidTextColor = await PopupHelper.ShowColorDialogAsync(DayInvalidTextColor);
         }
+
         #endregion
     }
 }

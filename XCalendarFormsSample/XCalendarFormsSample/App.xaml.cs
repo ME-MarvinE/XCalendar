@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Globalization;
+using Xamarin.Forms;
 using XCalendarFormsSample.Views;
 
 namespace XCalendarFormsSample

@@ -471,6 +471,36 @@
                     </Border>
                 </Grid>
 
+                <Grid ColumnDefinitions="*, *">
+                    <Label
+                        Grid.Column="0"
+                        FontSize="{StaticResource SmallFontSize}"
+                        HorizontalTextAlignment="Center"
+                        Text="Culture*"
+                        VerticalTextAlignment="Center"/>
+
+                    <Grid
+                        Grid.Column="2"
+                        ColumnDefinitions="auto, auto"
+                        ColumnSpacing="5"
+                        HorizontalOptions="Center">
+                        <Editor
+                            Grid.Column="0"
+                            Keyboard="Text"
+                            Text="{Binding TargetCultureCode}"
+                            VerticalOptions="Center"
+                            WidthRequest="75"/>
+
+                        <Button
+                            Grid.Column="1"
+                            BackgroundColor="{StaticResource PrimaryColor}"
+                            Command="{Binding UpdateCurrentCultureCommand}"
+                            Text="Update"
+                            TextColor="{StaticResource PrimaryTextColor}"
+                            VerticalOptions="Center"/>
+                    </Grid>
+                </Grid>
+
                 <Label
                     BackgroundColor="{StaticResource PrimaryColor}"
                     HorizontalTextAlignment="Center"
