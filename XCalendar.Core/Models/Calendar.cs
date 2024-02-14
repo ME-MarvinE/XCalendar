@@ -691,7 +691,7 @@ namespace XCalendar.Core.Models
         /// Updates the dates displayed on the calendar.
         /// </summary>
         /// <param name="navigationDate">The <see cref="DateTime"/> who's month will be used to update the dates.</param>
-        public void UpdateDays(DateTime navigationDate)
+        public virtual void UpdateDays(DateTime navigationDate)
         {
             OnDaysUpdating();
 
