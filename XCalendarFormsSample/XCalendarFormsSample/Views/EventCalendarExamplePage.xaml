@@ -8,6 +8,8 @@
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
+    xmlns:xcModels="clr-namespace:XCalendar.Forms.Models;assembly=XCalendar.Forms"
+    xmlns:xcInterfaces="clr-namespace:XCalendar.Forms.Interfaces;assembly=XCalendar.Forms"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     Title="Event Calendar"
@@ -42,11 +44,11 @@
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
-                LeftArrowCommand="{Binding NavigateCalendarCommand}"
                 Days="{Binding EventCalendar.Days}"
                 DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
-                RightArrowCommand="{Binding NavigateCalendarCommand}"
+                LeftArrowCommand="{Binding NavigateCalendarCommand}"
                 NavigatedDate="{Binding EventCalendar.NavigatedDate}"
+                RightArrowCommand="{Binding NavigateCalendarCommand}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 
                 <xc:CalendarView.RightArrowCommandParameter>
@@ -62,11 +64,11 @@
                         <xc:NavigationView
                             ArrowColor="{StaticResource ContentTextColor}"
                             BackgroundColor="Transparent"
+                            HeightRequest="40"
                             LeftArrowCommand="{Binding LeftArrowCommand, Source={RelativeSource TemplatedParent}}"
                             LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             RightArrowCommand="{Binding RightArrowCommand, Source={RelativeSource TemplatedParent}}"
                             RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
-                            HeightRequest="40"
                             Style="{StaticResource DefaultNavigationViewStyle}"
                             Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
                             TextColor="{StaticResource ContentTextColor}"/>
@@ -74,7 +76,7 @@
                 </xc:CalendarView.NavigationViewTemplate>
 
                 <xc:CalendarView.DayTemplate>
-                    <DataTemplate x:DataType="{x:Type Models:EventDay}">
+                    <DataTemplate x:DataType="{x:Type xcInterfaces:IComplexCalendarDay}">
                         <!--  ContentView so that the margin is respected by the DaysView  -->
                         <ContentView>
                             <Frame
@@ -84,6 +86,7 @@
                                 HasShadow="False">
                                 <xc:DayView
                                     DateTime="{Binding DateTime}"
+                                    Events="{Binding Events}"
                                     HeightRequest="42"
                                     InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                                     IsCurrentMonth="{Binding IsCurrentMonth}"
@@ -112,58 +115,6 @@
                                             <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
                                         </Style>
                                     </xc:DayView.SelectedStyle>
-
-                                    <xc:DayView.ControlTemplate>
-                                        <ControlTemplate>
-                                            <!--  Using a Grid to stack views on the z axis  -->
-                                            <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
-                                            <Grid BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}" RowSpacing="2">
-
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="1.5*"/>
-                                                    <RowDefinition Height="*"/>
-                                                </Grid.RowDefinitions>
-
-                                                <!--  ContentPresenter displays the default content for the control  -->
-                                                <ContentPresenter
-                                                    Grid.Row="0"
-                                                    Grid.RowSpan="2"
-                                                    VerticalOptions="Center"/>
-
-                                                <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
-                                                <StackLayout
-                                                    Grid.Row="1"
-                                                    BindableLayout.ItemsSource="{Binding Events}"
-                                                    HorizontalOptions="Center"
-                                                    Orientation="Horizontal"
-                                                    Spacing="2.5">
-
-                                                    <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
-                                                    <StackLayout.IsVisible>
-                                                        <MultiBinding Converter="{StaticResource AllTrueConverter}">
-                                                            <Binding Path="IsCurrentMonth"/>
-                                                            <Binding Converter="{StaticResource InvertedBoolConverter}" Path="IsInvalid"/>
-                                                        </MultiBinding>
-                                                    </StackLayout.IsVisible>
-
-                                                    <BindableLayout.ItemTemplate>
-                                                        <DataTemplate x:DataType="{x:Type Models:Event}">
-                                                            <BoxView
-                                                                CornerRadius="100"
-                                                                HeightRequest="7"
-                                                                HorizontalOptions="CenterAndExpand"
-                                                                VerticalOptions="Center"
-                                                                WidthRequest="7"
-                                                                Color="{Binding Color}"/>
-                                                        </DataTemplate>
-                                                    </BindableLayout.ItemTemplate>
-
-                                                </StackLayout>
-
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </xc:DayView.ControlTemplate>
-
                                 </xc:DayView>
                             </Frame>
                         </ContentView>
@@ -194,7 +145,7 @@
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type Models:Event}">
+                <DataTemplate x:DataType="{x:Type xcInterfaces:IEvent}">
                     <ContentView>
                         <Frame
                             Margin="5"

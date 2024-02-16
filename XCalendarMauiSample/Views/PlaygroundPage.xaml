@@ -3,6 +3,8 @@
     x:Class="XCalendarMauiSample.Views.PlaygroundPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Interfaces="clr-namespace:XCalendar.Maui.Interfaces;assembly=XCalendar.Maui"
+    xmlns:Models="clr-namespace:XCalendar.Maui.Models;assembly=XCalendar.Maui"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -1029,7 +1031,7 @@
                 </xc:CalendarView.NavigationViewTemplate>
 
                 <xc:CalendarView.DayTemplate>
-                    <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                    <DataTemplate x:DataType="{x:Type Interfaces:IComplexCalendarDay}">
                         <Border Margin="2.5" BackgroundColor="Transparent">
 
                             <Border.StrokeShape>
@@ -1039,6 +1041,7 @@
                             <xc:DayView
                                 AutoSetStyleBasedOnDayState="{Binding BindingContext.DayAutoSetStyleBasedOnDayState, Source={x:Reference This}}"
                                 DateTime="{Binding DateTime}"
+                                Events="{Binding Events}"
                                 HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
                                 IsInvalid="{Binding IsInvalid}"

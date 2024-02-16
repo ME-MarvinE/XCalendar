@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
+using XCalendar.Forms.Interfaces;
 using XCalendar.Forms.Styles;
 
 namespace XCalendar.Forms.Views
@@ -112,6 +114,46 @@ namespace XCalendar.Forms.Views
         {
             get { return (bool)GetValue(AutoSetStyleBasedOnDayStateProperty); }
             set { SetValue(AutoSetStyleBasedOnDayStateProperty, value); }
+        }
+        public IEnumerable<IEvent> Events
+        {
+            get { return (IEnumerable<IEvent>)GetValue(EventsProperty); }
+            set { SetValue(EventsProperty, value); }
+        }
+        public ControlTemplate EventsTemplate
+        {
+            get { return (ControlTemplate)GetValue(EventsTemplateProperty); }
+            set { SetValue(EventsTemplateProperty, value); }
+        }
+        public DataTemplate EventTemplate
+        {
+            get { return (DataTemplate)GetValue(EventTemplateProperty); }
+            set { SetValue(EventTemplateProperty, value); }
+        }
+        public double EventCornerRadius
+        {
+            get { return (double)GetValue(EventCornerRadiusProperty); }
+            set { SetValue(EventCornerRadiusProperty, value); }
+        }
+        public double EventWidthRequest
+        {
+            get { return (double)GetValue(EventWidthRequestProperty); }
+            set { SetValue(EventWidthRequestProperty, value); }
+        }
+        public double EventHeightRequest
+        {
+            get { return (double)GetValue(EventHeightRequestProperty); }
+            set { SetValue(EventHeightRequestProperty, value); }
+        }
+        public double EventsSpacing
+        {
+            get { return (double)GetValue(EventsSpacingProperty); }
+            set { SetValue(EventsSpacingProperty, value); }
+        }
+        public StackOrientation EventsOrientation
+        {
+            get { return (StackOrientation)GetValue(EventsOrientationProperty); }
+            set { SetValue(EventsOrientationProperty, value); }
         }
         public TextTransform TextTransform
         {
@@ -227,6 +269,15 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(DayView), Label.TextColorProperty.DefaultValue);
         public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(DayView), TextAlignment.Center);
         public static readonly BindableProperty AutoSetStyleBasedOnDayStateProperty = BindableProperty.Create(nameof(AutoSetStyleBasedOnDayState), typeof(bool), typeof(DayView), true, propertyChanged: AutoSetStyleBasedOnDayStatePropertyChanged);
+        public static readonly BindableProperty EventsProperty = BindableProperty.Create(nameof(Events), typeof(IEnumerable<IEvent>), typeof(DayView));
+        public static readonly BindableProperty EventsTemplateProperty = BindableProperty.Create(nameof(EventsTemplate), typeof(ControlTemplate), typeof(DayView));
+        public static readonly BindableProperty EventTemplateProperty = BindableProperty.Create(nameof(EventTemplate), typeof(DataTemplate), typeof(DaysView));
+        public static readonly BindableProperty EventCornerRadiusProperty = BindableProperty.Create(nameof(EventCornerRadius), typeof(double), typeof(DayView), 100d);
+        public static readonly BindableProperty EventWidthRequestProperty = BindableProperty.Create(nameof(EventWidthRequest), typeof(double), typeof(DayView), 8d);
+        public static readonly BindableProperty EventHeightRequestProperty = BindableProperty.Create(nameof(EventHeightRequest), typeof(double), typeof(DayView), 8d);
+        public static readonly BindableProperty EventsSpacingProperty = BindableProperty.Create(nameof(EventsSpacing), typeof(double), typeof(DayView), 2.5d);
+        public static readonly BindableProperty EventsOrientationProperty = BindableProperty.Create(nameof(EventsOrientation), typeof(StackOrientation), typeof(DayView), StackOrientation.Horizontal);
+
         #endregion
 
         #endregion
