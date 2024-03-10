@@ -52,6 +52,9 @@ namespace XCalendarFormsSample.ViewModels
         public double DayHeightRequest { get; set; } = 45;
         public double DayWidthRequest { get; set; } = -1;
         public bool DayAutoSetStyleBasedOnDayState { get; set; } = true;
+        public double DayEventCornerRadius { get; set; } = 100;
+        public double DayEventsSpacing { get; set; } = 2.5;
+        public StackOrientation DayEventsOrientation { get; set; } = StackOrientation.Horizontal;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
         public string TargetCultureCode { get; set; } = CultureInfo.CurrentCulture?.Name ?? CultureInfo.DefaultThreadCurrentCulture?.Name ?? CultureInfo.CurrentUICulture?.Name ?? CultureInfo.DefaultThreadCurrentUICulture?.Name ?? "en";
@@ -99,6 +102,8 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ChangeDateSelectionCommand { get; set; }
         public ICommand ChangeCalendarVisibilityCommand { get; set; }
         public ICommand UpdateCurrentCultureCommand { get; set; }
+        public ICommand ShowDayEventsOrientationDialogCommand { get; set; }
+
         #endregion
 
         #region Constructors
@@ -130,6 +135,7 @@ namespace XCalendarFormsSample.ViewModels
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
             UpdateCurrentCultureCommand = new Command(UpdateCurrentCulture);
+            ShowDayEventsOrientationDialogCommand = new Command(ShowDayEventsOrientationDialog);
 
             List<ColoredEvent> events = new List<ColoredEvent>()
             {
@@ -373,6 +379,10 @@ namespace XCalendarFormsSample.ViewModels
         public async void ShowDayInvalidTextColorDialog()
         {
             DayInvalidTextColor = await PopupHelper.ShowColorDialogAsync(DayInvalidTextColor);
+        }
+        public async void ShowDayEventsOrientationDialog()
+        {
+            DayEventsOrientation = await PopupHelper.ShowSelectItemDialogAsync(DayEventsOrientation, PopupHelper.AllStackOrientations);
         }
         #endregion
     }
