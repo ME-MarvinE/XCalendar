@@ -80,11 +80,11 @@ namespace XCalendarMauiSample.ViewModels
                 @event.StartDate = DateTime.Today.AddDays(_random.Next(-20, 21)).AddDays(_random.NextDouble());
                 @event.EndDate = @event.StartDate.AddDays(_random.Next(1, 4)).AddHours(_random.Next(17));
 
-                if (_random.NextDouble() < 0.05)
+                if (_random.NextDouble() < 0.025)
                 {
                     @event.EndDate = @event.EndDate.Value.AddYears(_random.Next(1, 4));
                 }
-                else if (_random.NextDouble() < 0.05)
+                else if (_random.NextDouble() < 0.025)
                 {
                     @event.EndDate = null;
                 }
