@@ -6,6 +6,7 @@ using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
 using XCalendar.Maui.Models;
 using XCalendarMauiSample.Helpers;
+using XCalendarMauiSample.Models;
 
 namespace XCalendarMauiSample.ViewModels
 {
@@ -16,7 +17,7 @@ namespace XCalendarMauiSample.ViewModels
         #endregion
 
         #region Properties
-        public ComplexCalendar Calendar { get; set; } = new ComplexCalendar()
+        public Calendar<ColoredEventsDay, ColoredEvent> Calendar { get; set; } = new Calendar<ColoredEventsDay, ColoredEvent>()
         {
             NavigatedDate = DateTime.Today,
             NavigationLowerBound = DateTime.Today.AddYears(-2),
@@ -126,42 +127,42 @@ namespace XCalendarMauiSample.ViewModels
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
             UpdateCurrentCultureCommand = new Command(UpdateCurrentCulture);
 
-            List<Event> events = new List<Event>()
+            List<ColoredEvent> events = new List<ColoredEvent>()
             {
-                new Event() { Title = "Bowling", Description = "Bowling with friends" },
-                new Event() { Title = "Swimming", Description = "Swimming with friends" },
-                new Event() { Title = "Kayaking", Description = "Kayaking with friends" },
-                new Event() { Title = "Shopping", Description = "Shopping with friends" },
-                new Event() { Title = "Hiking", Description = "Hiking with friends" },
-                new Event() { Title = "Kareoke", Description = "Kareoke with friends" },
-                new Event() { Title = "Dining", Description = "Dining with friends" },
-                new Event() { Title = "Running", Description = "Running with friends" },
-                new Event() { Title = "Traveling", Description = "Traveling with friends" },
-                new Event() { Title = "Clubbing", Description = "Clubbing with friends" },
-                new Event() { Title = "Learning", Description = "Learning with friends" },
-                new Event() { Title = "Driving", Description = "Driving with friends" },
-                new Event() { Title = "Skydiving", Description = "Skydiving with friends" },
-                new Event() { Title = "Bungee Jumping", Description = "Bungee Jumping with friends" },
-                new Event() { Title = "Trampolining", Description = "Trampolining with friends" },
-                new Event() { Title = "Adventuring", Description = "Adventuring with friends" },
-                new Event() { Title = "Roller Skating", Description = "Rollerskating with friends" },
-                new Event() { Title = "Ice Skating", Description = "Ice Skating with friends" },
-                new Event() { Title = "Skateboarding", Description = "Skateboarding with friends" },
-                new Event() { Title = "Crafting", Description = "Crafting with friends" },
-                new Event() { Title = "Drinking", Description = "Drinking with friends" },
-                new Event() { Title = "Playing Games", Description = "Playing Games with friends" },
-                new Event() { Title = "Canoeing", Description = "Canoeing with friends" },
-                new Event() { Title = "Climbing", Description = "Climbing with friends" },
-                new Event() { Title = "Partying", Description = "Partying with friends" },
-                new Event() { Title = "Relaxing", Description = "Relaxing with friends" },
-                new Event() { Title = "Exercising", Description = "Exercising with friends" },
-                new Event() { Title = "Baking", Description = "Baking with friends" },
-                new Event() { Title = "Skiing", Description = "Skiing with friends" },
-                new Event() { Title = "Snowboarding", Description = "Snowboarding with friends" },
-                new Event() { Title = "Surfing", Description = "Surfing with friends" },
-                new Event() { Title = "Paragliding", Description = "Paragliding with friends" },
-                new Event() { Title = "Sailing", Description = "Sailing with friends" },
-                new Event() { Title = "Cooking", Description = "Cooking with friends" }
+                new ColoredEvent() { Title = "Bowling", Description = "Bowling with friends" },
+                new ColoredEvent() { Title = "Swimming", Description = "Swimming with friends" },
+                new ColoredEvent() { Title = "Kayaking", Description = "Kayaking with friends" },
+                new ColoredEvent() { Title = "Shopping", Description = "Shopping with friends" },
+                new ColoredEvent() { Title = "Hiking", Description = "Hiking with friends" },
+                new ColoredEvent() { Title = "Kareoke", Description = "Kareoke with friends" },
+                new ColoredEvent() { Title = "Dining", Description = "Dining with friends" },
+                new ColoredEvent() { Title = "Running", Description = "Running with friends" },
+                new ColoredEvent() { Title = "Traveling", Description = "Traveling with friends" },
+                new ColoredEvent() { Title = "Clubbing", Description = "Clubbing with friends" },
+                new ColoredEvent() { Title = "Learning", Description = "Learning with friends" },
+                new ColoredEvent() { Title = "Driving", Description = "Driving with friends" },
+                new ColoredEvent() { Title = "Skydiving", Description = "Skydiving with friends" },
+                new ColoredEvent() { Title = "Bungee Jumping", Description = "Bungee Jumping with friends" },
+                new ColoredEvent() { Title = "Trampolining", Description = "Trampolining with friends" },
+                new ColoredEvent() { Title = "Adventuring", Description = "Adventuring with friends" },
+                new ColoredEvent() { Title = "Roller Skating", Description = "Rollerskating with friends" },
+                new ColoredEvent() { Title = "Ice Skating", Description = "Ice Skating with friends" },
+                new ColoredEvent() { Title = "Skateboarding", Description = "Skateboarding with friends" },
+                new ColoredEvent() { Title = "Crafting", Description = "Crafting with friends" },
+                new ColoredEvent() { Title = "Drinking", Description = "Drinking with friends" },
+                new ColoredEvent() { Title = "Playing Games", Description = "Playing Games with friends" },
+                new ColoredEvent() { Title = "Canoeing", Description = "Canoeing with friends" },
+                new ColoredEvent() { Title = "Climbing", Description = "Climbing with friends" },
+                new ColoredEvent() { Title = "Partying", Description = "Partying with friends" },
+                new ColoredEvent() { Title = "Relaxing", Description = "Relaxing with friends" },
+                new ColoredEvent() { Title = "Exercising", Description = "Exercising with friends" },
+                new ColoredEvent() { Title = "Baking", Description = "Baking with friends" },
+                new ColoredEvent() { Title = "Skiing", Description = "Skiing with friends" },
+                new ColoredEvent() { Title = "Snowboarding", Description = "Snowboarding with friends" },
+                new ColoredEvent() { Title = "Surfing", Description = "Surfing with friends" },
+                new ColoredEvent() { Title = "Paragliding", Description = "Paragliding with friends" },
+                new ColoredEvent() { Title = "Sailing", Description = "Sailing with friends" },
+                new ColoredEvent() { Title = "Cooking", Description = "Cooking with friends" }
             };
 
             foreach (var @event in events)

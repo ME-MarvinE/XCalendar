@@ -4,7 +4,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
-    xmlns:Interfaces="clr-namespace:XCalendar.Forms.Interfaces"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
     x:Name="DayView_Unique"
@@ -55,7 +54,7 @@
                     <Style TargetType="{x:Type StackLayout}">
                         <Setter Property="BindableLayout.ItemTemplate">
                             <Setter.Value>
-                                <DataTemplate x:DataType="{x:Type Interfaces:IEvent}">
+                                <DataTemplate x:DataType="{x:Null}">
                                     <Rectangle
                                         Fill="{Binding Color}"
                                         HeightRequest="{Binding EventHeightRequest, Source={x:Reference DayView_Unique}}"

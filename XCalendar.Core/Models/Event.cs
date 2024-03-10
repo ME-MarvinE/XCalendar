@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using XCalendar.Maui.Interfaces;
+using XCalendar.Core.Interfaces;
 
-namespace XCalendar.Maui.Models
+namespace XCalendar.Core.Models
 {
     public class Event : IEvent, INotifyPropertyChanged
     {
@@ -10,7 +11,6 @@ namespace XCalendar.Maui.Models
         private string _title;
         private string _description;
         private DateTime _dateTime = DateTime.Today;
-        private Color _color;
         #endregion
 
         #region Properties
@@ -29,7 +29,8 @@ namespace XCalendar.Maui.Models
                 }
             }
         }
-        public string Description {
+        public string Description
+        {
             get
             {
                 return _description;
@@ -58,22 +59,6 @@ namespace XCalendar.Maui.Models
                 }
             }
         }
-        public Color Color
-        {
-            get
-            {
-                return _color;
-            }
-            set
-            {
-                if (_color != value)
-                {
-                    _color = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         #endregion
 
         #region Events

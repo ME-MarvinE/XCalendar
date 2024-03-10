@@ -3,7 +3,6 @@
     x:Class="XCalendarFormsSample.Views.PlaygroundPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Interfaces="clr-namespace:XCalendar.Forms.Interfaces;assembly=XCalendar.Forms"
     xmlns:Models="clr-namespace:XCalendar.Forms.Models;assembly=XCalendar.Forms"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
@@ -990,7 +989,7 @@
                     </xc:CalendarView.NavigationViewTemplate>
 
                     <xc:CalendarView.DayTemplate>
-                        <DataTemplate x:DataType="{x:Type Interfaces:IComplexCalendarDay}">
+                        <DataTemplate x:DataType="{x:Null}">
                             <ContentView>
                                 <Frame
                                     Margin="2.5"

@@ -7,7 +7,6 @@
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
-    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     Title="Animated Swipable Calendar"
@@ -58,7 +57,7 @@
                             </xc:CalendarView.NavigationViewTemplate>
 
                             <xc:CalendarView.DayTemplate>
-                                <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                                <DataTemplate x:DataType="{x:Null}">
                                     <ContentView>
                                         <Frame
                                             Margin="2.5"

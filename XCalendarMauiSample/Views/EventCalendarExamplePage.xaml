@@ -8,7 +8,6 @@
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
     xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
-    xmlns:xcInterfaces="clr-namespace:XCalendar.Maui.Interfaces;assembly=XCalendar.Maui"
     xmlns:xcModels="clr-namespace:XCalendar.Maui.Models;assembly=XCalendar.Maui"
     x:Name="This"
     Title="Event Calendar"
@@ -77,7 +76,7 @@
                 </xc:CalendarView.NavigationViewTemplate>
 
                 <xc:CalendarView.DayTemplate>
-                    <DataTemplate x:DataType="{x:Type xcInterfaces:IComplexCalendarDay}">
+                    <DataTemplate x:DataType="{x:Null}">
                         <Border Margin="2.5" BackgroundColor="Transparent">
 
                             <Border.StrokeShape>
@@ -142,7 +141,7 @@
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type xcInterfaces:IEvent}">
+                <DataTemplate x:DataType="{x:Null}">
                     <Border
                         Margin="5"
                         BackgroundColor="Transparent"

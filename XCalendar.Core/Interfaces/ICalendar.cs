@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using XCalendar.Core.Collections;
 using XCalendar.Core.Enums;
@@ -7,7 +6,19 @@ using XCalendar.Core.Models;
 
 namespace XCalendar.Core.Interfaces
 {
-    public interface ICalendar<T> : INotifyPropertyChanged where T : ICalendarDay, new()
+    /// <summary>
+    /// An interface representing a calendar.
+    /// </summary>
+    /// <typeparam name="T">A model implementing <see cref="ICalendarDay{TEvent}"/> to be used to represent each day in a page.</typeparam>
+    public interface ICalendar<T> : ICalendar<T, IEvent> where T : ICalendarDay<IEvent>, new()
+    {
+    }
+    /// <summary>
+    /// An interface representing a calendar.
+    /// </summary>
+    /// <typeparam name="T">A model implementing <see cref="ICalendarDay{TEvent}"/> to be used to represent each day in a page.</typeparam>
+    /// <typeparam name="TEvent">A model implementing <see cref="IEvent"/> to be used to represent calendar events.</typeparam>
+    public interface ICalendar<T, TEvent> : INotifyPropertyChanged where T : ICalendarDay<TEvent>, new() where TEvent : IEvent
     {
         #region Properties
         ObservableRangeCollection<T> Days { get; }

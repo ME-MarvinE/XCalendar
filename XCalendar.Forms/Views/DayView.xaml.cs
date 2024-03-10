@@ -4,7 +4,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
-using XCalendar.Forms.Interfaces;
+using XCalendar.Core.Interfaces;
 using XCalendar.Forms.Styles;
 
 namespace XCalendar.Forms.Views

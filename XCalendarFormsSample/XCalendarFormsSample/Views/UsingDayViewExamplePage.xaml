@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
-    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     x:Name="This"
     Title="Using DayView"
     x:DataType="{x:Type ViewModels:UsingDayViewExampleViewModel}"
@@ -43,7 +42,7 @@
                 </xc:CalendarView.NavigationViewTemplate>
 
                 <xc:CalendarView.DayTemplate>
-                    <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                    <DataTemplate x:DataType="{x:Null}">
                         <ContentView>
                             <!--  Inside the CalendarView  -->
                             <Frame

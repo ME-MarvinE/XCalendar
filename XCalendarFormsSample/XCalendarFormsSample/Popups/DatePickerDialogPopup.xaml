@@ -7,7 +7,6 @@
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
-    xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     x:DataType="{x:Type Popups:DatePickerDialogPopup}"
@@ -91,7 +90,7 @@
             </xc:CalendarView.DayNameTemplate>
 
             <xc:CalendarView.DayTemplate>
-                <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                <DataTemplate x:DataType="{x:Null}">
                     <Frame
                         Padding="0"
                         Background="Transparent"

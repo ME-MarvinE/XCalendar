@@ -1,8 +1,12 @@
-﻿using XCalendar.Core.Models;
+﻿using XCalendar.Core.Interfaces;
+using XCalendar.Core.Models;
 
 namespace XCalendarFormsSample.Models
 {
-    public class ConnectableDay : CalendarDay
+    public class ConnectableDay : ConnectableDay<Event>
+    {
+    }
+    public class ConnectableDay<TEvent> : CalendarDay<TEvent> where TEvent  : IEvent
     {
         public bool ConnectsToTop { get; set; }
         public bool ConnectsToBottom { get; set; }

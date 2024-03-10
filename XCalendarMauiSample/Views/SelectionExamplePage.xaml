@@ -6,7 +6,6 @@
     xmlns:ViewModels="clr-namespace:XCalendarMauiSample.ViewModels"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
-    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="This"
     Title="Selection"
     x:DataType="{x:Type ViewModels:SelectionExampleViewModel}"
@@ -57,7 +56,7 @@
 
                 <!--  Not Required, used only for styling.  -->
                 <xc:CalendarView.DayTemplate>
-                    <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
+                    <DataTemplate x:DataType="{x:Null}">
                         <Border Margin="2.5" BackgroundColor="Transparent">
 
                             <Border.StrokeShape>

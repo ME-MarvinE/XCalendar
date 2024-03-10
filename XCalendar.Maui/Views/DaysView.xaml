@@ -22,7 +22,7 @@
             <Style TargetType="{x:Type CollectionView}">
                 <Setter Property="ItemTemplate">
                     <Setter.Value>
-                        <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
+                        <DataTemplate x:DataType="{x:Null}">
                             <Border Margin="2.5" BackgroundColor="Transparent">
 
                                 <Border.StrokeShape>

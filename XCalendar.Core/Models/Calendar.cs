@@ -16,14 +16,22 @@ namespace XCalendar.Core.Models
     /// <summary>
     /// A class representing a calendar.
     /// </summary>
-    public class Calendar : Calendar<CalendarDay>
+    public class Calendar : Calendar<CalendarDay, Event>
     {
     }
     /// <summary>
     /// A class representing a calendar.
     /// </summary>
-    /// <typeparam name="T">A model implementing <see cref="ICalendarDay"/> to be used to represent each day in a page.</typeparam>
-    public class Calendar<T> : ICalendar<T> where T : ICalendarDay, new()
+    /// <typeparam name="T">A model implementing <see cref="ICalendarDay{TEvent}"/> to be used to represent each day in a page.</typeparam>
+    public class Calendar<T> : Calendar<T, Event> where T : ICalendarDay<Event>, new()
+    {
+    }
+    /// <summary>
+    /// A class representing a calendar.
+    /// </summary>
+    /// <typeparam name="T">A model implementing <see cref="ICalendarDay{TEvent}"/> to be used to represent each day in a page.</typeparam>
+    /// <typeparam name="TEvent">A model implementing <see cref="IEvent"/> to be used to represent calendar events.</typeparam>
+    public class Calendar<T, TEvent> : ICalendar<T, TEvent> where T : ICalendarDay<TEvent>, new() where TEvent : IEvent
     {
         #region Fields
         protected static readonly ReadOnlyCollection<DayOfWeek> DaysOfWeek = DayOfWeekExtensions.DaysOfWeek;
@@ -46,6 +54,7 @@ namespace XCalendar.Core.Models
         private DateTime? _rangeSelectionStart;
         private DateTime? _rangeSelectionEnd;
         private SelectionType _selectionType = SelectionType.None;
+        private ObservableRangeCollection<TEvent> _events = new ObservableRangeCollection<TEvent>();
         #endregion
 
         #region Properties
@@ -438,6 +447,31 @@ namespace XCalendar.Core.Models
                 }
             }
         }
+        public ObservableRangeCollection<TEvent> Events
+        {
+            get
+            {
+                return _events;
+            }
+            set
+            {
+                if (_events != value)
+                {
+                    if (_events != null)
+                    {
+                        _events.CollectionChanged -= Events_CollectionChanged;
+                    }
+
+                    if (value != null)
+                    {
+                        value.CollectionChanged += Events_CollectionChanged;
+                    }
+
+                    _events = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         #endregion
 
         #region Events
@@ -471,6 +505,8 @@ namespace XCalendar.Core.Models
             {
                 SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
             }
+
+            Events.CollectionChanged += Events_CollectionChanged;
 
             //Not needed because days are updated in previous lines of code.
             UpdateDays(NavigatedDate);
@@ -686,6 +722,7 @@ namespace XCalendar.Core.Models
             day.IsToday = IsDateTimeToday(day.DateTime);
             day.IsSelected = IsDateTimeSelected(day.DateTime);
             day.IsInvalid = IsDateTimeInvalid(day.DateTime);
+            UpdateDayEvents(day);
         }
         /// <summary>
         /// Updates the dates displayed on the calendar.
@@ -763,6 +800,33 @@ namespace XCalendar.Core.Models
             }
 
             OnDaysUpdated();
+        }
+        public virtual void UpdateDayEvents(T day)
+        {
+            //It is known that the only thing that the events of the day depend on is the DateTime of the day, and that all events will have the same date.
+            //So, only update the events if the existing ones' DateTime does not match the day's DateTime.
+            //If the day has no events, there is no way to tell if it's because the day hasn't been updated before or if there are no events with that date, so update it either way.
+            if (day.Events.Count > 0 && day.DateTime.Date == day.Events[0].DateTime.Date)
+            {
+                return;
+            }
+
+            IEnumerable<TEvent> events = Events.Where(x => x.DateTime.Date == day.DateTime.Date);
+
+            //No use in replacing the collection if the source and target are both empty.
+            if (day.Events.Count == 0 && !events.Any())
+            {
+                return;
+            }
+
+            //SequenceEqual could be omitted to improve performance but in the vast majority of cases there won't even be more than 5 events in one day, so impact on performance should be negligible
+            //compared to always changing the collection and updating the binding.
+            if (day.Events.SequenceEqual(events))
+            {
+                return;
+            }
+
+            day.Events.ReplaceRange(events);
         }
         /// <summary>
         /// Navigates the calendar by the specified <see cref="TimeSpan"/> using the navigation rule properties set in the calendar (<see cref="NavigationLowerBound"/>, <see cref="NavigationUpperBound"/> <see cref="NavigationLoopMode"/>).
@@ -967,6 +1031,10 @@ namespace XCalendar.Core.Models
         private int CoerceRows(int value)
         {
             return AutoRows ? GetMonthRows(NavigatedDate, AutoRowsIsConsistent, StartOfWeek) : value;
+        }
+        private void Events_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateDays(NavigatedDate);
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

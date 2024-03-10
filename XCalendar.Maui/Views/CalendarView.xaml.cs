@@ -13,9 +13,9 @@ namespace XCalendar.Maui.Views
             get { return (DateTime)GetValue(NavigatedDateProperty); }
             set { SetValue(NavigatedDateProperty, value); }
         }
-        public IEnumerable<ICalendarDay> Days
+        public IEnumerable<object> Days
         {
-            get { return (IEnumerable<ICalendarDay>)GetValue(DaysProperty); }
+            get { return (IEnumerable<object>)GetValue(DaysProperty); }
             set { SetValue(DaysProperty, value); }
         }
         public IList<DayOfWeek> DaysOfWeek
@@ -109,7 +109,7 @@ namespace XCalendar.Maui.Views
 
         #region Bindable Properties Initialisers
         public static readonly BindableProperty NavigatedDateProperty = BindableProperty.Create(nameof(NavigatedDate), typeof(DateTime), typeof(CalendarView), DateTime.Today);
-        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<ICalendarDay>), typeof(CalendarView), propertyChanged: DaysPropertyChanged);
+        public static readonly BindableProperty DaysProperty = BindableProperty.Create(nameof(DaysProperty), typeof(IEnumerable<object>), typeof(CalendarView), propertyChanged: DaysPropertyChanged);
         public static readonly BindableProperty DaysOfWeekProperty = BindableProperty.Create(nameof(DaysOfWeek), typeof(IList<DayOfWeek>), typeof(CalendarView), propertyChanged: DaysOfWeekPropertyChanged);
         public static readonly BindableProperty RightArrowCommandProperty = BindableProperty.Create(nameof(RightArrowCommand), typeof(object), typeof(CalendarView));
         public static readonly BindableProperty RightArrowCommandParameterProperty = BindableProperty.Create(nameof(RightArrowCommandParameter), typeof(object), typeof(CalendarView));
@@ -143,7 +143,7 @@ namespace XCalendar.Maui.Views
         private static void DaysPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             CalendarView control = (CalendarView)bindable;
-            IEnumerable<ICalendarDay> newDays = (IEnumerable<ICalendarDay>)newValue;
+            IEnumerable<object> newDays = (IEnumerable<object>)newValue;
 
             control.MainDaysView.Days = newDays;
         }
