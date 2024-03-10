@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>MarvinE</Authors>
-    <Description>A plugin for Xamarin Forms providing a calendar API and calendar controls.</Description>
+    <Description>XCalendar.Forms is a plugin for Xamarin Forms providing custom controls, a calendar API, and various extensions to make it easier to work with and implement calendars into your Xamarin Forms apps.</Description>
     <PackageId>$(AssemblyName)</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Version>4.5.2</Version>
+    <Version>4.6.0</Version>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
     <PackageTags>csharp; dotnet; cross-platform; calendar; calendar-component;  plugin; xamarin; xamarinforms; xamarin-forms;</PackageTags>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
