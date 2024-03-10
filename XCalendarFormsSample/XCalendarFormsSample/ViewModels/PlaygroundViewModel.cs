@@ -8,14 +8,20 @@ using XCalendar.Core.Collections;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Extensions;
 using XCalendar.Core.Models;
+using XCalendar.Forms.Models;
 using XCalendarFormsSample.Helpers;
+using XCalendarFormsSample.Models;
 
 namespace XCalendarFormsSample.ViewModels
 {
     public class PlaygroundViewModel : BaseViewModel
     {
+        #region Fields
+        private static readonly Random _random = new Random();
+        #endregion
+
         #region Properties
-        public Calendar<CalendarDay> Calendar { get; set; } = new Calendar<CalendarDay>()
+        public Calendar<ColoredEventsDay,ColoredEvent> Calendar { get; set; } = new Calendar<ColoredEventsDay, ColoredEvent>()
         {
             NavigatedDate = DateTime.Today,
             NavigationLowerBound = DateTime.Today.AddYears(-2),
@@ -30,6 +36,7 @@ namespace XCalendarFormsSample.ViewModels
             AutoRowsIsConsistent = true,
             TodayDate = DateTime.Today
         };
+        public List<Color> EventColors { get; } = new List<Color>() { Color.Red, Color.Orange, Color.Yellow, Color.FromHex("#00A000"), Color.Blue, Color.FromHex("#8010E0") };
         public List<string> NavigationTimeUnits { get; } = new List<string>()
         {
             "Day",
@@ -45,6 +52,9 @@ namespace XCalendarFormsSample.ViewModels
         public double DayHeightRequest { get; set; } = 45;
         public double DayWidthRequest { get; set; } = -1;
         public bool DayAutoSetStyleBasedOnDayState { get; set; } = true;
+        public double DayEventCornerRadius { get; set; } = 100;
+        public double DayEventsSpacing { get; set; } = 2.5;
+        public StackOrientation DayEventsOrientation { get; set; } = StackOrientation.Horizontal;
         public int ForwardsNavigationAmount { get; set; } = 1;
         public int BackwardsNavigationAmount { get; set; } = -1;
         public string TargetCultureCode { get; set; } = CultureInfo.CurrentCulture?.Name ?? CultureInfo.DefaultThreadCurrentCulture?.Name ?? CultureInfo.CurrentUICulture?.Name ?? CultureInfo.DefaultThreadCurrentUICulture?.Name ?? "en";
@@ -92,6 +102,8 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ChangeDateSelectionCommand { get; set; }
         public ICommand ChangeCalendarVisibilityCommand { get; set; }
         public ICommand UpdateCurrentCultureCommand { get; set; }
+        public ICommand ShowDayEventsOrientationDialogCommand { get; set; }
+
         #endregion
 
         #region Constructors
@@ -123,6 +135,55 @@ namespace XCalendarFormsSample.ViewModels
             ChangeDateSelectionCommand = new Command<DateTime>(ChangeDateSelection);
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
             UpdateCurrentCultureCommand = new Command(UpdateCurrentCulture);
+            ShowDayEventsOrientationDialogCommand = new Command(ShowDayEventsOrientationDialog);
+
+            List<ColoredEvent> events = new List<ColoredEvent>()
+            {
+                new ColoredEvent() { Title = "Bowling", Description = "Bowling with friends" },
+                new ColoredEvent() { Title = "Swimming", Description = "Swimming with friends" },
+                new ColoredEvent() { Title = "Kayaking", Description = "Kayaking with friends" },
+                new ColoredEvent() { Title = "Shopping", Description = "Shopping with friends" },
+                new ColoredEvent() { Title = "Hiking", Description = "Hiking with friends" },
+                new ColoredEvent() { Title = "Kareoke", Description = "Kareoke with friends" },
+                new ColoredEvent() { Title = "Dining", Description = "Dining with friends" },
+                new ColoredEvent() { Title = "Running", Description = "Running with friends" },
+                new ColoredEvent() { Title = "Traveling", Description = "Traveling with friends" },
+                new ColoredEvent() { Title = "Clubbing", Description = "Clubbing with friends" },
+                new ColoredEvent() { Title = "Learning", Description = "Learning with friends" },
+                new ColoredEvent() { Title = "Driving", Description = "Driving with friends" },
+                new ColoredEvent() { Title = "Skydiving", Description = "Skydiving with friends" },
+                new ColoredEvent() { Title = "Bungee Jumping", Description = "Bungee Jumping with friends" },
+                new ColoredEvent() { Title = "Trampolining", Description = "Trampolining with friends" },
+                new ColoredEvent() { Title = "Adventuring", Description = "Adventuring with friends" },
+                new ColoredEvent() { Title = "Roller Skating", Description = "Rollerskating with friends" },
+                new ColoredEvent() { Title = "Ice Skating", Description = "Ice Skating with friends" },
+                new ColoredEvent() { Title = "Skateboarding", Description = "Skateboarding with friends" },
+                new ColoredEvent() { Title = "Crafting", Description = "Crafting with friends" },
+                new ColoredEvent() { Title = "Drinking", Description = "Drinking with friends" },
+                new ColoredEvent() { Title = "Playing Games", Description = "Playing Games with friends" },
+                new ColoredEvent() { Title = "Canoeing", Description = "Canoeing with friends" },
+                new ColoredEvent() { Title = "Climbing", Description = "Climbing with friends" },
+                new ColoredEvent() { Title = "Partying", Description = "Partying with friends" },
+                new ColoredEvent() { Title = "Relaxing", Description = "Relaxing with friends" },
+                new ColoredEvent() { Title = "Exercising", Description = "Exercising with friends" },
+                new ColoredEvent() { Title = "Baking", Description = "Baking with friends" },
+                new ColoredEvent() { Title = "Skiing", Description = "Skiing with friends" },
+                new ColoredEvent() { Title = "Snowboarding", Description = "Snowboarding with friends" },
+                new ColoredEvent() { Title = "Surfing", Description = "Surfing with friends" },
+                new ColoredEvent() { Title = "Paragliding", Description = "Paragliding with friends" },
+                new ColoredEvent() { Title = "Sailing", Description = "Sailing with friends" },
+                new ColoredEvent() { Title = "Cooking", Description = "Cooking with friends" }
+            };
+
+            foreach (var @event in events)
+            {
+                @event.StartDate = DateTime.Today.AddDays(_random.Next(-20, 21)).AddDays(_random.NextDouble());
+                @event.EndDate = @event.StartDate.AddDays(1);
+                @event.Color = EventColors[_random.Next(EventColors.Count)];
+            }
+
+            Calendar.Events.ReplaceRange(events);
+            Calendar.UpdateDays(Calendar.NavigatedDate);
             UpdateCurrentCulture();
         }
         #endregion
@@ -319,7 +380,10 @@ namespace XCalendarFormsSample.ViewModels
         {
             DayInvalidTextColor = await PopupHelper.ShowColorDialogAsync(DayInvalidTextColor);
         }
-
+        public async void ShowDayEventsOrientationDialog()
+        {
+            DayEventsOrientation = await PopupHelper.ShowSelectItemDialogAsync(DayEventsOrientation, PopupHelper.AllStackOrientations);
+        }
         #endregion
     }
 }

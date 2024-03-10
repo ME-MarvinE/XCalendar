@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XCalendar.Core.Enums;
+using XCalendar.Core.Interfaces;
 using XCalendar.Forms.Styles;
 
 namespace XCalendar.Forms.Views
@@ -112,6 +116,51 @@ namespace XCalendar.Forms.Views
         {
             get { return (bool)GetValue(AutoSetStyleBasedOnDayStateProperty); }
             set { SetValue(AutoSetStyleBasedOnDayStateProperty, value); }
+        }
+        public IEnumerable<IEvent> Events
+        {
+            get { return (IEnumerable<IEvent>)GetValue(EventsProperty); }
+            set { SetValue(EventsProperty, value); }
+        }
+        public ControlTemplate EventsTemplate
+        {
+            get { return (ControlTemplate)GetValue(EventsTemplateProperty); }
+            set { SetValue(EventsTemplateProperty, value); }
+        }
+        public DataTemplate EventTemplate
+        {
+            get { return (DataTemplate)GetValue(EventTemplateProperty); }
+            set { SetValue(EventTemplateProperty, value); }
+        }
+        public double EventCornerRadius
+        {
+            get { return (double)GetValue(EventCornerRadiusProperty); }
+            set { SetValue(EventCornerRadiusProperty, value); }
+        }
+        public double EventWidthRequest
+        {
+            get { return (double)GetValue(EventWidthRequestProperty); }
+            set { SetValue(EventWidthRequestProperty, value); }
+        }
+        public double EventHeightRequest
+        {
+            get { return (double)GetValue(EventHeightRequestProperty); }
+            set { SetValue(EventHeightRequestProperty, value); }
+        }
+        public double EventsSpacing
+        {
+            get { return (double)GetValue(EventsSpacingProperty); }
+            set { SetValue(EventsSpacingProperty, value); }
+        }
+        public StackOrientation EventsOrientation
+        {
+            get { return (StackOrientation)GetValue(EventsOrientationProperty); }
+            set { SetValue(EventsOrientationProperty, value); }
+        }
+        public bool AutoEventsViewVisibility
+        {
+            get { return (bool)GetValue(AutoEventsViewVisibilityProperty); }
+            set { SetValue(AutoEventsViewVisibilityProperty, value); }
         }
         public TextTransform TextTransform
         {
@@ -227,6 +276,16 @@ namespace XCalendar.Forms.Views
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(DayView), Label.TextColorProperty.DefaultValue);
         public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(DayView), TextAlignment.Center);
         public static readonly BindableProperty AutoSetStyleBasedOnDayStateProperty = BindableProperty.Create(nameof(AutoSetStyleBasedOnDayState), typeof(bool), typeof(DayView), true, propertyChanged: AutoSetStyleBasedOnDayStatePropertyChanged);
+        public static readonly BindableProperty EventsProperty = BindableProperty.Create(nameof(Events), typeof(IEnumerable<IEvent>), typeof(DayView), propertyChanged: EventsPropertyChanged);
+        public static readonly BindableProperty EventsTemplateProperty = BindableProperty.Create(nameof(EventsTemplate), typeof(ControlTemplate), typeof(DayView), propertyChanged: EventsTemplatePropertyChanged);
+        public static readonly BindableProperty EventTemplateProperty = BindableProperty.Create(nameof(EventTemplate), typeof(DataTemplate), typeof(DaysView), propertyChanged: EventTemplatePropertyChanged);
+        public static readonly BindableProperty EventCornerRadiusProperty = BindableProperty.Create(nameof(EventCornerRadius), typeof(double), typeof(DayView), 100d);
+        public static readonly BindableProperty EventWidthRequestProperty = BindableProperty.Create(nameof(EventWidthRequest), typeof(double), typeof(DayView), 8d);
+        public static readonly BindableProperty EventHeightRequestProperty = BindableProperty.Create(nameof(EventHeightRequest), typeof(double), typeof(DayView), 8d);
+        public static readonly BindableProperty EventsSpacingProperty = BindableProperty.Create(nameof(EventsSpacing), typeof(double), typeof(DayView), 2.5d);
+        public static readonly BindableProperty EventsOrientationProperty = BindableProperty.Create(nameof(EventsOrientation), typeof(StackOrientation), typeof(DayView), StackOrientation.Horizontal);
+        public static readonly BindableProperty AutoEventsViewVisibilityProperty = BindableProperty.Create(nameof(AutoEventsViewVisibilityProperty), typeof(bool), typeof(DayView), true, propertyChanged: AutoEventsViewVisibilityPropertyChanged);
+
         #endregion
 
         #endregion
@@ -300,6 +359,17 @@ namespace XCalendar.Forms.Views
                         throw new NotImplementedException($"{nameof(DayState)} '{DayState}' is not implemented.");
                 }
             }
+        }
+        private void UpdateEventsVisibility()
+        {
+            if (AutoEventsViewVisibility)
+            {
+                DayView_Unique_EventsView.IsVisible = Events?.Any() == true;
+            }
+        }
+        private void Events_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateEventsVisibility();
         }
 
         #region Bindable Properties Methods
@@ -429,6 +499,39 @@ namespace XCalendar.Forms.Views
             {
                 control.UpdateView();
             }
+        }
+        private static void EventsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            IEnumerable<IEvent> oldEvents = (IEnumerable<IEvent>)oldValue;
+            IEnumerable<IEvent> newEvents = (IEnumerable<IEvent>)newValue;
+
+            if (oldEvents is INotifyCollectionChanged oldEventsAsCollectionChanged)
+            {
+                oldEventsAsCollectionChanged.CollectionChanged -= control.Events_CollectionChanged;
+            }
+
+            if (newEvents is INotifyCollectionChanged newEventsAsCollectionChanged)
+            {
+                newEventsAsCollectionChanged.CollectionChanged += control.Events_CollectionChanged;
+            }
+
+            control.UpdateEventsVisibility();
+        }
+        private static void EventTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            control.UpdateEventsVisibility();
+        }
+        private static void EventsTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            control.UpdateEventsVisibility();
+        }
+        private static void AutoEventsViewVisibilityPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            control.UpdateEventsVisibility();
         }
         private static object CoerceDayState(BindableObject bindable, object value)
         {

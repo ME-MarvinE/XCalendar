@@ -6,7 +6,6 @@
     xmlns:Converters="clr-namespace:XCalendar.Forms.Converters"
     xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views"
-    xmlns:xcInterfaces="clr-namespace:XCalendar.Core.Interfaces;assembly=XCalendar.Core"
     x:Name="DaysView_Unique"
     x:DataType="{x:Type xc:DaysView}">
 
@@ -22,7 +21,7 @@
             <Style TargetType="{x:Type CollectionView}">
                 <Setter Property="ItemTemplate">
                     <Setter.Value>
-                        <DataTemplate x:DataType="{x:Type xcInterfaces:ICalendarDay}">
+                        <DataTemplate x:DataType="{x:Null}">
                             <!--  Needs to be nested because collectionview doesn't respect margins  -->
                             <ContentView>
                                 <Frame
@@ -36,7 +35,8 @@
                                         IsCurrentMonth="{Binding IsCurrentMonth}"
                                         IsInvalid="{Binding IsInvalid}"
                                         IsSelected="{Binding IsSelected}"
-                                        IsToday="{Binding IsToday}"/>
+                                        IsToday="{Binding IsToday}"
+                                        Events="{Binding Events}"/>
                                 </Frame>
                             </ContentView>
                         </DataTemplate>

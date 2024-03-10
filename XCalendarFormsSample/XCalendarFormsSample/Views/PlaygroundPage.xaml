@@ -672,6 +672,58 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
+                            Text="EventCornerRadius"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding DayEventCornerRadius}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="EventsSpacing"
+                            VerticalTextAlignment="Center"/>
+                        <Editor
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Text="{Binding DayEventsSpacing}"
+                            VerticalOptions="End"/>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="EventsOrientation"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding DayEventsOrientation}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDayEventsOrientationDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
                             Text="HeightRequest"
                             VerticalTextAlignment="Center"/>
                         <Editor
@@ -988,7 +1040,7 @@
                     </xc:CalendarView.NavigationViewTemplate>
 
                     <xc:CalendarView.DayTemplate>
-                        <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                        <DataTemplate x:DataType="{x:Null}">
                             <ContentView>
                                 <Frame
                                     Margin="2.5"
@@ -998,12 +1050,25 @@
                                     <xc:DayView
                                         AutoSetStyleBasedOnDayState="{Binding BindingContext.DayAutoSetStyleBasedOnDayState, Source={x:Reference This}}"
                                         DateTime="{Binding DateTime}"
+                                        Events="{Binding Events}"
+                                        EventsOrientation="{Binding BindingContext.DayEventsOrientation, Source={x:Reference This}}"
+                                        EventsSpacing="{Binding BindingContext.DayEventsSpacing, Source={x:Reference This}}"
                                         HeightRequest="{Binding BindingContext.DayHeightRequest, Source={x:Reference This}}"
                                         IsCurrentMonth="{Binding IsCurrentMonth}"
                                         IsInvalid="{Binding IsInvalid}"
                                         IsSelected="{Binding IsSelected}"
                                         IsToday="{Binding IsToday}"
                                         WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
+
+                                        <xc:DayView.EventTemplate>
+                                            <DataTemplate x:DataType="{x:Null}">
+                                                <Rectangle
+                                                    Fill="{Binding Color}"
+                                                    RadiusX="{Binding BindingContext.DayEventCornerRadius, Source={x:Reference This}}"
+                                                    RadiusY="{Binding BindingContext.DayEventCornerRadius, Source={x:Reference This}}"
+                                                    Style="{StaticResource DefaultEventIndicatorRectangleStyle}"/>
+                                            </DataTemplate>
+                                        </xc:DayView.EventTemplate>
 
                                         <xc:DayView.CurrentMonthStyle>
                                             <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">

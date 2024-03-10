@@ -3,26 +3,98 @@
     x:Class="XCalendar.Maui.Views.DayView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:XCalendar.Maui.Converters"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views"
     x:Name="DayView_Unique"
     x:DataType="{x:Type xc:DayView}">
 
-    <Label
-        CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference DayView_Unique}}"
-        FontAttributes="{Binding FontAttributes, Source={x:Reference DayView_Unique}}"
-        FontFamily="{Binding FontFamily, Source={x:Reference DayView_Unique}}"
-        FontSize="{Binding FontSize, Source={x:Reference DayView_Unique}}"
-        FormattedText="{Binding FormattedText, Source={x:Reference DayView_Unique}}"
-        HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference DayView_Unique}}"
-        LineBreakMode="{Binding LineBreakMode, Source={x:Reference DayView_Unique}}"
-        LineHeight="{Binding LineHeight, Source={x:Reference DayView_Unique}}"
-        MaxLines="{Binding MaxLines, Source={x:Reference DayView_Unique}}"
-        Text="{Binding Text, Source={x:Reference DayView_Unique}}"
-        TextColor="{Binding TextColor, Source={x:Reference DayView_Unique}}"
-        TextDecorations="{Binding TextDecorations, Source={x:Reference DayView_Unique}}"
-        TextTransform="{Binding TextTransform, Source={x:Reference DayView_Unique}}"
-        TextType="{Binding TextType, Source={x:Reference DayView_Unique}}"
-        VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference DayView_Unique}}"/>
+    <Grid RowSpacing="2">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            CharacterSpacing="{Binding CharacterSpacing, Source={x:Reference DayView_Unique}}"
+            FontAttributes="{Binding FontAttributes, Source={x:Reference DayView_Unique}}"
+            FontFamily="{Binding FontFamily, Source={x:Reference DayView_Unique}}"
+            FontSize="{Binding FontSize, Source={x:Reference DayView_Unique}}"
+            FormattedText="{Binding FormattedText, Source={x:Reference DayView_Unique}}"
+            HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={x:Reference DayView_Unique}}"
+            LineBreakMode="{Binding LineBreakMode, Source={x:Reference DayView_Unique}}"
+            LineHeight="{Binding LineHeight, Source={x:Reference DayView_Unique}}"
+            MaxLines="{Binding MaxLines, Source={x:Reference DayView_Unique}}"
+            Text="{Binding Text, Source={x:Reference DayView_Unique}}"
+            TextColor="{Binding TextColor, Source={x:Reference DayView_Unique}}"
+            TextDecorations="{Binding TextDecorations, Source={x:Reference DayView_Unique}}"
+            TextTransform="{Binding TextTransform, Source={x:Reference DayView_Unique}}"
+            TextType="{Binding TextType, Source={x:Reference DayView_Unique}}"
+            VerticalOptions="Center"
+            VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference DayView_Unique}}"/>
+
+        <ContentView x:Name="DayView_Unique_EventsView" Grid.Row="1" ControlTemplate="{Binding EventsTemplate, Source={x:Reference DayView_Unique}}">
+            <StackLayout
+                BindableLayout.ItemsSource="{Binding Events, Source={x:Reference DayView_Unique}}"
+                HorizontalOptions="Center"
+                Orientation="{Binding EventsOrientation, Source={x:Reference DayView_Unique}}"
+                Spacing="{Binding EventsSpacing, Source={x:Reference DayView_Unique}}">
+
+                <StackLayout.Resources>
+                    <System:Boolean x:Key="TrueValue">True</System:Boolean>
+                    <System:Boolean x:Key="FalseValue">False</System:Boolean>
+
+                    <Converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter"/>
+                </StackLayout.Resources>
+
+                <StackLayout.Style>
+                    <Style TargetType="{x:Type StackLayout}">
+                        <Setter Property="BindableLayout.ItemTemplate">
+                            <Setter.Value>
+                                <DataTemplate x:DataType="{x:Null}">
+                                    <Rectangle
+                                        Fill="{Binding Color}"
+                                        HeightRequest="{Binding EventHeightRequest, Source={x:Reference DayView_Unique}}"
+                                        HorizontalOptions="CenterAndExpand"
+                                        RadiusX="{Binding EventCornerRadius, Source={x:Reference DayView_Unique}}"
+                                        RadiusY="{Binding EventCornerRadius, Source={x:Reference DayView_Unique}}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="{Binding EventWidthRequest, Source={x:Reference DayView_Unique}}"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding EventTemplate, Source={x:Reference DayView_Unique}, Converter={StaticResource IsNullOrEmptyConverter}}"
+                                TargetType="{x:Type StackLayout}"
+                                Value="{StaticResource FalseValue}">
+                                <Setter Property="BindableLayout.ItemTemplate" Value="{Binding EventTemplate, Source={x:Reference DayView_Unique}}"/>
+                            </DataTrigger>
+
+                            <DataTrigger
+                                Binding="{Binding IsCurrentMonth, Source={x:Reference DayView_Unique}}"
+                                TargetType="{x:Type StackLayout}"
+                                Value="{StaticResource FalseValue}">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+
+                            <DataTrigger
+                                Binding="{Binding IsInvalid, Source={x:Reference DayView_Unique}}"
+                                TargetType="{x:Type StackLayout}"
+                                Value="{StaticResource TrueValue}">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackLayout.Style>
+            </StackLayout>
+        </ContentView>
+
+    </Grid>
 
     <ContentView.GestureRecognizers>
         <TapGestureRecognizer Command="{Binding Command, Source={x:Reference DayView_Unique}}" CommandParameter="{Binding CommandParameter, Source={x:Reference DayView_Unique}}"/>

@@ -43,11 +43,11 @@
 
             <xc:CalendarView
                 x:Name="MainCalendarView"
-                LeftArrowCommand="{Binding NavigateCalendarCommand}"
                 Days="{Binding EventCalendar.Days}"
                 DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
-                RightArrowCommand="{Binding NavigateCalendarCommand}"
+                LeftArrowCommand="{Binding NavigateCalendarCommand}"
                 NavigatedDate="{Binding EventCalendar.NavigatedDate}"
+                RightArrowCommand="{Binding NavigateCalendarCommand}"
                 Style="{StaticResource DefaultCalendarViewStyle}">
 
                 <xc:CalendarView.RightArrowCommandParameter>
@@ -63,11 +63,11 @@
                         <xc:NavigationView
                             ArrowColor="{StaticResource ContentTextColor}"
                             BackgroundColor="Transparent"
+                            HeightRequest="40"
                             LeftArrowCommand="{Binding LeftArrowCommand, Source={RelativeSource TemplatedParent}}"
                             LeftArrowCommandParameter="{Binding LeftArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
                             RightArrowCommand="{Binding RightArrowCommand, Source={RelativeSource TemplatedParent}}"
                             RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
-                            HeightRequest="40"
                             Style="{StaticResource DefaultNavigationViewStyle}"
                             Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
                             TextColor="{StaticResource ContentTextColor}"/>
@@ -75,7 +75,7 @@
                 </xc:CalendarView.NavigationViewTemplate>
 
                 <xc:CalendarView.DayTemplate>
-                    <DataTemplate x:DataType="{x:Type Models:EventDay}">
+                    <DataTemplate x:DataType="{x:Null}">
                         <Border Margin="2.5" BackgroundColor="Transparent">
 
                             <Border.StrokeShape>
@@ -84,6 +84,7 @@
 
                             <xc:DayView
                                 DateTime="{Binding DateTime}"
+                                Events="{Binding Events}"
                                 HeightRequest="42"
                                 InvalidStyle="{StaticResource DefaultDayViewInvalidStyle}"
                                 IsCurrentMonth="{Binding IsCurrentMonth}"
@@ -91,6 +92,12 @@
                                 IsSelected="{Binding IsSelected}"
                                 IsToday="{Binding IsToday}"
                                 OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
+
+                                <xc:DayView.EventTemplate>
+                                    <DataTemplate x:DataType="{x:Null}">
+                                        <Rectangle Fill="{Binding Color}" Style="{StaticResource DefaultEventIndicatorRectangleStyle}"/>
+                                    </DataTemplate>
+                                </xc:DayView.EventTemplate>
 
                                 <xc:DayView.CurrentMonthStyle>
                                     <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">
@@ -112,55 +119,6 @@
                                         <Setter Property="CommandParameter" Value="{Binding DateTime}"/>
                                     </Style>
                                 </xc:DayView.SelectedStyle>
-
-                                <xc:DayView.ControlTemplate>
-                                    <ControlTemplate>
-                                        <!--  Using a Grid to stack views on the z axis  -->
-                                        <!--  TemplatedParent refers to the view that the ControlTemplate resides in  -->
-                                        <Grid BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}" RowSpacing="2">
-
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="1.5*"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-
-                                            <!--  ContentPresenter displays the default content for the control  -->
-                                            <ContentPresenter
-                                                Grid.Row="0"
-                                                Grid.RowSpan="2"
-                                                VerticalOptions="Center"/>
-
-                                            <HorizontalStackLayout
-                                                Grid.Row="1"
-                                                BindableLayout.ItemsSource="{Binding Events}"
-                                                HorizontalOptions="Center"
-                                                Spacing="2.5">
-
-                                                <!--  I want the event indicators to only be visible when the DateTime is in the currently navigated month  -->
-                                                <HorizontalStackLayout.IsVisible>
-                                                    <MultiBinding Converter="{StaticResource AllTrueConverter}">
-                                                        <Binding Path="IsCurrentMonth"/>
-                                                        <Binding Converter="{StaticResource InvertedBoolConverter}" Path="IsInvalid"/>
-                                                    </MultiBinding>
-                                                </HorizontalStackLayout.IsVisible>
-
-                                                <BindableLayout.ItemTemplate>
-                                                    <DataTemplate x:DataType="{x:Type Models:Event}">
-                                                        <BoxView
-                                                            CornerRadius="100"
-                                                            HeightRequest="7"
-                                                            HorizontalOptions="CenterAndExpand"
-                                                            VerticalOptions="Center"
-                                                            WidthRequest="7"
-                                                            Color="{Binding Color}"/>
-                                                    </DataTemplate>
-                                                </BindableLayout.ItemTemplate>
-
-                                            </HorizontalStackLayout>
-
-                                        </Grid>
-                                    </ControlTemplate>
-                                </xc:DayView.ControlTemplate>
 
                             </xc:DayView>
                         </Border>
@@ -188,7 +146,7 @@
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type Models:Event}">
+                <DataTemplate x:DataType="{x:Null}">
                     <Border
                         Margin="5"
                         BackgroundColor="Transparent"
@@ -214,12 +172,29 @@
                                 Grid.Column="1"
                                 Padding="10"
                                 BackgroundColor="{StaticResource ContentBackgroundColor}">
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="20"
-                                    Text="{Binding DateTime, StringFormat='{0: dd MMMM HH:mm}'}"
-                                    TextColor="{StaticResource ContentTextColor}"
-                                    VerticalTextAlignment="Center"/>
+
+                                <HorizontalStackLayout>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text="{Binding StartDate, StringFormat='{0:dd MMMM HH:mm}'}"
+                                        TextColor="{StaticResource ContentTextColor}"
+                                        VerticalTextAlignment="Center"/>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text=" - "
+                                        TextColor="{StaticResource ContentTextColor}"
+                                        VerticalTextAlignment="Center"/>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text="{Binding EndDate, StringFormat='{0:dd MMMM HH:mm}', TargetNullValue='No End Date'}"
+                                        TextColor="{StaticResource ContentTextColor}"
+                                        VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+
+
                                 <Label
                                     Margin="5,0,0,0"
                                     FontSize="16"

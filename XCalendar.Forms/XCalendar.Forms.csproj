@@ -27,6 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\CalendarView.xaml.cs">
+      <DependentUpon>CalendarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DaysView.xaml.cs">
+      <DependentUpon>DaysView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\DayView.xaml.cs">
       <DependentUpon>DayView.xaml</DependentUpon>
     </Compile>
@@ -36,6 +42,9 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <EmbeddedResource Update="Views\CalendarView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\DayView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

@@ -1,11 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using XCalendar.Core.Collections;
 using XCalendar.Core.Interfaces;
 
 namespace XCalendar.Core.Models
 {
-    public class CalendarDay : ICalendarDay
+    public class CalendarDay : CalendarDay<Event>
+    { 
+    }
+
+    public class CalendarDay<TEvent> : ICalendarDay<TEvent> where TEvent : IEvent
     {
         #region Fields
         private DateTime _dateTime = DateTime.Today;
@@ -13,6 +18,7 @@ namespace XCalendar.Core.Models
         private bool _isCurrentMonth;
         private bool _isToday;
         private bool _isInvalid;
+        private ObservableRangeCollection<TEvent> _events = new ObservableRangeCollection<TEvent>();
         #endregion
 
         #region Properties
@@ -87,6 +93,21 @@ namespace XCalendar.Core.Models
                 if (_isInvalid != value)
                 {
                     _isInvalid = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ObservableRangeCollection<TEvent> Events
+        {
+            get
+            {
+                return _events;
+            }
+            set
+            {
+                if (_events != value)
+                {
+                    _events = value;
                     OnPropertyChanged();
                 }
             }

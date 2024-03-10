@@ -11,7 +11,7 @@ namespace XCalendarConsoleSample
 {
     public class Program
     {
-        public static Calendar<CalendarDay> Calendar = new Calendar<CalendarDay>()
+        public static Calendar<CalendarDay<IEvent>, IEvent> Calendar = new Calendar<CalendarDay<IEvent>, IEvent>()
         {
             SelectedDates = new ObservableRangeCollection<DateTime>(),
             NavigatedDate = DateTime.Today,
@@ -44,7 +44,7 @@ namespace XCalendarConsoleSample
 
             for (int i = 0; i < Calendar.Days.Count; i++)
             {
-                ICalendarDay day = Calendar.Days[i];
+                ICalendarDay<IEvent> day = Calendar.Days[i];
 
                 if (i % 7 == 0)
                 {
@@ -72,7 +72,7 @@ namespace XCalendarConsoleSample
                 }
             }
         }
-        public static void WriteDay(ICalendarDay day)
+        public static void WriteDay(ICalendarDay<IEvent> day)
         {
             DayState dayState = EvaluateDayState(day);
 
@@ -169,7 +169,7 @@ namespace XCalendarConsoleSample
                     break;
             }
         }
-        public static DayState EvaluateDayState(ICalendarDay day)
+        public static DayState EvaluateDayState(ICalendarDay<IEvent> day)
         {
             bool dayIsOtherMonth = !day.IsCurrentMonth;
 
