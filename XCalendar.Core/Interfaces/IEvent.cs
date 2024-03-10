@@ -6,6 +6,7 @@ namespace XCalendar.Core.Interfaces
     {
         string Title { get; set; }
         string Description { get; set; }
-        DateTime DateTime { get; set; }
+        DateTime StartDate { get; set; }
+        DateTime? EndDate { get; set; }
     }
 }

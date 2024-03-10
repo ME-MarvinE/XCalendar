@@ -10,7 +10,8 @@ namespace XCalendar.Core.Models
         #region Fields
         private string _title;
         private string _description;
-        private DateTime _dateTime = DateTime.Today;
+        private DateTime _startDate = DateTime.Today;
+        private DateTime? _endDate = DateTime.Today;
         #endregion
 
         #region Properties
@@ -44,17 +45,32 @@ namespace XCalendar.Core.Models
                 }
             }
         }
-        public DateTime DateTime
+        public DateTime StartDate
         {
             get
             {
-                return _dateTime;
+                return _startDate;
             }
             set
             {
-                if (_dateTime != value)
+                if (_startDate != value)
                 {
-                    _dateTime = value;
+                    _startDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public DateTime? EndDate
+        {
+            get
+            {
+                return _endDate;
+            }
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
                     OnPropertyChanged();
                 }
             }

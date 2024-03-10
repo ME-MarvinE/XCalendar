@@ -95,9 +95,7 @@
 
                                 <xc:DayView.EventTemplate>
                                     <DataTemplate x:DataType="{x:Null}">
-                                        <Rectangle
-                                                    Fill="{Binding Color}"
-                                                    Style="{StaticResource DefaultEventIndicatorRectangleStyle}"/>
+                                        <Rectangle Fill="{Binding Color}" Style="{StaticResource DefaultEventIndicatorRectangleStyle}"/>
                                     </DataTemplate>
                                 </xc:DayView.EventTemplate>
 
@@ -174,12 +172,29 @@
                                 Grid.Column="1"
                                 Padding="10"
                                 BackgroundColor="{StaticResource ContentBackgroundColor}">
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="20"
-                                    Text="{Binding DateTime, StringFormat='{0: dd MMMM HH:mm}'}"
-                                    TextColor="{StaticResource ContentTextColor}"
-                                    VerticalTextAlignment="Center"/>
+
+                                <HorizontalStackLayout>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text="{Binding StartDate, StringFormat='{0:dd MMMM HH:mm}'}"
+                                        TextColor="{StaticResource ContentTextColor}"
+                                        VerticalTextAlignment="Center"/>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text=" - "
+                                        TextColor="{StaticResource ContentTextColor}"
+                                        VerticalTextAlignment="Center"/>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Text="{Binding EndDate, StringFormat='{0:dd MMMM HH:mm}', TargetNullValue='No End Date'}"
+                                        TextColor="{StaticResource ContentTextColor}"
+                                        VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+
+
                                 <Label
                                     Margin="5,0,0,0"
                                     FontSize="16"

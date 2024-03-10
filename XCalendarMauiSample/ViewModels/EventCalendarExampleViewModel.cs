@@ -77,7 +77,18 @@ namespace XCalendarMauiSample.ViewModels
 
             foreach (ColoredEvent @event in events)
             {
-                @event.DateTime = DateTime.Today.AddDays(_random.Next(-20, 21)).AddDays(_random.NextDouble());
+                @event.StartDate = DateTime.Today.AddDays(_random.Next(-20, 21)).AddDays(_random.NextDouble());
+                @event.EndDate = @event.StartDate.AddDays(_random.Next(1, 4)).AddHours(_random.Next(17));
+
+                if (_random.NextDouble() < 0.05)
+                {
+                    @event.EndDate = @event.EndDate.Value.AddYears(_random.Next(1, 4));
+                }
+                else if (_random.NextDouble() < 0.05)
+                {
+                    @event.EndDate = null;
+                }
+
                 @event.Color = EventColors[_random.Next(EventColors.Count)];
             }
 
@@ -89,7 +100,7 @@ namespace XCalendarMauiSample.ViewModels
         #region Methods
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SelectedEvents.ReplaceRange(EventCalendar.Events.Where(x => EventCalendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
+            SelectedEvents.ReplaceRange(EventCalendar.Events.Where(x => EventCalendar.SelectedDates.Any(y => y.Date >= x.StartDate && (x.EndDate == null || y.Date < x.EndDate))).OrderByDescending(x => x.StartDate));
         }
         public void NavigateCalendar(int amount)
         {

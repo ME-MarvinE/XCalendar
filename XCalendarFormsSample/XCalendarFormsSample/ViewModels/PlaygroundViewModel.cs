@@ -171,7 +171,8 @@ namespace XCalendarFormsSample.ViewModels
 
             foreach (var @event in events)
             {
-                @event.DateTime = DateTime.Today.AddDays(_random.Next(-20, 21)).AddDays(_random.NextDouble());
+                @event.StartDate = DateTime.Today.AddDays(_random.Next(-20, 21)).AddDays(_random.NextDouble());
+                @event.EndDate = @event.StartDate.AddDays(1);
                 @event.Color = EventColors[_random.Next(EventColors.Count)];
             }
 

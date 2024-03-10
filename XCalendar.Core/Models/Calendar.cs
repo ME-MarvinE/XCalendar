@@ -803,15 +803,7 @@ namespace XCalendar.Core.Models
         }
         public virtual void UpdateDayEvents(T day)
         {
-            //It is known that the only thing that the events of the day depend on is the DateTime of the day, and that all events will have the same date.
-            //So, only update the events if the existing ones' DateTime does not match the day's DateTime.
-            //If the day has no events, there is no way to tell if it's because the day hasn't been updated before or if there are no events with that date, so update it either way.
-            if (day.Events.Count > 0 && day.DateTime.Date == day.Events[0].DateTime.Date)
-            {
-                return;
-            }
-
-            IEnumerable<TEvent> events = Events.Where(x => x.DateTime.Date == day.DateTime.Date);
+            IEnumerable<TEvent> events = Events.Where(x => day.DateTime.Date >= x.StartDate && (x.EndDate == null || day.DateTime.Date < x.EndDate));
 
             //No use in replacing the collection if the source and target are both empty.
             if (day.Events.Count == 0 && !events.Any())
@@ -820,7 +812,7 @@ namespace XCalendar.Core.Models
             }
 
             //SequenceEqual could be omitted to improve performance but in the vast majority of cases there won't even be more than 5 events in one day, so impact on performance should be negligible
-            //compared to always changing the collection and updating the binding.
+            //compared to always changing the collection.
             if (day.Events.SequenceEqual(events))
             {
                 return;
