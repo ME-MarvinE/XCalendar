@@ -1007,6 +1007,18 @@
                                         IsToday="{Binding IsToday}"
                                         WidthRequest="{Binding BindingContext.DayWidthRequest, Source={x:Reference This}}">
 
+                                        <xc:DayView.EventTemplate>
+                                            <DataTemplate x:DataType="{x:Null}">
+                                                <Rectangle
+                                                    Fill="{Binding Color}"
+                                                    HeightRequest="8"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    RadiusX="100"
+                                                    RadiusY="100"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="8"/>
+                                            </DataTemplate>
+                                        </xc:DayView.EventTemplate>
                                         <xc:DayView.CurrentMonthStyle>
                                             <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">
                                                 <Setter Property="BackgroundColor" Value="{Binding BindingContext.DayCurrentMonthBackgroundColor, Source={x:Reference This}}"/>
