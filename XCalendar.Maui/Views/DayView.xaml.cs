@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using System.Windows.Input;
 using XCalendar.Core.Enums;
 using XCalendar.Core.Interfaces;
@@ -150,6 +151,11 @@ namespace XCalendar.Maui.Views
             get { return (StackOrientation)GetValue(EventsOrientationProperty); }
             set { SetValue(EventsOrientationProperty, value); }
         }
+        public bool AutoEventsViewVisibility
+        {
+            get { return (bool)GetValue(AutoEventsViewVisibilityProperty); }
+            set { SetValue(AutoEventsViewVisibilityProperty, value); }
+        }
         public TextTransform TextTransform
         {
             get { return (TextTransform)GetValue(TextTransformProperty); }
@@ -263,14 +269,15 @@ namespace XCalendar.Maui.Views
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(DayView), Label.TextColorProperty.DefaultValue);
         public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(nameof(VerticalTextAlignment), typeof(TextAlignment), typeof(DayView), TextAlignment.Center);
         public static readonly BindableProperty AutoSetStyleBasedOnDayStateProperty = BindableProperty.Create(nameof(AutoSetStyleBasedOnDayState), typeof(bool), typeof(DayView), true, propertyChanged: AutoSetStyleBasedOnDayStatePropertyChanged);
-        public static readonly BindableProperty EventsProperty = BindableProperty.Create(nameof(Events), typeof(IEnumerable<IEvent>), typeof(DayView));
-        public static readonly BindableProperty EventsTemplateProperty = BindableProperty.Create(nameof(EventsTemplate), typeof(ControlTemplate), typeof(DayView));
-        public static readonly BindableProperty EventTemplateProperty = BindableProperty.Create(nameof(EventTemplate), typeof(DataTemplate), typeof(DaysView));
+        public static readonly BindableProperty EventsProperty = BindableProperty.Create(nameof(Events), typeof(IEnumerable<IEvent>), typeof(DayView), propertyChanged: EventsPropertyChanged);
+        public static readonly BindableProperty EventsTemplateProperty = BindableProperty.Create(nameof(EventsTemplate), typeof(ControlTemplate), typeof(DayView), propertyChanged: EventsTemplatePropertyChanged);
+        public static readonly BindableProperty EventTemplateProperty = BindableProperty.Create(nameof(EventTemplate), typeof(DataTemplate), typeof(DaysView), propertyChanged: EventTemplatePropertyChanged);
         public static readonly BindableProperty EventCornerRadiusProperty = BindableProperty.Create(nameof(EventCornerRadius), typeof(double), typeof(DayView), 100d);
         public static readonly BindableProperty EventWidthRequestProperty = BindableProperty.Create(nameof(EventWidthRequest), typeof(double), typeof(DayView), 8d);
         public static readonly BindableProperty EventHeightRequestProperty = BindableProperty.Create(nameof(EventHeightRequest), typeof(double), typeof(DayView), 8d);
         public static readonly BindableProperty EventsSpacingProperty = BindableProperty.Create(nameof(EventsSpacing), typeof(double), typeof(DayView), 2.5d);
         public static readonly BindableProperty EventsOrientationProperty = BindableProperty.Create(nameof(EventsOrientation), typeof(StackOrientation), typeof(DayView), StackOrientation.Horizontal);
+        public static readonly BindableProperty AutoEventsViewVisibilityProperty = BindableProperty.Create(nameof(AutoEventsViewVisibilityProperty), typeof(bool), typeof(DayView), true, propertyChanged: AutoEventsViewVisibilityPropertyChanged);
         #endregion
 
         #endregion
@@ -344,6 +351,17 @@ namespace XCalendar.Maui.Views
                         throw new NotImplementedException($"{nameof(DayState)} '{DayState}' is not implemented.");
                 }
             }
+        }
+        private void UpdateEventsVisibility()
+        {
+            if (AutoEventsViewVisibility)
+            {
+                DayView_Unique_EventsView.IsVisible = Events?.Any() == true;
+            }
+        }
+        private void Events_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateEventsVisibility();
         }
 
         #region Bindable Properties Methods
@@ -473,6 +491,39 @@ namespace XCalendar.Maui.Views
             {
                 control.UpdateView();
             }
+        }
+        private static void EventsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            IEnumerable<IEvent> oldEvents = (IEnumerable<IEvent>)oldValue;
+            IEnumerable<IEvent> newEvents = (IEnumerable<IEvent>)newValue;
+
+            if (oldEvents is INotifyCollectionChanged oldEventsAsCollectionChanged)
+            {
+                oldEventsAsCollectionChanged.CollectionChanged -= control.Events_CollectionChanged;
+            }
+
+            if (newEvents is INotifyCollectionChanged newEventsAsCollectionChanged)
+            {
+                newEventsAsCollectionChanged.CollectionChanged += control.Events_CollectionChanged;
+            }
+
+            control.UpdateEventsVisibility();
+        }
+        private static void EventTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            control.UpdateEventsVisibility();
+        }
+        private static void EventsTemplatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            control.UpdateEventsVisibility();
+        }
+        private static void AutoEventsViewVisibilityPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            DayView control = (DayView)bindable;
+            control.UpdateEventsVisibility();
         }
         private static object CoerceDayState(BindableObject bindable, object value)
         {

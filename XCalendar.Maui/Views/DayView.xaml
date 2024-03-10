@@ -36,7 +36,7 @@
             VerticalOptions="Center"
             VerticalTextAlignment="{Binding VerticalTextAlignment, Source={x:Reference DayView_Unique}}"/>
 
-        <ContentView Grid.Row="1" ControlTemplate="{Binding EventsTemplate, Source={x:Reference DayView_Unique}}">
+        <ContentView x:Name="DayView_Unique_EventsView" Grid.Row="1" ControlTemplate="{Binding EventsTemplate, Source={x:Reference DayView_Unique}}">
             <StackLayout
                 BindableLayout.ItemsSource="{Binding Events, Source={x:Reference DayView_Unique}}"
                 HorizontalOptions="Center"
