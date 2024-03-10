@@ -171,23 +171,23 @@
                                     Spacing="0">
                                     <StackLayout Orientation="Horizontal" Spacing="0">
                                         <Label
-                                        FontAttributes="Bold"
-                                        FontSize="20"
-                                        Text="{Binding StartDate, StringFormat='{0:dd MMMM HH:mm}'}"
-                                        TextColor="{StaticResource ContentTextColor}"
-                                        VerticalTextAlignment="Center"/>
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Text="{Binding StartDate, StringFormat='{0:dd MMMM HH:mm}'}"
+                                            TextColor="{StaticResource ContentTextColor}"
+                                            VerticalTextAlignment="Center"/>
                                         <Label
-                                        FontAttributes="Bold"
-                                        FontSize="20"
-                                        Text=" - "
-                                        TextColor="{StaticResource ContentTextColor}"
-                                        VerticalTextAlignment="Center"/>
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Text=" - "
+                                            TextColor="{StaticResource ContentTextColor}"
+                                            VerticalTextAlignment="Center"/>
                                         <Label
-                                        FontAttributes="Bold"
-                                        FontSize="20"
-                                        Text="{Binding EndDate, StringFormat='{0:dd MMMM HH:mm}', TargetNullValue='No End Date'}"
-                                        TextColor="{StaticResource ContentTextColor}"
-                                        VerticalTextAlignment="Center"/>
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Text="{Binding EndDate, StringFormat='{0:dd MMMM HH:mm}', TargetNullValue='No End Date'}"
+                                            TextColor="{StaticResource ContentTextColor}"
+                                            VerticalTextAlignment="Center"/>
                                     </StackLayout>
                                     <Label
                                         Margin="5,0,0,0"
