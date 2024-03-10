@@ -1051,12 +1051,7 @@
                                     <DataTemplate x:DataType="{x:Null}">
                                         <Rectangle
                                             Fill="{Binding Color}"
-                                            HeightRequest="8"
-                                            HorizontalOptions="CenterAndExpand"
-                                            RadiusX="100"
-                                            RadiusY="100"
-                                            VerticalOptions="Center"
-                                            WidthRequest="8"/>
+                                            Style="{StaticResource DefaultEventIndicatorRectangleStyle}"/>
                                     </DataTemplate>
                                 </xc:DayView.EventTemplate>
 

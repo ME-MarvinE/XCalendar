@@ -85,6 +85,15 @@
             <Setter Property="TextColor" Value="{StaticResource CalendarTertiaryColor}"/>
         </Style>
 
+        <Style x:Key="DefaultEventIndicatorRectangleStyle" TargetType="{x:Type Rectangle}">
+            <Setter Property="HeightRequest" Value="8"/>
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="RadiusX" Value="100"/>
+            <Setter Property="RadiusY" Value="100"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="WidthRequest" Value="8"/>
+        </Style>
+
         <Style x:Key="DefaultPageStyle" TargetType="{x:Type ContentPage}">
             <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}"/>
             <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryColor}"/>

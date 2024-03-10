@@ -8,7 +8,6 @@
     xmlns:ViewModels="clr-namespace:XCalendarFormsSample.ViewModels"
     xmlns:xc="clr-namespace:XCalendar.Forms.Views;assembly=XCalendar.Forms"
     xmlns:xcConverters="clr-namespace:XCalendar.Forms.Converters;assembly=XCalendar.Forms"
-    xmlns:xcModels="clr-namespace:XCalendar.Forms.Models;assembly=XCalendar.Forms"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="This"
     Title="Event Calendar"
@@ -93,6 +92,14 @@
                                     IsSelected="{Binding IsSelected}"
                                     IsToday="{Binding IsToday}"
                                     OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
+
+                                    <xc:DayView.EventTemplate>
+                                        <DataTemplate x:DataType="{x:Null}">
+                                            <Rectangle
+                                                    Fill="{Binding Color}"
+                                                    Style="{StaticResource DefaultEventIndicatorRectangleStyle}"/>
+                                        </DataTemplate>
+                                    </xc:DayView.EventTemplate>
 
                                     <xc:DayView.CurrentMonthStyle>
                                         <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">

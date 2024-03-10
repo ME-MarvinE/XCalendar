@@ -8,7 +8,6 @@
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
     xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
-    xmlns:xcModels="clr-namespace:XCalendar.Maui.Models;assembly=XCalendar.Maui"
     x:Name="This"
     Title="Event Calendar"
     x:DataType="{x:Type ViewModels:EventCalendarExampleViewModel}"
@@ -93,6 +92,14 @@
                                 IsSelected="{Binding IsSelected}"
                                 IsToday="{Binding IsToday}"
                                 OtherMonthStyle="{StaticResource DefaultDayViewOtherMonthStyle}">
+
+                                <xc:DayView.EventTemplate>
+                                    <DataTemplate x:DataType="{x:Null}">
+                                        <Rectangle
+                                                    Fill="{Binding Color}"
+                                                    Style="{StaticResource DefaultEventIndicatorRectangleStyle}"/>
+                                    </DataTemplate>
+                                </xc:DayView.EventTemplate>
 
                                 <xc:DayView.CurrentMonthStyle>
                                     <Style BasedOn="{StaticResource DefaultDayViewCurrentMonthStyle}" TargetType="{x:Type xc:DayView}">
