@@ -54,6 +54,7 @@ namespace XCalendar.Core.Models
         private DateTime? _rangeSelectionStart;
         private DateTime? _rangeSelectionEnd;
         private SelectionType _selectionType = SelectionType.None;
+        private SelectionDirection _selectionDirection = SelectionDirection.Any;
         private ObservableRangeCollection<TEvent> _events = new ObservableRangeCollection<TEvent>();
         #endregion
 
@@ -447,6 +448,25 @@ namespace XCalendar.Core.Models
                 }
             }
         }
+        /// <summary>
+        /// The direction a selected date has to be relative to the earliest or latest selected date in order to be applied to the selection.
+        /// </summary>
+        public SelectionDirection SelectionDirection
+        {
+            get
+            {
+                return _selectionDirection;
+            }
+            set
+            {
+                if (_selectionDirection != value)
+                {
+                    _selectionDirection = value;
+
+                    OnPropertyChanged(nameof(SelectionDirection));
+                }
+            }
+        }
         public ObservableRangeCollection<TEvent> Events
         {
             get
@@ -537,6 +557,9 @@ namespace XCalendar.Core.Models
         /// <param name="dateTime">The <see cref="DateTime"/> to select/unselect.</param>
         public virtual void ChangeDateSelection(DateTime dateTime)
         {
+            DateTime? startSelectedDate = SelectedDates.Any() ? SelectedDates.Min() : (DateTime?)null;
+            DateTime? endSelectedDate = SelectedDates.Skip(1).Any() ? SelectedDates.Max() : (DateTime?)null;
+
             switch (SelectionType)
             {
                 case SelectionType.None:
@@ -546,11 +569,41 @@ namespace XCalendar.Core.Models
                     switch (SelectionAction)
                     {
                         case SelectionAction.Add:
-                            if (!SelectedDates.Any(x => x.Date == dateTime.Date))
                             {
-                                SelectedDates.Add(dateTime.Date);
+                                bool isCorrectDirection;
+
+                                switch (SelectionDirection)
+                                {
+                                    case SelectionDirection.Any:
+                                        isCorrectDirection = true;
+                                        break;
+
+                                    case SelectionDirection.StartToEnd:
+                                        isCorrectDirection = startSelectedDate == null || dateTime.Date >= startSelectedDate.Value.Date;
+                                        break;
+
+                                    case SelectionDirection.EndToStart:
+                                        isCorrectDirection = endSelectedDate == null || dateTime.Date <= endSelectedDate.Value.Date;
+                                        break;
+
+                                    case SelectionDirection.Confined:
+                                        isCorrectDirection = startSelectedDate == null || endSelectedDate == null || (dateTime.Date >= startSelectedDate.Value.Date && dateTime.Date <= endSelectedDate.Value.Date);
+                                        break;
+
+                                    case SelectionDirection.ConfinedReverse:
+                                        isCorrectDirection = startSelectedDate == null || endSelectedDate == null || dateTime.Date <= startSelectedDate.Value.Date || dateTime.Date >= endSelectedDate.Value.Date;
+                                        break;
+
+                                    default:
+                                        throw new NotImplementedException();
+                                }
+
+                                if (isCorrectDirection && !SelectedDates.Any(x => x.Date == dateTime.Date))
+                                {
+                                    SelectedDates.Add(dateTime.Date);
+                                }
+                                break;
                             }
-                            break;
 
                         case SelectionAction.Remove:
                             if (SelectedDates.Any(x => x.Date == dateTime.Date))
@@ -566,12 +619,43 @@ namespace XCalendar.Core.Models
                             }
                             else
                             {
-                                SelectedDates.Add(dateTime.Date);
+                                bool isCorrectDirection;
+
+                                switch (SelectionDirection)
+                                {
+                                    case SelectionDirection.Any:
+                                        isCorrectDirection = true;
+                                        break;
+
+                                    case SelectionDirection.StartToEnd:
+                                        isCorrectDirection = startSelectedDate == null || dateTime.Date >= startSelectedDate.Value.Date;
+                                        break;
+
+                                    case SelectionDirection.EndToStart:
+                                        isCorrectDirection = endSelectedDate == null || dateTime.Date <= endSelectedDate.Value.Date;
+                                        break;
+
+                                    case SelectionDirection.Confined:
+                                        isCorrectDirection = startSelectedDate == null || endSelectedDate == null || (dateTime.Date >= startSelectedDate.Value.Date && dateTime.Date <= endSelectedDate.Value.Date);
+                                        break;
+
+                                    case SelectionDirection.ConfinedReverse:
+                                        isCorrectDirection = startSelectedDate == null || endSelectedDate == null || dateTime.Date <= startSelectedDate.Value.Date || dateTime.Date >= endSelectedDate.Value.Date;
+                                        break;
+
+                                    default:
+                                        throw new NotImplementedException();
+                                }
+
+                                if (isCorrectDirection)
+                                {
+                                    SelectedDates.Add(dateTime.Date);
+                                }
                             }
                             break;
 
                         case SelectionAction.Replace:
-                            if (SelectedDates.Count != 1 || (SelectedDates.Count == 1 && SelectedDates.First().Date != dateTime.Date))
+                            if (SelectedDates.Count != 1 || (SelectedDates.Count == 1 && SelectedDates.First() != dateTime.Date))
                             {
                                 SelectedDates.Replace(dateTime.Date);
                             }
@@ -593,7 +677,38 @@ namespace XCalendar.Core.Models
                     }
                     else if (dateTime != RangeSelectionStart)
                     {
-                        RangeSelectionEnd = dateTime;
+                        bool isCorrectDirection;
+
+                        switch (SelectionDirection)
+                        {
+                            case SelectionDirection.Any:
+                                isCorrectDirection = true;
+                                break;
+
+                            case SelectionDirection.StartToEnd:
+                                isCorrectDirection = startSelectedDate == null || dateTime.Date >= startSelectedDate.Value.Date;
+                                break;
+
+                            case SelectionDirection.EndToStart:
+                                isCorrectDirection = endSelectedDate == null || dateTime.Date <= endSelectedDate.Value.Date;
+                                break;
+
+                            case SelectionDirection.Confined:
+                                isCorrectDirection = startSelectedDate == null || endSelectedDate == null || (dateTime.Date >= startSelectedDate.Value.Date && dateTime.Date <= endSelectedDate.Value.Date);
+                                break;
+
+                            case SelectionDirection.ConfinedReverse:
+                                isCorrectDirection = startSelectedDate == null || endSelectedDate == null || dateTime.Date <= startSelectedDate.Value.Date || dateTime.Date >= endSelectedDate.Value.Date;
+                                break;
+
+                            default:
+                                throw new NotImplementedException();
+                        }
+
+                        if (isCorrectDirection)
+                        {
+                            RangeSelectionEnd = dateTime;
+                        }
                     }
                     break;
 

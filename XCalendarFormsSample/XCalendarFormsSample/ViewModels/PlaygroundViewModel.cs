@@ -103,6 +103,7 @@ namespace XCalendarFormsSample.ViewModels
         public ICommand ChangeCalendarVisibilityCommand { get; set; }
         public ICommand UpdateCurrentCultureCommand { get; set; }
         public ICommand ShowDayEventsOrientationDialogCommand { get; set; }
+        public ICommand ShowSelectionDirectionDialogCommand { get; set; }
 
         #endregion
 
@@ -136,6 +137,7 @@ namespace XCalendarFormsSample.ViewModels
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
             UpdateCurrentCultureCommand = new Command(UpdateCurrentCulture);
             ShowDayEventsOrientationDialogCommand = new Command(ShowDayEventsOrientationDialog);
+            ShowSelectionDirectionDialogCommand = new Command(ShowSelectionDirectionDialog);
 
             List<ColoredEvent> events = new List<ColoredEvent>()
             {
@@ -383,6 +385,10 @@ namespace XCalendarFormsSample.ViewModels
         public async void ShowDayEventsOrientationDialog()
         {
             DayEventsOrientation = await PopupHelper.ShowSelectItemDialogAsync(DayEventsOrientation, PopupHelper.AllStackOrientations);
+        }
+        public async void ShowSelectionDirectionDialog()
+        {
+            Calendar.SelectionDirection = await PopupHelper.ShowSelectItemDialogAsync(Calendar.SelectionDirection, PopupHelper.AllSelectionDirections);
         }
         #endregion
     }

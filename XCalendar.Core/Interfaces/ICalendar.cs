@@ -39,6 +39,7 @@ namespace XCalendar.Core.Interfaces
         DateTime? RangeSelectionStart { get; set; }
         DateTime? RangeSelectionEnd { get; set; }
         SelectionType SelectionType { get; set; }
+        SelectionDirection SelectionDirection { get; set; }
         #endregion
 
         #region Events
