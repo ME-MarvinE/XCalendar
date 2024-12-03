@@ -230,6 +230,28 @@
                             Grid.Column="0"
                             FontSize="{StaticResource SmallFontSize}"
                             HorizontalTextAlignment="Center"
+                            Text="SelectionDirection"
+                            VerticalTextAlignment="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding Calendar.SelectionDirection}"
+                            TextColor="{StaticResource TappableSettingTextColor}"
+                            VerticalTextAlignment="Center">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowSelectionDirectionDialogCommand}"/>
+                            </Label.GestureRecognizers>
+
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label
+                            Grid.Column="0"
+                            FontSize="{StaticResource SmallFontSize}"
+                            HorizontalTextAlignment="Center"
                             Text="Forwards&#10;NavigationAmount*"
                             VerticalTextAlignment="Center"/>
                         <Editor

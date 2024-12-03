@@ -19,6 +19,7 @@ namespace XCalendarFormsSample.Helpers
         public static List<NavigationLoopMode> AllNavigationLoopModes { get; set; } = Enum.GetValues(typeof(NavigationLoopMode)).Cast<NavigationLoopMode>().ToList();
         public static List<DayOfWeek> AllDaysOfWeek { get; set; } = DayOfWeek.Monday.GetWeekAsFirst();
         public static List<StackOrientation> AllStackOrientations { get; set; } = Enum.GetValues(typeof(StackOrientation)).Cast<StackOrientation>().ToList();
+        public static List<SelectionDirection> AllSelectionDirections { get; set; } = Enum.GetValues(typeof(SelectionDirection)).Cast<SelectionDirection>().ToList();
         #endregion
 
         #region Methods

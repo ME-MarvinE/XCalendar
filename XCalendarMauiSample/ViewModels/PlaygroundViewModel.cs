@@ -74,6 +74,7 @@ namespace XCalendarMauiSample.ViewModels
         #region Commands
         public ICommand ShowCustomDayNamesOrderDialogCommand { get; set; }
         public ICommand ShowSelectionActionDialogCommand { get; set; }
+        public ICommand ShowSelectionDirectionDialogCommand { get; set; }
         public ICommand ShowNavigationLoopModeDialogCommand { get; set; }
         public ICommand ShowNavigationTimeUnitDialogCommand { get; set; }
         public ICommand ShowPageStartModeDialogCommand { get; set; }
@@ -131,6 +132,7 @@ namespace XCalendarMauiSample.ViewModels
             ChangeCalendarVisibilityCommand = new Command<bool>(ChangeCalendarVisibility);
             UpdateCurrentCultureCommand = new Command(UpdateCurrentCulture);
             ShowDayEventsOrientationDialogCommand = new Command(ShowDayEventsOrientationDialog);
+            ShowSelectionDirectionDialogCommand = new Command(ShowSelectionDirectionDialog);
 
             List<ColoredEvent> events = new List<ColoredEvent>()
             {
@@ -378,6 +380,10 @@ namespace XCalendarMauiSample.ViewModels
         public async void ShowDayEventsOrientationDialog()
         {
             DayEventsOrientation = await PopupHelper.ShowSelectItemDialogAsync(DayEventsOrientation, PopupHelper.AllStackOrientations);
+        }
+        public async void ShowSelectionDirectionDialog()
+        {
+            Calendar.SelectionDirection = await PopupHelper.ShowSelectItemDialogAsync(Calendar.SelectionDirection, PopupHelper.AllSelectionDirections);
         }
         #endregion
     }
