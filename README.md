@@ -11,7 +11,7 @@ UI controls are available for Xamarin Forms and .NET MAUI.
 ### Features include:
 * Ability to use the Calendar from code without referencing a UI framework.
 * Ability to use and reference your own models by implementing interfaces like `ICalendar`, `ICalendarDay`, or `IEvent`.
-* Ability to set the number of rows shown or have it be automatic.
+* Ability to set the number of rows/weeks shown or have it be automatic.
 * Ability to change the start of the week to any day of the week.
 * Ability to select single, multiple or a range of dates.
 * Ability to restrict navigation to a range of dates and define how the calendar loops.
@@ -23,7 +23,7 @@ UI controls are available for Xamarin Forms and .NET MAUI.
 #### Standard Calendar
 <img src="https://user-images.githubusercontent.com/73718829/181294940-a12bfe05-6caa-473f-9cb4-a862927931e9.jpg" width="45%">
 
-#### Custom Days Of Week (Unordered and duplicates)
+#### Custom Days Of Week (Unordered/Duplicates)
 <img src="https://user-images.githubusercontent.com/73718829/181294949-1bd0e011-c0b4-4641-a779-e0f4215f4317.jpg" width="45%">
 
 #### Custom Days Of Week (3 Days Of Week)
