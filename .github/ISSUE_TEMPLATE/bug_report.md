@@ -9,16 +9,17 @@ assignees: ''
 
 **Describe the bug**
 
-**Expected behavior**
+**Expected behaviour**
 
 **Steps to reproduce OR link to code**
 
 **Xamarin Forms or .NET MAUI (If related to UI)**
-
-**Additional context (Optional)**
 
 **Device Info (Optional)**
 Device Model:
 Android Version:
 IOS Version:
 Windows Version:
+Emulator:
+
+**Additional Info (Optional)**
