@@ -82,7 +82,7 @@
                     <Label
                         FontSize="12"
                         HorizontalTextAlignment="Center"
-                        Text="{Binding ., Converter={StaticResource DayOfWeekToStringAndCharLimitConverter}, ConverterParameter=1}"
+                        Text="{Binding ., Converter={StaticResource LocalizeDayOfWeekAndCharLimitConverter}, ConverterParameter=1}"
                         TextColor="#707070"
                         VerticalTextAlignment="Center"/>
                 </DataTemplate>
