@@ -11,15 +11,22 @@
     x:Name="CalendarView_Unique"
     x:DataType="{x:Type xc:CalendarView}">
 
-    <VerticalStackLayout Spacing="0">
-        <VerticalStackLayout.Resources>
-            <System:Boolean x:Key="FalseValue">False</System:Boolean>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <System:Boolean x:Key="FalseValue">False</System:Boolean>
             <Converters:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter"/>
             <Converters:LocalizeDayOfWeekAndCharLimitConverter x:Key="LocalizeDayOfWeekAndCharLimitConverter"/>
-        </VerticalStackLayout.Resources>
+        </Grid.Resources>
 
         <xc:NavigationView
+            Grid.Row="0"
             ControlTemplate="{Binding NavigationViewTemplate, Source={x:Reference CalendarView_Unique}}"
             DateTime="{Binding NavigatedDate, Source={x:Reference CalendarView_Unique}}"
             LeftArrowCommand="{Binding LeftArrowCommand, Source={x:Reference CalendarView_Unique}}"
@@ -28,7 +35,7 @@
             RightArrowCommandParameter="{Binding RightArrowCommandParameter, Source={x:Reference CalendarView_Unique}}"/>
 
         <!--#region DayNames-->
-        <ContentView ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference CalendarView_Unique}}">
+        <ContentView Grid.Row="1" ControlTemplate="{Binding DayNamesTemplate, Source={x:Reference CalendarView_Unique}}">
             <CollectionView
                 x:Name="MainDaysOfWeekView"
                 Margin="0,5,0,0"
@@ -74,11 +81,12 @@
 
         <xc:DaysView
             x:Name="MainDaysView"
+            Grid.Row="2"
             ControlTemplate="{Binding DaysViewTemplate, Source={x:Reference CalendarView_Unique}}"
             DayTemplate="{Binding DayTemplate, Source={x:Reference CalendarView_Unique}}"
             DaysOfWeek="{Binding DaysOfWeek, Source={x:Reference CalendarView_Unique}}"
             HeightRequest="{Binding DaysViewHeightRequest, Source={x:Reference CalendarView_Unique}}"/>
 
-    </VerticalStackLayout>
+    </Grid>
 
 </ContentView>
