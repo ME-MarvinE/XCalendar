@@ -64,7 +64,7 @@ Follow the discussion for moving XCalendar into the Maui Community Toolkit [here
 
 The sample app has a flyout menu where you can access the following pages:
 
-### Playground Page
+## Playground Page
 A page where you can modify almost every single property of the CalendarView. Perfect for a quick look, showcases, tests and experiments!
 
 <img src="https://user-images.githubusercontent.com/73718829/181289378-28512c2b-e3b4-415a-b720-24b8130866ef.jpg" width="45%">
