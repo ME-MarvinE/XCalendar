@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>4.6.0</Version>
+    <Version>4.6.1</Version>
     <Authors>MarvinE</Authors>
-    <Description>XCalendar.Core is a plugin for .NET providing a calendar API, and various extensions to make it easier to work with and implement calendars into your .NET apps and projects.</Description>
+    <Description>XCalendar.Core is a plugin for .NET providing a calendar API and various extensions to make it easier to work with and implement calendars into your .NET apps and projects.</Description>
     <PackageIcon>XCalendar.Core Nuget Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
     <PackageReadmeFile></PackageReadmeFile>
