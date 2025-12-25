@@ -7,9 +7,9 @@ UI controls are available for Xamarin Forms and .NET MAUI, able to run on any pl
 * **[Sample App](https://github.com/ME-MarvinE/XCalendar/wiki/Sample-App)**
 * **[Wiki](https://github.com/ME-MarvinE/XCalendar/wiki)**
 * **[Roadmap](https://github.com/ME-MarvinE/XCalendar/wiki/Roadmap)**
-* [Nuget Package (.NET)](https://www.nuget.org/packages/XCalendar.Forms) [![NuGet](https://img.shields.io/nuget/v/XCalendar.Core.svg?label=NuGet)](https://www.nuget.org/packages/XCalendar.Core/)
+* [Nuget Package (.NET)](https://www.nuget.org/packages/XCalendar.Core) [![NuGet](https://img.shields.io/nuget/v/XCalendar.Core.svg?label=NuGet)](https://www.nuget.org/packages/XCalendar.Core/)
 * [Nuget Package (Xamarin Forms)](https://www.nuget.org/packages/XCalendar.Forms) [![NuGet](https://img.shields.io/nuget/v/XCalendar.Forms.svg?label=NuGet)](https://www.nuget.org/packages/XCalendar.Forms/)
-* [Nuget Package (.NET MAUI)](https://www.nuget.org/packages/XCalendar.Forms) [![NuGet](https://img.shields.io/nuget/v/XCalendar.Maui.svg?label=NuGet)](https://www.nuget.org/packages/XCalendar.Maui/)
+* [Nuget Package (.NET MAUI)](https://www.nuget.org/packages/XCalendar.Maui) [![NuGet](https://img.shields.io/nuget/v/XCalendar.Maui.svg?label=NuGet)](https://www.nuget.org/packages/XCalendar.Maui/)
 
 ## Features
 * Ability to use the Calendar from code without referencing a UI framework.
