@@ -410,13 +410,6 @@ For example:
 * `SelectionType.Range` + `SelectionAction.Replace` + `SelectionDirection.StartToEnd` will cause the range selection to only be changed by selecting the earlier, then later date.
 * `SelectionType.Range` + `SelectionAction.Replace` + `SelectionDirection.EndToStart` will cause the range selection to only be changed by selecting the later, then earlier date.
 * `SelectionType.Single` + `SelectionAction.Modify` + `SelectionDirection.Confined` will cause the selected date to require being in between the earliest and latest selected dates.
-* `SelectionType.Single` + `SelectionAction.Modify` + `SelectionDirection.ConfinedReverse` will cause the selected date to require being outside the earliest and latest selected dates.
-
-## CalendarView
-
-The CalendarView does not implement selection by default. The easiest way to implement this is to set the CalendarView's `DayTemplate` to a DayView and set its `CurrentMonthCommand`, `TodayComand`, and `SelectedCommand` to a command that will select the underlying `ICalendarDay`'s date. 
-
-To make it easier to replicate default behaviour of calendar days, there is a default style for each state of the DayView in the `XCalendar.[Forms/Maui].Styles.DefaultStyles` namespace which can be used via a namespace reference in XAML and the `{x:Static }` markup extension. These styles can also be inherited from to easily customise the look and behaviour of a day in a specific state.
 
 ## CalendarView
 
