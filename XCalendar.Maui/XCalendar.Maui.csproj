@@ -16,7 +16,7 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Authors>MarvinE</Authors>
-		<Version>4.6.1</Version>
+		<Version>4.7</Version>
 		<Description>XCalendar.Maui is a plugin for .NET MAUI providing custom controls, a calendar API, and various extensions to make it easier to work with and implement calendars into your .NET MAUI apps.</Description>
 		<PackageIcon>XCalendar.Maui Nuget Icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
