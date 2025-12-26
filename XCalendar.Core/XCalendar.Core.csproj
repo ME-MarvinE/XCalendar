@@ -7,7 +7,7 @@
     <Description>XCalendar.Core is a plugin for .NET providing a calendar API and various extensions to make it easier to work with and implement calendars into your .NET apps and projects.</Description>
     <PackageIcon>XCalendar.Core Nuget Icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
-    <PackageReadmeFile></PackageReadmeFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>csharp; dotnet; cross-platform; calendar;</PackageTags>
     <AssemblyVersion></AssemblyVersion>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
