@@ -20,7 +20,7 @@
 		<Description>XCalendar.Maui is a plugin for .NET MAUI providing custom controls, a calendar API, and various extensions to make it easier to work with and implement calendars into your .NET MAUI apps.</Description>
 		<PackageIcon>XCalendar.Maui Nuget Icon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/ME-MarvinE/XCalendar</RepositoryUrl>
-		<PackageReadmeFile></PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>csharp; dotnet; cross-platform; calendar; calendar-component;  plugin; maui; dotnet-maui;</PackageTags>
 		<AssemblyVersion></AssemblyVersion>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -42,6 +42,10 @@
 
 
 	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	  <None Include="XCalendar.Maui Nuget Icon.png">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
