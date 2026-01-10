@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>4.6.1</Version>
+    <Version>4.8</Version>
     <Authors>MarvinE</Authors>
     <Description>XCalendar.Core is a plugin for .NET providing a calendar API and various extensions to make it easier to work with and implement calendars into your .NET apps and projects.</Description>
     <PackageIcon>XCalendar.Core Nuget Icon.png</PackageIcon>
@@ -13,6 +13,13 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="XCalendar.Core Nuget Icon.png">
