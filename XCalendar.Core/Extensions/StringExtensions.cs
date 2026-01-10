@@ -2,12 +2,12 @@
 
 namespace XCalendar.Core.Extensions
 {
-    public static class StringsExtensions
+    public static class StringExtensions
     {
+        #region Methods
         public static string TruncateStringToMaxLength(this string value, object parameter)
         {
             int maxLength = 0;
-
             bool parameterIsNotNullAndIsAInt = parameter != null && int.TryParse(parameter.ToString(), out maxLength);
 
             if (parameterIsNotNullAndIsAInt)
@@ -48,5 +48,6 @@ namespace XCalendar.Core.Extensions
 
             return culture.TextInfo.ToTitleCase(text);
         }
+        #endregion
     }
 }

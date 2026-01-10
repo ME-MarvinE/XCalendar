@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace XCalendar.Core.Tests.Extensions
 {
-    public class StringsExtensionsTests
+    public class StringExtensionsTests
     {
         [Theory]
         [InlineData("Hello, World!", 5, "Hello")]
