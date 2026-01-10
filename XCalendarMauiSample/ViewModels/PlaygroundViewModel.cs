@@ -270,7 +270,7 @@ namespace XCalendarMauiSample.ViewModels
             }
             catch
             {
-                await Shell.Current.DisplayAlert("Invalid Culture Code", "The specified culture code was invalid.", "OK");
+                await Shell.Current.DisplayAlertAsync("Invalid Culture Code", "The specified culture code was invalid.", "OK");
             }
         }
         public async void ShowCustomDayNamesOrderDialog()

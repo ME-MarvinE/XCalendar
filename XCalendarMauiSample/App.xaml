@@ -1,18 +1,22 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<Application
-    x:Class="XCalendarMauiSample.App"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Styles="clr-namespace:XCalendar.Maui.Styles;assembly=XCalendar.Maui"
-    xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
-
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XCalendarMauiSample"
+             x:Class="XCalendarMauiSample.App"
+             xmlns:Styles="clr-namespace:XCalendar.Maui.Styles;assembly=XCalendar.Maui"
+             xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui">
     <Application.Resources>
-        <!--<ResourceDictionary Source="Resources/Styles.xaml" />-->
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
 
         <Color x:Key="PrimaryColor">#2060FF</Color>
         <Color x:Key="TertiaryColor">#A0A0FF</Color>
         <!--<Color x:Key="PrimaryColor">#E00000</Color>
-        <Color x:Key="TertiaryColor">#FFA0A0</Color>-->
+<Color x:Key="TertiaryColor">#FFA0A0</Color>-->
         <Color x:Key="SeparatorColor">#E0E0E0</Color>
         <Color x:Key="OutlineColor">#B0B0B0</Color>
 
@@ -54,34 +58,34 @@
         </Style>
 
         <Style
-            x:Key="DefaultDayViewCurrentMonthStyle"
-            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewCurrentMonthStyle}"
-            TargetType="{x:Type xc:DayView}"/>
+    x:Key="DefaultDayViewCurrentMonthStyle"
+    BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewCurrentMonthStyle}"
+    TargetType="{x:Type xc:DayView}"/>
 
         <Style
-            x:Key="DefaultDayViewOtherMonthStyle"
-            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewOtherMonthStyle}"
-            TargetType="{x:Type xc:DayView}"/>
+    x:Key="DefaultDayViewOtherMonthStyle"
+    BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewOtherMonthStyle}"
+    TargetType="{x:Type xc:DayView}"/>
 
         <Style
-            x:Key="DefaultDayViewTodayStyle"
-            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewTodayStyle}"
-            TargetType="{x:Type xc:DayView}">
+    x:Key="DefaultDayViewTodayStyle"
+    BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewTodayStyle}"
+    TargetType="{x:Type xc:DayView}">
             <Setter Property="TextColor" Value="{StaticResource CalendarPrimaryColor}"/>
         </Style>
 
         <Style
-            x:Key="DefaultDayViewSelectedStyle"
-            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewSelectedStyle}"
-            TargetType="{x:Type xc:DayView}">
+    x:Key="DefaultDayViewSelectedStyle"
+    BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewSelectedStyle}"
+    TargetType="{x:Type xc:DayView}">
             <Setter Property="BackgroundColor" Value="{StaticResource CalendarPrimaryColor}"/>
             <Setter Property="TextColor" Value="{StaticResource CalendarPrimaryTextColor}"/>
         </Style>
 
         <Style
-            x:Key="DefaultDayViewInvalidStyle"
-            BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewInvalidStyle}"
-            TargetType="{x:Type xc:DayView}">
+    x:Key="DefaultDayViewInvalidStyle"
+    BasedOn="{x:Static Styles:DefaultStyles.DefaultDayViewInvalidStyle}"
+    TargetType="{x:Type xc:DayView}">
             <Setter Property="TextColor" Value="{StaticResource CalendarTertiaryColor}"/>
         </Style>
 
@@ -129,6 +133,5 @@
             <Setter Property="ColumnSpacing" Value="0"/>
             <Setter Property="RowSpacing" Value="0"/>
         </Style>
-
     </Application.Resources>
 </Application>
