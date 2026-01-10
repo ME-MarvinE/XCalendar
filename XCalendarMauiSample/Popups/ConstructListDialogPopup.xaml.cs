@@ -5,7 +5,7 @@ using XCalendar.Core.Collections;
 
 namespace XCalendarMauiSample.Popups
 {
-    public partial class ConstructListDialogPopup : Popup
+    public partial class ConstructListDialogPopup : Popup<object>
     {
         #region Properties
         private List<object> _InitialItems { get; }
@@ -42,12 +42,12 @@ namespace XCalendarMauiSample.Popups
 
         #region Constructors
         public ConstructListDialogPopup(IEnumerable availableItems)
-            :this(new List<object>(), availableItems)
+            : this(new List<object>(), availableItems)
         {
         }
         public ConstructListDialogPopup(IEnumerable initialItems, IEnumerable availableItems)
         {
-            CloseDialogCommand = new Command(() => Close(new List<object>(ReturnValueItems)));
+            CloseDialogCommand = new Command(async () => await CloseAsync(new List<object>(ReturnValueItems)));
             CancelDialogCommand = new Command(CancelDialog);
             ResetReturnValueItemsCommand = new Command(ResetReturnValueItems);
             AddItemCommand = new Command<object>(AddItem);
@@ -60,14 +60,13 @@ namespace XCalendarMauiSample.Popups
             this.AvailableItems = availableItems.Cast<object>().ToList();
 
             ResetReturnValueItems();
-            ResultWhenUserTapsOutsideOfPopup = _InitialItems;
         }
         #endregion
 
         #region Methods
-        public void CancelDialog()
+        public async void CancelDialog()
         {
-            Close(_InitialItems);
+            await CloseAsync(_InitialItems);
         }
         public void ResetReturnValueItems()
         {

@@ -10,7 +10,7 @@ using XCalendar.Core.Models;
 namespace XCalendarMauiSample.Popups
 {
     [AddINotifyPropertyChangedInterface]
-    public partial class DatePickerDialogPopup : Popup
+    public partial class DatePickerDialogPopup : Popup<DateTime>
     {
         #region Properties
         public DateTime InitialDate { get; }
@@ -44,7 +44,6 @@ namespace XCalendarMauiSample.Popups
             Calendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
 
             InitialDate = initialDate;
-            ResultWhenUserTapsOutsideOfPopup = initialDate;
             Calendar.SelectedDates.Replace(initialDate);
 
             InitializeComponent();
@@ -62,13 +61,13 @@ namespace XCalendarMauiSample.Popups
         {
             Calendar.NavigatedDate = SelectedDate;
         }
-        public void ReturnInitialDate()
+        public async void ReturnInitialDate()
         {
-            Close(InitialDate);
+           await CloseAsync(InitialDate);
         }
-        public void ReturnSelectedDate()
+        public async void ReturnSelectedDate()
         {
-            Close(SelectedDate);
+            await CloseAsync(SelectedDate);
         }
         public void NavigateCalendar(int amount)
         {

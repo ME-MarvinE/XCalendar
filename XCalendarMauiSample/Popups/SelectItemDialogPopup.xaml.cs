@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace XCalendarMauiSample.Popups
 {
-    public partial class SelectItemDialogPopup : Popup
+    public partial class SelectItemDialogPopup : Popup<object>
     {
         #region Properties
         private object _initialValue { get; }
@@ -39,7 +39,7 @@ namespace XCalendarMauiSample.Popups
         #region Constructors
         public SelectItemDialogPopup(object initialValue, IEnumerable itemsSource)
         {
-            CloseDialogCommand = new Command(() => Close(ReturnValue));
+            CloseDialogCommand = new Command(async () => await CloseAsync(ReturnValue));
             CancelDialogCommand = new Command(CancelDialog);
             ResetReturnValueCommand = new Command(ResetReturnValue);
 
@@ -49,14 +49,13 @@ namespace XCalendarMauiSample.Popups
             ItemsSource = itemsSource;
 
             ResetReturnValue();
-            ResultWhenUserTapsOutsideOfPopup = _initialValue;
         }
         #endregion
 
         #region Methods
-        public void CancelDialog()
+        public async void CancelDialog()
         {
-            Close(_initialValue);
+            await CloseAsync(_initialValue);
         }
         public void ResetReturnValue()
         {
