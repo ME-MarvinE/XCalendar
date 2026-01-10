@@ -7,7 +7,9 @@
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="MainSelectItemDialogPopup"
     x:DataType="{x:Type Popups:SelectItemDialogPopup}"
-    Size="300, 350">
+    x:TypeArguments="x:Object"
+    HeightRequest="350"
+    WidthRequest="300">
 
     <Grid BackgroundColor="{StaticResource ContentBackgroundColor}">
         <Grid.Resources>

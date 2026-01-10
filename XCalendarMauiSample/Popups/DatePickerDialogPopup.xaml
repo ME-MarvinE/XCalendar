@@ -10,7 +10,9 @@
     xmlns:xcConverters="clr-namespace:XCalendar.Maui.Converters;assembly=XCalendar.Maui"
     x:Name="This"
     x:DataType="{x:Type Popups:DatePickerDialogPopup}"
-    Size="320, 475">
+    x:TypeArguments="System:DateTime"
+    HeightRequest="475"
+    WidthRequest="320">
 
     <Grid BackgroundColor="White">
 

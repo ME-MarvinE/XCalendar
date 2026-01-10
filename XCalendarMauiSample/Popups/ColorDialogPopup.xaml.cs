@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace XCalendarMauiSample.Popups
 {
-    public partial class ColorDialogPopup : Popup
+    public partial class ColorDialogPopup : Popup<Color>
     {
         #region Properties
 
@@ -44,19 +44,18 @@ namespace XCalendarMauiSample.Popups
             InitializeComponent();
 
             InitialSelectedColor = initialSelectedColor;
-            ResultWhenUserTapsOutsideOfPopup = initialSelectedColor;
             SelectedColor = initialSelectedColor;
         }
         #endregion
 
         #region Methods
-        public void CancelDialog()
+        public async void CancelDialog()
         {
-            Close(InitialSelectedColor);
+            await CloseAsync(InitialSelectedColor);
         }
-        public void DismissDialog()
+        public async void DismissDialog()
         {
-            Close(SelectedColor);
+            await CloseAsync(SelectedColor);
         }
         public void ResetReturnValue()
         {

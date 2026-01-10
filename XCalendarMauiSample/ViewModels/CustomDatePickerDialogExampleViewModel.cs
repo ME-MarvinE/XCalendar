@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
 using System.Windows.Input;
+using XCalendarMauiSample.Helpers;
 using XCalendarMauiSample.Popups;
 
 namespace XCalendarMauiSample.ViewModels
@@ -24,7 +25,7 @@ namespace XCalendarMauiSample.ViewModels
         #region Methods
         public async void ShowDatePickerDialog(DateTime initialDate)
         {
-           SelectedDate = (DateTime)await Shell.Current.ShowPopupAsync(new DatePickerDialogPopup(initialDate));
+            SelectedDate = await PopupHelper.ShowDatePickerDialogAsync(initialDate);
         }
         #endregion
     }
