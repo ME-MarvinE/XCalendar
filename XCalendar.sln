@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31912.275
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalendarFormsSample.Android", "XCalendarFormsSample\XCalendarFormsSample.Android\XCalendarFormsSample.Android.csproj", "{AD2173C3-7624-4EBE-A24F-C65E6CEEC468}"
 EndProject
