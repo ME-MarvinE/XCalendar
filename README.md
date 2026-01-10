@@ -578,7 +578,7 @@ Very useful [`DateTime`](https://docs.microsoft.com/en-us/dotnet/api/system.date
 | GetWeekAsFirst | `List<DayOfWeek>` | Gets the days of the week using the specified `DayOfWeek` as the first day of the week. |
 | GetWeekAsLast | `List<DayOfWeek>` | Gets the days of the week using the specified `DayOfWeek` as the last day of the week. |
 
-### StringsExtensions
+### StringExtensions
   
 [`string`](https://docs.microsoft.com/en-us/dotnet/api/system.string?view=netstandard-2.0) extension methods making it easier to display calendar content.
 
