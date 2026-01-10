@@ -425,7 +425,7 @@ To make it easier to replicate default behaviour of calendar days, there is a de
 | None | When setting the value of `DayNameTemplate`, in some cases, the `DataTemplate`'s `x:DataType` property needs to be set in order for Converters or DataTriggers to work. |
 | [Sample App](https://github.com/ME-MarvinE/XCalendar/wiki/Sample-App) | When copying code from the sample app, watch out for copy-paste errors.<br/><br/>Common issues:<ul><li>Copied code references a style defined in the sample app but not your app.</li><li>Copied code references something in the ViewModel that isn't present in your app's ViewModel.</li><li>Copied code relies on nuget packages installed in the sample app which aren't present in your app.</li></ui> |
 
-# Documentation (4.6.1)
+# Documentation (4.8)
 
 ## Calendar
 
